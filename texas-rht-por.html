@@ -1,0 +1,536 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rural Texas Strong — WHOOP Plan of Record</title>
+  <style>
+    :root {
+      --bg:        #0d1215;
+      --bg-card:   rgba(255,255,255,0.03);
+      --text:      #ffffff;
+      --muted:     #aaaaaa;
+      --meta:      #666666;
+      --rule:      rgba(255,255,255,0.08);
+      --teal:      #00F19F;
+      --blue:      #0093E7;
+      --orange:    #ffb347;
+      --red:       #ff5a5a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header-bar {
+      background: #000;
+      border-bottom: 1px solid var(--rule);
+      padding: 0 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .header-wordmark {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+      margin-right: 16px;
+    }
+    .header-pipe {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.15);
+      margin-right: 16px;
+    }
+    .header-meta {
+      font-size: 10px;
+      color: var(--meta);
+      letter-spacing: 0.08em;
+    }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid rgba(0,241,159,0.35);
+      background: rgba(0,241,159,0.06);
+      padding: 4px 9px;
+      border-radius: 2px;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+    }
+
+    /* ── Page header ── */
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-size: 38px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .page-meta {
+      font-size: 12px;
+      color: var(--meta);
+      letter-spacing: 0.04em;
+    }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+
+    .rule {
+      height: 1px;
+      background: var(--rule);
+      margin: 36px 0;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 16px;
+    }
+
+    /* ── Stat row ── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .stat-cell {
+      background: var(--bg-card);
+      padding: 24px 26px;
+      border-right: 1px solid var(--rule);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .stat-number.blue   { color: var(--blue); }
+    .stat-number.white  { color: #fff; }
+    .stat-number.orange { color: var(--orange); }
+    .stat-desc {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.55;
+    }
+
+    /* ── Narrative ── */
+    .narrative-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 20px;
+    }
+    .narrative-body {
+      font-size: 13.5px;
+      line-height: 1.85;
+      color: #bbb;
+    }
+    .narrative-body p { margin-bottom: 14px; }
+    .narrative-body p:last-child { margin-bottom: 0; }
+    .hl        { color: var(--teal);   font-weight: 600; }
+    .hl-orange { color: var(--orange); font-weight: 600; }
+    .hl-red    { color: var(--red);    font-weight: 600; }
+    .hl-white  { color: #fff;          font-weight: 600; }
+
+    /* ── Two-column ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      margin-bottom: 40px;
+    }
+    .col-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--meta);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 22px;
+    }
+    .entry-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .entry {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .entry-tag {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tag-teal   { background: rgba(0,241,159,0.10);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .tag-blue   { background: rgba(0,147,231,0.10);  color: var(--blue);   border: 1px solid rgba(0,147,231,0.25); }
+    .tag-orange { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .tag-red    { background: rgba(255,90,90,0.10);  color: var(--red);    border: 1px solid rgba(255,90,90,0.25); }
+    .entry-text {
+      font-size: 13px;
+      color: #bbb;
+      line-height: 1.6;
+    }
+    .entry-text strong { color: #e8e8e8; }
+
+    /* ── Contacts ── */
+    .contacts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 18px 20px;
+    }
+    .contact-role {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 6px;
+    }
+    .contact-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .contact-detail {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.7;
+    }
+    .contact-detail a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* ── Callout box ── */
+    .callout {
+      border-left: 3px solid var(--teal);
+      background: rgba(0,241,159,0.04);
+      border-radius: 0 4px 4px 0;
+      padding: 22px 26px;
+      margin-bottom: 40px;
+    }
+    .callout.orange {
+      border-left-color: var(--orange);
+      background: rgba(255,179,71,0.04);
+    }
+    .callout-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .callout.orange .callout-label { color: var(--orange); }
+    .callout-body {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #bbb;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.08em;
+      text-align: right;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>CMS Rural Health Transformation<span class="sep">|</span>Texas<span class="sep">|</span>Updated April 9, 2026
+    </div>
+  </div>
+  <div class="header-badge">Active Funding Opportunity</div>
+</div>
+
+
+<div class="page">
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-eyebrow">CMS Rural Health Transformation Program — Texas State Award</div>
+  <div class="page-title">Rural Texas Strong — Plan of Record</div>
+  <div class="page-meta">
+    Award #RHTCMS332068
+    <span class="dot">·</span>
+    $281.3M over 5 years
+    <span class="dot">·</span>
+    Budget Period 1: Dec 29, 2025 – Oct 30, 2026
+    <span class="dot">·</span>
+    Recipient: TX Health &amp; Human Services Commission (HHSC)
+    <span class="dot">·</span>
+    Authorized: Big Beautiful Bill Act of 2025, §71401
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── STAT ROW ── -->
+  <div class="section-label">Summary</div>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Total Texas Award<br>(Max in National Program)</div>
+      <div class="stat-number">$281M</div>
+      <div class="stat-desc">Over 5 fiscal years via CMS cooperative agreement. Texas received the highest single-state award in the program.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">BP1 Contractual<br>Funding Available</div>
+      <div class="stat-number blue">$275M</div>
+      <div class="stat-desc">Subawards and contracts in Year 1 alone. Initiatives 2 &amp; 3 (technology + remote monitoring) have no contractor selected yet.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Rural Hospital<br>Subrecipients</div>
+      <div class="stat-number white">~80</div>
+      <div class="stat-desc">Hospital districts each receiving ~$750K for chronic disease and wellness programming. Each is a direct outreach target for WHOOP.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">WHOOP Entry<br>Points in Proposal</div>
+      <div class="stat-number">4</div>
+      <div class="stat-desc">Initiatives 1, 2, 4, and 6 each present a distinct pathway for WHOOP — from population health to remote monitoring to capital equipment.</div>
+    </div>
+  </div>
+
+
+  <!-- ── OPPORTUNITY NARRATIVE ── -->
+  <div class="narrative-title">The Opportunity</div>
+  <div class="narrative-body">
+    <p>
+      Texas was awarded <span class="hl">$281.3M</span> — the maximum allotment — under the CMS Rural Health Transformation Program to fund six initiatives across chronic disease management, workforce development, technology innovation, and infrastructure in rural counties with populations of 68,750 or fewer. The program runs through 2030 and is administered by HHSC. <span class="hl-white">Budget Period 1 obligations are happening now.</span>
+    </p>
+    <p>
+      WHOOP's most immediate entry point is <span class="hl">Initiative 1: Make Rural Texans Healthy Again</span> — $116.25M flowing to approximately 80 rural hospital districts, each receiving ~$750K in startup funding for evidence-based interventions. Eligible uses include prevention and wellness programs, chronic disease management, and nutrition services. The program shifts to <span class="hl-orange">pay-for-performance in Years 4–5</span>, tying hospital payouts to demonstrated outcome improvements — specifically, reduced diabetes-related ED visits and increased disease management enrollment. Hospitals will need a measurable wellness tool. WHOOP directly addresses both metrics.
+    </p>
+    <p>
+      The second major window is <span class="hl">Initiative 2: Technology Innovation</span>, currently in procurement planning with <span class="hl-red">no contractor selected and no RFP launched</span>. The scope explicitly calls for "remote patient monitoring," "patient-facing consumer applications," and "technology-enabled access to care." Eligible contractors are expected to include accountable care organizations and clinically integrated networks. <span class="hl-orange">This is the window to influence the solicitation before it goes to market</span> — either by engaging HHSC directly or by partnering with a Texas ACO that will submit a proposal.
+    </p>
+    <p>
+      Separately, <span class="hl">Initiative 4 ($98.9M)</span> funds workforce development for rural healthcare providers — an opportunity to position WHOOP as a staff wellness and burnout-prevention tool for the providers these hospitals are recruiting and trying to retain. <span class="hl">Initiative 6 ($56.3M)</span> funds capital equipment and infrastructure, potentially allowing WHOOP devices to be purchased directly as clinical monitoring equipment under a hospital's approved scope of work.
+    </p>
+  </div>
+
+  <div class="rule"></div>
+
+
+  <!-- ── TWO COLUMNS ── -->
+  <div class="two-col">
+
+    <!-- LEFT: Where WHOOP Fits -->
+    <div>
+      <div class="col-title">How WHOOP Fits the Texas Proposal</div>
+      <div class="entry-list">
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Init. 1 · $116M</div>
+          <div class="entry-text">
+            <strong>Population-level chronic disease management.</strong> ~80 rural hospital districts receiving ~$750K each must demonstrate reduced diabetes ED visits and improved disease management enrollment for pay-for-performance payouts in Years 4–5. WHOOP's recovery, HRV, and activity data supports outcomes tracking and population health reporting at the hospital level.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Init. 2 · RFP Pending</div>
+          <div class="entry-text">
+            <strong>Remote patient monitoring + consumer application.</strong> Scope explicitly includes "remote patient monitoring," "patient-facing consumer apps," and "expand technology-enabled access to care." No contractor named. ACOs and CINs are expected to apply. WHOOP should either engage HHSC to shape the scope or partner with a Texas-based ACO now.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Init. 4 · $98.9M</div>
+          <div class="entry-text">
+            <strong>Healthcare worker wellness and retention.</strong> Initiative 4 funds workforce recruitment and retention for rural providers — EMTs, community health workers, behavioral health providers, and primary care physicians. WHOOP as a staff benefit supports burnout prevention and retention, directly tied to the initiative's sustainability requirements.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Init. 6 · $56.3M</div>
+          <div class="entry-text">
+            <strong>Capital equipment procurement.</strong> Initiative 6 funds "equipment modernization" for rural providers. WHOOP devices may qualify as allowable capital equipment under a hospital's approved scope of work — particularly when framed as chronic disease monitoring and clinical wellness technology with a defined sustainability plan.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: Actions -->
+    <div>
+      <div class="col-title">Recommended Actions</div>
+      <div class="entry-list">
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Map the ~80 eligible hospital districts.</strong> These are the most immediate sales targets — each receiving ~$750K under Initiative 1 and required to show chronic disease outcomes. Identify which have applied, which are in the solicitation window, and begin direct outreach. Contact Anthony Hawley at HHSC for the direct award list.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Engage HHSC on Initiative 2 before the RFP drops.</strong> Procurement planning is active. Reach out to the program team to ensure WHOOP is referenced as an eligible remote monitoring solution in the solicitation — or partner with an ACO/CIN already preparing a bid. Waiting until the RFP is public reduces WHOOP to a blind competitor.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Soon</div>
+          <div class="entry-text">
+            <strong>Identify Texas ACO and CIN partners.</strong> Initiative 2 contractors will likely be ACOs or clinically integrated networks covering rural Texas. Find which organizations are preparing proposals and position WHOOP as the consumer wearable component in their remote monitoring stack.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Soon</div>
+          <div class="entry-text">
+            <strong>Build a proposal-ready one-pager for hospital subrecipients.</strong> HHSC requires each hospital to submit a detailed scope of work and budget before funds are disbursed. Create a WHOOP asset that maps the product to Initiative 1 and 2 outcome measures — ready to drop into a hospital's enrollment or application package.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Later</div>
+          <div class="entry-text">
+            <strong>Track Initiative 3 (ambient AI / telehealth hubs).</strong> No BP1 funding — RFP still in development. Initiative 3 is targeting maternal health, behavioral health, and preventive screening via telehealth. WHOOP biometric data integrates naturally into these workflows. Position for Year 2–3 as scope firms up.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="rule"></div>
+
+
+  <!-- ── CONTACTS ── -->
+  <div class="section-label">Key Contacts</div>
+  <div class="contacts">
+    <div class="contact-card">
+      <div class="contact-role">HHSC — Project Director</div>
+      <div class="contact-name">Anthony Hawley</div>
+      <div class="contact-detail">
+        Director, Rural Texas Strong Initiative<br>
+        <a href="mailto:anthony.hawley@hhs.texas.gov">anthony.hawley@hhs.texas.gov</a><br>
+        202-744-1079
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-role">HHSC — Authorized Official</div>
+      <div class="contact-name">Trey Wood</div>
+      <div class="contact-detail">
+        Chief Financial Officer, HHSC<br>
+        <a href="mailto:trey.wood@hhs.texas.gov">trey.wood@hhs.texas.gov</a><br>
+        512-707-6080
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-role">CMS — Program Official</div>
+      <div class="contact-name">Kimi Sato</div>
+      <div class="contact-detail">
+        Deputy Director, Office of Rural Health Transformation<br>
+        <a href="mailto:kimi.sato@cms.hhs.gov">kimi.sato@cms.hhs.gov</a><br>
+        303-844-1524
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── CRITICAL WINDOW CALLOUT ── -->
+  <div class="callout orange">
+    <div class="callout-label">Critical Window</div>
+    <div class="callout-body">
+      Initiatives 2 and 3 (technology innovation and remote patient monitoring) are in active procurement planning during Budget Period 1 — <strong style="color:#e8e8e8;">no RFP has launched and no contractors have been named.</strong> This is the only window to shape what the solicitation asks for before it goes to market. Engaging HHSC now — or partnering with an ACO/CIN preparing a proposal — puts WHOOP in the room before competition opens. Waiting until the RFP drops means starting from zero alongside every other vendor in the space.
+    </div>
+  </div>
+
+
+  <!-- ── PROGRAM CONTEXT CALLOUT ── -->
+  <div class="callout">
+    <div class="callout-label">National Context</div>
+    <div class="callout-body">
+      Texas is one of all 50 states receiving funding under the $50B national CMS Rural Health Transformation Program (FY 2026–2030, $10B/year). Texas received the maximum state award of $281.3M — roughly 40% above the national average of $200M. Each state submitted its own proposal with its own initiative structure. WHOOP's Texas strategy should be developed as a <strong style="color:#e8e8e8;">repeatable state-by-state playbook</strong> — win Texas, then replicate the approach across the 49 other state award notices as they are published.
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Jessie Spada &nbsp;·&nbsp; April 9, 2026 &nbsp;·&nbsp; CONFIDENTIAL
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>

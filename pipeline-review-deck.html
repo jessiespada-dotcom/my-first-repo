@@ -1,0 +1,485 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Q2 2026 Pipeline Review — Internal</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+  <style>
+    :root {
+      --bg-slide:   linear-gradient(135deg, #1a2227 0%, #0d1215 100%);
+      --bg-divider: linear-gradient(135deg, #1e2a30 0%, #0d1215 100%);
+      --text:       #ffffff;
+      --muted:      #aaaaaa;
+      --meta:       #888888;
+      --rule:       rgba(255,255,255,0.08);
+      --teal:       #00F19F;
+      --blue:       #0093E7;
+      --red:        #FF4C4C;
+      --yellow:     #F5A623;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, .reveal { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #000; }
+    .reveal .slides section { padding: 0; top: 0 !important; left: 0 !important; }
+    .reveal .slides { text-align: left; }
+
+    .slide {
+      position: relative; width: 1280px; height: 720px;
+      overflow: hidden; color: var(--text);
+    }
+    .slide-bg { position: absolute; inset: 0; background: var(--bg-slide); }
+
+    /* Header */
+    .header-bar {
+      position: absolute; left: 0; top: 0;
+      width: 1280px; height: 32px;
+      background: rgba(0,0,0,0.6);
+      border-bottom: 1px solid var(--rule); z-index: 10;
+    }
+    .header-wordmark {
+      position: absolute; left: 40px; top: 9px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      color: var(--teal); line-height: 1;
+    }
+    .header-meta {
+      position: absolute; left: 120px; top: 10px;
+      font-size: 10px; color: var(--meta); letter-spacing: 0.08em; line-height: 1;
+    }
+    .header-meta .sep { opacity: 0.3; margin: 0 6px; }
+    .header-right {
+      position: absolute; right: 40px; top: 10px;
+      font-size: 10px; color: var(--meta); letter-spacing: 0.14em; line-height: 1;
+    }
+
+    /* Cover */
+    .slide-cover { background: #000; }
+    .cover-rule {
+      position: absolute; left: 0; top: 260px;
+      width: 1280px; height: 1px;
+      background: var(--teal); opacity: 0.35;
+    }
+    .cover-eyebrow {
+      position: absolute; left: 80px; top: 190px;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--teal);
+    }
+    .cover-title {
+      position: absolute; left: 80px; top: 276px;
+      font-size: 88px; font-weight: 700; letter-spacing: -0.01em;
+      line-height: 0.95; color: #fff;
+    }
+    .cover-subtitle {
+      position: absolute; left: 80px; top: 480px;
+      font-size: 24px; font-weight: 300; letter-spacing: 0.06em;
+      text-transform: uppercase; color: #888;
+    }
+    .cover-footer {
+      position: absolute; left: 80px; bottom: 36px;
+      font-size: 11px; color: #444; letter-spacing: 0.1em;
+    }
+
+    /* Divider */
+    .slide-divider .slide-bg { background: var(--bg-divider); }
+    .divider-rule { position: absolute; left: 80px; top: 130px; width: 48px; height: 2px; background: var(--teal); }
+    .divider-label { position: absolute; left: 80px; top: 80px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: var(--teal); }
+    .divider-title { position: absolute; left: 80px; top: 155px; width: 900px; font-size: 72px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.0; color: #fff; }
+
+    /* Content */
+    .slide-label { position: absolute; left: 80px; top: 56px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: var(--teal); }
+    .slide-title { position: absolute; left: 80px; top: 88px; width: 1100px; font-size: 30px; font-weight: 400; line-height: 1.25; color: #fff; border-bottom: 1px solid var(--rule); padding-bottom: 20px; }
+    .slide-body { position: absolute; left: 80px; top: 190px; width: 1104px; }
+
+    /* Bullets */
+    ul.bullets { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+    ul.bullets li { font-size: 21px; font-weight: 400; padding-left: 28px; position: relative; line-height: 1.45; color: #e8e8e8; }
+    ul.bullets li::before { content: '—'; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+    ul.bullets li.sub { font-size: 18px; color: #888; padding-left: 44px; margin-top: -8px; }
+    ul.bullets li.sub::before { content: '·'; left: 28px; color: #444; }
+    ul.bullets li.warn::before { color: var(--yellow); }
+    ul.bullets li.risk::before { color: var(--red); }
+
+    /* Two-col */
+    .two-col { position: absolute; left: 80px; top: 190px; width: 1120px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+    .col-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+
+    /* Callout */
+    .callout-teal { background: rgba(0,241,159,0.06); border-left: 2px solid var(--teal); padding: 14px 18px; font-size: 20px; line-height: 1.5; color: #ddd; margin-bottom: 24px; }
+    .callout-yellow { background: rgba(245,166,35,0.07); border-left: 2px solid var(--yellow); padding: 14px 18px; font-size: 20px; line-height: 1.5; color: #ddd; margin-bottom: 24px; }
+    .callout-red { background: rgba(255,76,76,0.07); border-left: 2px solid var(--red); padding: 14px 18px; font-size: 20px; line-height: 1.5; color: #ddd; margin-bottom: 24px; }
+
+    /* Stat row — 4 columns */
+    .stat-row-4 { position: absolute; left: 80px; top: 200px; width: 1120px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0; }
+    .stat-cell { padding: 0 32px 0 0; border-right: 1px solid var(--rule); margin-right: 32px; }
+    .stat-cell:last-child { border-right: none; margin-right: 0; }
+    .stat-number { font-size: 72px; font-weight: 700; line-height: 1; color: var(--teal); letter-spacing: -0.02em; }
+    .stat-number.warn { color: var(--yellow); }
+    .stat-number.risk { color: var(--red); }
+    .stat-label { font-size: 13px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+
+    /* Table-style list */
+    .pipeline-table { width: 100%; border-collapse: collapse; }
+    .pipeline-table th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #555; padding: 0 0 10px 0; border-bottom: 1px solid var(--rule); text-align: left; }
+    .pipeline-table td { font-size: 18px; color: #ddd; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top; }
+    .pipeline-table td.val { color: var(--teal); font-weight: 600; }
+    .pipeline-table td.hl { color: var(--teal); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .pipeline-table td.sl { color: #888; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .pipeline-table td.warn { color: var(--yellow); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .pipeline-table td.risk-tag { color: var(--red); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* Bar visualization */
+    .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .bar-label { font-size: 13px; color: #aaa; width: 160px; flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.08em; }
+    .bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; }
+    .bar-fill { height: 8px; border-radius: 4px; background: var(--teal); }
+    .bar-val { font-size: 13px; color: #fff; font-weight: 600; width: 80px; text-align: right; flex-shrink: 0; }
+    .bar-count { font-size: 11px; color: #555; width: 60px; text-align: right; flex-shrink: 0; }
+
+    .slide-footer { position: absolute; right: 40px; bottom: 20px; font-size: 10px; color: #333; letter-spacing: 0.12em; }
+  </style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+
+  <!-- ══════════════════════════════════════
+       1 — COVER
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide slide-cover">
+    <div class="cover-eyebrow">Internal — April 2026</div>
+    <div class="cover-rule"></div>
+    <div class="cover-title">Enterprise<br>Pipeline<br>Review</div>
+    <div class="cover-subtitle">Q2 2026 · Jessie Spada</div>
+    <div class="cover-footer">WHOOP &nbsp;|&nbsp; Internal Use Only</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       2 — PIPELINE SNAPSHOT
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">Q2 2026<span class="sep">|</span>PIPELINE REVIEW</div>
+      <div class="header-right">INTERNAL</div>
+    </div>
+    <div class="slide-label">At a Glance</div>
+    <div class="slide-title">Where the pipeline stands today — April 9, 2026</div>
+    <div class="stat-row-4">
+      <div class="stat-cell">
+        <div class="stat-number">$1.9M</div>
+        <div class="stat-label">Total pipeline<br>across all stages</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">54</div>
+        <div class="stat-label">Active accounts<br>in pipeline</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number warn">7</div>
+        <div class="stat-label">Deals quoted<br>~$148K ready to close</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number risk">$205K</div>
+        <div class="stat-label">Marked Not Likely —<br>8 deals to clean up</div>
+      </div>
+    </div>
+    <div class="slide-footer">1</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       3 — PIPELINE BY STAGE & VERTICAL
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">Q2 2026<span class="sep">|</span>PIPELINE REVIEW</div>
+      <div class="header-right">INTERNAL</div>
+    </div>
+    <div class="slide-label">Pipeline Breakdown</div>
+    <div class="slide-title">Most of the value is in Proposal — verticals are well distributed</div>
+    <div class="two-col">
+      <div>
+        <div class="col-label">By Stage</div>
+        <div class="bar-row"><div class="bar-label">Proposal</div><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div><div class="bar-val">$1.56M</div><div class="bar-count">41 deals</div></div>
+        <div class="bar-row"><div class="bar-label">Quoted</div><div class="bar-track"><div class="bar-fill" style="width:8%"></div></div><div class="bar-val">$148K</div><div class="bar-count">7 deals</div></div>
+        <div class="bar-row"><div class="bar-label">Qualification</div><div class="bar-track"><div class="bar-fill" style="width:13%"></div></div><div class="bar-val">$244K</div><div class="bar-count">9 deals</div></div>
+        <div class="bar-row"><div class="bar-label">Closed Won</div><div class="bar-track"><div class="bar-fill" style="width:2%;background:var(--blue)"></div></div><div class="bar-val" style="color:var(--blue)">$33K</div><div class="bar-count">1 deal</div></div>
+      </div>
+      <div>
+        <div class="col-label">By Vertical</div>
+        <div class="bar-row"><div class="bar-label">Corporate</div><div class="bar-track"><div class="bar-fill" style="width:25%"></div></div><div class="bar-val">$478K</div><div class="bar-count">14 deals</div></div>
+        <div class="bar-row"><div class="bar-label">Healthcare</div><div class="bar-track"><div class="bar-fill" style="width:24%"></div></div><div class="bar-val">$459K</div><div class="bar-count">8 deals</div></div>
+        <div class="bar-row"><div class="bar-label">Other / Mixed</div><div class="bar-track"><div class="bar-fill" style="width:28%"></div></div><div class="bar-val">$522K</div><div class="bar-count">16 deals</div></div>
+        <div class="bar-row"><div class="bar-label">Athletics</div><div class="bar-track"><div class="bar-fill" style="width:7%"></div></div><div class="bar-val">$126K</div><div class="bar-count">9 deals</div></div>
+        <div class="bar-row"><div class="bar-label">Academic</div><div class="bar-track"><div class="bar-fill" style="width:8%"></div></div><div class="bar-val">$159K</div><div class="bar-count">4 deals</div></div>
+        <div class="bar-row"><div class="bar-label">Financial</div><div class="bar-track"><div class="bar-fill" style="width:6%"></div></div><div class="bar-val">$110K</div><div class="bar-count">3 deals</div></div>
+      </div>
+    </div>
+    <div class="slide-footer">2</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       4 — TOP OPPORTUNITIES
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">Q2 2026<span class="sep">|</span>PIPELINE REVIEW</div>
+      <div class="header-right">INTERNAL</div>
+    </div>
+    <div class="slide-label">Top Opportunities</div>
+    <div class="slide-title">Highest-value, highest-confidence deals in the pipeline</div>
+    <div class="slide-body">
+      <table class="pipeline-table">
+        <thead>
+          <tr>
+            <th style="width:220px">Account</th>
+            <th style="width:180px">Vertical / Region</th>
+            <th style="width:130px">Deal Value</th>
+            <th style="width:140px">Stage</th>
+            <th>Confidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Kinomatics</td><td style="color:#666">Healthcare · US</td><td class="val">$199,000</td><td style="color:#888">Proposal</td><td class="hl">Highly Likely</td></tr>
+          <tr><td>BioV8</td><td style="color:#666">Healthcare · AUS</td><td class="val">$149,500</td><td style="color:#888">Qualification</td><td class="hl">Highly Likely</td></tr>
+          <tr><td>Therme Group</td><td style="color:#666">Wellness · GCC</td><td class="val">$141,760</td><td style="color:#888">Proposal</td><td class="sl">Somewhat Likely</td></tr>
+          <tr><td>Mass General Brigham</td><td style="color:#666">Insurance · US</td><td class="val">$109,500</td><td style="color:#888">Qualification</td><td class="sl">Somewhat Likely</td></tr>
+          <tr><td>Skai Health</td><td style="color:#666">Healthcare · GCC</td><td class="val">$95,000</td><td style="color:#888">Proposal</td><td class="sl">Somewhat Likely</td></tr>
+          <tr><td>Spire Academy</td><td style="color:#666">Academic · US</td><td class="val">$90,000</td><td style="color:#888">Proposal</td><td class="sl">Somewhat Likely</td></tr>
+          <tr><td>Value Labs</td><td style="color:#666">Corporate · India</td><td class="val">$75,240</td><td style="color:#888">Proposal</td><td class="warn">No Response</td></tr>
+          <tr><td>Gobundance</td><td style="color:#666">Personal Dev · US</td><td class="val">$62,250</td><td style="color:#888">Quoted</td><td class="hl">Highly Likely</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-footer">3</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       5 — DEALS TO CLOSE NOW
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">Q2 2026<span class="sep">|</span>PIPELINE REVIEW</div>
+      <div class="header-right">INTERNAL</div>
+    </div>
+    <div class="slide-label">Close This Month</div>
+    <div class="slide-title">7 deals quoted — $148K waiting on signatures and POs</div>
+    <div class="slide-body">
+      <table class="pipeline-table">
+        <thead>
+          <tr>
+            <th style="width:240px">Account</th>
+            <th style="width:160px">Deal Value</th>
+            <th style="width:160px">Confidence</th>
+            <th>Next Step</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Gobundance</td><td class="val">$62,250</td><td class="hl">Highly Likely</td><td style="color:#888;font-size:17px">Waiting on quote review</td></tr>
+          <tr><td>UCM</td><td class="val">$18,913</td><td class="hl">Highly Likely</td><td style="color:#888;font-size:17px">Waiting on PO — close date passed</td></tr>
+          <tr><td>Toronto Blue Jays</td><td class="val">$16,960</td><td class="hl">Highly Likely</td><td style="color:#888;font-size:17px">Waiting on quote signature</td></tr>
+          <tr><td>San Diego Padres</td><td class="val">$16,171</td><td class="sl">Somewhat Likely</td><td style="color:#888;font-size:17px">Waiting on response — close 4/14</td></tr>
+          <tr><td>AFC Bournemouth</td><td class="val">$11,388</td><td class="sl">Somewhat Likely</td><td style="color:#888;font-size:17px">Awaiting response after quote — close 4/21</td></tr>
+          <tr><td>Buffalo</td><td class="val">$13,500</td><td class="hl">Highly Likely</td><td style="color:#888;font-size:17px">Waiting on quote signature</td></tr>
+          <tr><td>Four Seasons</td><td class="val">$9,410</td><td class="sl">Somewhat Likely</td><td style="color:#888;font-size:17px">Waiting on quote signature</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-footer">4</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       6 — STALLING / AT RISK
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">Q2 2026<span class="sep">|</span>PIPELINE REVIEW</div>
+      <div class="header-right">INTERNAL</div>
+    </div>
+    <div class="slide-label">At Risk</div>
+    <div class="slide-title">$362K in stalled deals — follow-ups 6+ weeks overdue</div>
+    <div class="slide-body">
+      <div class="callout-yellow">11 accounts have follow-up dates from February or early March with no movement. These deals are aging out — they need a decision: re-engage or remove.</div>
+      <ul class="bullets">
+        <li class="warn"><strong>Mass General Brigham</strong> ($109,500) — overdue since 2/26 — waiting on their internal review. Biggest stall in the pipeline</li>
+        <li class="warn"><strong>Value Labs</strong> ($75,240) — explicitly marked "No response" — 6 weeks of silence</li>
+        <li class="warn"><strong>AFC Adelaide</strong> ($29,233) — overdue since 2/26 — Proposal, no movement</li>
+        <li class="warn"><strong>Vosk Center</strong> ($22,450) — overdue since 2/26 — Proposal, no movement</li>
+        <li class="risk"><strong>Centerview</strong> ($156,750) — marked Not Likely — largest dead deal in the pipeline, should be removed</li>
+        <li class="sub">Also overdue: Relevant Partners, CommBank Australia, Old Mission, Merit Brass, CAA Agency</li>
+      </ul>
+    </div>
+    <div class="slide-footer">5</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       7 — PIPELINE HEALTH
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">Q2 2026<span class="sep">|</span>PIPELINE REVIEW</div>
+      <div class="header-right">INTERNAL</div>
+    </div>
+    <div class="slide-label">Pipeline Health</div>
+    <div class="slide-title">Two internal blockers and $205K that shouldn't be in the pipeline</div>
+    <div class="two-col">
+      <div>
+        <div class="col-label">Internal Blockers</div>
+        <ul class="bullets">
+          <li class="warn"><strong>BioV8</strong> ($149,500, AUS) — pricing not yet sent. This is on us — send pricing this week to unblock a Highly Likely $149.5K deal</li>
+          <li class="warn"><strong>Skai Health + Therme Group</strong> ($236K combined, GCC) — both sitting on WHOOP internal pricing review. These are big deals. What's the hold?</li>
+          <li class="sub">Notre Dame and Complete Children's Health are grant-dependent — unlikely to move until March/April grant decisions</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-label">Deals to Remove</div>
+        <ul class="bullets">
+          <li class="risk"><strong>Centerview</strong> — $156,750 marked Not Likely. Inflating pipeline by 8%</li>
+          <li class="risk"><strong>CAA Agency</strong> — $10,450, Not Likely, no follow-up date set</li>
+          <li class="risk"><strong>Merit Brass</strong> — $10,450, Not Likely, overdue since 2/26</li>
+          <li class="risk"><strong>State Street / TJX / HelloFresh</strong> — Not Likely, no deal value, no clear path</li>
+          <li class="sub">Removing these 8 Not Likely deals brings the real pipeline to ~$1.7M — more accurate picture</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-footer">6</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       8 — WHITESPACE
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">Q2 2026<span class="sep">|</span>PIPELINE REVIEW</div>
+      <div class="header-right">INTERNAL</div>
+    </div>
+    <div class="slide-label">Whitespace</div>
+    <div class="slide-title">High-fit verticals that are underrepresented or missing entirely</div>
+    <div class="slide-body">
+      <ul class="bullets">
+        <li><strong>Longevity &amp; biohacking</strong> — only 1 account (Nvivo Health, $41.5K). Should be 5–10. Fountain Life, Viome, Human Longevity Inc. are obvious targets</li>
+        <li><strong>Recovery brands</strong> — zero. Restore Hyper Wellness (200+ locations), Upgrade Labs, Cryotherapy chains — natural home for WHOOP as proof of treatment efficacy</li>
+        <li><strong>UK athletics</strong> — 3 accounts already (Crystal Palace, Nottingham Forest, AFC Bournemouth). Strong signal — opportunity to add 3–5 more Premier League or Championship clubs</li>
+        <li><strong>US professional sports</strong> — only Marlins, Blue Jays, Padres. NFL, NBA, and MLS teams are largely untouched and are high-value, highly likely buyers</li>
+        <li><strong>Luxury hospitality</strong> — Four Seasons is the only account at $9,410. Aman, Six Senses, and Rosewood all align with the premium wellness angle and buy at volume</li>
+      </ul>
+    </div>
+    <div class="slide-footer">7</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       9 — 30-DAY PRIORITIES
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">Q2 2026<span class="sep">|</span>PIPELINE REVIEW</div>
+      <div class="header-right">INTERNAL</div>
+    </div>
+    <div class="slide-label">30-Day Focus</div>
+    <div class="slide-title">Four priorities between now and May 9</div>
+    <div class="two-col">
+      <div>
+        <div class="col-label">Close</div>
+        <ul class="bullets">
+          <li>Close the 7 quoted deals — $148K is done. Needs signatures, not more calls</li>
+          <li>Re-engage Mass General Brigham ($109.5K) and Therme Group ($141.7K) — both overdue, both worth the push</li>
+        </ul>
+        <br>
+        <div class="col-label">Advance</div>
+        <ul class="bullets">
+          <li>Send BioV8 pricing this week ($149.5K, Highly Likely) — and advance Kinomatics ($199K) to Quoted. These are the two biggest deals not yet at the line</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-label">Clean</div>
+        <ul class="bullets">
+          <li>Remove or archive the 8 Not Likely deals ($205K) — clean pipeline tells a cleaner story to leadership</li>
+          <li>Set hard follow-up dates on all 11 stalled accounts — if no response in 2 weeks, make a go/no-go call</li>
+        </ul>
+        <br>
+        <div class="col-label">Build</div>
+        <ul class="bullets">
+          <li>Add 5 longevity / recovery accounts to the pipeline — this vertical is the most underdeveloped relative to ICP fit</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-footer">8</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       10 — ASK FOR THE TEAM
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">Q2 2026<span class="sep">|</span>PIPELINE REVIEW</div>
+      <div class="header-right">INTERNAL</div>
+    </div>
+    <div style="position:absolute;left:80px;top:56px;width:2px;height:608px;background:var(--teal);opacity:0.2"></div>
+    <div style="position:absolute;left:112px;top:160px;width:900px;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;">Ask for the Team</div>
+      <div style="font-size:52px;font-weight:700;line-height:1.0;color:#fff;margin-bottom:36px;">Where I need<br>your help.</div>
+      <ul class="bullets" style="gap:16px">
+        <li><strong>Pricing review</strong> — BioV8, Skai Health, and Therme Group are all sitting on WHOOP internal pricing. Who owns this and what's the timeline?</li>
+        <li><strong>Warm introductions</strong> — any connections into longevity, recovery, or luxury hospitality are welcome. These are the biggest gaps in the pipeline</li>
+        <li><strong>Grant-dependent deals</strong> — Notre Dame and Complete Children's Health ($77K combined) are waiting on grants. Is there anything we can do to support their funding case?</li>
+      </ul>
+    </div>
+    <div class="slide-footer">9</div>
+  </div>
+  </section>
+
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true, slideNumber: false, transition: 'none',
+  width: 1280, height: 720, margin: 0,
+  controls: true, progress: false, center: false,
+});
+</script>
+</body>
+</html>

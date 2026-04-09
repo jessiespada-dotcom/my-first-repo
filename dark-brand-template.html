@@ -1,0 +1,491 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WHOOP Presentation Template</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+  <style>
+    /* ─────────────────────────────────────────────
+       WHOOP Brand Template — Base Styles
+       Canvas: 1280×720px
+       Font: Helvetica Neue (Proxima Nova if available)
+       ───────────────────────────────────────────── */
+    :root {
+      --bg-slide:    linear-gradient(135deg, #1a2227 0%, #0d1215 100%);
+      --bg-divider:  linear-gradient(135deg, #1e2a30 0%, #0d1215 100%);
+      --bg-cover:    #000;
+      --bg-header:   #000;
+      --text:        #ffffff;
+      --muted:       #aaaaaa;
+      --meta:        #b7b7b7;
+      --divider-ln:  rgba(255,255,255,0.10);
+      --teal:        #00F19F;
+      --blue:        #0093E7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body, .reveal {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #000;
+    }
+
+    .reveal .slides section { padding: 0; top: 0 !important; left: 0 !important; }
+    .reveal .slides { text-align: left; }
+    p { margin: 0; }
+    a { color: var(--blue); text-decoration: underline; }
+
+    /* ── Slide shell ── */
+    .slide {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      color: var(--text);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-slide);
+    }
+    .slide-content {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* ── Header bar ── */
+    .header-bar {
+      position: absolute;
+      left: 0; top: 0;
+      width: 1280px; height: 30px;
+      background: var(--bg-header);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+    }
+    .header-logo {
+      position: absolute;
+      left: 3.9px; top: 7.2px;
+      width: 21.3px; height: 15.6px;
+      object-fit: contain;
+    }
+    .header-meta {
+      position: absolute;
+      left: 43.5px; top: 9.3px;
+      font-size: 10.67px;   /* 6pt */
+      color: var(--meta);
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .header-meta .sep {
+      opacity: 0.4;
+      margin: 0 5px;
+    }
+    .header-confidential {
+      position: absolute;
+      right: 28px; top: 9.3px;
+      font-size: 10.67px;   /* 6pt */
+      color: var(--meta);
+      letter-spacing: 0.12em;
+      line-height: 1;
+    }
+
+    /* ── Cover slide ── */
+    .slide-cover .cover-photo {
+      position: absolute;
+      inset: 0;
+      width: 1280px; height: 720px;
+      object-fit: cover;
+    }
+    .slide-cover .cover-text {
+      position: absolute;
+      left: 84px; top: 150px;
+      width: 900px;
+    }
+    .cover-title {
+      font-size: 106.67px; /* 60pt */
+      font-weight: 600;
+      line-height: 0.9;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .cover-subtitle {
+      font-size: 85.33px;  /* 48pt */
+      font-weight: 400;
+      line-height: 0.9;
+      color: #cccccc;
+      margin-top: 10px;
+      white-space: nowrap;
+    }
+    .cover-description {
+      position: absolute;
+      left: 174.5px; top: 583.6px;
+      width: 700px;
+      font-size: 14.22px;  /* 8pt */
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    /* ── Section divider ── */
+    .slide-divider .slide-bg {
+      background: var(--bg-divider);
+    }
+    .divider-label {
+      position: absolute;
+      left: 88px; top: 64px;
+      font-size: 17.78px;   /* 10pt */
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+    }
+    .divider-title {
+      position: absolute;
+      left: 86px; top: 150px;
+      width: 1021px;
+      font-size: 74.67px;  /* 42pt */
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.0;
+      color: #fff;
+    }
+
+    /* ── Content slides ── */
+    .slide-section-label {
+      position: absolute;
+      left: 88px; top: 64px;
+      font-size: 17.78px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+    }
+    .slide-title {
+      position: absolute;
+      left: 88px; top: 99px;
+      width: 900px;
+      font-size: 32px;     /* ~18pt */
+      font-weight: 400;
+      line-height: 1.2;
+      color: #fff;
+    }
+    .slide-body {
+      position: absolute;
+      left: 88px; top: 212px;
+      width: 672px;
+    }
+
+    /* Bullet list */
+    ul.bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    ul.bullets li {
+      font-size: 24.89px;  /* 14pt */
+      font-weight: 400;
+      padding-left: 24px;
+      position: relative;
+      line-height: 1.4;
+      color: #fff;
+    }
+    ul.bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 700;
+    }
+    ul.bullets li.sub {
+      font-size: 22.22px;
+      color: var(--muted);
+      padding-left: 42px;
+      margin-top: -8px;
+    }
+    ul.bullets li.sub::before {
+      content: '·';
+      left: 26px;
+      color: #555;
+    }
+
+    /* Image placeholder (right column) */
+    .slide-image {
+      position: absolute;
+      right: 48px; top: 170px;
+      width: 480px; height: 410px;
+      object-fit: contain;
+    }
+    .image-placeholder {
+      position: absolute;
+      right: 48px; top: 170px;
+      width: 480px; height: 410px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #555;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* Two-column layout */
+    .two-col {
+      position: absolute;
+      left: 88px; top: 212px;
+      width: 1104px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+    .col-header {
+      font-size: 17.78px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--divider-ln);
+    }
+
+    /* Callout / highlight box */
+    .callout {
+      background: rgba(0,147,231,0.08);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+      font-size: 22.22px;
+      line-height: 1.4;
+    }
+    .callout-teal {
+      background: rgba(0,241,159,0.08);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+      font-size: 22.22px;
+      line-height: 1.4;
+    }
+
+    /* Stat / metric display */
+    .stat-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .stat-number {
+      font-size: 85.33px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--teal);
+    }
+    .stat-label {
+      font-size: 17.78px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    /* Slide number footer */
+    .slide-footer {
+      position: absolute;
+      right: 28px; bottom: 18px;
+      font-size: 10.67px;
+      color: #444;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 1 — COVER
+       Replace: cover-title, cover-subtitle, cover-description
+       The background photo is embedded — swap src= to change it.
+       ═══════════════════════════════════════════ -->
+  <section>
+  <div class="slide slide-cover" style="background:var(--bg-cover)">
+    <img class="cover-photo" src="band_01.jpg" alt="">
+    <div class="cover-text">
+      <div class="cover-title">Presentation Title</div>
+      <div class="cover-subtitle">Subtitle Line</div>
+    </div>
+    <div class="cover-description">One-line description of this presentation goes here</div>
+  </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 2 — SECTION DIVIDER
+       Replace: divider-label (eyebrow), divider-title
+       ═══════════════════════════════════════════ -->
+  <section>
+  <div class="slide slide-divider">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <img class="header-logo" src="whoop_logo_white.png" alt="WHOOP">
+      <div class="header-meta">
+        WHOOP<span class="sep">|</span>2026<span class="sep">|</span>PRESENTATION TITLE
+      </div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="divider-label">Section Label</div>
+    <div class="divider-title">Section Title</div>
+  </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 3 — CONTENT: BULLETS ONLY
+       Replace: slide-section-label, slide-title, li items
+       ═══════════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <img class="header-logo" src="whoop_logo_white.png" alt="WHOOP">
+      <div class="header-meta">
+        WHOOP<span class="sep">|</span>2026<span class="sep">|</span>PRESENTATION TITLE
+      </div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="slide-section-label">Section Label</div>
+    <div class="slide-title">Slide title goes here — keep it short and declarative</div>
+    <div class="slide-body">
+      <ul class="bullets">
+        <li>First bullet point goes here</li>
+        <li>Second bullet point goes here</li>
+        <li class="sub">Sub-point supporting the above</li>
+        <li>Third bullet point goes here</li>
+        <li>Fourth bullet point goes here</li>
+      </ul>
+    </div>
+    <div class="slide-footer">3</div>
+  </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 4 — CONTENT: BULLETS + IMAGE
+       Replace: text blocks, swap <img> src for your image
+       ═══════════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <img class="header-logo" src="whoop_logo_white.png" alt="WHOOP">
+      <div class="header-meta">
+        WHOOP<span class="sep">|</span>2026<span class="sep">|</span>PRESENTATION TITLE
+      </div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="slide-section-label">Section Label</div>
+    <div class="slide-title">Slide title with supporting image on the right</div>
+    <div class="slide-body">
+      <ul class="bullets">
+        <li>First bullet point goes here</li>
+        <li>Second bullet point goes here</li>
+        <li>Third bullet point goes here</li>
+      </ul>
+    </div>
+    <!-- Replace with <img class="slide-image" src="your-image.png"> -->
+    <div class="image-placeholder">Image</div>
+    <div class="slide-footer">4</div>
+  </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 5 — CONTENT: TWO COLUMNS
+       Replace: column headers and bullet items
+       ═══════════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <img class="header-logo" src="whoop_logo_white.png" alt="WHOOP">
+      <div class="header-meta">
+        WHOOP<span class="sep">|</span>2026<span class="sep">|</span>PRESENTATION TITLE
+      </div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="slide-section-label">Section Label</div>
+    <div class="slide-title">Slide title for a two-column layout</div>
+    <div class="two-col">
+      <div>
+        <div class="col-header">Column One</div>
+        <ul class="bullets">
+          <li>Point one</li>
+          <li>Point two</li>
+          <li>Point three</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-header">Column Two</div>
+        <ul class="bullets">
+          <li>Point one</li>
+          <li>Point two</li>
+          <li>Point three</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-footer">5</div>
+  </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 6 — CONTENT: STAT / METRIC HIGHLIGHT
+       Replace: stat-number, stat-label, body text
+       ═══════════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <img class="header-logo" src="whoop_logo_white.png" alt="WHOOP">
+      <div class="header-meta">
+        WHOOP<span class="sep">|</span>2026<span class="sep">|</span>PRESENTATION TITLE
+      </div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="slide-section-label">Section Label</div>
+    <div class="slide-title">Slide title for a metric or stat callout</div>
+    <div class="slide-body" style="display:flex;flex-direction:column;gap:32px">
+      <div class="stat-block">
+        <div class="stat-number">00%</div>
+        <div class="stat-label">Metric label</div>
+      </div>
+      <div class="callout-teal">Supporting context or finding goes here — keep it to one or two lines.</div>
+    </div>
+    <div class="slide-footer">6</div>
+  </div>
+  </section>
+
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'none',
+  width: 1280,
+  height: 720,
+  margin: 0,
+  controls: true,
+  progress: true,
+  center: false,
+});
+</script>
+</body>
+</html>

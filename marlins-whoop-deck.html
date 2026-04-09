@@ -1,0 +1,626 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WHOOP × Miami Marlins</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+  <style>
+    :root {
+      --bg-slide:   linear-gradient(135deg, #1a2227 0%, #0d1215 100%);
+      --bg-divider: linear-gradient(135deg, #1e2a30 0%, #0d1215 100%);
+      --text:       #ffffff;
+      --muted:      #aaaaaa;
+      --meta:       #888888;
+      --rule:       rgba(255,255,255,0.08);
+      --teal:       #00F19F;
+      --blue:       #0093E7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body, .reveal {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #000;
+    }
+
+    .reveal .slides section { padding: 0; top: 0 !important; left: 0 !important; }
+    .reveal .slides { text-align: left; }
+
+    /* ── Slide shell ── */
+    .slide {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      color: var(--text);
+    }
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-slide);
+    }
+
+    /* ── Header bar ── */
+    .header-bar {
+      position: absolute;
+      left: 0; top: 0;
+      width: 1280px; height: 32px;
+      background: rgba(0,0,0,0.6);
+      border-bottom: 1px solid var(--rule);
+      z-index: 10;
+    }
+    .header-wordmark {
+      position: absolute;
+      left: 40px; top: 9px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--teal);
+      line-height: 1;
+    }
+    .header-meta {
+      position: absolute;
+      left: 120px; top: 10px;
+      font-size: 10px;
+      color: var(--meta);
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+    .header-meta .sep { opacity: 0.3; margin: 0 6px; }
+    .header-confidential {
+      position: absolute;
+      right: 40px; top: 10px;
+      font-size: 10px;
+      color: var(--meta);
+      letter-spacing: 0.14em;
+      line-height: 1;
+    }
+
+    /* ── Cover ── */
+    .slide-cover {
+      background: #000;
+    }
+    .cover-rule {
+      position: absolute;
+      left: 0; top: 260px;
+      width: 1280px; height: 1px;
+      background: var(--teal);
+      opacity: 0.35;
+    }
+    .cover-eyebrow {
+      position: absolute;
+      left: 80px; top: 190px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .cover-title {
+      position: absolute;
+      left: 80px; top: 276px;
+      font-size: 96px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 0.95;
+      color: #fff;
+    }
+    .cover-subtitle {
+      position: absolute;
+      left: 80px; top: 488px;
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #888;
+    }
+    .cover-footer {
+      position: absolute;
+      left: 80px; bottom: 36px;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Section divider ── */
+    .slide-divider .slide-bg { background: var(--bg-divider); }
+    .divider-rule {
+      position: absolute;
+      left: 80px; top: 130px;
+      width: 48px; height: 2px;
+      background: var(--teal);
+    }
+    .divider-label {
+      position: absolute;
+      left: 80px; top: 80px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+    }
+    .divider-title {
+      position: absolute;
+      left: 80px; top: 155px;
+      width: 900px;
+      font-size: 72px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.0;
+      color: #fff;
+    }
+
+    /* ── Content slides ── */
+    .slide-label {
+      position: absolute;
+      left: 80px; top: 56px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+    }
+    .slide-title {
+      position: absolute;
+      left: 80px; top: 88px;
+      width: 1100px;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.25;
+      color: #fff;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 20px;
+    }
+    .slide-body {
+      position: absolute;
+      left: 80px; top: 190px;
+      width: 1104px;
+    }
+
+    /* Bullets */
+    ul.bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    ul.bullets li {
+      font-size: 22px;
+      font-weight: 400;
+      padding-left: 28px;
+      position: relative;
+      line-height: 1.45;
+      color: #e8e8e8;
+    }
+    ul.bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 700;
+    }
+    ul.bullets li.sub {
+      font-size: 19px;
+      color: #888;
+      padding-left: 44px;
+      margin-top: -10px;
+    }
+    ul.bullets li.sub::before {
+      content: '·';
+      left: 28px;
+      color: #444;
+    }
+
+    /* Two-column */
+    .two-col {
+      position: absolute;
+      left: 80px; top: 190px;
+      width: 1120px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+    .col-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* Callout boxes */
+    .callout-teal {
+      background: rgba(0,241,159,0.06);
+      border-left: 2px solid var(--teal);
+      padding: 16px 20px;
+      font-size: 21px;
+      line-height: 1.5;
+      color: #ddd;
+      margin-bottom: 28px;
+    }
+
+    /* Stat row */
+    .stat-row {
+      position: absolute;
+      left: 80px; top: 210px;
+      width: 1120px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+    }
+    .stat-cell {
+      padding: 0 40px 0 0;
+      border-right: 1px solid var(--rule);
+      margin-right: 40px;
+    }
+    .stat-cell:last-child {
+      border-right: none;
+      margin-right: 0;
+    }
+    .stat-number {
+      font-size: 88px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+    }
+    .stat-label {
+      font-size: 14px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+    .stat-source {
+      position: absolute;
+      left: 80px; bottom: 32px;
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.05em;
+    }
+
+    /* Footer number */
+    .slide-footer {
+      position: absolute;
+      right: 40px; bottom: 20px;
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.12em;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+
+  <!-- ══════════════════════════════════════
+       1 — COVER
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide slide-cover">
+    <div class="cover-eyebrow">WHOOP Enterprise</div>
+    <div class="cover-rule"></div>
+    <div class="cover-title">Miami<br>Marlins</div>
+    <div class="cover-subtitle">Unlock Player Performance</div>
+    <div class="cover-footer">WHOOP &nbsp;|&nbsp; 2026 &nbsp;|&nbsp; Jessie Spada, Enterprise Lead &nbsp;|&nbsp; CONFIDENTIAL</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       2 — DIVIDER: WHAT IS WHOOP
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide slide-divider">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">2026<span class="sep">|</span>MIAMI MARLINS</div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="divider-label">The Product</div>
+    <div class="divider-rule"></div>
+    <div class="divider-title">What Is<br>WHOOP?</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       3 — PRODUCT OVERVIEW
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">2026<span class="sep">|</span>MIAMI MARLINS</div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="slide-label">The Product</div>
+    <div class="slide-title">The only wearable that tells you how to improve — not just what happened</div>
+    <div class="slide-body">
+      <ul class="bullets">
+        <li>Tracks <strong>Sleep, Recovery, and Strain</strong> 24/7 — the three pillars that determine how a player shows up on game day</li>
+        <li>Personalized, color-coded Recovery score tells each player and coach exactly how prepared the body is to perform</li>
+        <li>14+ day battery life with on-wrist charging — no removal needed, no gaps in data across a road trip</li>
+        <li>Wear-anywhere: wrist, bicep, or embedded in apparel — works during practice, games, and recovery</li>
+        <li>Medical-grade features: Stress Monitor, Blood Pressure Insights, ECG Heart Screener, Healthspan / WHOOP Age</li>
+      </ul>
+    </div>
+    <div class="slide-footer">1</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       4 — IMPACT STATS
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">2026<span class="sep">|</span>MIAMI MARLINS</div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="slide-label">The Product</div>
+    <div class="slide-title">Members who wear WHOOP every day see measurable, sustained change</div>
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-number">+91</div>
+        <div class="stat-label">Minutes of activity<br>per week</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">+2.3</div>
+        <div class="stat-label">Hours of sleep<br>per week</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">+10%</div>
+        <div class="stat-label">Higher HRV —<br>the marker of readiness</div>
+      </div>
+    </div>
+    <div class="stat-source">Data from 12,000 WHOOP members over a 12-week period &nbsp;·&nbsp; HRV from members with 180+ days of data &nbsp;·&nbsp; PMID: 40285124 &nbsp;·&nbsp; DOI: 10.3390/s25082437</div>
+    <div class="slide-footer">2</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       5 — DIVIDER: WHOOP UNITE
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide slide-divider">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">2026<span class="sep">|</span>MIAMI MARLINS</div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="divider-label">The Platform</div>
+    <div class="divider-rule"></div>
+    <div class="divider-title">WHOOP Unite —<br>Built for Teams</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       6 — GROUP TRENDS
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">2026<span class="sep">|</span>MIAMI MARLINS</div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="slide-label">WHOOP Unite</div>
+    <div class="slide-title">See how the entire roster is showing up — before the first pitch</div>
+    <div class="slide-body">
+      <ul class="bullets">
+        <li>Group Trends dashboard shows every player's Recovery (green / yellow / red), Sleep Performance, and Strain at a glance</li>
+        <li>Compare biometrics across positional groups — identify who's carrying excess fatigue heading into a series</li>
+        <li>Daily, 7-day, and 30-day trend views — track how the team responds to travel, doubleheaders, and training blocks</li>
+        <li>Leaderboard surfaces outliers by HRV, Resting Heart Rate, and Recovery — the players who need attention before you ask</li>
+        <li class="sub">Hover any bar for day-over-day change and deviation from each player's personal baseline</li>
+      </ul>
+    </div>
+    <div class="slide-footer">3</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       7 — TRAINING ZONES
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">2026<span class="sep">|</span>MIAMI MARLINS</div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="slide-label">WHOOP Unite</div>
+    <div class="slide-title">Training Zones — know where every player stands in the load cycle</div>
+    <div class="two-col">
+      <div>
+        <div class="col-label">The Three Zones</div>
+        <ul class="bullets">
+          <li><strong style="color:var(--teal)">Overreaching</strong> — Building fitness, strain exceeds recovery. Productive short-term; monitor closely to avoid breakdown</li>
+          <li><strong style="color:#fff">Maintaining</strong> — Steady-state load. Player is adapting and holding readiness across the schedule</li>
+          <li><strong style="color:var(--blue)">Tapering</strong> — Load reduction to peak for competition. Critical before playoff series — and a flag if it runs too long</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-label">Marlins Application</div>
+        <ul class="bullets">
+          <li>Structure the 162-game load scientifically — prevent non-functional overreaching in the back half of the season</li>
+          <li>Flag players tapering too long between starts and losing fitness quietly</li>
+          <li>Give coaching staff and trainers one shared, objective view — no more guesswork on who is ready to play</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-footer">4</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       8 — INDIVIDUAL TRENDS
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">2026<span class="sep">|</span>MIAMI MARLINS</div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="slide-label">WHOOP Unite</div>
+    <div class="slide-title">Drill down on any player — catch decline before it becomes an injury</div>
+    <div class="slide-body">
+      <ul class="bullets">
+        <li>Individual Trends: day-by-day, 7-day, and 30-day views of Sleep, Recovery, and Strain per player</li>
+        <li>Recovery breakdown — HRV, Resting Heart Rate, Respiratory Rate — the exact signals that precede illness and overuse injury</li>
+        <li>Sleep breakdown — total hours, sleep stages, consistency, sleep debt — quantify the real cost of late games and cross-timezone travel</li>
+        <li>Use the data to start a conversation, adjust training load, or schedule additional rest before a problem surfaces on the field</li>
+        <li class="sub">All data exportable to CSV: Strain, Recovery, HRV, RHR, Sleep Hours, Sleep Debt, Sleep Performance</li>
+      </ul>
+    </div>
+    <div class="slide-footer">5</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       9 — DIVIDER: ENTERPRISE
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide slide-divider">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">2026<span class="sep">|</span>MIAMI MARLINS</div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="divider-label">The Partnership</div>
+    <div class="divider-rule"></div>
+    <div class="divider-title">The Power of<br>Enterprise</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       10 — ENTERPRISE VALUE
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">2026<span class="sep">|</span>MIAMI MARLINS</div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="slide-label">The Partnership</div>
+    <div class="slide-title">What the Marlins organization gets beyond the device</div>
+    <div class="two-col">
+      <div>
+        <div class="col-label">Platform &amp; Data</div>
+        <ul class="bullets">
+          <li>WHOOP Unite — the enterprise analytics platform built for coaching staffs and performance teams</li>
+          <li>Developer API — integrate WHOOP data directly into your existing performance management or medical systems</li>
+          <li>CSV export — bring biometric data into any reporting or analysis workflow</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-label">Support &amp; Privacy</div>
+        <ul class="bullets">
+          <li>Dedicated onboarding and customer success — your staff and players are supported from day one</li>
+          <li>Role-based access controls — coaches, medical staff, and players each see the right level of data</li>
+          <li>Player consent is built into the join flow — trust and adoption are not an afterthought</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-footer">6</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       11 — THE CASE FOR BASEBALL
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">2026<span class="sep">|</span>MIAMI MARLINS</div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div class="slide-label">Why Now</div>
+    <div class="slide-title">162 games. 30 cities. One season to get it right.</div>
+    <div class="slide-body">
+      <div class="callout-teal">
+        The MLB schedule is among the most grueling in professional sports. Sleep deprivation from night games, cross-timezone travel, and cumulative fatigue are the real opponents over 6 months — and they're invisible without data.
+      </div>
+      <ul class="bullets">
+        <li>WHOOP quantifies the exact cost of a road trip — in HRV drop, sleep debt, and recovery score</li>
+        <li>Coaching staff can make lineup and load decisions backed by objective physiological data, not instinct alone</li>
+        <li>Players who use WHOOP daily gain +2.3 hours of sleep per week — the difference between sharp and sluggish at the plate</li>
+      </ul>
+    </div>
+    <div class="slide-footer">7</div>
+  </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       12 — CTA
+       ══════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    <div class="slide-bg"></div>
+    <div class="header-bar">
+      <div class="header-wordmark">WHOOP</div>
+      <div class="header-meta">2026<span class="sep">|</span>MIAMI MARLINS</div>
+      <div class="header-confidential">CONFIDENTIAL</div>
+    </div>
+    <div style="position:absolute;left:80px;top:56px;width:2px;height:608px;background:var(--teal);opacity:0.2"></div>
+    <div style="position:absolute;left:112px;top:180px;width:800px;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--teal);margin-bottom:24px;">Next Step</div>
+      <div style="font-size:68px;font-weight:700;line-height:1.0;color:#fff;margin-bottom:40px;">Get Everyone<br>in the Game.</div>
+      <div style="font-size:22px;font-weight:300;line-height:1.6;color:#aaa;margin-bottom:48px;">Let's schedule a live demo of WHOOP Unite and walk through how the platform fits the Marlins' performance program.</div>
+      <div style="font-size:18px;line-height:1.8;color:#fff;">
+        <span style="color:var(--teal);font-weight:600;">Jessie Spada</span><br>
+        Enterprise Lead, WHOOP
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: false,
+  transition: 'none',
+  width: 1280,
+  height: 720,
+  margin: 0,
+  controls: true,
+  progress: false,
+  center: false,
+});
+</script>
+</body>
+</html>
