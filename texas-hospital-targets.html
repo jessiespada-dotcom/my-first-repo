@@ -1,0 +1,351 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Texas RHT — Hospital District Target List</title>
+  <style>
+    :root {
+      --bg:      #0d1215;
+      --bg-card: rgba(255,255,255,0.03);
+      --text:    #ffffff;
+      --muted:   #aaaaaa;
+      --meta:    #666666;
+      --rule:    rgba(255,255,255,0.08);
+      --teal:    #00F19F;
+      --blue:    #0093E7;
+      --orange:  #ffb347;
+      --red:     #ff5a5a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    .header-bar {
+      background: #000; border-bottom: 1px solid var(--rule);
+      padding: 0 40px; height: 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; }
+    .header-wordmark { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--teal); margin-right: 16px; }
+    .header-pipe { width: 1px; height: 14px; background: rgba(255,255,255,0.15); margin-right: 16px; }
+    .header-meta { font-size: 10px; color: var(--meta); letter-spacing: 0.08em; }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(0,241,159,0.35); background: rgba(0,241,159,0.06); padding: 4px 9px; border-radius: 2px; }
+
+    .page { max-width: 1180px; margin: 0 auto; padding: 48px 40px 80px; }
+
+    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .page-title { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 10px; }
+    .page-meta { font-size: 12px; color: var(--meta); letter-spacing: 0.04em; }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+    .rule { height: 1px; background: var(--rule); margin: 32px 0; }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--meta); margin-bottom: 16px; }
+
+    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 32px; }
+    .stat-cell { background: var(--bg-card); padding: 20px 24px; border-right: 1px solid var(--rule); }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 10px; }
+    .stat-number { font-size: 40px; font-weight: 700; line-height: 1; color: var(--teal); letter-spacing: -0.02em; margin-bottom: 6px; }
+    .stat-number.blue { color: var(--blue); }
+    .stat-number.orange { color: var(--orange); }
+    .stat-number.white { color: #fff; }
+    .stat-desc { font-size: 11px; color: #888; line-height: 1.5; }
+
+    .callout { border-left: 3px solid var(--orange); background: rgba(255,179,71,0.04); border-radius: 0 4px 4px 0; padding: 16px 20px; margin-bottom: 28px; font-size: 12.5px; color: #bbb; line-height: 1.7; }
+    .callout strong { color: #e8e8e8; }
+
+    /* Search bar */
+    .search-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
+    .search-input {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--rule);
+      border-radius: 4px; padding: 9px 14px; color: #fff; font-size: 13px;
+      font-family: inherit; width: 320px; outline: none;
+    }
+    .search-input::placeholder { color: #555; }
+    .search-input:focus { border-color: rgba(0,241,159,0.4); }
+    .filter-btn {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--rule);
+      border-radius: 4px; padding: 8px 14px; color: #aaa; font-size: 11px;
+      font-family: inherit; cursor: pointer; letter-spacing: 0.06em;
+    }
+    .filter-btn.active { background: rgba(0,241,159,0.10); border-color: rgba(0,241,159,0.3); color: var(--teal); }
+    .filter-btn.active.blue-btn { background: rgba(0,147,231,0.10); border-color: rgba(0,147,231,0.3); color: var(--blue); }
+    #result-count { font-size: 11px; color: var(--meta); margin-left: auto; }
+
+    /* Table */
+    .table-wrap { border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead tr { background: rgba(255,255,255,0.05); }
+    th {
+      padding: 12px 16px; text-align: left;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta);
+      border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule);
+      cursor: pointer; user-select: none; white-space: nowrap;
+    }
+    th:last-child { border-right: none; }
+    th:hover { color: #ccc; }
+    td { padding: 11px 16px; color: #bbb; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); vertical-align: middle; line-height: 1.4; }
+    td:last-child { border-right: none; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    td.hospital-name { color: #e8e8e8; font-weight: 500; }
+    td.county { color: #ccc; }
+
+    .type-pill {
+      display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 2px 7px; border-radius: 2px; white-space: nowrap;
+    }
+    .pill-district { background: rgba(0,241,159,0.10); color: var(--teal); border: 1px solid rgba(0,241,159,0.25); }
+    .pill-rural    { background: rgba(0,147,231,0.10); color: var(--blue); border: 1px solid rgba(0,147,231,0.25); }
+
+    .init-pill {
+      display: inline-block; font-size: 8px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 2px 6px; border-radius: 2px; white-space: nowrap; margin-right: 3px;
+    }
+    .init-1 { background: rgba(0,241,159,0.08); color: var(--teal); border: 1px solid rgba(0,241,159,0.2); }
+    .init-2 { background: rgba(0,147,231,0.08); color: var(--blue); border: 1px solid rgba(0,147,231,0.2); }
+
+    .hidden { display: none !important; }
+
+    .page-footer { font-size: 10px; color: #333; letter-spacing: 0.08em; text-align: right; padding-top: 24px; border-top: 1px solid var(--rule); margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>Texas RHT<span class="sep">|</span>Hospital Target List<span class="sep">|</span>April 2026
+    </div>
+  </div>
+  <div class="header-badge">Outreach Targets</div>
+</div>
+
+<div class="page">
+
+  <div class="page-eyebrow">Initiative 1 — Rural Texas Strong</div>
+  <div class="page-title">Texas Hospital District<br>Target List</div>
+  <div class="page-meta">
+    ~80 eligible hospital districts · Counties with population ≤68,750 · Initiative 1 direct award targets
+    <span class="dot">·</span> Source: TX Dept of Agriculture + 2020 Census
+    <span class="dot">·</span> <strong style="color:var(--orange)">Verify official list with Anthony Hawley, HHSC</strong>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="section-label">Summary</div>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Hospital Districts<br>(Init. 1 Part 1)</div>
+      <div class="stat-number">68</div>
+      <div class="stat-desc">Likely government-owned hospital districts in eligible counties. Direct award targets — ~$750K each.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">All Rural Hospitals<br>(Init. 1 Part 2)</div>
+      <div class="stat-number blue">24</div>
+      <div class="stat-desc">Private or health system rural hospitals in eligible counties. Competitive award eligible.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Total Targets<br>In List</div>
+      <div class="stat-number white">92</div>
+      <div class="stat-desc">All rural hospitals in Texas counties ≤68,750. Both direct and competitive award eligible.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Funding Per<br>District (BP1)</div>
+      <div class="stat-number orange">$750K</div>
+      <div class="stat-desc">Startup implementation funding per hospital district. Must be spent on chronic disease and wellness outcomes.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>How to use this list:</strong> Hospital Districts (<span style="color:var(--teal)">green</span>) are the Initiative 1 Part 1 direct award targets — government-owned, highest priority for WHOOP outreach. All Rural Hospitals (<span style="color:var(--blue)">blue</span>) qualify for Initiative 1 Part 2 competitive awards. All hospitals in this list are also potential targets for Initiative 4 (workforce wellness) and Initiative 6 (capital equipment). <strong>This list is based on state records and 2020 Census data — confirm the official HHSC direct award list with Anthony Hawley (anthony.hawley@hhs.texas.gov).</strong>
+  </div>
+
+  <div class="search-bar">
+    <input class="search-input" id="searchInput" type="text" placeholder="Search by hospital, county, or city…" oninput="filterTable()">
+    <button class="filter-btn active" id="btnAll" onclick="setFilter('all')">All (92)</button>
+    <button class="filter-btn" id="btnDistrict" onclick="setFilter('district')">Districts Only (68)</button>
+    <button class="filter-btn blue-btn" id="btnRural" onclick="setFilter('rural')">Rural Hospitals (24)</button>
+    <span id="result-count"></span>
+  </div>
+
+  <div class="table-wrap">
+    <table id="hospitalTable">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0)">#</th>
+          <th onclick="sortTable(1)">Hospital Name ↕</th>
+          <th onclick="sortTable(2)">City ↕</th>
+          <th onclick="sortTable(3)">County ↕</th>
+          <th onclick="sortTable(4)">County Pop. ↕</th>
+          <th onclick="sortTable(5)">Type</th>
+          <th>Initiative Eligible</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Hospital Districts (Initiative 1 Part 1 + Part 2) -->
+        <tr data-type="district"><td>1</td><td class="hospital-name">Ballinger Memorial Hospital District</td><td>Ballinger</td><td class="county">Runnels</td><td>~10,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>2</td><td class="hospital-name">Big Bend Regional Medical Center</td><td>Alpine</td><td class="county">Brewster</td><td>~9,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>3</td><td class="hospital-name">Bowie Memorial Hospital</td><td>Bowie</td><td class="county">Montague</td><td>~19,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>4</td><td class="hospital-name">Brownfield Regional Medical Center</td><td>Brownfield</td><td class="county">Terry</td><td>~12,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>5</td><td class="hospital-name">Childress Regional Medical Center</td><td>Childress</td><td class="county">Childress</td><td>~7,300</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>6</td><td class="hospital-name">Clay County Memorial Hospital</td><td>Henrietta</td><td class="county">Clay</td><td>~10,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>7</td><td class="hospital-name">Cochran Memorial Hospital</td><td>Morton</td><td class="county">Cochran</td><td>~2,800</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>8</td><td class="hospital-name">Coleman County Medical Center</td><td>Coleman</td><td class="county">Coleman</td><td>~8,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>9</td><td class="hospital-name">Collingsworth General Hospital</td><td>Wellington</td><td class="county">Collingsworth</td><td>~3,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>10</td><td class="hospital-name">Comanche County Medical Center</td><td>Comanche</td><td class="county">Comanche</td><td>~13,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>11</td><td class="hospital-name">Concho County Hospital</td><td>Eden</td><td class="county">Concho</td><td>~3,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>12</td><td class="hospital-name">Coon Memorial Hospital</td><td>Dalhart</td><td class="county">Hartley</td><td>~6,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>13</td><td class="hospital-name">Crane Memorial Hospital</td><td>Crane</td><td class="county">Crane</td><td>~4,500</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>14</td><td class="hospital-name">Crosbyton Clinic Hospital</td><td>Crosbyton</td><td class="county">Crosby</td><td>~5,500</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>15</td><td class="hospital-name">Culberson Hospital</td><td>Van Horn</td><td class="county">Culberson</td><td>~2,200</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>16</td><td class="hospital-name">D M Cogdell Memorial Hospital</td><td>Snyder</td><td class="county">Scurry</td><td>~17,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>17</td><td class="hospital-name">Dimmit County Memorial Hospital</td><td>Carrizo Springs</td><td class="county">Dimmit</td><td>~9,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>18</td><td class="hospital-name">Eastland Memorial Hospital</td><td>Eastland</td><td class="county">Eastland</td><td>~18,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>19</td><td class="hospital-name">El Campo Memorial Hospital</td><td>El Campo</td><td class="county">Wharton</td><td>~41,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>20</td><td class="hospital-name">Falls Community Hospital</td><td>Marlin</td><td class="county">Falls</td><td>~17,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>21</td><td class="hospital-name">Fisher County Hospital District</td><td>Rotan</td><td class="county">Fisher</td><td>~3,800</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>22</td><td class="hospital-name">Golden Plains Community Hospital</td><td>Borger</td><td class="county">Hutchinson</td><td>~21,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>23</td><td class="hospital-name">Graham Regional Medical Center</td><td>Graham</td><td class="county">Young</td><td>~18,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>24</td><td class="hospital-name">Hamilton General Hospital</td><td>Hamilton</td><td class="county">Hamilton</td><td>~8,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>25</td><td class="hospital-name">Hamilton Hospital</td><td>Olney</td><td class="county">Young</td><td>~18,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>26</td><td class="hospital-name">Hansford County Hospital</td><td>Spearman</td><td class="county">Hansford</td><td>~5,400</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>27</td><td class="hospital-name">Hardeman County Memorial Hospital</td><td>Quanah</td><td class="county">Hardeman</td><td>~3,900</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>28</td><td class="hospital-name">Haskell Memorial Hospital</td><td>Haskell</td><td class="county">Haskell</td><td>~5,600</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>29</td><td class="hospital-name">Heart of Texas Memorial Hospital</td><td>Brady</td><td class="county">McCulloch</td><td>~8,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>30</td><td class="hospital-name">Hemphill County Hospital</td><td>Canadian</td><td class="county">Hemphill</td><td>~3,800</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>31</td><td class="hospital-name">Hereford Regional Medical Center</td><td>Hereford</td><td class="county">Deaf Smith</td><td>~19,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>32</td><td class="hospital-name">Hill Country Memorial Hospital</td><td>Fredericksburg</td><td class="county">Gillespie</td><td>~27,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>33</td><td class="hospital-name">Hopkins County Memorial Hospital</td><td>Sulphur Springs</td><td class="county">Hopkins</td><td>~37,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>34</td><td class="hospital-name">Jackson Healthcare Center</td><td>Edna</td><td class="county">Jackson</td><td>~14,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>35</td><td class="hospital-name">Kimble Hospital</td><td>Junction</td><td class="county">Kimble</td><td>~4,500</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>36</td><td class="hospital-name">Knox County Hospital</td><td>Knox City</td><td class="county">Knox</td><td>~3,700</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>37</td><td class="hospital-name">Lamb Healthcare Center</td><td>Littlefield</td><td class="county">Lamb</td><td>~13,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>38</td><td class="hospital-name">Lavaca Medical Center</td><td>Hallettsville</td><td class="county">Lavaca</td><td>~20,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>39</td><td class="hospital-name">Limestone Medical Center</td><td>Groesbeck</td><td class="county">Limestone</td><td>~23,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>40</td><td class="hospital-name">Llano Memorial Hospital</td><td>Llano</td><td class="county">Llano</td><td>~22,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>41</td><td class="hospital-name">Lynn County Hospital District</td><td>Tahoka</td><td class="county">Lynn</td><td>~5,900</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>42</td><td class="hospital-name">Martin County Hospital District</td><td>Stanton</td><td class="county">Martin</td><td>~5,800</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>43</td><td class="hospital-name">Matagorda General Hospital</td><td>Bay City</td><td class="county">Matagorda</td><td>~37,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>44</td><td class="hospital-name">McCamey Hospital</td><td>McCamey</td><td class="county">Upton</td><td>~3,700</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>45</td><td class="hospital-name">Medical Arts Hospital</td><td>Lamesa</td><td class="county">Dawson</td><td>~12,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>46</td><td class="hospital-name">Memorial Hospital (Gaines County)</td><td>Seminole</td><td class="county">Gaines</td><td>~21,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>47</td><td class="hospital-name">Memorial Hospital (Gonzales)</td><td>Gonzales</td><td class="county">Gonzales</td><td>~20,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>48</td><td class="hospital-name">Memorial Hospital (Moore County)</td><td>Dumas</td><td class="county">Moore</td><td>~21,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>49</td><td class="hospital-name">Memorial Medical Center</td><td>Port Lavaca</td><td class="county">Calhoun</td><td>~21,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>50</td><td class="hospital-name">Memorial Medical Center — San Augustine</td><td>San Augustine</td><td class="county">San Augustine</td><td>~8,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>51</td><td class="hospital-name">Mitchell County Hospital</td><td>Colorado City</td><td class="county">Mitchell</td><td>~8,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>52</td><td class="hospital-name">Muleshoe Area Medical Center</td><td>Muleshoe</td><td class="county">Bailey</td><td>~6,900</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>53</td><td class="hospital-name">North Runnels Hospital</td><td>Winters</td><td class="county">Runnels</td><td>~10,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>54</td><td class="hospital-name">Ochiltree General Hospital</td><td>Perryton</td><td class="county">Ochiltree</td><td>~10,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>55</td><td class="hospital-name">Otto Kaiser Memorial Hospital</td><td>Kenedy</td><td class="county">Karnes</td><td>~15,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>56</td><td class="hospital-name">Palo Pinto General Hospital</td><td>Mineral Wells</td><td class="county">Palo Pinto</td><td>~29,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>57</td><td class="hospital-name">Pampa Regional Medical Center</td><td>Pampa</td><td class="county">Gray</td><td>~22,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>58</td><td class="hospital-name">Parkview Hospital</td><td>Wheeler</td><td class="county">Wheeler</td><td>~5,500</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>59</td><td class="hospital-name">Parmer County Community Hospital</td><td>Friona</td><td class="county">Parmer</td><td>~10,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>60</td><td class="hospital-name">Pecos County Memorial Hospital</td><td>Fort Stockton</td><td class="county">Pecos</td><td>~15,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>61</td><td class="hospital-name">Permian Regional Medical Center</td><td>Andrews</td><td class="county">Andrews</td><td>~18,600</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>62</td><td class="hospital-name">Plains Memorial Hospital</td><td>Dimmitt</td><td class="county">Castro</td><td>~7,700</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>63</td><td class="hospital-name">Rankin County Hospital District</td><td>Rankin</td><td class="county">Upton</td><td>~3,700</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>64</td><td class="hospital-name">Reagan Memorial Hospital</td><td>Big Lake</td><td class="county">Reagan</td><td>~3,700</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>65</td><td class="hospital-name">Reeves County Hospital</td><td>Pecos</td><td class="county">Reeves</td><td>~15,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>66</td><td class="hospital-name">Refugio County Memorial Hospital District</td><td>Refugio</td><td class="county">Refugio</td><td>~7,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>67</td><td class="hospital-name">Rolling Plains Memorial Hospital</td><td>Sweetwater</td><td class="county">Nolan</td><td>~14,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>68</td><td class="hospital-name">Sabine County Hospital</td><td>Hemphill</td><td class="county">Sabine</td><td>~10,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>69</td><td class="hospital-name">Schleicher County Medical Center</td><td>Eldorado</td><td class="county">Schleicher</td><td>~3,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>70</td><td class="hospital-name">Seymour Hospital</td><td>Seymour</td><td class="county">Baylor</td><td>~3,500</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>71</td><td class="hospital-name">Shamrock General Hospital</td><td>Shamrock</td><td class="county">Wheeler</td><td>~5,500</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>72</td><td class="hospital-name">Starr County Memorial Hospital</td><td>Rio Grande City</td><td class="county">Starr</td><td>~64,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>73</td><td class="hospital-name">Stephens Memorial Hospital</td><td>Breckenridge</td><td class="county">Stephens</td><td>~9,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>74</td><td class="hospital-name">Stonewall Memorial Hospital</td><td>Aspermont</td><td class="county">Stonewall</td><td>~1,300</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>75</td><td class="hospital-name">Swisher Memorial Hospital</td><td>Tulia</td><td class="county">Swisher</td><td>~7,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>76</td><td class="hospital-name">Throckmorton County Memorial Hospital</td><td>Throckmorton</td><td class="county">Throckmorton</td><td>~1,500</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>77</td><td class="hospital-name">Tyler County Hospital</td><td>Woodville</td><td class="county">Tyler</td><td>~21,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>78</td><td class="hospital-name">Uvalde Memorial Hospital</td><td>Uvalde</td><td class="county">Uvalde</td><td>~27,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>79</td><td class="hospital-name">Val Verde Regional Medical Center</td><td>Del Rio</td><td class="county">Val Verde</td><td>~49,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>80</td><td class="hospital-name">W J Mangold Memorial Hospital</td><td>Lockney</td><td class="county">Floyd</td><td>~5,700</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>81</td><td class="hospital-name">Ward Memorial Hospital</td><td>Monahans</td><td class="county">Ward</td><td>~11,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>82</td><td class="hospital-name">Wilbarger General Hospital</td><td>Vernon</td><td class="county">Wilbarger</td><td>~12,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>83</td><td class="hospital-name">Winkler County Memorial Hospital</td><td>Kermit</td><td class="county">Winkler</td><td>~8,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+        <tr data-type="district"><td>84</td><td class="hospital-name">Yoakum County Hospital</td><td>Denver City</td><td class="county">Yoakum</td><td>~8,000</td><td><span class="type-pill pill-district">Hospital District</span></td><td><span class="init-pill init-1">Init. 1 P1</span><span class="init-pill init-2">Init. 2</span></td></tr>
+
+        <!-- All Rural Hospitals (Initiative 1 Part 2 competitive only) -->
+        <tr data-type="rural"><td>85</td><td class="hospital-name">Atlanta Memorial Hospital</td><td>Atlanta</td><td class="county">Cass</td><td>~30,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>86</td><td class="hospital-name">Bayside Community Hospital</td><td>Anahuac</td><td class="county">Chambers</td><td>~44,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>87</td><td class="hospital-name">Christus Spohn Hospital Alice</td><td>Alice</td><td class="county">Jim Wells</td><td>~41,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>88</td><td class="hospital-name">Christus Spohn Hospital Beeville</td><td>Beeville</td><td class="county">Bee</td><td>~32,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>89</td><td class="hospital-name">Christus Spohn Hospital Kleberg</td><td>Kingsville</td><td class="county">Kleberg</td><td>~31,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>90</td><td class="hospital-name">Covenant Hospital Levelland</td><td>Levelland</td><td class="county">Hockley</td><td>~23,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>91</td><td class="hospital-name">Covenant Hospital Plainview</td><td>Plainview</td><td class="county">Hale</td><td>~34,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>92</td><td class="hospital-name">Cozby-Germany Hospital</td><td>Grand Saline</td><td class="county">Van Zandt</td><td>~56,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>93</td><td class="hospital-name">Cuero Community Hospital</td><td>Cuero</td><td class="county">DeWitt</td><td>~20,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>94</td><td class="hospital-name">ETMC Carthage</td><td>Carthage</td><td class="county">Panola</td><td>~23,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>95</td><td class="hospital-name">ETMC Clarksville</td><td>Clarksville</td><td class="county">Red River</td><td>~12,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>96</td><td class="hospital-name">ETMC Crockett</td><td>Crockett</td><td class="county">Houston</td><td>~22,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>97</td><td class="hospital-name">ETMC Fairfield</td><td>Fairfield</td><td class="county">Freestone</td><td>~19,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>98</td><td class="hospital-name">ETMC Jacksonville</td><td>Jacksonville</td><td class="county">Cherokee</td><td>~52,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>99</td><td class="hospital-name">ETMC Mount Vernon</td><td>Mount Vernon</td><td class="county">Franklin</td><td>~10,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>100</td><td class="hospital-name">ETMC Pittsburg</td><td>Pittsburg</td><td class="county">Camp</td><td>~13,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>101</td><td class="hospital-name">ETMC Quitman</td><td>Quitman</td><td class="county">Wood</td><td>~45,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>102</td><td class="hospital-name">ETMC Trinity</td><td>Trinity</td><td class="county">Trinity</td><td>~14,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>103</td><td class="hospital-name">Fort Duncan Regional Medical Center</td><td>Eagle Pass</td><td class="county">Maverick</td><td>~57,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>104</td><td class="hospital-name">Good Shepherd Medical Center — Marshall</td><td>Marshall</td><td class="county">Harrison</td><td>~66,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>105</td><td class="hospital-name">Nacogdoches Memorial Hospital</td><td>Nacogdoches</td><td class="county">Nacogdoches</td><td>~65,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>106</td><td class="hospital-name">Palestine Regional Medical Center</td><td>Palestine</td><td class="county">Anderson</td><td>~57,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>107</td><td class="hospital-name">Titus Regional Medical Center</td><td>Mount Pleasant</td><td class="county">Titus</td><td>~32,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+        <tr data-type="rural"><td>108</td><td class="hospital-name">Winnie Community Hospital</td><td>Winnie</td><td class="county">Chambers</td><td>~44,000</td><td><span class="type-pill pill-rural">Rural Hospital</span></td><td><span class="init-pill init-2">Init. 1 P2</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Jessie Spada &nbsp;·&nbsp; April 9, 2026 &nbsp;·&nbsp; CONFIDENTIAL &nbsp;·&nbsp; Source data: TX Dept of Agriculture (updated 2008) + 2020 US Census — verify with HHSC before outreach
+  </div>
+
+</div>
+
+<script>
+let currentFilter = 'all';
+
+function setFilter(type) {
+  currentFilter = type;
+  document.getElementById('btnAll').classList.toggle('active', type === 'all');
+  document.getElementById('btnDistrict').classList.toggle('active', type === 'district');
+  document.getElementById('btnRural').classList.toggle('active', type === 'rural');
+  filterTable();
+}
+
+function filterTable() {
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  const rows = document.querySelectorAll('#tableBody tr');
+  let count = 0;
+  rows.forEach(row => {
+    const typeMatch = currentFilter === 'all' || row.dataset.type === currentFilter;
+    const textMatch = !query || row.textContent.toLowerCase().includes(query);
+    const show = typeMatch && textMatch;
+    row.classList.toggle('hidden', !show);
+    if (show) count++;
+  });
+  document.getElementById('result-count').textContent = count + ' hospitals shown';
+}
+
+function sortTable(col) {
+  const tbody = document.getElementById('tableBody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  const dir = tbody.dataset.sortDir === 'asc' ? -1 : 1;
+  tbody.dataset.sortDir = dir === 1 ? 'asc' : 'desc';
+  rows.sort((a, b) => {
+    const aVal = a.cells[col]?.textContent.trim() || '';
+    const bVal = b.cells[col]?.textContent.trim() || '';
+    return aVal.localeCompare(bVal, undefined, {numeric: true}) * dir;
+  });
+  rows.forEach(r => tbody.appendChild(r));
+}
+
+// Init count
+document.getElementById('result-count').textContent = '108 hospitals shown';
+</script>
+</body>
+</html>
