@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Texas RHT — ZoomInfo Outreach List</title>
+  <style>
+    :root {
+      --bg:      #0d1215;
+      --bg-card: rgba(255,255,255,0.03);
+      --text:    #ffffff;
+      --muted:   #aaaaaa;
+      --meta:    #666666;
+      --rule:    rgba(255,255,255,0.08);
+      --teal:    #00F19F;
+      --blue:    #0093E7;
+      --orange:  #ffb347;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    .header-bar {
+      background: #000; border-bottom: 1px solid var(--rule);
+      padding: 0 40px; height: 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; }
+    .header-wordmark { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--teal); margin-right: 16px; }
+    .header-pipe { width: 1px; height: 14px; background: rgba(255,255,255,0.15); margin-right: 16px; }
+    .header-meta { font-size: 10px; color: var(--meta); letter-spacing: 0.08em; }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(0,241,159,0.35); background: rgba(0,241,159,0.06); padding: 4px 9px; border-radius: 2px; }
+
+    .page { max-width: 1180px; margin: 0 auto; padding: 48px 40px 80px; }
+
+    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .page-title { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 10px; }
+    .page-meta { font-size: 12px; color: var(--meta); }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+    .rule { height: 1px; background: var(--rule); margin: 32px 0; }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--meta); margin-bottom: 16px; }
+
+    /* How-to box */
+    .howto {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      margin-bottom: 32px;
+    }
+    .howto-step {
+      background: var(--bg-card); border: 1px solid var(--rule);
+      border-radius: 4px; padding: 18px 20px;
+    }
+    .step-num { font-size: 28px; font-weight: 700; color: var(--teal); line-height: 1; margin-bottom: 8px; }
+    .step-title { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .step-body { font-size: 12px; color: #888; line-height: 1.6; }
+
+    .callout { border-left: 3px solid var(--teal); background: rgba(0,241,159,0.04); border-radius: 0 4px 4px 0; padding: 16px 20px; margin-bottom: 28px; font-size: 12.5px; color: #bbb; line-height: 1.7; }
+    .callout strong { color: #e8e8e8; }
+
+    /* Role legend */
+    .role-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #888; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot-1 { background: var(--teal); }
+    .dot-2 { background: var(--blue); }
+    .dot-3 { background: var(--orange); }
+
+    /* Search */
+    .search-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; }
+    .search-input { background: rgba(255,255,255,0.05); border: 1px solid var(--rule); border-radius: 4px; padding: 9px 14px; color: #fff; font-size: 13px; font-family: inherit; width: 320px; outline: none; }
+    .search-input::placeholder { color: #555; }
+    .search-input:focus { border-color: rgba(0,241,159,0.4); }
+    #result-count { font-size: 11px; color: var(--meta); margin-left: auto; }
+
+    /* Table */
+    .table-wrap { border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    thead tr { background: rgba(255,255,255,0.05); }
+    th { padding: 11px 16px; text-align: left; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); white-space: nowrap; }
+    th:last-child { border-right: none; }
+    td { padding: 11px 16px; color: #bbb; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+    td:last-child { border-right: none; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    td.hospital-name { color: #e8e8e8; font-weight: 500; }
+
+    .role-chip {
+      display: inline-block; font-size: 10px; padding: 2px 8px;
+      border-radius: 2px; margin: 2px 3px 2px 0; white-space: nowrap;
+      font-weight: 600; letter-spacing: 0.04em;
+    }
+    .chip-1 { background: rgba(0,241,159,0.08); color: var(--teal); border: 1px solid rgba(0,241,159,0.2); }
+    .chip-2 { background: rgba(0,147,231,0.08); color: var(--blue); border: 1px solid rgba(0,147,231,0.2); }
+    .chip-3 { background: rgba(255,179,71,0.08); color: var(--orange); border: 1px solid rgba(255,179,71,0.2); }
+
+    .hidden { display: none !important; }
+    .page-footer { font-size: 10px; color: #333; letter-spacing: 0.08em; text-align: right; padding-top: 24px; border-top: 1px solid var(--rule); margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>Texas RHT<span class="sep">|</span>ZoomInfo Outreach List<span class="sep">|</span>April 2026
+    </div>
+  </div>
+  <div class="header-badge">ZoomInfo Ready</div>
+</div>
+
+<div class="page">
+
+  <div class="page-eyebrow">Initiative 1 — Hospital District Outreach</div>
+  <div class="page-title">ZoomInfo Contact<br>Lookup Guide</div>
+  <div class="page-meta">
+    84 hospital district targets &nbsp;·&nbsp; 3 roles per hospital &nbsp;·&nbsp; Search by hospital name in ZoomInfo, filter by role title below
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="section-label">How to Use in ZoomInfo</div>
+  <div class="howto">
+    <div class="howto-step">
+      <div class="step-num">1</div>
+      <div class="step-title">Search by Company</div>
+      <div class="step-body">In ZoomInfo, go to <strong style="color:#ccc">Company Search</strong> and type the hospital name exactly as shown. For small rural hospitals, try variations — some may appear under a parent health system name or slightly different spelling.</div>
+    </div>
+    <div class="howto-step">
+      <div class="step-num">2</div>
+      <div class="step-title">Filter by Role</div>
+      <div class="step-body">Use the <strong style="color:#ccc">Contact</strong> filter within the company to find the roles listed. Start with the <span style="color:var(--teal)">green (Primary)</span> role first. If not found, move to <span style="color:var(--blue)">blue (Clinical)</span>, then <span style="color:var(--orange)">orange (Program)</span>.</div>
+    </div>
+    <div class="howto-step">
+      <div class="step-num">3</div>
+      <div class="step-title">Log in Salesforce / CRM</div>
+      <div class="step-body">Once found, export the contact or log it directly. For small rural hospital districts, the CEO or Administrator is often also the budget owner — prioritize them above all other titles.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Role priority for WHOOP:</strong> At small rural hospital districts (most under 50 beds), the <strong>CEO / Hospital Administrator</strong> is almost always the budget decision maker AND the person who submits the HHSC scope of work. They are your #1 contact. The <strong>CMO / Medical Director</strong> is your clinical champion — they care most about outcomes. The <strong>Director of Community Health or Population Health</strong> is the program owner who will actually run a WHOOP initiative day-to-day. If you can only find one contact, find the CEO.
+  </div>
+
+  <div class="role-legend">
+    <div class="legend-item"><div class="legend-dot dot-1"></div> Primary — Budget &amp; Decision Maker</div>
+    <div class="legend-item"><div class="legend-dot dot-2"></div> Clinical — Champion &amp; Outcomes Owner</div>
+    <div class="legend-item"><div class="legend-dot dot-3"></div> Program — Day-to-Day Implementation</div>
+  </div>
+
+  <div class="search-bar">
+    <input class="search-input" id="searchInput" type="text" placeholder="Search hospital, city, or county…" oninput="filterTable()">
+    <span id="result-count">84 hospitals shown</span>
+  </div>
+
+  <div class="table-wrap">
+    <table id="outreachTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Hospital Name (Search in ZoomInfo)</th>
+          <th>City</th>
+          <th>County</th>
+          <th>Primary Role to Find</th>
+          <th>Clinical Role to Find</th>
+          <th>Program Role to Find</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr><td>1</td><td class="hospital-name">Ballinger Memorial Hospital District</td><td>Ballinger</td><td>Runnels</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Wellness Director</span></td></tr>
+        <tr><td>2</td><td class="hospital-name">Big Bend Regional Medical Center</td><td>Alpine</td><td>Brewster</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>3</td><td class="hospital-name">Bowie Memorial Hospital</td><td>Bowie</td><td>Montague</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Wellness Director</span></td></tr>
+        <tr><td>4</td><td class="hospital-name">Brownfield Regional Medical Center</td><td>Brownfield</td><td>Terry</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Nursing Officer / Director of Nursing</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>5</td><td class="hospital-name">Childress Regional Medical Center</td><td>Childress</td><td>Childress</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Wellness Director</span></td></tr>
+        <tr><td>6</td><td class="hospital-name">Clay County Memorial Hospital</td><td>Henrietta</td><td>Clay</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>7</td><td class="hospital-name">Cochran Memorial Hospital</td><td>Morton</td><td>Cochran</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator / Wellness</span></td></tr>
+        <tr><td>8</td><td class="hospital-name">Coleman County Medical Center</td><td>Coleman</td><td>Coleman</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>9</td><td class="hospital-name">Collingsworth General Hospital</td><td>Wellington</td><td>Collingsworth</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>10</td><td class="hospital-name">Comanche County Medical Center</td><td>Comanche</td><td>Comanche</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Wellness Director</span></td></tr>
+        <tr><td>11</td><td class="hospital-name">Concho County Hospital</td><td>Eden</td><td>Concho</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>12</td><td class="hospital-name">Coon Memorial Hospital</td><td>Dalhart</td><td>Hartley</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>13</td><td class="hospital-name">Crane Memorial Hospital</td><td>Crane</td><td>Crane</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator / Wellness</span></td></tr>
+        <tr><td>14</td><td class="hospital-name">Crosbyton Clinic Hospital</td><td>Crosbyton</td><td>Crosby</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>15</td><td class="hospital-name">Culberson Hospital</td><td>Van Horn</td><td>Culberson</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>16</td><td class="hospital-name">D M Cogdell Memorial Hospital</td><td>Snyder</td><td>Scurry</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>17</td><td class="hospital-name">Dimmit County Memorial Hospital</td><td>Carrizo Springs</td><td>Dimmit</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Wellness Director</span></td></tr>
+        <tr><td>18</td><td class="hospital-name">Eastland Memorial Hospital</td><td>Eastland</td><td>Eastland</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>19</td><td class="hospital-name">El Campo Memorial Hospital</td><td>El Campo</td><td>Wharton</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>20</td><td class="hospital-name">Falls Community Hospital</td><td>Marlin</td><td>Falls</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Wellness Director</span></td></tr>
+        <tr><td>21</td><td class="hospital-name">Fisher County Hospital District</td><td>Rotan</td><td>Fisher</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>22</td><td class="hospital-name">Golden Plains Community Hospital</td><td>Borger</td><td>Hutchinson</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>23</td><td class="hospital-name">Graham Regional Medical Center</td><td>Graham</td><td>Young</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Wellness Director</span></td></tr>
+        <tr><td>24</td><td class="hospital-name">Hamilton General Hospital</td><td>Hamilton</td><td>Hamilton</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator / Wellness</span></td></tr>
+        <tr><td>25</td><td class="hospital-name">Hamilton Hospital</td><td>Olney</td><td>Young</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>26</td><td class="hospital-name">Hansford County Hospital</td><td>Spearman</td><td>Hansford</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>27</td><td class="hospital-name">Hardeman County Memorial Hospital</td><td>Quanah</td><td>Hardeman</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>28</td><td class="hospital-name">Haskell Memorial Hospital</td><td>Haskell</td><td>Haskell</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>29</td><td class="hospital-name">Heart of Texas Memorial Hospital</td><td>Brady</td><td>McCulloch</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>30</td><td class="hospital-name">Hemphill County Hospital</td><td>Canadian</td><td>Hemphill</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>31</td><td class="hospital-name">Hereford Regional Medical Center</td><td>Hereford</td><td>Deaf Smith</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>32</td><td class="hospital-name">Hill Country Memorial Hospital</td><td>Fredericksburg</td><td>Gillespie</td><td><span class="role-chip chip-1">CEO / President &amp; CEO</span></td><td><span class="role-chip chip-2">Chief Medical Officer / VP Medical Affairs</span></td><td><span class="role-chip chip-3">Director of Community Health / Population Health</span></td></tr>
+        <tr><td>33</td><td class="hospital-name">Hopkins County Memorial Hospital</td><td>Sulphur Springs</td><td>Hopkins</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>34</td><td class="hospital-name">Jackson Healthcare Center</td><td>Edna</td><td>Jackson</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator / Wellness</span></td></tr>
+        <tr><td>35</td><td class="hospital-name">Kimble Hospital</td><td>Junction</td><td>Kimble</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>36</td><td class="hospital-name">Knox County Hospital</td><td>Knox City</td><td>Knox</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>37</td><td class="hospital-name">Lamb Healthcare Center</td><td>Littlefield</td><td>Lamb</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>38</td><td class="hospital-name">Lavaca Medical Center</td><td>Hallettsville</td><td>Lavaca</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Wellness Director</span></td></tr>
+        <tr><td>39</td><td class="hospital-name">Limestone Medical Center</td><td>Groesbeck</td><td>Limestone</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>40</td><td class="hospital-name">Llano Memorial Hospital</td><td>Llano</td><td>Llano</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>41</td><td class="hospital-name">Lynn County Hospital District</td><td>Tahoka</td><td>Lynn</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>42</td><td class="hospital-name">Martin County Hospital District</td><td>Stanton</td><td>Martin</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>43</td><td class="hospital-name">Matagorda General Hospital</td><td>Bay City</td><td>Matagorda</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>44</td><td class="hospital-name">McCamey Hospital</td><td>McCamey</td><td>Upton</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>45</td><td class="hospital-name">Medical Arts Hospital</td><td>Lamesa</td><td>Dawson</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>46</td><td class="hospital-name">Memorial Hospital — Seminole</td><td>Seminole</td><td>Gaines</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>47</td><td class="hospital-name">Memorial Hospital — Gonzales</td><td>Gonzales</td><td>Gonzales</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Wellness Director</span></td></tr>
+        <tr><td>48</td><td class="hospital-name">Memorial Hospital — Dumas</td><td>Dumas</td><td>Moore</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>49</td><td class="hospital-name">Memorial Medical Center — Port Lavaca</td><td>Port Lavaca</td><td>Calhoun</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>50</td><td class="hospital-name">Memorial Medical Center — San Augustine</td><td>San Augustine</td><td>San Augustine</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>51</td><td class="hospital-name">Mitchell County Hospital</td><td>Colorado City</td><td>Mitchell</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>52</td><td class="hospital-name">Muleshoe Area Medical Center</td><td>Muleshoe</td><td>Bailey</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>53</td><td class="hospital-name">North Runnels Hospital</td><td>Winters</td><td>Runnels</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>54</td><td class="hospital-name">Ochiltree General Hospital</td><td>Perryton</td><td>Ochiltree</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>55</td><td class="hospital-name">Otto Kaiser Memorial Hospital</td><td>Kenedy</td><td>Karnes</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>56</td><td class="hospital-name">Palo Pinto General Hospital</td><td>Mineral Wells</td><td>Palo Pinto</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>57</td><td class="hospital-name">Pampa Regional Medical Center</td><td>Pampa</td><td>Gray</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>58</td><td class="hospital-name">Parkview Hospital</td><td>Wheeler</td><td>Wheeler</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>59</td><td class="hospital-name">Parmer County Community Hospital</td><td>Friona</td><td>Parmer</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>60</td><td class="hospital-name">Pecos County Memorial Hospital</td><td>Fort Stockton</td><td>Pecos</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>61</td><td class="hospital-name">Permian Regional Medical Center</td><td>Andrews</td><td>Andrews</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>62</td><td class="hospital-name">Plains Memorial Hospital</td><td>Dimmitt</td><td>Castro</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>63</td><td class="hospital-name">Rankin County Hospital District</td><td>Rankin</td><td>Upton</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>64</td><td class="hospital-name">Reagan Memorial Hospital</td><td>Big Lake</td><td>Reagan</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>65</td><td class="hospital-name">Reeves County Hospital</td><td>Pecos</td><td>Reeves</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>66</td><td class="hospital-name">Refugio County Memorial Hospital District</td><td>Refugio</td><td>Refugio</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>67</td><td class="hospital-name">Rolling Plains Memorial Hospital</td><td>Sweetwater</td><td>Nolan</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>68</td><td class="hospital-name">Sabine County Hospital</td><td>Hemphill</td><td>Sabine</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>69</td><td class="hospital-name">Schleicher County Medical Center</td><td>Eldorado</td><td>Schleicher</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>70</td><td class="hospital-name">Seymour Hospital</td><td>Seymour</td><td>Baylor</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>71</td><td class="hospital-name">Shamrock General Hospital</td><td>Shamrock</td><td>Wheeler</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>72</td><td class="hospital-name">Starr County Memorial Hospital</td><td>Rio Grande City</td><td>Starr</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>73</td><td class="hospital-name">Stephens Memorial Hospital</td><td>Breckenridge</td><td>Stephens</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>74</td><td class="hospital-name">Stonewall Memorial Hospital</td><td>Aspermont</td><td>Stonewall</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>75</td><td class="hospital-name">Swisher Memorial Hospital</td><td>Tulia</td><td>Swisher</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>76</td><td class="hospital-name">Throckmorton County Memorial Hospital</td><td>Throckmorton</td><td>Throckmorton</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>77</td><td class="hospital-name">Tyler County Hospital</td><td>Woodville</td><td>Tyler</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>78</td><td class="hospital-name">Uvalde Memorial Hospital</td><td>Uvalde</td><td>Uvalde</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>79</td><td class="hospital-name">Val Verde Regional Medical Center</td><td>Del Rio</td><td>Val Verde</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>80</td><td class="hospital-name">W J Mangold Memorial Hospital</td><td>Lockney</td><td>Floyd</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>81</td><td class="hospital-name">Ward Memorial Hospital</td><td>Monahans</td><td>Ward</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>82</td><td class="hospital-name">Wilbarger General Hospital</td><td>Vernon</td><td>Wilbarger</td><td><span class="role-chip chip-1">CEO / Hospital Administrator</span></td><td><span class="role-chip chip-2">Chief Medical Officer / Medical Director</span></td><td><span class="role-chip chip-3">Community Health Director / Population Health</span></td></tr>
+        <tr><td>83</td><td class="hospital-name">Winkler County Memorial Hospital</td><td>Kermit</td><td>Winkler</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+        <tr><td>84</td><td class="hospital-name">Yoakum County Hospital</td><td>Denver City</td><td>Yoakum</td><td><span class="role-chip chip-1">CEO / Hospital Administrator / Executive Director</span></td><td><span class="role-chip chip-2">Medical Director / Chief of Staff</span></td><td><span class="role-chip chip-3">Community Health Coordinator</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Jessie Spada &nbsp;·&nbsp; April 9, 2026 &nbsp;·&nbsp; CONFIDENTIAL
+  </div>
+
+</div>
+
+<script>
+function filterTable() {
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  const rows = document.querySelectorAll('#tableBody tr');
+  let count = 0;
+  rows.forEach(row => {
+    const match = !query || row.textContent.toLowerCase().includes(query);
+    row.classList.toggle('hidden', !match);
+    if (match) count++;
+  });
+  document.getElementById('result-count').textContent = count + ' hospitals shown';
+}
+</script>
+</body>
+</html>
