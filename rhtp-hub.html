@@ -1,0 +1,1029 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WHOOP — RHT State Command Center</title>
+  <style>
+    :root {
+      --bg:        #0d1215;
+      --bg-card:   rgba(255,255,255,0.03);
+      --bg-card2:  rgba(255,255,255,0.05);
+      --text:      #ffffff;
+      --muted:     #aaaaaa;
+      --meta:      #666666;
+      --rule:      rgba(255,255,255,0.08);
+      --teal:      #00F19F;
+      --blue:      #0093E7;
+      --orange:    #ffb347;
+      --red:       #ff5a5a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header-bar {
+      background: #000;
+      border-bottom: 1px solid var(--rule);
+      padding: 0 40px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .header-left { display: flex; align-items: center; }
+    .header-wordmark {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+      margin-right: 16px;
+    }
+    .header-pipe {
+      width: 1px; height: 14px;
+      background: rgba(255,255,255,0.15);
+      margin-right: 16px;
+    }
+    .header-meta {
+      font-size: 10px;
+      color: var(--meta);
+      letter-spacing: 0.08em;
+    }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid rgba(255,90,90,0.4);
+      background: rgba(255,90,90,0.07);
+      padding: 4px 10px;
+      border-radius: 2px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.6; }
+    }
+
+    /* ── Page ── */
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 44px 40px 80px;
+    }
+
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-size: 34px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .page-sub {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    .rule { height: 1px; background: var(--rule); margin: 32px 0; }
+
+    /* ── URGENT ACTIONS BANNER ── */
+    .urgent-banner {
+      border: 1px solid rgba(255,90,90,0.35);
+      background: rgba(255,90,90,0.05);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 32px 0 40px;
+    }
+    .urgent-banner-header {
+      background: rgba(255,90,90,0.1);
+      border-bottom: 1px solid rgba(255,90,90,0.2);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .urgent-banner-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .urgent-banner-sub {
+      font-size: 11px;
+      color: rgba(255,90,90,0.6);
+    }
+    .urgent-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .urgent-col {
+      padding: 22px 24px;
+      border-right: 1px solid rgba(255,90,90,0.12);
+    }
+    .urgent-col:last-child { border-right: none; }
+    .urgent-col-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,90,90,0.6);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,90,90,0.1);
+    }
+    .urgent-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .urgent-item:last-child { margin-bottom: 0; }
+    .urgent-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .urgent-dot.orange { background: var(--orange); }
+    .urgent-text {
+      font-size: 12.5px;
+      color: #ccc;
+      line-height: 1.55;
+    }
+    .urgent-text strong { color: #fff; }
+    .urgent-text a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .urgent-text a:hover { text-decoration: underline; }
+
+    /* ── State Tabs ── */
+    .tab-bar {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 36px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--meta);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 12px 22px;
+      cursor: pointer;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn:hover { color: #ccc; }
+    .tab-btn.active {
+      color: var(--teal);
+      border-bottom-color: var(--teal);
+    }
+
+    /* ── Tab content ── */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── Overview grid (all states) ── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .state-overview-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .state-overview-card:hover { border-color: rgba(0,241,159,0.25); }
+    .state-overview-header {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .state-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .state-program {
+      font-size: 11px;
+      color: #555;
+    }
+    .state-award {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+      text-align: right;
+    }
+    .state-award-label {
+      font-size: 9px;
+      color: var(--meta);
+      text-align: right;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .state-overview-body { padding: 18px 22px; }
+    .state-status-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .status-pill {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+    .sp-red    { background: rgba(255,90,90,0.12);  color: var(--red);    border: 1px solid rgba(255,90,90,0.3); }
+    .sp-teal   { background: rgba(0,241,159,0.10);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .sp-orange { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .sp-blue   { background: rgba(0,147,231,0.10);  color: var(--blue);   border: 1px solid rgba(0,147,231,0.25); }
+    .state-desc {
+      font-size: 12.5px;
+      color: #888;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .state-doc-links {
+      display: flex;
+      gap: 10px;
+    }
+    .doc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 3px;
+      transition: background 0.15s;
+    }
+    .doc-link.por {
+      background: rgba(0,241,159,0.08);
+      color: var(--teal);
+      border: 1px solid rgba(0,241,159,0.2);
+    }
+    .doc-link.por:hover { background: rgba(0,241,159,0.14); }
+    .doc-link.gtm {
+      background: rgba(0,147,231,0.08);
+      color: var(--blue);
+      border: 1px solid rgba(0,147,231,0.2);
+    }
+    .doc-link.gtm:hover { background: rgba(0,147,231,0.14); }
+    .doc-arrow { font-size: 13px; }
+
+    /* ── Individual state view ── */
+    .state-hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 32px;
+    }
+    .state-hero-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    .state-hero-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .state-hero-meta {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .state-hero-award {
+      text-align: right;
+    }
+    .state-hero-number {
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .state-hero-number-label {
+      font-size: 10px;
+      color: var(--meta);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    /* ── Stat row ── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .stat-cell {
+      background: var(--bg-card);
+      padding: 20px 22px;
+      border-right: 1px solid var(--rule);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-number.blue   { color: var(--blue); }
+    .stat-number.white  { color: #fff; }
+    .stat-number.orange { color: var(--orange); }
+    .stat-desc { font-size: 11.5px; color: #777; line-height: 1.5; }
+
+    /* ── Document cards ── */
+    .doc-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .doc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 24px 26px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .doc-card.por-card:hover {
+      border-color: rgba(0,241,159,0.3);
+      background: rgba(0,241,159,0.03);
+    }
+    .doc-card.gtm-card:hover {
+      border-color: rgba(0,147,231,0.3);
+      background: rgba(0,147,231,0.03);
+    }
+    .doc-card-type {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .por-card .doc-card-type { color: var(--teal); }
+    .gtm-card .doc-card-type { color: var(--blue); }
+    .doc-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .doc-card-desc {
+      font-size: 12.5px;
+      color: #777;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .doc-card-cta {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .por-card .doc-card-cta { color: var(--teal); }
+    .gtm-card .doc-card-cta { color: var(--blue); }
+
+    /* ── Initiative summary ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 14px;
+    }
+    .init-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .init-row {
+      display: grid;
+      grid-template-columns: 28px 200px 1fr 100px;
+      align-items: center;
+      gap: 16px;
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--rule);
+      background: var(--bg-card);
+    }
+    .init-row:last-child { border-bottom: none; }
+    .init-row:nth-child(even) { background: rgba(255,255,255,0.015); }
+    .init-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--meta);
+    }
+    .init-name {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #ddd;
+    }
+    .init-desc {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.45;
+    }
+    .init-fit {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: right;
+    }
+    .fit-primary  { color: var(--teal); }
+    .fit-secondary { color: var(--orange); }
+    .fit-watch    { color: #555; }
+
+    /* ── State-level urgent actions ── */
+    .state-urgent {
+      border: 1px solid rgba(255,90,90,0.3);
+      background: rgba(255,90,90,0.04);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+    .state-urgent-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+    }
+    .state-urgent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sui {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .sui-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .sui-text {
+      font-size: 13px;
+      color: #ccc;
+      line-height: 1.55;
+    }
+    .sui-text strong { color: #fff; }
+    .sui-text a { color: var(--blue); text-decoration: none; }
+    .sui-text a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    .page-footer {
+      font-size: 10px;
+      color: #2a2a2a;
+      letter-spacing: 0.08em;
+      text-align: right;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>CMS Rural Health Transformation<span class="sep">|</span>State Command Center<span class="sep">|</span>Updated April 10, 2026
+    </div>
+  </div>
+  <div class="header-badge">8 Actions Due This Week</div>
+</div>
+
+
+<div class="page">
+
+  <!-- ── PAGE TITLE ── -->
+  <div class="page-eyebrow">CMS Rural Health Transformation Program — $50B National</div>
+  <div class="page-title">State Command Center</div>
+  <div class="page-sub">All active state opportunities · Plan of Record + GTM Strategy per state · Critical actions tracked</div>
+
+
+  <!-- ── URGENT ACTIONS BANNER ── -->
+  <div class="urgent-banner">
+    <div class="urgent-banner-header">
+      <div class="urgent-banner-title">Critical Actions — Due This Week</div>
+      <div class="urgent-banner-sub">Week of April 10, 2026 — Act before RFP windows close</div>
+    </div>
+    <div class="urgent-grid">
+
+      <!-- Alaska Column -->
+      <div class="urgent-col">
+        <div class="urgent-col-label">Alaska · $272M Award</div>
+
+        <div class="urgent-item">
+          <div class="urgent-dot"></div>
+          <div class="urgent-text">
+            <strong>Email RHTP@alaska.gov today</strong> — introduce WHOOP as a Spark Technology partner and request a meeting about Initiative 6 procurement. The Rural Technology Catalyst Fund RFP has not launched. This is the window to shape it before it goes to market.
+          </div>
+        </div>
+
+        <div class="urgent-item">
+          <div class="urgent-dot"></div>
+          <div class="urgent-text">
+            <strong>Email <a href="mailto:rhtp@alaskacf.org">rhtp@alaskacf.org</a></strong> — introduce WHOOP to the Alaska Community Foundation. ACF administers all 1,800+ subawards and is the gateway to every funded org in the state. Ask about Initiative 3 and 6 awardees.
+          </div>
+        </div>
+
+        <div class="urgent-item">
+          <div class="urgent-dot orange"></div>
+          <div class="urgent-text">
+            <strong>Sign up for RHTP program alerts</strong> at health.alaska.gov/rhtp — any new RFP, solicitation, or funding round will be announced here first.
+          </div>
+        </div>
+
+        <div class="urgent-item">
+          <div class="urgent-dot orange"></div>
+          <div class="urgent-text">
+            <strong>Identify 5–10 rural hospitals recruiting under Initiative 5</strong> — these are the fastest closes using the existing WHOOP Unite motion. Start outreach this week.
+          </div>
+        </div>
+      </div>
+
+      <!-- Texas Column -->
+      <div class="urgent-col">
+        <div class="urgent-col-label">Texas · $281M Award</div>
+
+        <div class="urgent-item">
+          <div class="urgent-dot"></div>
+          <div class="urgent-text">
+            <strong>Email Anthony Hawley at HHSC</strong> — <a href="mailto:anthony.hawley@hhs.texas.gov">anthony.hawley@hhs.texas.gov</a> — introduce WHOOP and request a call about Initiative 2 remote monitoring scope. Initiative 2 RFP is in planning. No contractor named. This is the pre-market window.
+          </div>
+        </div>
+
+        <div class="urgent-item">
+          <div class="urgent-dot"></div>
+          <div class="urgent-text">
+            <strong>Begin mapping the ~80 eligible rural hospital districts</strong> — counties with population ≤68,750. These are the Initiative 1 direct outreach targets, each receiving ~$750K for chronic disease programming.
+          </div>
+        </div>
+
+        <div class="urgent-item">
+          <div class="urgent-dot orange"></div>
+          <div class="urgent-text">
+            <strong>Identify Texas ACOs and CINs</strong> actively preparing Initiative 2 bids — pitch WHOOP as the named consumer wearable component in their remote monitoring proposal before the RFP drops.
+          </div>
+        </div>
+
+        <div class="urgent-item">
+          <div class="urgent-dot orange"></div>
+          <div class="urgent-text">
+            <strong>Launch Initiative 4 workforce outreach</strong> — $98.9M for rural healthcare worker recruitment and retention. Repackage WHOOP Unite for the rural provider burnout use case. Fastest path to a signed deal.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ── STATE TABS ── -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('all')">All States</button>
+    <button class="tab-btn" onclick="showTab('alaska')">Alaska</button>
+    <button class="tab-btn" onclick="showTab('texas')">Texas</button>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       TAB: ALL STATES
+  ══════════════════════════════════════ -->
+  <div id="tab-all" class="tab-content active">
+
+    <div class="section-label">Active State Opportunities — 2 States · $553M Total</div>
+    <div class="overview-grid">
+
+      <!-- Alaska Card -->
+      <div class="state-overview-card" onclick="showTab('alaska')">
+        <div class="state-overview-header">
+          <div>
+            <div class="state-name">Alaska</div>
+            <div class="state-program">Rural Health Transformation Program</div>
+          </div>
+          <div>
+            <div class="state-award">$272M</div>
+            <div class="state-award-label">5-Year Award</div>
+          </div>
+        </div>
+        <div class="state-overview-body">
+          <div class="state-status-row">
+            <span class="status-pill sp-red">RFP Not Launched</span>
+            <span class="status-pill sp-teal">Wearables Named in Initiative</span>
+            <span class="status-pill sp-orange">Awards Going Out Now</span>
+          </div>
+          <div class="state-desc">
+            Spark Technology &amp; Innovation (Init. 6) explicitly names consumer wearables. ~1,800 orgs receiving Spring 2026 awards. Targeted Innovation statewide pathway available — one DOH deal reaches all funded orgs. $27.2M tech cap with no vendor selected.
+          </div>
+          <div class="state-doc-links">
+            <a class="doc-link por" href="https://jessiespada-dotcom.github.io/my-first-repo/alaska-rht-por.html" target="_blank" onclick="event.stopPropagation()">
+              <span>Plan of Record</span><span class="doc-arrow">↗</span>
+            </a>
+            <a class="doc-link gtm" href="https://jessiespada-dotcom.github.io/my-first-repo/alaska-gtm-strategy.html" target="_blank" onclick="event.stopPropagation()">
+              <span>GTM Strategy</span><span class="doc-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Texas Card -->
+      <div class="state-overview-card" onclick="showTab('texas')">
+        <div class="state-overview-header">
+          <div>
+            <div class="state-name">Texas</div>
+            <div class="state-program">Rural Texas Strong: Supporting Health and Wellness</div>
+          </div>
+          <div>
+            <div class="state-award">$281M</div>
+            <div class="state-award-label">5-Year Award</div>
+          </div>
+        </div>
+        <div class="state-overview-body">
+          <div class="state-status-row">
+            <span class="status-pill sp-red">Initiative 2 RFP Pending</span>
+            <span class="status-pill sp-teal">~80 Hospital Targets</span>
+            <span class="status-pill sp-blue">BP1 Active</span>
+          </div>
+          <div class="state-desc">
+            Maximum national award. Initiative 1 flows $116M to ~80 rural hospital districts (~$750K each) for chronic disease outcomes. Initiative 2 (remote monitoring) has no contractor selected — RFP in planning. Initiative 4 ($98.9M workforce) is fastest close via WHOOP Unite.
+          </div>
+          <div class="state-doc-links">
+            <a class="doc-link por" href="https://jessiespada-dotcom.github.io/my-first-repo/texas-rht-por.html" target="_blank" onclick="event.stopPropagation()">
+              <span>Plan of Record</span><span class="doc-arrow">↗</span>
+            </a>
+            <a class="doc-link gtm" href="https://jessiespada-dotcom.github.io/my-first-repo/texas-gtm-strategy.html" target="_blank" onclick="event.stopPropagation()">
+              <span>GTM Strategy</span><span class="doc-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       TAB: ALASKA
+  ══════════════════════════════════════ -->
+  <div id="tab-alaska" class="tab-content">
+
+    <div class="state-hero">
+      <div>
+        <div class="state-hero-eyebrow">CMS Rural Health Transformation Program — Alaska</div>
+        <div class="state-hero-title">Alaska Department of Health</div>
+        <div class="state-hero-meta">
+          Budget Period 1: Dec 29, 2025 – Oct 30, 2026<br>
+          Administrator: Alaska Community Foundation (ACF)<br>
+          Program: Alaska Rural Health Transformation Program<br>
+          Contact: <a href="mailto:RHTP@alaska.gov" style="color:var(--blue);text-decoration:none;">RHTP@alaska.gov</a> &nbsp;·&nbsp; <a href="mailto:rhtp@alaskacf.org" style="color:var(--blue);text-decoration:none;">rhtp@alaskacf.org</a>
+        </div>
+      </div>
+      <div class="state-hero-award">
+        <div class="state-hero-number">$272M</div>
+        <div class="state-hero-number-label">5-Year CMS Award</div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-eyebrow">Spark Tech Cap<br>(WHOOP Primary Lane)</div>
+        <div class="stat-number">$27M</div>
+        <div class="stat-desc">Init. 6 explicitly names consumer wearables. No vendor selected. No RFP launched.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-eyebrow">LOI Orgs<br>Being Funded Now</div>
+        <div class="stat-number white">1,800</div>
+        <div class="stat-desc">Awards going out Spring 2026. Each org needs a technology vendor immediately.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-eyebrow">BP1 Obligation<br>Deadline</div>
+        <div class="stat-number orange">Oct 30</div>
+        <div class="stat-desc">Funded orgs must obligate BP1 funds by Oct 30, 2026 or risk federal recapture. Urgency is real.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-eyebrow">Statewide Deploy<br>Pathway</div>
+        <div class="stat-number blue">1</div>
+        <div class="stat-desc">Targeted Innovation pathway allows one DOH-level deal to reach all 1,800+ funded orgs simultaneously.</div>
+      </div>
+    </div>
+
+    <!-- Urgent Actions -->
+    <div class="state-urgent">
+      <div class="state-urgent-label">Critical Actions — This Week</div>
+      <div class="state-urgent-list">
+        <div class="sui">
+          <div class="sui-dot"></div>
+          <div class="sui-text"><strong>Email <a href="mailto:RHTP@alaska.gov">RHTP@alaska.gov</a> today</strong> — introduce WHOOP as a Spark Technology and Innovation partner. Request a meeting about Initiative 6 procurement and the Rural Technology Catalyst Fund before any RFP language is finalized.</div>
+        </div>
+        <div class="sui">
+          <div class="sui-dot"></div>
+          <div class="sui-text"><strong>Email <a href="mailto:rhtp@alaskacf.org">rhtp@alaskacf.org</a></strong> — introduce WHOOP to the Alaska Community Foundation. ACF is the administrative gateway to all 1,800+ funded organizations. Request an introduction to Initiative 3 and Initiative 6 award recipients.</div>
+        </div>
+        <div class="sui">
+          <div class="sui-dot" style="background:var(--orange)"></div>
+          <div class="sui-text"><strong>Sign up for program alerts</strong> at health.alaska.gov/rhtp — any new solicitation, RFP, or LOI window will be announced here first. Access RHTP Impacts Webinar Series recordings to surface program contacts inside DOH.</div>
+        </div>
+        <div class="sui">
+          <div class="sui-dot" style="background:var(--orange)"></div>
+          <div class="sui-text"><strong>Identify 5–10 Initiative 5 workforce targets</strong> — rural hospitals and health systems actively recruiting providers under 5-year service commitments. Launch WHOOP Unite outreach this week using the existing enterprise motion.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documents -->
+    <div class="section-label">Strategy Documents</div>
+    <div class="doc-cards">
+      <a class="doc-card por-card" href="https://jessiespada-dotcom.github.io/my-first-repo/alaska-rht-por.html" target="_blank">
+        <div class="doc-card-type">Plan of Record</div>
+        <div class="doc-card-title">Alaska RHTP — What We Know</div>
+        <div class="doc-card-desc">Full award breakdown, all 6 initiative descriptions, WHOOP fit analysis by initiative, federal funding caps, key contacts, and program structure. The source of truth on Alaska's $272M program.</div>
+        <div class="doc-card-cta">Open Plan of Record ↗</div>
+      </a>
+      <a class="doc-card gtm-card" href="https://jessiespada-dotcom.github.io/my-first-repo/alaska-gtm-strategy.html" target="_blank">
+        <div class="doc-card-type">Go-To-Market Strategy</div>
+        <div class="doc-card-title">Alaska RHTP — How We Win</div>
+        <div class="doc-card-desc">Three-plan GTM strategy: Plan A (DOH Targeted Innovation statewide partnership), Plan B (1,800 LOI org direct outreach via ACF), Plan C (WHOOP Unite workforce entry). Side-by-side comparison and 30/60/90 day action plan.</div>
+        <div class="doc-card-cta">Open GTM Strategy ↗</div>
+      </a>
+    </div>
+
+    <!-- Initiatives -->
+    <div class="section-label">Initiative Map — WHOOP Fit</div>
+    <div class="init-list">
+      <div class="init-row">
+        <div class="init-num">6</div>
+        <div class="init-name">Spark Technology &amp; Innovation</div>
+        <div class="init-desc">Explicitly names consumer wearables and digital devices. Rural Technology Catalyst Fund = competitive procurement for emerging health tech. No vendor selected. ~$27.2M cap.</div>
+        <div class="init-fit fit-primary">Primary</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">3</div>
+        <div class="init-name">Healthy Communities</div>
+        <div class="init-desc">Calls for "mobile apps, wearable devices, and patient portals" for chronic disease self-management. ~1,800 funded orgs need a wearable vendor now.</div>
+        <div class="init-fit fit-primary">Primary</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">5</div>
+        <div class="init-name">Strengthen Workforce</div>
+        <div class="init-desc">5-year service commitments for rural providers. WHOOP Unite as the retention and recovery benefit for providers in remote communities.</div>
+        <div class="init-fit fit-secondary">Secondary</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">2</div>
+        <div class="init-name">Health Care Access</div>
+        <div class="init-desc">Remote monitoring and consumer-facing digital health tools for expanded specialty and primary care access.</div>
+        <div class="init-fit fit-secondary">Secondary</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">1</div>
+        <div class="init-name">Healthy Beginnings</div>
+        <div class="init-desc">Maternal and child health. Remote monitoring technology for high-risk pregnancies off the road system.</div>
+        <div class="init-fit fit-watch">Watch</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">4</div>
+        <div class="init-name">Pay for Value: Fiscal Sustainability</div>
+        <div class="init-desc">Value-based care and alternative payment models. WHOOP as the outcomes monitoring layer enabling quality metric reporting.</div>
+        <div class="init-fit fit-watch">Watch</div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       TAB: TEXAS
+  ══════════════════════════════════════ -->
+  <div id="tab-texas" class="tab-content">
+
+    <div class="state-hero">
+      <div>
+        <div class="state-hero-eyebrow">CMS Rural Health Transformation Program — Texas</div>
+        <div class="state-hero-title">Texas Health &amp; Human Services Commission (HHSC)</div>
+        <div class="state-hero-meta">
+          Award #: RHTCMS332068-01-03 &nbsp;·&nbsp; Budget Period 1: Dec 29, 2025 – Oct 30, 2026<br>
+          Authorized: Big Beautiful Bill Act of 2025, §71401 &nbsp;·&nbsp; Eligibility: Counties ≤68,750 population<br>
+          Key Contact: <a href="mailto:anthony.hawley@hhs.texas.gov" style="color:var(--blue);text-decoration:none;">Anthony Hawley</a> — Director, Rural Texas Strong Initiative &nbsp;·&nbsp; 202-744-1079
+        </div>
+      </div>
+      <div class="state-hero-award">
+        <div class="state-hero-number">$281M</div>
+        <div class="state-hero-number-label">5-Year CMS Award (Maximum)</div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-eyebrow">Initiative 1<br>Hospital Subawards</div>
+        <div class="stat-number">$116M</div>
+        <div class="stat-desc">~80 rural hospital districts receiving ~$750K each for chronic disease and wellness programming.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-eyebrow">Direct Hospital<br>Outreach Targets</div>
+        <div class="stat-number white">~80</div>
+        <div class="stat-desc">Each hospital must show chronic disease outcomes for pay-for-performance payouts in Years 4–5. WHOOP solves this.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-eyebrow">Initiative 2<br>Status</div>
+        <div class="stat-number orange">Open</div>
+        <div class="stat-desc">Remote monitoring RFP in procurement planning. No contractor named. No RFP launched. Pre-market window is now.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-eyebrow">Workforce Initiative</div>
+        <div class="stat-number blue">$98.9M</div>
+        <div class="stat-desc">Initiative 4 funds rural healthcare workforce recruitment and retention. Fastest close via WHOOP Unite.</div>
+      </div>
+    </div>
+
+    <!-- Urgent Actions -->
+    <div class="state-urgent">
+      <div class="state-urgent-label">Critical Actions — This Week</div>
+      <div class="state-urgent-list">
+        <div class="sui">
+          <div class="sui-dot"></div>
+          <div class="sui-text"><strong>Email Anthony Hawley at HHSC</strong> — <a href="mailto:anthony.hawley@hhs.texas.gov">anthony.hawley@hhs.texas.gov</a> — introduce WHOOP and request a call about Initiative 2 remote monitoring scope. The RFP is being planned now. Getting in before it drops is the entire game.</div>
+        </div>
+        <div class="sui">
+          <div class="sui-dot"></div>
+          <div class="sui-text"><strong>Begin mapping the ~80 eligible rural hospital districts</strong> — build a target list for Initiative 1 direct outreach. Each district has ~$750K for chronic disease programming and needs to show measurable outcomes by Years 4–5.</div>
+        </div>
+        <div class="sui">
+          <div class="sui-dot" style="background:var(--orange)"></div>
+          <div class="sui-text"><strong>Identify Texas ACOs and CINs</strong> preparing Initiative 2 bids — these organizations will be the prime contractors for remote monitoring. Pitch WHOOP as the named consumer wearable in their proposal stack before the RFP is published.</div>
+        </div>
+        <div class="sui">
+          <div class="sui-dot" style="background:var(--orange)"></div>
+          <div class="sui-text"><strong>Launch Initiative 4 workforce outreach</strong> — repackage WHOOP Unite for the rural healthcare provider burnout and retention use case. This is the fastest path to a signed deal using the existing enterprise motion. Target hospitals actively recruiting EMTs, CHWs, and primary care providers.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documents -->
+    <div class="section-label">Strategy Documents</div>
+    <div class="doc-cards">
+      <a class="doc-card por-card" href="https://jessiespada-dotcom.github.io/my-first-repo/texas-rht-por.html" target="_blank">
+        <div class="doc-card-type">Plan of Record</div>
+        <div class="doc-card-title">Texas RHT — What We Know</div>
+        <div class="doc-card-desc">Full award breakdown, all 6 initiative descriptions with dollar amounts, WHOOP fit analysis, key contacts (Hawley, Wood, Sato), and budget period structure. Award #RHTCMS332068 — $281.3M to HHSC.</div>
+        <div class="doc-card-cta">Open Plan of Record ↗</div>
+      </a>
+      <a class="doc-card gtm-card" href="https://jessiespada-dotcom.github.io/my-first-repo/texas-gtm-strategy.html" target="_blank">
+        <div class="doc-card-type">Go-To-Market Strategy</div>
+        <div class="doc-card-title">Texas RHT — How We Win</div>
+        <div class="doc-card-desc">Three-plan GTM strategy: Plan A (direct hospital district outreach), Plan B (HHSC state-level Initiative 2 partnership — recommended), Plan C (workforce entry via Initiative 4). Side-by-side comparison and 30/60/90 day action plan.</div>
+        <div class="doc-card-cta">Open GTM Strategy ↗</div>
+      </a>
+    </div>
+
+    <!-- Initiatives -->
+    <div class="section-label">Initiative Map — WHOOP Fit</div>
+    <div class="init-list">
+      <div class="init-row">
+        <div class="init-num">1</div>
+        <div class="init-name">Make Rural Texans Healthy Again</div>
+        <div class="init-desc">$116.25M to ~80 hospital districts. Pay-for-performance in Years 4–5 tied to reduced diabetes ED visits and increased disease management enrollment. WHOOP is the outcomes layer.</div>
+        <div class="init-fit fit-primary">Primary</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">2</div>
+        <div class="init-name">Technology Innovation</div>
+        <div class="init-desc">Remote patient monitoring, patient-facing consumer apps, technology-enabled access to care. No contractor. No RFP. Procurement planning active now.</div>
+        <div class="init-fit fit-primary">Primary</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">4</div>
+        <div class="init-name">Workforce Development</div>
+        <div class="init-desc">$98.9M for EMT, CHW, behavioral health, and primary care recruitment and retention. WHOOP Unite for rural provider wellness and burnout prevention.</div>
+        <div class="init-fit fit-secondary">Secondary</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">6</div>
+        <div class="init-name">Capital Equipment &amp; Infrastructure</div>
+        <div class="init-desc">$56.3M for equipment modernization. WHOOP devices may qualify as clinical monitoring equipment under a hospital's approved scope of work.</div>
+        <div class="init-fit fit-secondary">Secondary</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">3</div>
+        <div class="init-name">Technology Innovation (Ambient AI / Telehealth)</div>
+        <div class="init-desc">Ambient AI, telehealth hubs, maternal/behavioral health. No BP1 funding — RFP in development. WHOOP biometric data integrates into these workflows in Years 2–3.</div>
+        <div class="init-fit fit-watch">Watch</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">5</div>
+        <div class="init-name">Community Health &amp; Prevention</div>
+        <div class="init-desc">Preventive programming, nutrition, healthy lifestyles. WHOOP supports preventive health outcomes but not a direct procurement entry point.</div>
+        <div class="init-fit fit-watch">Watch</div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="page-footer">
+    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Jessie Spada &nbsp;·&nbsp; April 10, 2026 &nbsp;·&nbsp; CONFIDENTIAL
+  </div>
+
+</div><!-- /page -->
+
+
+<script>
+  function showTab(name) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      if (btn.textContent.toLowerCase().replace(/\s/g,'') === name ||
+          (name === 'all' && btn.textContent === 'All States')) {
+        btn.classList.add('active');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
