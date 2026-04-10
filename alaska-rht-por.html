@@ -1,0 +1,645 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Alaska RHTP — WHOOP Plan of Record</title>
+  <style>
+    :root {
+      --bg:        #0d1215;
+      --bg-card:   rgba(255,255,255,0.03);
+      --text:      #ffffff;
+      --muted:     #aaaaaa;
+      --meta:      #666666;
+      --rule:      rgba(255,255,255,0.08);
+      --teal:      #00F19F;
+      --blue:      #0093E7;
+      --orange:    #ffb347;
+      --red:       #ff5a5a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header-bar {
+      background: #000;
+      border-bottom: 1px solid var(--rule);
+      padding: 0 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .header-wordmark {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+      margin-right: 16px;
+    }
+    .header-pipe {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.15);
+      margin-right: 16px;
+    }
+    .header-meta {
+      font-size: 10px;
+      color: var(--meta);
+      letter-spacing: 0.08em;
+    }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid rgba(0,241,159,0.35);
+      background: rgba(0,241,159,0.06);
+      padding: 4px 9px;
+      border-radius: 2px;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+    }
+
+    /* ── Page header ── */
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-size: 38px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .page-meta {
+      font-size: 12px;
+      color: var(--meta);
+      letter-spacing: 0.04em;
+    }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+
+    .rule {
+      height: 1px;
+      background: var(--rule);
+      margin: 36px 0;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 16px;
+    }
+
+    /* ── Stat row ── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .stat-cell {
+      background: var(--bg-card);
+      padding: 24px 26px;
+      border-right: 1px solid var(--rule);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .stat-number.blue   { color: var(--blue); }
+    .stat-number.white  { color: #fff; }
+    .stat-number.orange { color: var(--orange); }
+    .stat-desc {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.55;
+    }
+
+    /* ── Narrative ── */
+    .narrative-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 20px;
+    }
+    .narrative-body {
+      font-size: 13.5px;
+      line-height: 1.85;
+      color: #bbb;
+    }
+    .narrative-body p { margin-bottom: 14px; }
+    .narrative-body p:last-child { margin-bottom: 0; }
+    .hl        { color: var(--teal);   font-weight: 600; }
+    .hl-orange { color: var(--orange); font-weight: 600; }
+    .hl-red    { color: var(--red);    font-weight: 600; }
+    .hl-white  { color: #fff;          font-weight: 600; }
+
+    /* ── Two-column ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      margin-bottom: 40px;
+    }
+    .col-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--meta);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 22px;
+    }
+    .entry-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .entry {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .entry-tag {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tag-teal   { background: rgba(0,241,159,0.10);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .tag-blue   { background: rgba(0,147,231,0.10);  color: var(--blue);   border: 1px solid rgba(0,147,231,0.25); }
+    .tag-orange { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .tag-red    { background: rgba(255,90,90,0.10);  color: var(--red);    border: 1px solid rgba(255,90,90,0.25); }
+    .entry-text {
+      font-size: 13px;
+      color: #bbb;
+      line-height: 1.6;
+    }
+    .entry-text strong { color: #e8e8e8; }
+
+    /* ── Contacts ── */
+    .contacts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 18px 20px;
+    }
+    .contact-role {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 6px;
+    }
+    .contact-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .contact-detail {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.7;
+    }
+    .contact-detail a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* ── Callout box ── */
+    .callout {
+      border-left: 3px solid var(--teal);
+      background: rgba(0,241,159,0.04);
+      border-radius: 0 4px 4px 0;
+      padding: 22px 26px;
+      margin-bottom: 40px;
+    }
+    .callout.orange {
+      border-left-color: var(--orange);
+      background: rgba(255,179,71,0.04);
+    }
+    .callout-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .callout.orange .callout-label { color: var(--orange); }
+    .callout-body {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #bbb;
+    }
+
+    /* ── Initiative table ── */
+    .init-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      font-size: 12.5px;
+    }
+    .init-table th {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .init-table td {
+      padding: 14px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: #bbb;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .init-table tr:last-child td { border-bottom: none; }
+    .init-table td:first-child { color: #fff; font-weight: 600; white-space: nowrap; }
+    .init-table td strong { color: #e8e8e8; }
+    .fit-high  { color: var(--teal);   font-weight: 700; font-size: 11px; }
+    .fit-med   { color: var(--orange); font-weight: 700; font-size: 11px; }
+    .fit-low   { color: #666;          font-weight: 700; font-size: 11px; }
+
+    /* ── Footer ── */
+    .page-footer {
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.08em;
+      text-align: right;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>CMS Rural Health Transformation<span class="sep">|</span>Alaska<span class="sep">|</span>Updated April 10, 2026
+    </div>
+  </div>
+  <div class="header-badge">Awards Beginning Spring 2026</div>
+</div>
+
+
+<div class="page">
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-eyebrow">CMS Rural Health Transformation Program — Alaska State Award</div>
+  <div class="page-title">Alaska Rural Health Transformation — Plan of Record</div>
+  <div class="page-meta">
+    Award: $272,174,855.72
+    <span class="dot">·</span>
+    Budget Period 1: Dec 29, 2025 – Oct 30, 2026
+    <span class="dot">·</span>
+    Recipient: Alaska Department of Health (DOH)
+    <span class="dot">·</span>
+    Administrator: Alaska Community Foundation (ACF)
+    <span class="dot">·</span>
+    Authorized: Big Beautiful Bill Act of 2025, §71401
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── STAT ROW ── -->
+  <div class="section-label">Summary</div>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Total Alaska Award<br>(Near-Maximum)</div>
+      <div class="stat-number">$272M</div>
+      <div class="stat-desc">Over 5 fiscal years via CMS cooperative agreement. One of the largest state awards in the national program, reflecting Alaska's vast rural and frontier geography.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Spark Technology<br>Initiative Cap</div>
+      <div class="stat-number blue">$27M</div>
+      <div class="stat-desc">Initiative 6 (Spark Technology &amp; Innovation) is capped at 10% of total award (~$27.2M). Explicitly names consumer wearables and digital devices. No vendor selected.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">LOIs Submitted<br>Mar 11, 2026</div>
+      <div class="stat-number white">1,800</div>
+      <div class="stat-desc">~1,800 organizations submitted Letters of Interest. Awards beginning Spring 2026. These funded orgs will immediately need technology vendors to execute their projects.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">WHOOP Entry<br>Points in Proposal</div>
+      <div class="stat-number">4</div>
+      <div class="stat-desc">Initiatives 3, 5, and 6 — plus the Targeted Innovation statewide pathway — each create a distinct lane for WHOOP at the state, provider, or population level.</div>
+    </div>
+  </div>
+
+
+  <!-- ── OPPORTUNITY NARRATIVE ── -->
+  <div class="narrative-title">The Opportunity</div>
+  <div class="narrative-body">
+    <p>
+      Alaska was awarded <span class="hl">$272,174,855.72</span> under the CMS Rural Health Transformation Program — one of the largest state awards nationally — to fund healthcare access, workforce development, technology innovation, and chronic disease management across rural, remote, and frontier Alaska. The program runs five budget periods through 2030. <span class="hl-white">Budget Period 1 awards are going out now, Spring 2026.</span>
+    </p>
+    <p>
+      WHOOP's most direct lane is <span class="hl">Initiative 6: Spark Technology and Innovation</span>, which is the only initiative in the program that <em>explicitly names consumer wearables by name</em> in its description: "expanding use of consumer wearables and digital devices with provider training and technical support." The initiative is capped at the lesser of 10% of the total award or $20M per budget period — approximately <span class="hl">$27.2M available</span>. It includes a "Rural Technology Catalyst Fund" — a competitive procurement program for emerging health technology focused on rural populations. <span class="hl-red">No vendor has been selected. No RFP has launched.</span> This is the same position WHOOP found in Texas Initiative 2 — the window to get in the room before the solicitation goes public.
+    </p>
+    <p>
+      A second major lane is <span class="hl">Initiative 3: Healthy Communities</span>, which calls for "consumer-facing digital tools for chronic disease self-management: mobile apps, wearable devices, and patient portals... that empower individuals with chronic conditions to track symptoms." Approximately 1,800 organizations just submitted LOIs and are receiving award letters this spring — each one now has funding and will be looking for a technology vendor. <span class="hl-orange">These are immediate sales targets.</span>
+    </p>
+    <p>
+      Alaska's structure has one critical advantage over Texas: the <span class="hl">Targeted Innovation pathway</span> — a fourth funding pathway designed specifically for state-directed, coordinated statewide projects. Unlike Texas, where WHOOP had to approach ~80 individual hospital districts, Alaska allows DOH to select a single vendor for statewide technology deployment. A partnership at the DOH or ACF level could result in WHOOP being embedded in funded projects across all 1,800+ LOI organizations simultaneously — not one deal at a time.
+    </p>
+    <p>
+      Finally, <span class="hl">Initiative 5: Strengthen Workforce</span> funds recruitment and retention for rural healthcare providers with structured 5-year service commitments, housing stipends, and signing bonuses. WHOOP Unite positions naturally as the wellness and recovery benefit that keeps providers healthy and retained in isolated communities — the hardest part of Alaska's rural health problem.
+    </p>
+  </div>
+
+  <div class="rule"></div>
+
+
+  <!-- ── INITIATIVE TABLE ── -->
+  <div class="section-label">Initiative Map — WHOOP Fit by Initiative</div>
+  <table class="init-table">
+    <thead>
+      <tr>
+        <th>Initiative</th>
+        <th>Focus</th>
+        <th>WHOOP Fit</th>
+        <th>WHOOP Fit Score</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Initiative 6<br>Spark Technology &amp; Innovation</td>
+        <td>Consumer wearables, digital devices, telehealth, AI, remote monitoring, rural tech catalyst fund</td>
+        <td><strong>Primary lane.</strong> Initiative explicitly names "consumer wearables and digital devices." Rural Technology Catalyst Fund is a competitive procurement for emerging health tech. WHOOP is the exact product this was written for.</td>
+        <td><span class="fit-high">PRIMARY</span></td>
+        <td>No vendor selected. No RFP launched. ~$27.2M cap.</td>
+      </tr>
+      <tr>
+        <td>Initiative 3<br>Healthy Communities</td>
+        <td>Preventive care, chronic disease management, consumer-facing digital tools, population health</td>
+        <td><strong>Direct fit.</strong> Potential uses of funds explicitly call for "mobile apps, wearable devices, and patient portals... to track symptoms, communicate with care teams, and manage chronic conditions." Funded orgs receiving Spring 2026 awards need a vendor now.</td>
+        <td><span class="fit-high">PRIMARY</span></td>
+        <td>~1,800 LOI orgs receiving awards Spring 2026. High urgency.</td>
+      </tr>
+      <tr>
+        <td>Initiative 5<br>Strengthen Workforce</td>
+        <td>Recruit and retain rural healthcare providers — signing bonuses, housing, 5-year service commitments</td>
+        <td><strong>Workforce wellness play.</strong> Providers taking 5-year rural service commitments in isolated Alaska communities need sustainable wellness support. WHOOP Unite as the benefits/retention tool for recruited providers — recovery, sleep, and readiness data in high-stress remote settings.</td>
+        <td><span class="fit-med">SECONDARY</span></td>
+        <td>Funding active in BP1. Use existing WHOOP Unite enterprise motion.</td>
+      </tr>
+      <tr>
+        <td>Initiative 2<br>Health Care Access</td>
+        <td>Primary care access, specialty care, remote monitoring, consumer-facing digital health tools</td>
+        <td>Allowable uses include "new consumer-facing digital health tools aligned with CMS's Health Technology Ecosystem criteria" and "remote-monitoring technologies." Overlaps with Initiative 3 and 6 — position WHOOP as supporting both access and chronic disease management.</td>
+        <td><span class="fit-med">SECONDARY</span></td>
+        <td>Active. Relevant when pitching to LOI-funded health access orgs.</td>
+      </tr>
+      <tr>
+        <td>Initiative 1<br>Healthy Beginnings</td>
+        <td>Maternal and child health, remote fetal monitoring, telehealth infrastructure</td>
+        <td>Peripheral fit. Remote monitoring technology is a priority for high-risk pregnancies off the road system. WHOOP's physiological data (HRV, sleep, respiratory rate) has potential here but requires a clinical partnership to frame correctly.</td>
+        <td><span class="fit-low">WATCH</span></td>
+        <td>Active. Develop clinical framing before pursuing.</td>
+      </tr>
+      <tr>
+        <td>Initiative 4<br>Pay for Value</td>
+        <td>Value-based care, alternative payment models, care coordination, population health analytics</td>
+        <td>Indirect fit. WHOOP population-level data supports outcomes tracking needed for pay-for-performance models. Frame as the population health monitoring layer that enables providers to hit quality metrics and unlock value-based bonuses.</td>
+        <td><span class="fit-low">WATCH</span></td>
+        <td>Active. Position as enabler of outcomes measurement, not primary use.</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── TWO COLUMNS ── -->
+  <div class="two-col">
+
+    <!-- LEFT: WHOOP Fit Details -->
+    <div>
+      <div class="col-title">The Alaska Structural Advantage</div>
+      <div class="entry-list">
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Targeted Innovation</div>
+          <div class="entry-text">
+            <strong>State-directed statewide deployment.</strong> Alaska's 4th funding pathway (Targeted Innovation) is designed for coordinated, state-level projects. If DOH selects WHOOP as the consumer wearable for statewide Spark Technology deployment, it reaches all funded orgs simultaneously — not one hospital at a time. This is the highest-leverage play in the entire program.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Spark Init. 6</div>
+          <div class="entry-text">
+            <strong>Consumer wearables named in the initiative definition.</strong> The Spark Technology and Innovation initiative description explicitly states: "expanding use of consumer wearables and digital devices with provider training and technical support." This is not a stretch or an analogy — WHOOP is described by name in Alaska's program design. The Rural Technology Catalyst Fund is a competitive grant specifically for this.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Healthy Communities</div>
+          <div class="entry-text">
+            <strong>Wearable deployment to chronic disease patients.</strong> Potential uses call for "mobile apps, wearable devices, and patient portals that empower individuals with chronic conditions to track symptoms and communicate with care teams." ~1,800 funded orgs need a vendor. WHOOP is the only enterprise-grade consumer wearable with a HIPAA-compatible platform and clinical outcomes data.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Workforce Init. 5</div>
+          <div class="entry-text">
+            <strong>WHOOP Unite for 5-year rural commitments.</strong> Providers committing to isolated Alaska communities for 5 years need support to stay healthy and avoid burnout. WHOOP Unite deployed as a provider wellness benefit — recovery tracking, sleep optimization, and readiness data — makes rural service more sustainable and positions WHOOP as a retention tool the hospital can point to.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: Actions -->
+    <div>
+      <div class="col-title">Recommended Actions</div>
+      <div class="entry-list">
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Email RHTP@alaska.gov today.</strong> Introduce WHOOP as a technology partner for the Spark Technology and Innovation initiative and the Rural Technology Catalyst Fund. Position before any RFP language is written. Ask who is leading Initiative 6 procurement and request a meeting. This is the same move that mattered in Texas — get in before the solicitation drops.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Contact Alaska Community Foundation (ACF).</strong> ACF administers all subaward processes and is the gateway to the ~1,800 LOI organizations now receiving award letters. Email rhtp@alaskacf.org to understand the award timeline and identify which LOI orgs are being funded under the Healthy Communities and Spark Technology initiatives.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Sign up for Alaska RHTP program alerts.</strong> Subscribe at the GovDelivery link on health.alaska.gov/rhtp for real-time updates on new funding rounds, RFP releases, and convenings. Additional LOI periods will open over the life of the program — WHOOP partner organizations can submit in future windows.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Soon</div>
+          <div class="entry-text">
+            <strong>Identify Tribal Health Organizations (THOs) with LOIs.</strong> Tribal organizations are a major recipient class in Alaska's RHTP. THOs serve the most geographically isolated populations and have strong grant infrastructure. A WHOOP partnership with one or more THOs — framed under Healthy Communities or Spark Technology — creates a credentialed pilot that DOH can point to for the Targeted Innovation statewide pathway.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Soon</div>
+          <div class="entry-text">
+            <strong>Attend the RHTP Impacts Webinar Series (started March 23).</strong> Alaska DOH launched a webinar series for funded organizations. Attend or request access to recordings — these will name specific program leads, describe where awards are going, and surface the right contacts for Initiative 6 procurement. It also maps the competitive landscape before the RFP.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Later</div>
+          <div class="entry-text">
+            <strong>Build a proposal-ready asset for LOI award recipients.</strong> Funded organizations under Healthy Communities and Spark Technology will need to submit full project applications with scopes of work. Create a WHOOP one-pager mapped to Alaska's CMS Health Technology Ecosystem criteria and ASTP/ONC standards — ready to drop into any organization's grant application as their wearable technology component.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="rule"></div>
+
+
+  <!-- ── CONTACTS ── -->
+  <div class="section-label">Key Contacts</div>
+  <div class="contacts">
+    <div class="contact-card">
+      <div class="contact-role">Alaska DOH — Program Lead</div>
+      <div class="contact-name">RHTP Program Office</div>
+      <div class="contact-detail">
+        Alaska Department of Health<br>
+        <a href="mailto:RHTP@alaska.gov">RHTP@alaska.gov</a><br>
+        Programmatic questions &amp; partnership inquiries
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-role">Subaward Administrator</div>
+      <div class="contact-name">Alaska Community Foundation</div>
+      <div class="contact-detail">
+        Manages all LOI portal &amp; subaward process<br>
+        <a href="mailto:rhtp@alaskacf.org">rhtp@alaskacf.org</a><br>
+        Gateway to funded organizations
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-role">CMS — Federal Program Official</div>
+      <div class="contact-name">Kimi Sato</div>
+      <div class="contact-detail">
+        Deputy Director, Office of Rural Health Transformation<br>
+        <a href="mailto:kimi.sato@cms.hhs.gov">kimi.sato@cms.hhs.gov</a><br>
+        303-844-1524
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── CRITICAL WINDOW CALLOUT ── -->
+  <div class="callout orange">
+    <div class="callout-label">Critical Window — Act Before the RFP Drops</div>
+    <div class="callout-body">
+      The Spark Technology and Innovation initiative — which explicitly names consumer wearables and includes the Rural Technology Catalyst Fund competitive procurement — has <strong style="color:#e8e8e8;">no vendor selected and no RFP launched.</strong> Awards are going out now. DOH is designing the solicitation language right now. This is the only window to ensure WHOOP is in the room before the RFP goes public and the field opens to all competitors. Contact RHTP@alaska.gov this week. The same window that exists for Texas Initiative 2 exists here — and it closes the moment the solicitation is published.
+    </div>
+  </div>
+
+
+  <!-- ── STRUCTURAL ADVANTAGE CALLOUT ── -->
+  <div class="callout">
+    <div class="callout-label">Alaska's Unique Structural Advantage vs. Texas</div>
+    <div class="callout-body">
+      Unlike Texas (where WHOOP must close ~80 individual hospital districts at ~$750K each), Alaska's <strong style="color:#e8e8e8;">Targeted Innovation pathway</strong> allows the state to design and fund coordinated, statewide technology deployments directly. A single partnership with Alaska DOH under the Targeted Innovation pathway could position WHOOP as the statewide consumer wearable for all Spark Technology-funded projects — creating a top-down deployment that reaches all 1,800+ funded organizations without a deal-by-deal sales cycle. Pursue this alongside the bottom-up LOI org outreach in parallel.
+    </div>
+  </div>
+
+
+  <!-- ── NATIONAL CONTEXT CALLOUT ── -->
+  <div class="callout">
+    <div class="callout-label">National Context</div>
+    <div class="callout-body">
+      Alaska is one of all 50 states receiving funding under the $50B national CMS Rural Health Transformation Program (FY 2026–2030). Alaska's $272M award is near the maximum, reflecting its uniquely challenging geography. The Alaska strategy complements the Texas strategy and should inform a <strong style="color:#e8e8e8;">repeatable state-by-state playbook</strong>. Key differences that make Alaska distinct: explicit naming of consumer wearables in the initiative language, a Targeted Innovation statewide pathway, heavy Tribal Health Organization involvement, and a subaward structure administered by a single foundation (ACF) — making it possible to reach all funded orgs through one relationship.
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Jessie Spada &nbsp;·&nbsp; April 10, 2026 &nbsp;·&nbsp; CONFIDENTIAL
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>
