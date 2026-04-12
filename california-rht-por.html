@@ -1,0 +1,634 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>California CalRHT — WHOOP Plan of Record</title>
+  <style>
+    :root {
+      --bg:        #0d1215;
+      --bg-card:   rgba(255,255,255,0.03);
+      --text:      #ffffff;
+      --muted:     #aaaaaa;
+      --meta:      #666666;
+      --rule:      rgba(255,255,255,0.08);
+      --teal:      #00F19F;
+      --blue:      #0093E7;
+      --orange:    #ffb347;
+      --red:       #ff5a5a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header-bar {
+      background: #000;
+      border-bottom: 1px solid var(--rule);
+      padding: 0 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .header-wordmark {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+      margin-right: 16px;
+    }
+    .header-pipe {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.15);
+      margin-right: 16px;
+    }
+    .header-meta {
+      font-size: 10px;
+      color: var(--meta);
+      letter-spacing: 0.08em;
+    }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid rgba(0,241,159,0.35);
+      background: rgba(0,241,159,0.06);
+      padding: 4px 9px;
+      border-radius: 2px;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+    }
+
+    /* ── Page header ── */
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-size: 38px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .page-meta {
+      font-size: 12px;
+      color: var(--meta);
+      letter-spacing: 0.04em;
+    }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+
+    .rule {
+      height: 1px;
+      background: var(--rule);
+      margin: 36px 0;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 16px;
+    }
+
+    /* ── Stat row ── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .stat-cell {
+      background: var(--bg-card);
+      padding: 24px 26px;
+      border-right: 1px solid var(--rule);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .stat-number.blue   { color: var(--blue); }
+    .stat-number.white  { color: #fff; }
+    .stat-number.orange { color: var(--orange); }
+    .stat-desc {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.55;
+    }
+
+    /* ── Narrative ── */
+    .narrative-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 20px;
+    }
+    .narrative-body {
+      font-size: 13.5px;
+      line-height: 1.85;
+      color: #bbb;
+    }
+    .narrative-body p { margin-bottom: 14px; }
+    .narrative-body p:last-child { margin-bottom: 0; }
+    .hl        { color: var(--teal);   font-weight: 600; }
+    .hl-orange { color: var(--orange); font-weight: 600; }
+    .hl-red    { color: var(--red);    font-weight: 600; }
+    .hl-white  { color: #fff;          font-weight: 600; }
+
+    /* ── Two-column ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      margin-bottom: 40px;
+    }
+    .col-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--meta);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 22px;
+    }
+    .entry-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .entry {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .entry-tag {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tag-teal   { background: rgba(0,241,159,0.10);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .tag-blue   { background: rgba(0,147,231,0.10);  color: var(--blue);   border: 1px solid rgba(0,147,231,0.25); }
+    .tag-orange { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .tag-red    { background: rgba(255,90,90,0.10);  color: var(--red);    border: 1px solid rgba(255,90,90,0.25); }
+    .entry-text {
+      font-size: 13px;
+      color: #bbb;
+      line-height: 1.6;
+    }
+    .entry-text strong { color: #e8e8e8; }
+
+    /* ── Contacts ── */
+    .contacts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 18px 20px;
+    }
+    .contact-role {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 6px;
+    }
+    .contact-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .contact-detail {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.7;
+    }
+    .contact-detail a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* ── Callout box ── */
+    .callout {
+      border-left: 3px solid var(--teal);
+      background: rgba(0,241,159,0.04);
+      border-radius: 0 4px 4px 0;
+      padding: 22px 26px;
+      margin-bottom: 40px;
+    }
+    .callout.orange {
+      border-left-color: var(--orange);
+      background: rgba(255,179,71,0.04);
+    }
+    .callout-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .callout.orange .callout-label { color: var(--orange); }
+    .callout-body {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #bbb;
+    }
+
+    /* ── Initiative table ── */
+    .init-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      font-size: 12.5px;
+    }
+    .init-table th {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .init-table td {
+      padding: 14px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: #bbb;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .init-table tr:last-child td { border-bottom: none; }
+    .init-table td:first-child { color: #fff; font-weight: 600; white-space: nowrap; }
+    .init-table td strong { color: #e8e8e8; }
+    .fit-high  { color: var(--teal);   font-weight: 700; font-size: 11px; }
+    .fit-med   { color: var(--orange); font-weight: 700; font-size: 11px; }
+    .fit-low   { color: #666;          font-weight: 700; font-size: 11px; }
+
+    /* ── Footer ── */
+    .page-footer {
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.08em;
+      text-align: right;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>CMS Rural Health Transformation<span class="sep">|</span>California<span class="sep">|</span>Updated April 10, 2026
+    </div>
+  </div>
+  <div class="header-badge">RFA Releasing Spring 2026</div>
+</div>
+
+
+<div class="page">
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-eyebrow">CMS Rural Health Transformation Program — California State Award</div>
+  <div class="page-title">California Rural Health Transformation (CalRHT) — Plan of Record</div>
+  <div class="page-meta">
+    Award: $233,639,308.47
+    <span class="dot">·</span>
+    Budget Period 1: Dec 29, 2025 – Oct 30, 2026
+    <span class="dot">·</span>
+    Recipient: California HCAI
+    <span class="dot">·</span>
+    3rd Highest Award Nationally
+    <span class="dot">·</span>
+    Authorized: Big Beautiful Bill Act of 2025, §71401
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── STAT ROW ── -->
+  <div class="section-label">Summary</div>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Total California Award<br>(3rd Highest Nationally)</div>
+      <div class="stat-number">$233M</div>
+      <div class="stat-desc">Over 5 fiscal years via CMS cooperative agreement. California's award reflects the state's 2.7M rural residents across 57 of 58 counties — the largest rural population of any state in the program.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Technology &amp; Tools<br>Initiative (Init. 3)</div>
+      <div class="stat-number blue">$35.7M</div>
+      <div class="stat-desc">Initiative 3 funds the Rural Technology Assistance Center (RTAC) and EHR grants, with explicit language around consumer tech, self-monitoring tools, and patient self-reporting. No vendor selected.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Stakeholders Prioritizing<br>Telehealth &amp; Remote Monitoring</div>
+      <div class="stat-number white">63%</div>
+      <div class="stat-desc">Of 1,600 stakeholders surveyed during program design, 63% identified telehealth and remote monitoring as their top priority — the #1 result. Demand is pre-validated at scale.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">WHOOP Entry<br>Points in Initiative Map</div>
+      <div class="stat-number">3</div>
+      <div class="stat-desc">Initiatives 1, 2, and 3 each create a distinct lane for WHOOP — as a chronic disease remote monitoring device, a workforce wellness tool, and as a consumer tech solution for the RTAC.</div>
+    </div>
+  </div>
+
+
+  <!-- ── OPPORTUNITY NARRATIVE ── -->
+  <div class="narrative-title">The Opportunity</div>
+  <div class="narrative-body">
+    <p>
+      California was awarded <span class="hl">$233,639,308.47</span> under the CMS Rural Health Transformation Program — the third-largest state award nationally — to fund chronic disease management, workforce development, and technology modernization across rural California. The program is administered by the <span class="hl-white">California Department of Health Care Access and Information (HCAI)</span> under the CalRHT brand and runs five budget periods through 2030. The RFA for subaward applicants is releasing <span class="hl-red">Spring 2026 — the window is open now.</span>
+    </p>
+    <p>
+      WHOOP's primary lane is <span class="hl">Initiative 1: Transformative Care Model</span>, which commits $112.2M to hub-and-spoke rural healthcare networks built around chronic disease management. The project narrative explicitly calls for <em>"consumer-facing mobile-app-based technology with prevention-based programs"</em> to target chronic disease conditions and <em>"consumer remote patient self-monitoring devices"</em> as allowable pool purchases for network grants. Approximately 16 hospitals will receive $35M in transformative payments, and an additional $39M in hub-and-spoke grants is flowing to rural networks — each of these organizations will need a technology vendor to execute their project scope.
+    </p>
+    <p>
+      The second major lane is <span class="hl">Initiative 3: Technology &amp; Tools</span>, which allocates $35.7M to the <span class="hl-white">Rural Technology Assistance Center (RTAC)</span> and EHR adoption grants. The RTAC's stated mission includes: <em>"Educate consumers and promote the use of tools and technologies that allow them to monitor their health, self-report to their providers"</em> and <em>"facilitate collaboration among rural health care providers to integrate patient self-reported and self-monitoring information into their workflows."</em> This is the infrastructure play — if WHOOP is embedded in the RTAC as the recommended consumer wearable, it reaches every funded organization in the state simultaneously. <span class="hl-red">No technology vendor has been selected for this role.</span>
+    </p>
+    <p>
+      California's scale is the critical differentiator: <span class="hl">108 rural hospitals</span> (including 39 Critical Access Hospitals), <span class="hl">279 Rural Health Clinics</span>, <span class="hl">296 FQHCs</span>, and <span class="hl">2.7 million rural residents</span> across 57 of 58 counties. A single state-level partnership with HCAI — positioning WHOOP as the CalRHT-recommended consumer self-monitoring device — creates deployment at a scale that no individual hospital deal can approach. This is WHOOP's highest-leverage state in the entire national program.
+    </p>
+    <p>
+      Finally, <span class="hl">Initiative 2: Workforce Development</span> commits $62.4M to recruit and retain healthcare providers in rural California — including $54.17M in retention and relocation stipends and $7M in career pathway programs. Providers taking rural service commitments need a wellness infrastructure. <span class="hl-orange">WHOOP Unite positions naturally as the provider wellness benefit</span> that supports recruitment by giving rural health systems a tangible, premium retention tool they can point to during hiring.
+    </p>
+  </div>
+
+  <div class="rule"></div>
+
+
+  <!-- ── INITIATIVE TABLE ── -->
+  <div class="section-label">Initiative Map — WHOOP Fit by Initiative</div>
+  <table class="init-table">
+    <thead>
+      <tr>
+        <th>Initiative</th>
+        <th>Focus</th>
+        <th>WHOOP Fit</th>
+        <th>WHOOP Fit Score</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Initiative 1<br>Transformative Care Model</td>
+        <td>Hub-and-spoke chronic disease networks, remote patient self-monitoring, consumer-facing mobile app tech, ~16 hospital transformative payments + $39M network grants</td>
+        <td><strong>Primary lane.</strong> Project narrative explicitly names "consumer-facing mobile-app-based technology" and "consumer remote patient self-monitoring devices" as allowable uses. 16 hospitals receiving transformative payments and network grant recipients need a vendor now. WHOOP is the exact product category described.</td>
+        <td><span class="fit-high">PRIMARY</span></td>
+        <td>$112.2M in BP1. RFA releasing Spring 2026. Funded orgs will need vendors immediately.</td>
+      </tr>
+      <tr>
+        <td>Initiative 3<br>Technology &amp; Tools</td>
+        <td>Rural Technology Assistance Center (RTAC), EHR grants, consumer tech solutions, patient self-monitoring and self-reporting infrastructure</td>
+        <td><strong>Platform play.</strong> RTAC is explicitly funded to "educate consumers and promote the use of tools that allow them to monitor their health, self-report to their providers." If WHOOP is the RTAC-recommended device, it flows to every CalRHT-funded organization in the state. No technology vendor selected. $23.55M for RTAC alone.</td>
+        <td><span class="fit-high">PRIMARY</span></td>
+        <td>$35.7M in BP1. No vendor selected for RTAC role. Critical window.</td>
+      </tr>
+      <tr>
+        <td>Initiative 2<br>Workforce Development</td>
+        <td>Recruit and retain rural healthcare providers — retention stipends, relocation assistance, career pathways, clinical placements</td>
+        <td><strong>Workforce wellness play.</strong> Providers accepting rural service commitments in underserved California communities need support to stay healthy and avoid burnout. WHOOP Unite as the premium provider wellness benefit — sleep, recovery, and readiness monitoring — makes recruitment packages more competitive and gives rural health systems a retention tool that urban competitors don't offer.</td>
+        <td><span class="fit-med">SECONDARY</span></td>
+        <td>$62.4M in BP1. Use existing WHOOP Unite enterprise motion. Fast-to-close.</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── TWO COLUMNS ── -->
+  <div class="two-col">
+
+    <!-- LEFT: Key Fit Details -->
+    <div>
+      <div class="col-title">Why WHOOP Fits — Exact Language from Source Docs</div>
+      <div class="entry-list">
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Init. 1 — Narrative p.18</div>
+          <div class="entry-text">
+            <strong>"Consumer-facing mobile-app-based technology with prevention-based programs will target chronic disease conditions, link patients to clinical teams, and promote healthy habits for patients."</strong> This is the exact description of WHOOP's product and platform. No interpretation needed.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Init. 1 — Narrative p.13</div>
+          <div class="entry-text">
+            <strong>"Pool purchasing for telehealth and technology that empowers coordinated care, consumer remote patient self-monitoring devices."</strong> Network grants under Initiative 1 explicitly allow pool purchasing of consumer self-monitoring devices. WHOOP bulk purchasing is the exact mechanism described.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Init. 3 — RTAC Scope</div>
+          <div class="entry-text">
+            <strong>"Educate consumers and promote the use of tools and technologies that allow them to monitor their health, self-report to their providers."</strong> The RTAC is being built to deploy this exact category of tool to CalRHT-funded organizations. Getting WHOOP designated as the RTAC-recommended device means state-level endorsement for every deal in California.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Init. 3 — Budget Narrative</div>
+          <div class="entry-text">
+            <strong>RTAC will "facilitate collaboration among rural health care providers to integrate patient self-reported and self-monitoring information into their workflows."</strong> WHOOP's HIPAA-compatible API and provider-facing dashboard is the infrastructure that enables this integration. Position WHOOP as the data layer the RTAC was designed to support.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Stakeholder Demand</div>
+          <div class="entry-text">
+            <strong>63% of 1,600 CalRHT stakeholders surveyed identified telehealth and remote monitoring as their #1 priority.</strong> This wasn't bureaucratic language — rural providers told HCAI directly that remote monitoring is what they need most. Demand is pre-validated at the state level. Lead with this number in outreach.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: Actions -->
+    <div>
+      <div class="col-title">Recommended Actions</div>
+      <div class="entry-list">
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Email Hovik Khosrovian at HCAI.</strong> Hovik is the Senior Policy Advisor and Interim Program Director for CalRHT — the person designing Initiative 3 and the RTAC. Contact him before the RFA drops. Introduce WHOOP as the consumer self-monitoring device aligned with CalRHT's stated technology goals. Request a meeting to discuss the RTAC's vendor engagement process. This is the single most important action.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Email CalRHT@hcai.ca.gov (program inbox).</strong> Send a parallel outreach to the program inbox framing WHOOP's fit for Initiative 1 chronic disease networks and Initiative 3 technology tools. Reference the 63% stakeholder demand for remote monitoring and the specific language from the project narrative. Ask to be included in any vendor engagement sessions as the RFA is being designed.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Monitor the CalRHT RFA release.</strong> The Request for Applications is releasing Spring 2026. The moment the RFA drops, organizations that have been preparing to apply will need a technology vendor to name in their scope of work. Be in conversations with HCAI and potential applicants before the RFA is published so WHOOP is already written into proposals.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Soon</div>
+          <div class="entry-text">
+            <strong>Build a CalRHT-specific WHOOP one-pager.</strong> Create a one-pager that maps WHOOP's capabilities to the explicit CalRHT language: consumer self-monitoring, chronic disease management, provider workflow integration via API, and bulk purchasing under network grants. Organizations applying for Initiative 1 and 3 funding need this asset to include WHOOP in their proposal scope of work.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Soon</div>
+          <div class="entry-text">
+            <strong>Target the ~16 hospitals receiving transformative payments.</strong> These hospitals are the first funded cohort under Initiative 1. Identify which hospital systems are in scope (rural California, CAH designation preferred) and begin direct outreach to their administrators framing WHOOP Unite for both patient chronic disease monitoring and provider wellness under Initiative 2 workforce funds.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Later</div>
+          <div class="entry-text">
+            <strong>Position WHOOP within hub-and-spoke network grants ($39M).</strong> As hub-and-spoke network applicants receive funding, the hub hospital in each network will be looking for technology to coordinate care across their spoke clinics. WHOOP's population dashboard enables exactly this — one provider at the hub seeing data across all monitored patients. Build an enterprise pitch specific to network administrators.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="rule"></div>
+
+
+  <!-- ── CONTACTS ── -->
+  <div class="section-label">Key Contacts</div>
+  <div class="contacts">
+    <div class="contact-card">
+      <div class="contact-role">HCAI — Program Director (Primary)</div>
+      <div class="contact-name">Hovik Khosrovian</div>
+      <div class="contact-detail">
+        Senior Policy Advisor / Interim Program Director, CalRHT<br>
+        California HCAI<br>
+        <a href="mailto:hovik.khosrovian@hcai.ca.gov">hovik.khosrovian@hcai.ca.gov</a><br>
+        916-326-3734
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-role">HCAI — Program Inbox</div>
+      <div class="contact-name">CalRHT Program Office</div>
+      <div class="contact-detail">
+        California Dept. of Health Care Access &amp; Information<br>
+        <a href="mailto:CalRHT@hcai.ca.gov">CalRHT@hcai.ca.gov</a><br>
+        <a href="mailto:CalSORH@hcai.ca.gov">CalSORH@hcai.ca.gov</a><br>
+        General partnership &amp; vendor inquiries
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-role">CMS — Federal Program Officials</div>
+      <div class="contact-name">Magill &amp; Clark</div>
+      <div class="contact-detail">
+        Stephanie Magill — Federal lead<br>
+        <a href="mailto:stephanie.magill1@cms.hhs.gov">stephanie.magill1@cms.hhs.gov</a><br>
+        Chris Clark — Co-lead<br>
+        <a href="mailto:christopher.clark@cms.hhs.gov">christopher.clark@cms.hhs.gov</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── CRITICAL WINDOW CALLOUT ── -->
+  <div class="callout orange">
+    <div class="callout-label">Critical Window — RFA Releasing Spring 2026</div>
+    <div class="callout-body">
+      The CalRHT Request for Applications (RFA) is releasing Spring 2026. Once published, organizations will submit proposals naming their technology vendors. <strong style="color:#e8e8e8;">WHOOP needs to be named in proposals before the RFA releases — not after.</strong> The RTAC has no vendor selected. The Initiative 1 network grants have no vendor selected. The window to get in the room and shape the conversation is open right now. Contact Hovik Khosrovian this week. The same pre-RFP window that exists in Texas (Initiative 2) exists here — and it closes the moment the solicitation goes public.
+    </div>
+  </div>
+
+
+  <!-- ── SCALE ADVANTAGE CALLOUT ── -->
+  <div class="callout">
+    <div class="callout-label">California's Scale Advantage — The RTAC Play</div>
+    <div class="callout-body">
+      California has 108 rural hospitals, 279 Rural Health Clinics, and 296 FQHCs receiving CalRHT funding. A deal-by-deal approach to each organization would take years. <strong style="color:#e8e8e8;">The RTAC is the leverage point.</strong> The Rural Technology Assistance Center ($23.55M) is being built specifically to identify, vet, and deploy consumer health technology tools across every CalRHT-funded organization in the state. If WHOOP is embedded in the RTAC as the recommended consumer self-monitoring device, it has state-level endorsement and flows to every funded organization simultaneously — without requiring WHOOP to run 683 individual sales cycles. Pursue HCAI partnership at the RTAC level first. Provider-level sales follow from that foundation.
+    </div>
+  </div>
+
+
+  <!-- ── NATIONAL CONTEXT CALLOUT ── -->
+  <div class="callout">
+    <div class="callout-label">National Context — California as the Platform State</div>
+    <div class="callout-body">
+      California is the 3rd-largest award nationally ($233.6M) and the largest rural population of any state in the program (2.7M residents). The CalRHT strategy complements Texas (direct hospital district outreach) and Alaska (Targeted Innovation statewide pathway) and should become the <strong style="color:#e8e8e8;">model for the 10 largest state awards</strong> in the national $50B program. Key differences that make California distinct: the RTAC creates a state-level technology endorsement mechanism that no other state has built, the hub-and-spoke network structure creates clear network administrator targets, and the explicit consumer tech language in the project narrative means WHOOP is already described in the program design — before a single RFP has been written.
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Jessie Spada &nbsp;·&nbsp; April 10, 2026 &nbsp;·&nbsp; CONFIDENTIAL
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>
