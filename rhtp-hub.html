@@ -549,6 +549,136 @@
     .sui-text a { color: var(--blue); text-decoration: none; }
     .sui-text a:hover { text-decoration: underline; }
 
+    /* ── ZoomInfo Table ── */
+    .zi-intro {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      padding: 18px 22px;
+      border: 1px solid var(--rule);
+      border-radius: 5px;
+      background: var(--bg-card);
+    }
+    .zi-intro strong { color: #ccc; }
+    .zi-intro .zi-tip {
+      display: inline-block;
+      background: rgba(255,179,71,0.1);
+      border: 1px solid rgba(255,179,71,0.25);
+      color: var(--orange);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-right: 8px;
+    }
+    .zi-filter-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .zi-filter-btn {
+      background: none;
+      border: 1px solid var(--rule);
+      color: var(--meta);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 6px 14px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .zi-filter-btn:hover { border-color: rgba(255,255,255,0.2); color: #ccc; }
+    .zi-filter-btn.active { background: rgba(0,241,159,0.08); border-color: rgba(0,241,159,0.3); color: var(--teal); }
+    .zi-filter-btn.active-red { background: rgba(255,90,90,0.08); border-color: rgba(255,90,90,0.3); color: var(--red); }
+    .zi-filter-btn.active-orange { background: rgba(255,179,71,0.08); border-color: rgba(255,179,71,0.3); color: var(--orange); }
+    .zi-table-wrap {
+      border: 1px solid var(--rule);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .zi-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .zi-table thead tr {
+      background: rgba(255,255,255,0.04);
+    }
+    .zi-table th {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--meta);
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--rule);
+      white-space: nowrap;
+    }
+    .zi-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: top;
+    }
+    .zi-table tbody tr:last-child td { border-bottom: none; }
+    .zi-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+    .zi-table tbody tr.hidden { display: none; }
+    .zi-priority {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .zi-p-hot   { background: rgba(255,90,90,0.12);  color: var(--red);    border: 1px solid rgba(255,90,90,0.3); }
+    .zi-p-warm  { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .zi-p-build { background: rgba(0,241,159,0.08);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.2); }
+    .zi-state-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: #aaa;
+      white-space: nowrap;
+    }
+    .zi-org {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+    .zi-hq {
+      font-size: 11px;
+      color: #555;
+    }
+    .zi-role {
+      font-size: 12.5px;
+      color: #ccc;
+      line-height: 1.5;
+    }
+    .zi-role-alt {
+      font-size: 11px;
+      color: #555;
+      margin-top: 3px;
+    }
+    .zi-notes {
+      font-size: 11.5px;
+      color: #777;
+      line-height: 1.55;
+    }
+    .zi-count {
+      font-size: 11px;
+      color: var(--meta);
+      margin-bottom: 12px;
+    }
+    .zi-count span { color: #ccc; font-weight: 600; }
+
     /* ── Footer ── */
     .page-footer {
       font-size: 10px;
@@ -720,6 +850,7 @@
     <button class="tab-btn" onclick="showTab('texas')">Texas</button>
     <button class="tab-btn" onclick="showTab('california')">California</button>
     <button class="tab-btn" onclick="showTab('montana')">Montana</button>
+    <button class="tab-btn" onclick="showTab('zoominfo')" style="color:var(--orange);border-bottom-color:transparent;">ZoomInfo Targets</button>
   </div>
 
 
@@ -1238,6 +1369,417 @@
 
 
   <!-- ══════════════════════════════════════
+       TAB: ZOOMINFO TARGETS
+  ══════════════════════════════════════ -->
+  <div id="tab-zoominfo" class="tab-content">
+
+    <div class="state-hero">
+      <div>
+        <div class="state-hero-eyebrow">Outreach Intelligence</div>
+        <div class="state-hero-title">ZoomInfo Target List</div>
+        <div class="state-hero-meta">
+          Organizations and roles to search in ZoomInfo &nbsp;·&nbsp; Filter by state or priority &nbsp;·&nbsp; Updated as new states are added
+        </div>
+      </div>
+      <div class="state-hero-award">
+        <div class="state-hero-number" style="font-size:36px;color:var(--orange);">ZoomInfo</div>
+        <div class="state-hero-number-label">Search Template</div>
+      </div>
+    </div>
+
+    <div class="zi-intro">
+      <span class="zi-tip">How to use</span> Search each <strong>Organization</strong> in ZoomInfo. Filter by <strong>Role</strong> title keywords. For government contacts, search the agency directly — ZoomInfo coverage of state officials varies but is often present. For consulting/advisory firms, prioritize the <strong>Healthcare Practice</strong> or <strong>State Government Practice</strong> vertical. <strong>Priority: Hot</strong> = contact this week (live RFP). <strong>Warm</strong> = contact before RFA/RFP drops. <strong>Build</strong> = relationship to start now for future cycles.
+    </div>
+
+    <div class="zi-filter-row">
+      <button class="zi-filter-btn active" onclick="filterZI('all')">All States</button>
+      <button class="zi-filter-btn" onclick="filterZI('montana')">Montana</button>
+      <button class="zi-filter-btn" onclick="filterZI('texas')">Texas</button>
+      <button class="zi-filter-btn" onclick="filterZI('california')">California</button>
+      <button class="zi-filter-btn" onclick="filterZI('alaska')">Alaska</button>
+      <button class="zi-filter-btn" onclick="filterZI('hot')" style="margin-left:auto;">Hot Only</button>
+      <button class="zi-filter-btn" onclick="filterZI('warm')">Warm Only</button>
+    </div>
+
+    <div class="zi-count">Showing <span id="zi-visible-count">28</span> of <span id="zi-total-count">28</span> targets</div>
+
+    <div class="zi-table-wrap">
+      <table class="zi-table">
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>State</th>
+            <th>Organization / Company</th>
+            <th>Role to Search in ZoomInfo</th>
+            <th>Context &amp; Notes</th>
+          </tr>
+        </thead>
+        <tbody id="zi-tbody">
+
+          <!-- ── MONTANA — CoE Implementation Prime Bidders (HOT) ── -->
+          <tr data-state="montana" data-priority="hot">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">Montana</span></td>
+            <td>
+              <div class="zi-org">Guidehouse</div>
+              <div class="zi-hq">Washington, DC</div>
+            </td>
+            <td>
+              <div class="zi-role">VP Business Development, Healthcare</div>
+              <div class="zi-role-alt">Alt: Managing Director, Health &amp; Human Services · Director, State Government</div>
+            </td>
+            <td class="zi-notes">Likely prime bidder for MT CoE Implementation ($105.5M). Large federal health consulting practice. Find BD contact in their HHS/state government vertical. RFP closes May 15.</td>
+          </tr>
+
+          <tr data-state="montana" data-priority="hot">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">Montana</span></td>
+            <td>
+              <div class="zi-org">Manatt Health</div>
+              <div class="zi-hq">Los Angeles, CA · New York, NY</div>
+            </td>
+            <td>
+              <div class="zi-role">Managing Director, Health Policy</div>
+              <div class="zi-role-alt">Alt: Director Business Development · Partner, Rural Health</div>
+            </td>
+            <td class="zi-notes">Health policy and strategy firm with deep Medicaid/CMS state work. Frequently prime on state transformation programs. Approach their BD or practice lead for rural health. RFP closes May 15.</td>
+          </tr>
+
+          <tr data-state="montana" data-priority="hot">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">Montana</span></td>
+            <td>
+              <div class="zi-org">Health Management Associates (HMA)</div>
+              <div class="zi-hq">Washington, DC · Multiple Offices</div>
+            </td>
+            <td>
+              <div class="zi-role">Principal / Managing Principal, Rural Health</div>
+              <div class="zi-role-alt">Alt: Vice President Business Development · Practice Lead, Medicaid</div>
+            </td>
+            <td class="zi-notes">Boutique health policy firm specializing in Medicaid and rural health transformation. High likelihood of being on MT CoE bid. Find their BD or practice lead with state government relationships.</td>
+          </tr>
+
+          <tr data-state="montana" data-priority="hot">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">Montana</span></td>
+            <td>
+              <div class="zi-org">Public Consulting Group (PCG)</div>
+              <div class="zi-hq">Boston, MA</div>
+            </td>
+            <td>
+              <div class="zi-role">Director / VP Business Development, Healthcare</div>
+              <div class="zi-role-alt">Alt: Practice Director, Health &amp; Human Services · Program Manager</div>
+            </td>
+            <td class="zi-notes">Government consulting firm with HHS practice across all 50 states. Frequently primes on state Medicaid and rural health programs. BD team or practice director for HHS is the right contact.</td>
+          </tr>
+
+          <tr data-state="montana" data-priority="hot">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">Montana</span></td>
+            <td>
+              <div class="zi-org">Leavitt Partners</div>
+              <div class="zi-hq">Salt Lake City, UT</div>
+            </td>
+            <td>
+              <div class="zi-role">Managing Director</div>
+              <div class="zi-role-alt">Alt: Director, Health Policy · Business Development Lead</div>
+            </td>
+            <td class="zi-notes">Founded by former HHS Secretary Mike Leavitt. Strong federal health policy relationships. Boutique firm — may have fewer layers between you and decision-maker. Find the managing director or BD lead.</td>
+          </tr>
+
+          <tr data-state="montana" data-priority="hot">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">Montana</span></td>
+            <td>
+              <div class="zi-org">Deloitte</div>
+              <div class="zi-hq">Washington, DC (Government &amp; Public Services)</div>
+            </td>
+            <td>
+              <div class="zi-role">Principal, State Health &amp; Human Services</div>
+              <div class="zi-role-alt">Alt: Managing Director, Rural Health · Business Development Manager, GPS</div>
+            </td>
+            <td class="zi-notes">Deloitte's Government &amp; Public Services (GPS) practice handles CMS state transformation work. Search their GPS healthcare vertical. Look for Principal or MD with Montana or Mountain West state accounts. May go through their "Alliance" BD team for vendor partnerships.</td>
+          </tr>
+
+          <tr data-state="montana" data-priority="hot">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">Montana</span></td>
+            <td>
+              <div class="zi-org">BerryDunn</div>
+              <div class="zi-hq">Portland, ME · Manchester, NH</div>
+            </td>
+            <td>
+              <div class="zi-role">Principal / Practice Lead, Healthcare</div>
+              <div class="zi-role-alt">Alt: Director Business Development · Manager, State Government Health</div>
+            </td>
+            <td class="zi-notes">Regional consulting firm with strong state government health practice, particularly Medicaid and rural health. Smaller firm — easier to get to the right person. BD or practice lead in their healthcare division.</td>
+          </tr>
+
+          <tr data-state="montana" data-priority="hot">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">Montana</span></td>
+            <td>
+              <div class="zi-org">Wipfli</div>
+              <div class="zi-hq">Milwaukee, WI · Multiple Offices</div>
+            </td>
+            <td>
+              <div class="zi-role">Partner, Healthcare &amp; Life Sciences</div>
+              <div class="zi-role-alt">Alt: Director Business Development · Manager, Rural Health</div>
+            </td>
+            <td class="zi-notes">Accounting and consulting firm with strong rural healthcare consulting practice, including critical access hospitals. High likelihood of bidding on MT CoE. Find their healthcare partner or BD director. More approachable than the Big 4.</td>
+          </tr>
+
+          <!-- ── MONTANA — State Agency ── -->
+          <tr data-state="montana" data-priority="warm">
+            <td><span class="zi-priority zi-p-warm">Warm</span></td>
+            <td><span class="zi-state-tag">Montana</span></td>
+            <td>
+              <div class="zi-org">Montana DPHHS</div>
+              <div class="zi-hq">Helena, MT</div>
+            </td>
+            <td>
+              <div class="zi-role">Rhonda Peters — CoE Implementation Lead</div>
+              <div class="zi-role-alt">Alt: Patrick Navarro — CoE Analytics · HHSRuralHealthTransformation@mt.gov</div>
+            </td>
+            <td class="zi-notes">Direct state contacts. Single Point of Contact rule is in effect — cannot contact about RFP specifics while RFP is live. All RFP questions go through eMACS Q&amp;A board. Can contact for non-RFP introductions (Initiative 5 vision, general WHOOP intro). Email: Rhonda.Peters@mt.gov / Patrick.Navarro@mt.gov.</td>
+          </tr>
+
+          <!-- ── TEXAS — State Agency ── -->
+          <tr data-state="texas" data-priority="hot">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">Texas</span></td>
+            <td>
+              <div class="zi-org">Texas HHSC</div>
+              <div class="zi-hq">Austin, TX</div>
+            </td>
+            <td>
+              <div class="zi-role">Anthony Hawley — Director, Rural Texas Strong</div>
+              <div class="zi-role-alt">Alt: Deputy Director, Rural Health · Program Administrator, Initiative 2</div>
+            </td>
+            <td class="zi-notes">anthony.hawley@hhs.texas.gov · 202-744-1079. Leads Initiative 2 (remote monitoring, no contractor named) and Initiative 4 ($98.9M workforce). This is the most direct path to a state-level TX partnership. Email drafted in TX GTM Strategy. Email this week.</td>
+          </tr>
+
+          <tr data-state="texas" data-priority="warm">
+            <td><span class="zi-priority zi-p-warm">Warm</span></td>
+            <td><span class="zi-state-tag">Texas</span></td>
+            <td>
+              <div class="zi-org">Texas ACOs &amp; Clinically Integrated Networks (CINs)</div>
+              <div class="zi-hq">Texas (Statewide)</div>
+            </td>
+            <td>
+              <div class="zi-role">Chief Executive Officer</div>
+              <div class="zi-role-alt">Alt: CMO · VP Clinical Operations · Director Population Health</div>
+            </td>
+            <td class="zi-notes">These orgs will be prime bidders for Initiative 2 remote monitoring RFP. Identify TX ACOs with rural membership — search ZoomInfo for "Accountable Care Organization Texas" filtering by rural counties (≤68,750 pop). Pitch WHOOP as their named wearable component before RFP drops.</td>
+          </tr>
+
+          <tr data-state="texas" data-priority="warm">
+            <td><span class="zi-priority zi-p-warm">Warm</span></td>
+            <td><span class="zi-state-tag">Texas</span></td>
+            <td>
+              <div class="zi-org">Rural Hospital Districts — ~80 Targets</div>
+              <div class="zi-hq">Texas Rural Counties (≤68,750 population)</div>
+            </td>
+            <td>
+              <div class="zi-role">CEO / Administrator</div>
+              <div class="zi-role-alt">Alt: CFO · Chief Nursing Officer · Director of Population Health</div>
+            </td>
+            <td class="zi-notes">Each district receives ~$750K for Initiative 1 chronic disease programming. They must show measurable outcomes by Years 4–5 — WHOOP solves this. Search ZoomInfo: Company Type = "Hospital" · State = Texas · Employee Count ≤500 · filter by rural county zip codes. Estimated 80 targets total.</td>
+          </tr>
+
+          <tr data-state="texas" data-priority="warm">
+            <td><span class="zi-priority zi-p-warm">Warm</span></td>
+            <td><span class="zi-state-tag">Texas</span></td>
+            <td>
+              <div class="zi-org">Texas Organization of Rural &amp; Community Hospitals (TORCH)</div>
+              <div class="zi-hq">Austin, TX</div>
+            </td>
+            <td>
+              <div class="zi-role">President / CEO</div>
+              <div class="zi-role-alt">Alt: VP Member Services · Director of Policy</div>
+            </td>
+            <td class="zi-notes">Statewide association representing rural Texas hospitals. A single relationship here gives access to all ~80 target hospital districts simultaneously. Ask to present WHOOP at an upcoming member meeting or webinar as an RHTP technology solution.</td>
+          </tr>
+
+          <!-- ── CALIFORNIA — State Agency ── -->
+          <tr data-state="california" data-priority="hot">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">California</span></td>
+            <td>
+              <div class="zi-org">CA HCAI (Dept. of Health Care Access &amp; Information)</div>
+              <div class="zi-hq">Sacramento, CA</div>
+            </td>
+            <td>
+              <div class="zi-role">Hovik Khosrovian — Interim Program Director, CalRHT</div>
+              <div class="zi-role-alt">Alt: Senior Policy Advisor · Director, Rural Health Initiatives</div>
+            </td>
+            <td class="zi-notes">hovik.khosrovian@hcai.ca.gov · 916-326-3734. Leads Initiative 3 and RTAC design. RFA releasing Spring 2026. Opening email drafted in CA GTM Strategy. This is the highest-value pre-RFA outreach in the entire California strategy. Email this week.</td>
+          </tr>
+
+          <tr data-state="california" data-priority="hot">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">California</span></td>
+            <td>
+              <div class="zi-org">CalRHT Program Inbox</div>
+              <div class="zi-hq">Sacramento, CA</div>
+            </td>
+            <td>
+              <div class="zi-role">Program Director / Policy Lead (via CalRHT@hcai.ca.gov)</div>
+              <div class="zi-role-alt">Alt: Search ZoomInfo for HCAI Director of Rural Health</div>
+            </td>
+            <td class="zi-notes">CalRHT@hcai.ca.gov — parallel outreach to the program inbox alongside Hovik. Ask about Initiative 3 vendor engagement and how technology tools are selected for the RTAC framework. Reference the 63% stakeholder demand for remote monitoring.</td>
+          </tr>
+
+          <tr data-state="california" data-priority="warm">
+            <td><span class="zi-priority zi-p-warm">Warm</span></td>
+            <td><span class="zi-state-tag">California</span></td>
+            <td>
+              <div class="zi-org">Rural California Hospitals (CAHs &amp; Hub Hospitals)</div>
+              <div class="zi-hq">Rural California (Statewide)</div>
+            </td>
+            <td>
+              <div class="zi-role">CEO / Administrator</div>
+              <div class="zi-role-alt">Alt: CMO · VP Clinical Operations · Director Population Health</div>
+            </td>
+            <td class="zi-notes">~16 hospitals receiving Initiative 1 transformative payments + 39 Critical Access Hospitals eligible for hub-and-spoke network grants. These will name technology vendors in RFA proposals. Search ZoomInfo: Company = hospital · State = California · Type includes Critical Access Hospital. Pitch before RFA drops Spring 2026.</td>
+          </tr>
+
+          <tr data-state="california" data-priority="warm">
+            <td><span class="zi-priority zi-p-warm">Warm</span></td>
+            <td><span class="zi-state-tag">California</span></td>
+            <td>
+              <div class="zi-org">California Rural Health Association (CRHA)</div>
+              <div class="zi-hq">Sacramento, CA</div>
+            </td>
+            <td>
+              <div class="zi-role">Executive Director</div>
+              <div class="zi-role-alt">Alt: Policy Director · Membership Director</div>
+            </td>
+            <td class="zi-notes">Statewide rural health association. Access to all 683+ CalRHT-eligible orgs. A relationship here or a presentation slot gives WHOOP visibility across all prospective RTAC applicants simultaneously before RFA drops.</td>
+          </tr>
+
+          <tr data-state="california" data-priority="warm">
+            <td><span class="zi-priority zi-p-warm">Warm</span></td>
+            <td><span class="zi-state-tag">California</span></td>
+            <td>
+              <div class="zi-org">RTAC Applicant Orgs (Future)</div>
+              <div class="zi-hq">California (Statewide)</div>
+            </td>
+            <td>
+              <div class="zi-role">CEO / Executive Director</div>
+              <div class="zi-role-alt">Alt: Director of Technology · VP Clinical Innovation</div>
+            </td>
+            <td class="zi-notes">Organizations that will apply to operate the RTAC ($23.55M). Likely: health systems, telehealth organizations, or health IT firms. Identity unknown until RFA drops. Monitor hcai.ca.gov/CalRHT — once applicants are named, these become primary outreach targets.</td>
+          </tr>
+
+          <!-- ── ALASKA — State Agency ── -->
+          <tr data-state="alaska" data-priority="build">
+            <td><span class="zi-priority zi-p-build">Build</span></td>
+            <td><span class="zi-state-tag">Alaska</span></td>
+            <td>
+              <div class="zi-org">Alaska Dept. of Health (DOH)</div>
+              <div class="zi-hq">Juneau, AK</div>
+            </td>
+            <td>
+              <div class="zi-role">RHTP Program Director (via RHTP@alaska.gov)</div>
+              <div class="zi-role-alt">Alt: Search ZoomInfo for Director of Rural Health, Alaska DOH</div>
+            </td>
+            <td class="zi-notes">Portal closed. Review underway. Replied 4/12 — declined intro call for now. Year 2 funding cycle opens summer 2026. Monitor health.alaska.gov/rhtp and aws.state.ak.us/OnlinePublicNotices. Re-engage when Year 2 RFP is announced. Spark Technology cap ($27.2M, Init. 6) is the primary lane — no vendor selected.</td>
+          </tr>
+
+          <tr data-state="alaska" data-priority="build">
+            <td><span class="zi-priority zi-p-build">Build</span></td>
+            <td><span class="zi-state-tag">Alaska</span></td>
+            <td>
+              <div class="zi-org">Alaska Community Foundation (ACF)</div>
+              <div class="zi-hq">Anchorage, AK</div>
+            </td>
+            <td>
+              <div class="zi-role">Program Director, RHTP</div>
+              <div class="zi-role-alt">Alt: VP Programs · Executive Director</div>
+            </td>
+            <td class="zi-notes">rhtp@alaskacf.org — ACF administers all subawards to the 1,800+ LOI orgs. Email sent 4/10, awaiting reply. Follow up if no reply by 4/17. ACF is the secondary path while DOH is in review lockdown. A relationship here gives access to all subaward recipients.</td>
+          </tr>
+
+          <tr data-state="alaska" data-priority="build">
+            <td><span class="zi-priority zi-p-build">Build</span></td>
+            <td><span class="zi-state-tag">Alaska</span></td>
+            <td>
+              <div class="zi-org">Alaska RHTP LOI Organizations (~1,800)</div>
+              <div class="zi-hq">Alaska (Statewide — Rural &amp; Tribal)</div>
+            </td>
+            <td>
+              <div class="zi-role">CEO / Executive Director</div>
+              <div class="zi-role-alt">Alt: Health Director · Tribal Health Director · CFO</div>
+            </td>
+            <td class="zi-notes">Awards going out Spring 2026. Each org needs a technology vendor immediately and must obligate BP1 funds by Oct 30, 2026. List not yet public — request from ACF once relationship is established. Mix of tribal health orgs, CAHs, FQHCs, and community health centers. Search ZoomInfo: Alaska + Healthcare + Rural/Tribal as initial proxy.</td>
+          </tr>
+
+          <!-- ── CROSS-STATE — Consulting Firms (Multiple States) ── -->
+          <tr data-state="all" data-priority="warm">
+            <td><span class="zi-priority zi-p-warm">Warm</span></td>
+            <td><span class="zi-state-tag">Multi-State</span></td>
+            <td>
+              <div class="zi-org">Accenture Federal Services</div>
+              <div class="zi-hq">Washington, DC</div>
+            </td>
+            <td>
+              <div class="zi-role">Managing Director, Health &amp; Public Service</div>
+              <div class="zi-role-alt">Alt: Alliance / Partnership Director · BD Director, CMS</div>
+            </td>
+            <td class="zi-notes">Large-scale CMS state implementation firm. Likely bidding or subcontracting across multiple RHTP states. One relationship here could cover multiple states. Find their Alliance or BD team — ask to be named as a technology partner across active state bids.</td>
+          </tr>
+
+          <tr data-state="all" data-priority="warm">
+            <td><span class="zi-priority zi-p-warm">Warm</span></td>
+            <td><span class="zi-state-tag">Multi-State</span></td>
+            <td>
+              <div class="zi-org">KPMG Government Institute</div>
+              <div class="zi-hq">Washington, DC</div>
+            </td>
+            <td>
+              <div class="zi-role">Principal / Partner, State Health</div>
+              <div class="zi-role-alt">Alt: Director, Health &amp; Human Services · Alliance Manager</div>
+            </td>
+            <td class="zi-notes">KPMG's public sector health practice is active on CMS state transformation programs. Similar to Deloitte GPS — find their state health or HHS practice lead. One conversation can open multiple state bids.</td>
+          </tr>
+
+          <tr data-state="all" data-priority="warm">
+            <td><span class="zi-priority zi-p-warm">Warm</span></td>
+            <td><span class="zi-state-tag">Multi-State</span></td>
+            <td>
+              <div class="zi-org">Navigant / Guidehouse (Rural Health Practice)</div>
+              <div class="zi-hq">Chicago, IL · Washington, DC</div>
+            </td>
+            <td>
+              <div class="zi-role">Managing Director, Rural Health</div>
+              <div class="zi-role-alt">Alt: Director of Business Development · Senior Manager, Medicaid</div>
+            </td>
+            <td class="zi-notes">Navigant merged into Guidehouse. Their rural health and Medicaid practice is active across multiple RHTP states. If you reach Guidehouse for Montana, ask about their footprint across other RHTP states — could be a multi-state subcontractor relationship.</td>
+          </tr>
+
+          <tr data-state="all" data-priority="build">
+            <td><span class="zi-priority zi-p-build">Build</span></td>
+            <td><span class="zi-state-tag">Multi-State</span></td>
+            <td>
+              <div class="zi-org">National Rural Health Association (NRHA)</div>
+              <div class="zi-hq">Washington, DC</div>
+            </td>
+            <td>
+              <div class="zi-role">CEO / President</div>
+              <div class="zi-role-alt">Alt: VP Policy · Director Member Relations</div>
+            </td>
+            <td class="zi-notes">National advocacy body for rural health. Membership includes hospital associations, state offices, and program administrators across all 50 states. A relationship or sponsorship here creates visibility with RHTP decision-makers in every active state simultaneously. Annual conference is a high-value networking target.</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════
        TAB: MONTANA
   ══════════════════════════════════════ -->
   <div id="tab-montana" class="tab-content">
@@ -1375,11 +1917,41 @@
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-' + name).classList.add('active');
     document.querySelectorAll('.tab-btn').forEach(btn => {
-      if (btn.textContent.toLowerCase().replace(/\s/g,'') === name ||
-          (name === 'all' && btn.textContent === 'All States')) {
+      const t = btn.textContent.trim().toLowerCase().replace(/\s/g,'');
+      if (t === name || (name === 'all' && btn.textContent.trim() === 'All States') ||
+          (name === 'zoominfo' && btn.textContent.trim() === 'ZoomInfo Targets')) {
         btn.classList.add('active');
+        if (name === 'zoominfo') btn.style.color = 'var(--orange)';
+      } else {
+        if (btn.textContent.trim() === 'ZoomInfo Targets') btn.style.color = 'var(--orange)';
       }
     });
+  }
+
+  function filterZI(filter) {
+    document.querySelectorAll('.zi-filter-btn').forEach(b => {
+      b.classList.remove('active','active-red','active-orange');
+    });
+    const clicked = event.target;
+    if (filter === 'hot') clicked.classList.add('active-red');
+    else if (filter === 'warm') clicked.classList.add('active-orange');
+    else clicked.classList.add('active');
+
+    const rows = document.querySelectorAll('#zi-tbody tr');
+    let visible = 0;
+    rows.forEach(row => {
+      const state = row.dataset.state;
+      const priority = row.dataset.priority;
+      let show = false;
+      if (filter === 'all') show = true;
+      else if (filter === 'hot') show = priority === 'hot';
+      else if (filter === 'warm') show = priority === 'warm';
+      else show = state === filter || state === 'all';
+      row.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    document.getElementById('zi-visible-count').textContent = visible;
+    document.getElementById('zi-total-count').textContent = rows.length;
   }
 </script>
 
