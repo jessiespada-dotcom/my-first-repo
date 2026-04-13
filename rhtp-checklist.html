@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WHOOP RHTP — Action Checklist</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  :root {
+    --red: #e8272e;
+    --orange: #e86c00;
+    --yellow: #c98a00;
+    --teal: #007a52;
+    --blue: #005fa3;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f9fafb;
+    --text: #111827;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    padding: 48px 56px 40px;
+    border-bottom: 2px solid var(--text);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .cover-logo {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .cover-title {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .cover-sub {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .cover-meta {
+    text-align: right;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .cover-meta strong { color: var(--text); }
+
+  /* ── LEGEND ── */
+  .legend {
+    padding: 14px 56px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .legend-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-right: 4px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── MAIN ── */
+  .main { padding: 32px 56px 60px; }
+
+  /* ── STATE BLOCK ── */
+  .state-block { margin-bottom: 32px; page-break-inside: avoid; }
+  .state-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid var(--border);
+    border-bottom: none;
+  }
+  .state-abbr {
+    width: 40px; height: 40px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 900; color: #fff;
+    flex-shrink: 0;
+  }
+  .state-name-wrap { flex: 1; }
+  .state-name { font-size: 16px; font-weight: 800; }
+  .state-program { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .state-badge {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px; border-radius: 20px;
+    font-size: 10px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    border: 1.5px solid;
+  }
+  .state-award {
+    text-align: right;
+    font-size: 18px; font-weight: 900;
+    white-space: nowrap;
+  }
+  .state-award-label { font-size: 10px; color: var(--muted); font-weight: 500; }
+  .state-deadline {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--red);
+    white-space: nowrap;
+  }
+
+  /* ── TASK LIST ── */
+  .task-list {
+    border: 1px solid var(--border);
+    border-radius: 0 0 8px 8px;
+    background: #fff;
+    overflow: hidden;
+  }
+  .task-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .task-item:last-child { border-bottom: none; }
+  .task-item:hover { background: #f9fafb; }
+  .task-checkbox {
+    width: 16px; height: 16px;
+    border: 2px solid #d1d5db;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .task-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .task-text { font-size: 13px; line-height: 1.5; flex: 1; }
+  .task-text strong { font-weight: 700; }
+
+  /* ── SECTION DIVIDERS ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin: 28px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label-badge {
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── SUMMARY TABLE ── */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 32px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .summary-table th {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    background: #f9fafb;
+  }
+  .summary-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table tr:hover td { background: #f9fafb; }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; font-size: 11px; }
+    .cover { padding: 32px 40px 28px; }
+    .main { padding: 20px 40px 40px; }
+    .legend { padding: 10px 40px; }
+    .state-block { page-break-inside: avoid; margin-bottom: 24px; }
+    .no-print { display: none; }
+    @page { margin: 0.6in; size: letter; }
+  }
+
+  /* ── PRINT BUTTON ── */
+  .print-bar {
+    background: #1a1a2e;
+    padding: 12px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .print-bar-text { font-size: 12px; color: #aaa; }
+  .print-btn {
+    background: #00F19F; color: #000;
+    border: none; border-radius: 6px;
+    padding: 8px 20px; font-size: 12px; font-weight: 800;
+    cursor: pointer; letter-spacing: 0.3px;
+  }
+  .print-btn:hover { background: #00d488; }
+</style>
+</head>
+<body>
+
+<div class="print-bar no-print">
+  <span class="print-bar-text">Print this page or Save as PDF via Ctrl+P / Cmd+P → "Save as PDF"</span>
+  <button class="print-btn" onclick="window.print()">Save as PDF</button>
+</div>
+
+<div class="cover">
+  <div>
+    <div class="cover-logo">WHOOP Enterprise</div>
+    <div class="cover-title">RHTP Action Checklist<br>All 11 States</div>
+    <div class="cover-sub">Tasks ordered by urgency and deadline · $2.53B pipeline covered</div>
+  </div>
+  <div class="cover-meta">
+    <strong>Generated:</strong> April 13, 2026<br>
+    <strong>States Built:</strong> 11 / 50<br>
+    <strong>Critical Actions:</strong> Montana · Nebraska<br>
+    <strong>Hot States:</strong> Kansas · Texas · Missouri · NC · Ohio<br>
+    <strong>Program:</strong> CMS Rural Health Transformation
+  </div>
+</div>
+
+<div class="legend no-print">
+  <span class="legend-label">Priority</span>
+  <div class="legend-item"><div class="legend-dot" style="background:#e8272e"></div> Critical — Act immediately</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e86c00"></div> Hot — This week / before deadline</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c98a00"></div> Warm — Before RFP drops</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#007a52"></div> Active — Ongoing</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#6b7280"></div> Note / Context</div>
+</div>
+
+<div class="main">
+
+  <!-- ── SUMMARY ── -->
+  <div class="section-label">
+    At a Glance — All States by Deadline
+  </div>
+
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>State</th>
+        <th>Award</th>
+        <th>Status</th>
+        <th>Next Deadline / Window</th>
+        <th>Top Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Nebraska</strong></td>
+        <td>$218.5M</td>
+        <td><span style="color:var(--red);font-weight:700;">Critical</span></td>
+        <td style="color:var(--red);font-weight:700;">Apr 15 — Workforce Incentive Opens</td>
+        <td>Email DHHS.RHTP@nebraska.gov + identify CAHs recruiting</td>
+      </tr>
+      <tr>
+        <td><strong>Ohio</strong></td>
+        <td>$202.0M</td>
+        <td><span style="color:var(--orange);font-weight:700;">Hot</span></td>
+        <td style="color:var(--orange);font-weight:700;">Apr 20 — CHW Bidders Conference</td>
+        <td>Contact CHW Training prime bidders before April 20</td>
+      </tr>
+      <tr>
+        <td><strong>Montana</strong></td>
+        <td>$233.5M</td>
+        <td><span style="color:var(--red);font-weight:700;">Critical</span></td>
+        <td style="color:var(--red);font-weight:700;">May 1 / May 15 — CoE RFPs Close</td>
+        <td>Call Guidehouse, Manatt, HMA — get named as subcontractor</td>
+      </tr>
+      <tr>
+        <td><strong>North Carolina</strong></td>
+        <td>$213.0M</td>
+        <td><span style="color:var(--orange);font-weight:700;">Hot</span></td>
+        <td style="color:var(--orange);font-weight:700;">May–June — Hub Lead Awards</td>
+        <td>Contact NC DHHS ORH + Hub Lead applicants before awards</td>
+      </tr>
+      <tr>
+        <td><strong>Missouri</strong></td>
+        <td>$216.3M</td>
+        <td><span style="color:var(--orange);font-weight:700;">Hot</span></td>
+        <td style="color:var(--orange);font-weight:700;">June 2026 — RPM Feedback Closes</td>
+        <td>Email DSS.RHTP@dss.mo.gov for Q2 RPM feedback period</td>
+      </tr>
+      <tr>
+        <td><strong>Ohio (CHW)</strong></td>
+        <td>$202.0M</td>
+        <td><span style="color:var(--orange);font-weight:700;">Hot</span></td>
+        <td style="color:var(--orange);font-weight:700;">Jun 15 — CHW Training RFP Closes</td>
+        <td>Partner named in prime proposal before June 15</td>
+      </tr>
+      <tr>
+        <td><strong>Kansas</strong></td>
+        <td>$221.9M</td>
+        <td><span style="color:var(--orange);font-weight:700;">Hot</span></td>
+        <td>Oct 30 — EBP Funds Expire</td>
+        <td>Email Dr. Matthew Ross at UKHS CCA (mross10@kumc.edu)</td>
+      </tr>
+      <tr>
+        <td><strong>Texas</strong></td>
+        <td>$281.3M</td>
+        <td><span style="color:var(--orange);font-weight:700;">Hot</span></td>
+        <td>Oct 30 — BP1 Expires</td>
+        <td>Email Anthony Hawley — Initiative 2 pre-RFP positioning</td>
+      </tr>
+      <tr>
+        <td><strong>Oklahoma</strong></td>
+        <td>$223.5M</td>
+        <td><span style="color:var(--teal);font-weight:700;">Active</span></td>
+        <td>Late May — Microgrant Awards</td>
+        <td>Prepare device-only outreach for 75 funded county orgs</td>
+      </tr>
+      <tr>
+        <td><strong>California</strong></td>
+        <td>$233.6M</td>
+        <td><span style="color:var(--yellow);font-weight:700;">Warm</span></td>
+        <td>Spring 2026 — RTAC RFA</td>
+        <td>Email Hovik Khosrovian at HCAI — pre-RFA partnership</td>
+      </tr>
+      <tr>
+        <td><strong>Georgia</strong></td>
+        <td>$218.9M</td>
+        <td><span style="color:var(--yellow);font-weight:700;">Warm</span></td>
+        <td>2026 — Compatibility Assessment</td>
+        <td>Email greathealth@dch.ga.gov — consumer platform positioning</td>
+      </tr>
+      <tr>
+        <td><strong>Alaska</strong></td>
+        <td>$272.2M</td>
+        <td><span style="color:var(--blue);font-weight:700;">Monitoring</span></td>
+        <td>Summer 2026 — Year 2 RFP</td>
+        <td>Monitor health.alaska.gov/rhtp for Year 2 announcements</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ══════════════════════════════════
+       CRITICAL
+  ══════════════════════════════════ -->
+  <div class="section-label">
+    Critical
+    <span class="section-label-badge" style="background:#fde8e8;color:var(--red);">Act Immediately</span>
+  </div>
+
+  <!-- NEBRASKA -->
+  <div class="state-block">
+    <div class="state-header" style="background:#fef2f2;">
+      <div class="state-abbr" style="background:#e8272e;">NE</div>
+      <div class="state-name-wrap">
+        <div class="state-name">Nebraska</div>
+        <div class="state-program">Nebraska DHHS · eHealth + Workforce Incentive Program</div>
+      </div>
+      <div class="state-deadline">Workforce Incentive Opens: Apr 15, 2026</div>
+      <div class="state-award">
+        $218.5M
+        <div class="state-award-label">5-Year Award</div>
+      </div>
+      <div class="state-badge" style="color:var(--red);border-color:var(--red);">Critical</div>
+    </div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e8272e;"></div>
+        <div class="task-text"><strong>Email DHHS.RHTP@nebraska.gov</strong> — pre-market introduction for Initiative 4 eHealth &amp; Mobile Care and Initiative 7 Rural Health Technology Catalyst Fund. No vendor named, no RFP released — this is the pre-market window.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e8272e;"></div>
+        <div class="task-text"><strong>Identify CAHs recruiting under the Workforce Incentive Program (opens April 15)</strong> — $7,500–$75K/yr × 5 years for rural service commitments. Facilities recruiting are active WHOOP Unite buyers right now. Contact dhhs.ruralhealth@nebraska.gov for the list of eligible recruiting facilities.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e86c00;"></div>
+        <div class="task-text"><strong>Contact dhhs.ruralhealth@nebraska.gov</strong> — request list of facilities participating in the Workforce Incentive Program. These are your fastest-close WHOOP Unite targets in Nebraska.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#6b7280;"></div>
+        <div class="task-text"><strong>Register on Nebraska DAS vendor portal</strong> — das.nebraska.gov/materiel/vendor-information.html — required before any formal solicitation response.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTANA -->
+  <div class="state-block">
+    <div class="state-header" style="background:#fef2f2;">
+      <div class="state-abbr" style="background:#e8272e;">MT</div>
+      <div class="state-name-wrap">
+        <div class="state-name">Montana</div>
+        <div class="state-program">Montana DPHHS · CoE Implementation + CoE Analytics RFPs Live</div>
+      </div>
+      <div class="state-deadline">CoE Analytics: May 1 · CoE Implementation: May 15</div>
+      <div class="state-award">
+        $233.5M
+        <div class="state-award-label">5-Year Award</div>
+      </div>
+      <div class="state-badge" style="color:var(--red);border-color:var(--red);">Critical</div>
+    </div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e8272e;"></div>
+        <div class="task-text"><strong>Call Guidehouse, Manatt Health, HMA, PCG, Leavitt Partners, Deloitte</strong> — pitch WHOOP as the named wearable/biometric monitoring subcontractor in their CoE Implementation proposal. RFP closes May 15. Must be named before submission.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e8272e;"></div>
+        <div class="task-text"><strong>Contact BerryDunn and Wipfli</strong> — CoE Analytics RFP closes May 1. Pitch WHOOP data layer for their analytics proposal. Fastest approaching deadline in the portfolio.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Monitor eMACS (bids.mt.gov) commodity code 2620</strong> for Initiative 5 direct technology RFP — this is where WHOOP submits directly (not through a prime).</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#6b7280;"></div>
+        <div class="task-text"><strong>Note:</strong> All RFP communication must go through eMACS Q&amp;A board only — do NOT email Rhonda Peters (Rhonda.Peters@mt.gov) or Patrick Navarro directly about RFP specifics once the RFP is live. SPoC rule.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       HOT
+  ══════════════════════════════════ -->
+  <div class="section-label">
+    Hot
+    <span class="section-label-badge" style="background:#fff3e0;color:var(--orange);">This Week / Before Deadline</span>
+  </div>
+
+  <!-- OHIO -->
+  <div class="state-block">
+    <div class="state-header" style="background:#fff8f0;">
+      <div class="state-abbr" style="background:#e86c00;">OH</div>
+      <div class="state-name-wrap">
+        <div class="state-name">Ohio</div>
+        <div class="state-program">Ohio Dept. of Health · CHW Training RFP + Innovation Hubs $92M</div>
+      </div>
+      <div class="state-deadline">Bidders Conference: Apr 20 · CHW Closes: Jun 15</div>
+      <div class="state-award">
+        $202.0M
+        <div class="state-award-label">5-Year Award</div>
+      </div>
+      <div class="state-badge" style="color:var(--orange);border-color:var(--orange);">Hot</div>
+    </div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e8272e;"></div>
+        <div class="task-text"><strong>Contact CHW Training prime bidder candidates BEFORE April 20 bidders conference</strong> — DOH59679 (SRC0000038332) bidders conference is April 20 at 1:00 PM via Teams. Target: Ohio Hospital Association, Ohio State University College of Public Health, Ohio Colleges of Medicine GRC, Case Western, NACHW, Pathways Community HUB Institute. Pitch WHOOP as patient-side CHW monitoring tool. WHOOP does not bid directly on this services contract.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e86c00;"></div>
+        <div class="task-text"><strong>Contact Ohio Department of Health RHTP program office</strong> — introduce WHOOP for Innovation Hubs / Clinically Integrated Networks ($92M). No RFP released yet — pre-market window open. RPM and consumer health tech embedded in CIN care coordination model. Innovation Hubs is part of the same RHTP program (same $202M CMS award, same agency).</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Register on OhioBuys (ohiobuys.ohio.gov) and supplier.ohio.gov</strong> — required before Innovation Hubs technology RFP drops. Complete now.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#007a52;"></div>
+        <div class="task-text"><strong>Monitor OhioBuys for DOH59715 Workforce Pipeline award announcements</strong> — winning organizations running 5-year rural service commitment programs are active WHOOP Unite targets.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NORTH CAROLINA -->
+  <div class="state-block">
+    <div class="state-header" style="background:#fff8f0;">
+      <div class="state-abbr" style="background:#e86c00;">NC</div>
+      <div class="state-name-wrap">
+        <div class="state-name">North Carolina</div>
+        <div class="state-program">NC DHHS · NC ROOTS · Hub Lead Awards Imminent</div>
+      </div>
+      <div class="state-deadline">Hub Lead Awards Expected: May–June 2026</div>
+      <div class="state-award">
+        $213.0M
+        <div class="state-award-label">5-Year Award</div>
+      </div>
+      <div class="state-badge" style="color:var(--orange);border-color:var(--orange);">Hot</div>
+    </div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e86c00;"></div>
+        <div class="task-text"><strong>Contact NC DHHS Office of Rural Health</strong> — position WHOOP for the Technology &amp; Innovation initiative and Prevention &amp; Chronic Disease pillar before Hub Lead awards lock in vendor relationships. Hub Lead applications closed April 2 — DHHS evaluating now. Awards expected May–June 2026.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e86c00;"></div>
+        <div class="task-text"><strong>Identify leading NC ROOTS Hub Lead applicants</strong> — hospital associations, health systems, and FQHCs who submitted for the 6 regional Hub Lead positions. Contact them before awards are announced. Relationship before award = partner status. Relationship after = vendor responding to an RFP.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Register on vendor.nc.gov and eprocurement.nc.gov</strong> — required before any Technology &amp; Innovation RFP drops. Monitor ncdhhs.gov RHTP grant opportunities page for Hub Lead award announcements.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#007a52;"></div>
+        <div class="task-text"><strong>Begin WHOOP Unite outreach to ~36 rural NC CAHs</strong> via Workforce Development initiative — fastest close (14–30 days). Use as case study for Hub Lead and DHHS conversations.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MISSOURI -->
+  <div class="state-block">
+    <div class="state-header" style="background:#fff8f0;">
+      <div class="state-abbr" style="background:#e86c00;">MO</div>
+      <div class="state-name-wrap">
+        <div class="state-name">Missouri</div>
+        <div class="state-program">Missouri DSS / MO HealthNet · Q2 RPM Feedback Window Live — $3M Allocation</div>
+      </div>
+      <div class="state-deadline">RPM Feedback Closes: June 2026</div>
+      <div class="state-award">
+        $216.3M
+        <div class="state-award-label">5-Year Award</div>
+      </div>
+      <div class="state-badge" style="color:var(--orange);border-color:var(--orange);">Hot</div>
+    </div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e86c00;"></div>
+        <div class="task-text"><strong>Email DSS.RHTP@dss.mo.gov</strong> — submit WHOOP for the Q2 2026 Remote Patient Technology Feedback period. Reference the $3M dedicated RPM licensing allocation in the Digital Foundation pillar. Window closes June 2026 — only state in the portfolio with a named RPM dollar line.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e86c00;"></div>
+        <div class="task-text"><strong>Register on MissouriBUYS (missouribuys.mo.gov)</strong> — required before the Digital Foundation RPM RFP drops (expected Q3–Q4 2026). Complete now.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Monitor Q3 2026 Social Care CIE RFP</strong> — Missouri's Community Information Exchange / referral platform procurement drops Q3 2026. WHOOP biometric data feeds the chronic disease layer. Watch mydss.mo.gov/mhd/rural-health.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#007a52;"></div>
+        <div class="task-text"><strong>Begin WHOOP Unite outreach to ~36 rural Missouri CAHs</strong> — $17.8M Workforce Expansion pillar active. Fastest close (14–30 days).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KANSAS -->
+  <div class="state-block">
+    <div class="state-header" style="background:#fff8f0;">
+      <div class="state-abbr" style="background:#e86c00;">KS</div>
+      <div class="state-name-wrap">
+        <div class="state-name">Kansas</div>
+        <div class="state-program">KDHE · UKHS CCA · $33M EBP Technology Infrastructure — Funds Flowing Now</div>
+      </div>
+      <div class="state-deadline">EBP Fund Expenditure Deadline: Oct 30, 2026</div>
+      <div class="state-award">
+        $221.9M
+        <div class="state-award-label">5-Year Award</div>
+      </div>
+      <div class="state-badge" style="color:var(--orange);border-color:var(--orange);">Hot</div>
+    </div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e86c00;"></div>
+        <div class="task-text"><strong>Email Dr. Matthew Ross at UKHS CCA — mross10@kumc.edu</strong> — EBP technology infrastructure partnership. CCA administers $33M to 200+ enrolled rural Kansas providers. One CCA endorsement = access to all 200+ providers simultaneously. Frame WHOOP as EBP technology infrastructure tool for diabetes, heart failure, and CKM performance measures.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e86c00;"></div>
+        <div class="task-text"><strong>Also email Rachel Moser at UKHS CCA — rmoser@kumc.edu</strong> and care.collaborative@rhtp.net. Multiple contacts at CCA increases response probability.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Frame WHOOP as EBP technology infrastructure tool</strong> — Kansas EBP FAQ explicitly allows "technology or data infrastructure" investments. Performance measures: Diabetes Discharge Checklist, Heart Failure Checklist, CKM Syndrome, STEMI/NSTEMI, Stroke. WHOOP maps to all of these.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#007a52;"></div>
+        <div class="task-text"><strong>Monitor KDHE program site (kdhe.ks.gov/rhtp)</strong> for Initiative 5 Consumer Health Technology NOFO — future direct WHOOP procurement lane.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEXAS -->
+  <div class="state-block">
+    <div class="state-header" style="background:#fff8f0;">
+      <div class="state-abbr" style="background:#e86c00;">TX</div>
+      <div class="state-name-wrap">
+        <div class="state-name">Texas</div>
+        <div class="state-program">Texas HHSC · Rural Texas Strong · Initiative 2 RFP Pending</div>
+      </div>
+      <div class="state-deadline">Budget Period 1: Oct 30, 2026</div>
+      <div class="state-award">
+        $281.3M
+        <div class="state-award-label">5-Year Award · #1 Nationally</div>
+      </div>
+      <div class="state-badge" style="color:var(--orange);border-color:var(--orange);">Hot</div>
+    </div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e86c00;"></div>
+        <div class="task-text"><strong>Email Anthony Hawley — anthony.hawley@hhs.texas.gov</strong> — Director, Rural Texas Strong. Introduce WHOOP for Initiative 2 pre-RFP positioning. Initiative 2 (remote monitoring) has no contractor selected — this is the pre-market window. Ask about RFP timeline and any vendor briefing sessions.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Map the ~80 eligible rural hospital districts</strong> (counties ≤68,750 population) — these receive ~$750K each under Initiative 1 for chronic disease outcomes programming. Direct WHOOP outreach targets.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#007a52;"></div>
+        <div class="task-text"><strong>Engage WHOOP Unite motion with Initiative 4 workforce contacts</strong> — $98.9M workforce pillar. Fastest close in Texas (14–30 days). Use as proof point in Initiative 2 conversations with HHSC.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       WARM / ACTIVE
+  ══════════════════════════════════ -->
+  <div class="section-label">
+    Warm &amp; Active
+    <span class="section-label-badge" style="background:#fffbeb;color:var(--yellow);">Before RFP Drops</span>
+  </div>
+
+  <!-- OKLAHOMA -->
+  <div class="state-block">
+    <div class="state-header" style="background:#f0faf4;">
+      <div class="state-abbr" style="background:#007a52;">OK</div>
+      <div class="state-name-wrap">
+        <div class="state-name">Oklahoma</div>
+        <div class="state-program">OSDH · Microgrant Program — Late May Awards · Device-Only Lane</div>
+      </div>
+      <div class="state-deadline">Microgrant Awards: Late May–June 2026</div>
+      <div class="state-award">
+        $223.5M
+        <div class="state-award-label">5-Year Award</div>
+      </div>
+      <div class="state-badge" style="color:var(--teal);border-color:var(--teal);">Active</div>
+    </div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Prepare device-only outreach for 75 funded county orgs</strong> — Late May award announcement triggers buying urgency (Oct 30 spend deadline). Subscription pricing is PROHIBITED under current NOFO. Device hardware only.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Contact OSDH pre-market</strong> — position WHOOP for ~$219M in future technology/remote monitoring NOFOs in Years 2–5. No vendor selected for anything beyond microgrants.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#e8272e;"></div>
+        <div class="task-text"><strong>Critical constraint:</strong> Active NOFO explicitly prohibits "ongoing maintenance or subscription costs." Device-only pricing only for current microgrant purchasers. Platform subscription model not fundable under current NOFO.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALIFORNIA -->
+  <div class="state-block">
+    <div class="state-header" style="background:#fffdf0;">
+      <div class="state-abbr" style="background:#c98a00;">CA</div>
+      <div class="state-name-wrap">
+        <div class="state-name">California</div>
+        <div class="state-program">CA HCAI · RTAC $23.55M · RFA Releasing Spring 2026</div>
+      </div>
+      <div class="state-deadline">RFA Expected: Spring 2026</div>
+      <div class="state-award">
+        $233.6M
+        <div class="state-award-label">5-Year Award</div>
+      </div>
+      <div class="state-badge" style="color:var(--yellow);border-color:var(--yellow);">Warm</div>
+    </div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Email Hovik Khosrovian — hovik.khosrovian@hcai.ca.gov</strong> — Interim Program Director, CalRHT. Pre-RFA partnership for RTAC technology endorsement. RTAC = $23.55M state endorsement engine reaching 683+ rural health orgs. One state deal unlocks all.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Also email CalRHT@hcai.ca.gov</strong> — program inbox. Reference Initiative 1 ("consumer-facing mobile-app-based technology" and "consumer remote patient self-monitoring devices" explicitly named) and RTAC technology endorsement lane.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#007a52;"></div>
+        <div class="task-text"><strong>Direct outreach to ~16 Initiative 1 hub hospitals</strong> ($112.2M bucket) — each independently selecting consumer health tools for hub-and-spoke networks. RFA dropping Spring 2026.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GEORGIA -->
+  <div class="state-block">
+    <div class="state-header" style="background:#fffdf0;">
+      <div class="state-abbr" style="background:#c98a00;">GA</div>
+      <div class="state-name-wrap">
+        <div class="state-name">Georgia</div>
+        <div class="state-program">GA DCH · GREAT Health · AHEAD Model — Consumer Platform Pre-Market</div>
+      </div>
+      <div class="state-deadline">Consumer Platform Compatibility Assessment: 2026</div>
+      <div class="state-award">
+        $218.9M
+        <div class="state-award-label">5-Year Award</div>
+      </div>
+      <div class="state-badge" style="color:var(--yellow);border-color:var(--yellow);">Warm</div>
+    </div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Email greathealth@dch.ga.gov</strong> — Consumer Engagement Platform biometric data layer positioning. DCH is building a consumer platform for all Medicaid/Medicare/SHBP rural members. Compatibility assessment 2026, implementation 2027. WHOOP = biometric data layer. Pre-market window NOW.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#c98a00;"></div>
+        <div class="task-text"><strong>Workforce Retention Technology grants active — first awards 2026</strong> — WHOOP Unite is direct fit. Five grant rounds through 2030. Contact DCH and GHA about grant-eligible organizations.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#007a52;"></div>
+        <div class="task-text"><strong>Contact GHA (770-249-4500)</strong> — Georgia Hospital Association. LOI hospital outreach for service line support ($750K/yr × 3 years per AHEAD LOI hospital).</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       MONITORING
+  ══════════════════════════════════ -->
+  <div class="section-label">
+    Monitoring
+    <span class="section-label-badge" style="background:#e8f4ff;color:var(--blue);">Re-Engage Summer 2026</span>
+  </div>
+
+  <!-- ALASKA -->
+  <div class="state-block">
+    <div class="state-header" style="background:#f0f7ff;">
+      <div class="state-abbr" style="background:#005fa3;">AK</div>
+      <div class="state-name-wrap">
+        <div class="state-name">Alaska</div>
+        <div class="state-program">Alaska DOH / ACF · Year 2 Re-Engage Summer 2026</div>
+      </div>
+      <div class="state-deadline">Year 2 RFP Expected: Summer 2026</div>
+      <div class="state-award">
+        $272.2M
+        <div class="state-award-label">5-Year Award · #2 Nationally</div>
+      </div>
+      <div class="state-badge" style="color:var(--blue);border-color:var(--blue);">Monitoring</div>
+    </div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#005fa3;"></div>
+        <div class="task-text"><strong>Monitor health.alaska.gov/rhtp</strong> and <strong>aws.state.ak.us/OnlinePublicNotices</strong> — DOH directed monitoring here for all new RFPs and Year 2 funding announcements. Check weekly.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#005fa3;"></div>
+        <div class="task-text"><strong>Follow up with ACF (rhtp@alaskacf.org)</strong> if no reply by April 17. Then re-engage summer 2026 when Year 2 RFP drops.</div>
+      </div>
+      <div class="task-item">
+        <div class="task-checkbox"></div>
+        <div class="task-dot" style="background:#6b7280;"></div>
+        <div class="task-text"><strong>Context:</strong> DOH declined intro call April 12 — portal closed, review underway. NOT a dead opportunity — timing issue. Spark Technology Fund ($27.2M, explicitly names "consumer wearables") has no vendor selected. Re-engage summer 2026.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .main -->
+
+<script>
+  // Allow checkboxes to be toggled on screen
+  document.querySelectorAll('.task-checkbox').forEach(cb => {
+    cb.style.cursor = 'pointer';
+    cb.addEventListener('click', function() {
+      if (this.style.background === 'rgb(0, 120, 80)') {
+        this.style.background = '';
+        this.style.borderColor = '#d1d5db';
+        this.innerHTML = '';
+        this.parentElement.style.opacity = '1';
+      } else {
+        this.style.background = '#007a52';
+        this.style.borderColor = '#007a52';
+        this.innerHTML = '<svg width="10" height="8" viewBox="0 0 10 8" fill="none" style="display:block;margin:2px auto"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        this.parentElement.style.opacity = '0.5';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
