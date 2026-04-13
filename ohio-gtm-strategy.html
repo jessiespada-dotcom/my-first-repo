@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ohio RHTP — GTM Strategy | WHOOP</title>
+<style>
+  :root {
+    --bg: #0d1215; --surface: #151c21; --surface2: #1a2530; --border: #1e2d38;
+    --teal: #00F19F; --blue: #0093E7; --orange: #ffb347; --red: #ff5a5a;
+    --yellow: #e6c020; --green: #a8cc44; --text: #e8eef2; --muted: #6b8394;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); }
+  a { color: var(--teal); text-decoration: none; }
+
+  .top-nav {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 12px 32px; display: flex; align-items: center; gap: 16px;
+    font-size: 12px; color: var(--muted);
+  }
+  .top-nav a { color: var(--muted); }
+  .top-nav a:hover { color: var(--teal); }
+  .top-nav .sep { color: var(--border); }
+
+  .hero {
+    background: linear-gradient(135deg, #0d1215 0%, #0d1a14 60%, #0a1210 100%);
+    border-bottom: 1px solid var(--border); padding: 40px 48px 36px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--teal); margin-bottom: 8px;
+  }
+  .hero-title { font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+  .hero-sub { font-size: 14px; color: var(--muted); }
+
+  .main { max-width: 1100px; margin: 0 auto; padding: 36px 48px 60px; }
+
+  .callout {
+    border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; border-left: 4px solid;
+  }
+  .callout-orange { background: #1a1408; border-color: var(--orange); }
+  .callout-teal   { background: #081a14; border-color: var(--teal); }
+  .callout-red    { background: #1a0808; border-color: var(--red); }
+  .callout-title  { font-size: 13px; font-weight: 800; margin-bottom: 5px; }
+  .callout-body   { font-size: 13px; line-height: 1.6; color: #c8d8e0; }
+
+  .section-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--muted); margin: 32px 0 14px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+
+  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .plan-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 22px; position: relative; overflow: hidden;
+  }
+  .plan-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .plan-label {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.8px; margin-bottom: 6px;
+  }
+  .plan-name { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+  .plan-tag {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 8px; margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .plan-desc { font-size: 13px; line-height: 1.6; color: #c0d0d8; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 13px; }
+  .compare-table th {
+    text-align: left; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--muted); padding: 8px 12px;
+    border-bottom: 1px solid var(--border); font-weight: 600;
+  }
+  .compare-table td { padding: 10px 12px; border-bottom: 1px solid #151c21; vertical-align: top; }
+  .compare-table tr:hover td { background: var(--surface2); }
+  .compare-table td:first-child { font-weight: 700; color: var(--muted); white-space: nowrap; }
+  .rec-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 11px;
+    font-weight: 700; background: #0d2e20; color: var(--teal);
+  }
+
+  .timeline-block { margin-bottom: 12px; }
+  .timeline-period {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--orange); margin-bottom: 8px;
+  }
+  .timeline-items { list-style: none; }
+  .timeline-items li {
+    padding: 8px 0 8px 18px; border-bottom: 1px solid var(--border);
+    font-size: 13px; position: relative; line-height: 1.5;
+  }
+  .timeline-items li:last-child { border-bottom: none; }
+  .timeline-items li::before {
+    content: ''; position: absolute; left: 0; top: 14px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--border);
+  }
+  .timeline-items li.hot::before { background: var(--orange); }
+  .timeline-items li.critical::before { background: var(--red); }
+  .timeline-items li.teal::before { background: var(--teal); }
+
+  .email-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin-bottom: 16px;
+  }
+  .email-header {
+    background: var(--surface2); padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .email-field { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .email-field span { color: var(--text); font-weight: 600; }
+  .email-body { padding: 20px; font-size: 13px; line-height: 1.8; white-space: pre-wrap; color: #c8d8e0; }
+
+  .doc-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .doc-link-btn {
+    padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    text-decoration: none; border: 1px solid; transition: all 0.15s;
+  }
+  .doc-link-primary { background: var(--teal); color: #000; border-color: var(--teal); }
+  .doc-link-secondary { background: transparent; color: var(--text); border-color: var(--border); }
+  .doc-link-secondary:hover { border-color: var(--teal); color: var(--teal); }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="rhtp-hub.html">← RHTP Hub</a>
+  <span class="sep">|</span>
+  <a href="ohio-rht-por.html">Plan of Record</a>
+  <span class="sep">|</span>
+  <span>GTM Strategy</span>
+  <span class="sep">|</span>
+  <span style="color:var(--red);">CHW Training Partner Play: June 15 · Innovation Hubs: Pre-Market Now</span>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">Ohio · GTM Strategy · WHOOP</div>
+  <div class="hero-title">Ohio Go-To-Market — $202M Award</div>
+  <div class="hero-sub">Innovation Hubs $92M · CHW Training Closes June 15 · WHOOP Unite — Rural Workforce Pipeline Winners</div>
+</div>
+
+<div class="main">
+
+  <div class="callout callout-red">
+    <div class="callout-title" style="color:var(--red);">Did WHOOP Miss the Ohio Deadline? Honest Answer.</div>
+    <div class="callout-body">The two Ohio solicitations with passed or approaching deadlines are both <strong>services contracts</strong> — workforce training and CHW training programs. WHOOP is not a workforce training provider. WHOOP does not submit to these RFPs. So the answer is: <strong>no, WHOOP did not miss a WHOOP-specific procurement window</strong>.<br><br>What matters is this: Ohio's <strong>$92M Innovation Hubs initiative — the largest and most WHOOP-relevant piece</strong> — has not issued an RFP yet. The pre-market window is open right now. The organizations who have conversations with ODH before that solicitation drops will be in the requirements document. That is the window you're in, and it is not closed.</div>
+  </div>
+
+  <div class="callout callout-orange">
+    <div class="callout-title" style="color:var(--orange);">The June 15 Action — CHW Training Partner Play</div>
+    <div class="callout-body">The DOH59679 CHW Training solicitation closes June 15, 2026. WHOOP doesn't bid directly, but <strong>organizations submitting proposals to run Ohio's CHW training program are building technology ecosystems around that program</strong>. A CHW who monitors patients with WHOOP biometric data (HRV, resting heart rate, SpO2, sleep) has a dramatically more powerful chronic disease management tool than one without it. Contact the likely prime bidders — public health consultancies, academic health centers, and rural health workforce organizations — and ask to be named as the consumer monitoring tool in their CHW training curriculum. This is the Montana model applied to Ohio.</div>
+  </div>
+
+  <div class="section-title">Three GTM Plans</div>
+
+  <div class="plan-grid">
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--teal);"></div>
+      <div class="plan-label" style="color:var(--teal);">Plan A</div>
+      <div class="plan-name">ODH Innovation Hubs — Pre-Market State Partnership</div>
+      <div class="plan-tag" style="background:#0d2e20;color:var(--teal);">Recommended</div>
+      <div class="plan-desc">Engage Ohio Department of Health about the technology and RPM component of the Innovation Hubs / Clinically Integrated Networks initiative before any RFP is released. $92M is the largest Ohio initiative and explicitly includes remote patient monitoring and consumer health technology. One ODH relationship cascades to all CINs and the full rural hospital network across 73 counties. Pre-market = requirements shaping.</div>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--orange);"></div>
+      <div class="plan-label" style="color:var(--orange);">Plan B</div>
+      <div class="plan-name">CHW Training Prime Bidder Engagement</div>
+      <div class="plan-tag" style="background:#1a1408;color:var(--orange);">Act Before June 15</div>
+      <div class="plan-desc">Identify organizations submitting proposals for DOH59679 (CHW Training, SRC0000038332, closes June 15). Target: public health consulting firms, academic medical centers, rural health workforce organizations, and Ohio Hospital Association. Pitch WHOOP as the patient-side biometric monitoring tool in their CHW protocol. CHWs managing diabetic, hypertensive, and maternal health patients with WHOOP data create a scale purchasing event for every patient cohort they serve.</div>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--blue);"></div>
+      <div class="plan-label" style="color:var(--blue);">Plan C</div>
+      <div class="plan-name">Workforce Pipeline Winners + Rural Ohio CAHs</div>
+      <div class="plan-tag" style="background:#0a1a2e;color:var(--blue);">Fastest Close</div>
+      <div class="plan-desc">DOH59715 Workforce Pipeline (closed March 10) awarded organizations running 5-year rural service commitment programs — these organizations are now active WHOOP Unite buyers. Monitor for DOH59715 award announcements and contact winning organizations. Also: Ohio's rural Critical Access Hospitals have independent procurement authority. WHOOP Unite enterprise motion applies directly. Fastest path to signed paper (14–30 days).</div>
+    </div>
+  </div>
+
+  <div class="section-title">Plan Comparison</div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Plan A — ODH Innovation Hubs</th>
+        <th>Plan B — CHW Training Partners</th>
+        <th>Plan C — Workforce Winners / Rural CAHs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Program Lane</td>
+        <td>Innovation Hubs / CINs — ~$92M</td>
+        <td>CHW Training — DOH59679</td>
+        <td>Workforce Pipeline — DOH59715 Winners</td>
+      </tr>
+      <tr>
+        <td>Procurement Status</td>
+        <td>Pre-market — No RFP yet</td>
+        <td>Active — Closes June 15, 2026</td>
+        <td>Post-award — Monitor for winners</td>
+      </tr>
+      <tr>
+        <td>Primary Contact</td>
+        <td>Ohio Department of Health RHTP</td>
+        <td>Prime bidders for CHW Training RFP</td>
+        <td>DOH59715 winning org + rural OH CAHs</td>
+      </tr>
+      <tr>
+        <td>Sales Motion</td>
+        <td>Pre-market → shape RPM requirements → RFP response</td>
+        <td>Named partner in prime proposal</td>
+        <td>WHOOP Unite enterprise motion</td>
+      </tr>
+      <tr>
+        <td>Speed to Revenue</td>
+        <td>9–18 months (post-RFP)</td>
+        <td>6–12 months (if named, post-award)</td>
+        <td>14–30 days (CAHs direct)</td>
+      </tr>
+      <tr>
+        <td>Scale Ceiling</td>
+        <td>Statewide — all 73 rural counties, all CINs</td>
+        <td>All CHW-served chronic disease patients</td>
+        <td>Individual orgs / CAHs</td>
+      </tr>
+      <tr>
+        <td>Probability</td>
+        <td>High — embedded RPM, no vendor named</td>
+        <td>Medium — depends on prime bidder relationships</td>
+        <td>High — proven WHOOP Unite motion</td>
+      </tr>
+      <tr>
+        <td>Recommendation</td>
+        <td><span class="rec-badge">Start Immediately</span></td>
+        <td><span class="rec-badge">Act Before June 15</span></td>
+        <td>Parallel track</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">30 / 60 / 90 Day Action Plan</div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 1–30 — Immediate Actions</div>
+    <ul class="timeline-items">
+      <li class="critical">Contact Ohio Department of Health RHTP program office — introduce WHOOP for the Innovation Hubs / CINs technology and RPM component. Pre-market positioning before the $92M solicitation drops. Use contact form at odh.ohio.gov.</li>
+      <li class="critical">Identify prime bidders for DOH59679 (CHW Training, SRC0000038332) — target public health consulting firms, academic medical centers, and rural health organizations in Ohio. Contact them about including WHOOP as the patient-side biometric monitoring tool in their CHW training curriculum. June 15 deadline.</li>
+      <li class="hot">Register on OhioBuys (ohiobuys.ohio.gov) and Ohio SRS (supplier.ohio.gov) — required for all Ohio state solicitation responses. Complete before the Innovation Hubs technology RFP drops.</li>
+      <li class="hot">Monitor ohiobuys.ohio.gov for DOH59715 Workforce Pipeline award announcements — contact winning organizations about WHOOP Unite for their 5-year rural service commitment programs.</li>
+      <li class="teal">Monitor odh.ohio.gov for Innovation Hubs technology solicitation and any new RHTP procurement announcements.</li>
+    </ul>
+  </div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 31–60 — Before June 15 Deadline and Post-Contact</div>
+    <ul class="timeline-items">
+      <li class="hot">Follow up with any identified CHW Training prime bidders — confirm whether WHOOP can be named as a monitoring tool in their proposal before June 15.</li>
+      <li class="hot">Follow up with ODH RHTP if no reply to initial outreach — reference Innovation Hubs by name and the RPM component of care coordination. Request a 20-min intro call.</li>
+      <li class="teal">Prepare Ohio RHTP Innovation Hubs positioning brief — one-pager showing WHOOP fit for chronic disease coordination (diabetes, hypertension, maternal health) across CIN networks in 73 rural Ohio counties.</li>
+      <li>Begin WHOOP Unite outreach to rural Ohio Critical Access Hospitals — direct enterprise motion, workforce retention angle.</li>
+    </ul>
+  </div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 61–90 — Scale and Deepen</div>
+    <ul class="timeline-items">
+      <li class="teal">Engage Ohio Hospital Association (OHA) — they likely have relationships with all rural Ohio hospitals and may have submitted or partnered on RHTP proposals. One OHA introduction = access to rural hospital network statewide.</li>
+      <li class="teal">Close first WHOOP Unite deal with a rural Ohio CAH — use as proof point in ODH Innovation Hubs conversations.</li>
+      <li>Prepare formal response materials for Innovation Hubs RPM / technology solicitation — anticipated Q3–Q4 2026.</li>
+      <li>If CHW Training partner play succeeds: work with winning organization to design WHOOP protocol for CHW chronic disease monitoring program rollout.</li>
+    </ul>
+  </div>
+
+  <div class="section-title">Opening Email — ODH Innovation Hubs (Plan A)</div>
+
+  <div class="email-block">
+    <div class="email-header">
+      <div class="email-field">To: <span>Ohio Department of Health — RHTP Program Office (via odh.ohio.gov contact form)</span></div>
+      <div class="email-field">Subject: <span>WHOOP — Consumer Remote Patient Monitoring for Ohio's Innovation Hubs / Clinically Integrated Networks</span></div>
+    </div>
+    <div class="email-body">Hi,
+
+I'm reaching out regarding Ohio's Rural Health Transformation Program — specifically the Innovation Hubs / Clinically Integrated Networks initiative and its technology and remote patient monitoring components.
+
+WHOOP is a FDA-registered consumer biometric monitoring platform used by 17 million people globally to continuously track cardiovascular strain, resting heart rate, heart rate variability, SpO2, and sleep quality. We're writing to introduce WHOOP as a technology partner for the Innovation Hubs initiative ahead of formal procurement.
+
+Ohio's CIN model — connecting hospitals, clinics, EMS, pharmacists, and community partners for coordinated rural care — is exactly the environment where WHOOP delivers the most value:
+
+— Continuous RPM for chronic disease management (diabetes, hypertension, maternal health) without clinical-grade devices or provider workflow burden
+— Consumer device that rural patients self-manage between visits — no facility infrastructure required
+— Population health dashboard for CIN coordinators to track cardiovascular and recovery metrics across a network of patients in real time
+— Five-year rural service commitment programs — WHOOP Unite enterprise program for provider retention across CIN partner organizations
+
+I'd welcome the opportunity to discuss how WHOOP could support the technology and RPM components of Ohio's Innovation Hubs initiative before formal solicitation begins. Is there a relevant contact or upcoming vendor engagement session I should be aware of?
+
+Thank you,
+[Name]
+WHOOP Enterprise
+[Email] | [Phone]</div>
+  </div>
+
+  <div class="section-title">Opening Email — CHW Training Prime Bidder (Plan B)</div>
+
+  <div class="email-block">
+    <div class="email-header">
+      <div class="email-field">To: <span>[Prime Bidder — Public Health Consultancy / Academic Medical Center / Rural Health Org]</span></div>
+      <div class="email-field">Subject: <span>WHOOP — Consumer Biometric Monitoring Tool for Ohio CHW Training Proposal (DOH59679)</span></div>
+    </div>
+    <div class="email-body">Hi [Name],
+
+I understand [Organization] may be submitting a proposal for the Ohio Department of Health Community Health Worker Training and Technical Assistance solicitation (DOH59679, SRC0000038332, closes June 15).
+
+I'm reaching out because WHOOP — a consumer biometric monitoring platform — could strengthen your proposal by giving the CHWs you train a powerful chronic disease monitoring tool to use with their patients.
+
+Here's the fit: CHWs serving diabetes, hypertension, and maternal health patients in rural Ohio currently have limited between-visit visibility into patient biometric status. WHOOP continuously tracks resting heart rate, HRV, SpO2, and sleep — the leading indicators for all three chronic conditions — through a consumer wearable that patients self-manage at home.
+
+If your CHW training curriculum includes WHOOP monitoring as a standard protocol component:
+— CHWs gain real-time patient population health data for proactive outreach
+— Rural patients get FDA-registered continuous monitoring without clinical infrastructure
+— Your program generates measurable health outcomes data for Ohio RHTP reporting requirements
+
+I'd welcome a 15-minute call before June 15 to discuss whether WHOOP fits your proposed CHW training model. Would that work?
+
+Thank you,
+[Name]
+WHOOP Enterprise
+[Email] | [Phone]</div>
+  </div>
+
+  <div class="doc-links">
+    <a href="ohio-rht-por.html" class="doc-link-btn doc-link-primary">Plan of Record →</a>
+    <a href="rhtp-hub.html" class="doc-link-btn doc-link-secondary">← RHTP Hub</a>
+    <a href="rhtp-command.html" class="doc-link-btn doc-link-secondary">Command Center</a>
+    <a href="https://odh.ohio.gov/know-our-programs/rural-health-transformation-program" target="_blank" class="doc-link-btn doc-link-secondary">Ohio RHTP Site ↗</a>
+    <a href="https://ohiobuys.ohio.gov" target="_blank" class="doc-link-btn doc-link-secondary">OhioBuys ↗</a>
+  </div>
+
+</div>
+</body>
+</html>

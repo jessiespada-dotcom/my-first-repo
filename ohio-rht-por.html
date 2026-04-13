@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ohio RHTP — Plan of Record | WHOOP</title>
+<style>
+  :root {
+    --bg: #0d1215; --surface: #151c21; --surface2: #1a2530; --border: #1e2d38;
+    --teal: #00F19F; --blue: #0093E7; --orange: #ffb347; --red: #ff5a5a;
+    --yellow: #e6c020; --green: #a8cc44; --text: #e8eef2; --muted: #6b8394;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); }
+  a { color: var(--teal); text-decoration: none; }
+
+  .top-nav {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 12px 32px; display: flex; align-items: center; gap: 16px;
+    font-size: 12px; color: var(--muted);
+  }
+  .top-nav a { color: var(--muted); }
+  .top-nav a:hover { color: var(--teal); }
+  .top-nav .sep { color: var(--border); }
+
+  .hero {
+    background: linear-gradient(135deg, #0d1215 0%, #0d1a14 60%, #0a1210 100%);
+    border-bottom: 1px solid var(--border); padding: 40px 48px 36px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--teal); margin-bottom: 8px;
+  }
+  .hero-title { font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+  .hero-sub { font-size: 14px; color: var(--muted); }
+  .hero-right { text-align: right; }
+  .hero-award { font-size: 42px; font-weight: 900; color: var(--teal); line-height: 1; }
+  .hero-award-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .hero-inner { display: flex; justify-content: space-between; align-items: flex-start; }
+
+  .main { max-width: 1100px; margin: 0 auto; padding: 36px 48px 60px; }
+
+  .callout {
+    border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; border-left: 4px solid;
+  }
+  .callout-orange { background: #1a1408; border-color: var(--orange); }
+  .callout-teal   { background: #081a14; border-color: var(--teal); }
+  .callout-red    { background: #1a0808; border-color: var(--red); }
+  .callout-blue   { background: #081018; border-color: var(--blue); }
+  .callout-title  { font-size: 13px; font-weight: 800; margin-bottom: 5px; }
+  .callout-body   { font-size: 13px; line-height: 1.6; color: #c8d8e0; }
+
+  .section-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--muted); margin: 32px 0 14px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px; text-align: center;
+  }
+  .stat-num { font-size: 28px; font-weight: 900; color: var(--teal); line-height: 1; }
+  .stat-num-orange { color: var(--orange); }
+  .stat-num-blue { color: var(--blue); }
+  .stat-num-red { color: var(--red); }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .stat-desc { font-size: 11px; color: #7a9aaa; margin-top: 6px; line-height: 1.4; }
+
+  .init-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 13px; }
+  .init-table th {
+    text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--muted); padding: 8px 12px; border-bottom: 1px solid var(--border); font-weight: 600;
+  }
+  .init-table td { padding: 12px 12px; border-bottom: 1px solid #151c21; vertical-align: top; line-height: 1.5; }
+  .init-table tr:hover td { background: var(--surface2); }
+  .init-num { width: 36px; font-weight: 700; color: var(--muted); }
+  .badge {
+    display: inline-block; padding: 2px 10px; border-radius: 8px; font-size: 11px;
+    font-weight: 700; white-space: nowrap;
+  }
+  .badge-primary  { background: #0d2e20; color: var(--teal); }
+  .badge-secondary{ background: #1a1a0a; color: var(--yellow); }
+  .badge-watch    { background: #0a1a2e; color: var(--blue); }
+  .badge-none     { background: #1a2530; color: var(--muted); }
+
+  .solicitation-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 8px; }
+  .sol-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px; position: relative; overflow: hidden;
+  }
+  .sol-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .sol-id { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .sol-title { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .sol-status {
+    display: inline-block; padding: 3px 10px; border-radius: 8px;
+    font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;
+  }
+  .sol-open { background: #0d2e20; color: var(--teal); }
+  .sol-closed { background: #1a2530; color: var(--muted); }
+  .sol-watch { background: #1a1408; color: var(--orange); }
+  .sol-body { font-size: 13px; line-height: 1.6; color: #c0d0d8; }
+  .sol-meta { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .sol-meta span { color: var(--text); font-weight: 600; }
+
+  .timeline-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .timeline-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .timeline-table tr:last-child td { border-bottom: none; }
+  .tl-date { font-weight: 700; color: var(--orange); white-space: nowrap; width: 160px; }
+  .tl-event { font-weight: 700; margin-bottom: 2px; }
+  .tl-detail { font-size: 12px; color: var(--muted); }
+
+  .contact-block { margin-bottom: 14px; }
+  .contact-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .contact-role { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .contact-detail { font-size: 13px; }
+
+  .doc-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .doc-link-btn {
+    padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    text-decoration: none; border: 1px solid; transition: all 0.15s;
+  }
+  .doc-link-primary { background: var(--teal); color: #000; border-color: var(--teal); }
+  .doc-link-secondary { background: transparent; color: var(--text); border-color: var(--border); }
+  .doc-link-secondary:hover { border-color: var(--teal); color: var(--teal); }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="rhtp-hub.html">← RHTP Hub</a>
+  <span class="sep">|</span>
+  <span>Plan of Record</span>
+  <span class="sep">|</span>
+  <a href="ohio-gtm-strategy.html">GTM Strategy</a>
+  <span class="sep">|</span>
+  <span style="color:var(--orange);">CHW Training RFP Closes June 15 · Innovation Hubs — Pre-Market Now</span>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Ohio · Plan of Record · WHOOP</div>
+      <div class="hero-title">Ohio Rural Health Transformation Program</div>
+      <div class="hero-sub">Ohio Department of Health · 73 Non-Urban Counties · 25th Largest Award Nationally</div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-award">$202M</div>
+      <div class="hero-award-label">5-Year CMS Award · RHTCMS332087</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="callout callout-orange">
+    <div class="callout-title" style="color:var(--orange);">WHOOP Honest Assessment — Where the Real Opportunity Is</div>
+    <div class="callout-body">The two active Ohio solicitations (DOH59715 Workforce — closed March 10; DOH59679 CHW Training — closes June 15) are <strong>services contracts</strong>, not technology device procurement. WHOOP does not submit to workforce training or CHW training services RFPs directly. However, <strong>the Innovation Hubs initiative ($92M) — Ohio's largest piece — has not released an RFP yet</strong>. That is where remote patient monitoring, consumer health technology, and care coordination tools will be procured. The pre-market window to shape those requirements is open <em>right now</em>. Engage ODH about the technology and RPM component of Innovation Hubs before any solicitation drops.</div>
+  </div>
+
+  <div class="callout callout-red">
+    <div class="callout-title" style="color:var(--red);">Active Solicitation — June 15, 2026 Deadline</div>
+    <div class="callout-body"><strong>DOH59679: Community Health Worker Training and Technical Assistance</strong> (SRC0000038332) — Opened April 10, closes June 15 at 3 PM. This is a CHW training services contract. WHOOP is not a direct bidder. <strong>Partner play:</strong> Identify the prime bidders submitting for this contract and pitch WHOOP as the consumer biometric monitoring tool in their CHW protocol — similar to the Montana subcontractor model. CHWs who use WHOOP data in chronic disease management appointments create a purchasing pathway from every organization this contractor trains.</div>
+  </div>
+
+  <div class="section-title">Program Overview</div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-num">$202M</div>
+      <div class="stat-label">5-Year CMS Award</div>
+      <div class="stat-desc">Cooperative Agreement RHTCMS332087 · Dec 29, 2025 · 25th nationally</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num stat-num-orange">73</div>
+      <div class="stat-label">Non-Urban Counties</div>
+      <div class="stat-desc">Ohio's 73 rural counties eligible for RHTP-funded programs and services</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num stat-num-blue">$92M</div>
+      <div class="stat-label">Innovation Hubs (Largest Initiative)</div>
+      <div class="stat-desc">Clinically Integrated Networks. RPM and consumer health tech embedded. No RFP yet — pre-market window open.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num stat-num-red">Jun 15</div>
+      <div class="stat-label">Next Active Deadline</div>
+      <div class="stat-desc">DOH59679 CHW Training closes June 15. Partner/subcontractor play only — not WHOOP direct.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Five Core Initiatives — WHOOP Fit</div>
+
+  <table class="init-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Initiative</th>
+        <th>Funding (Est.)</th>
+        <th>Description</th>
+        <th>WHOOP Fit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="init-num">1</td>
+        <td><strong>Rural Health Innovation Hubs / Clinically Integrated Networks (CINs)</strong></td>
+        <td><strong>~$92M</strong></td>
+        <td>Networks connecting hospitals, physician practices, EMS, behavioral health, pharmacies, and community-based organizations to improve care coordination. Telehealth and remote patient monitoring are embedded components for chronic disease management. The legislative reforms also enable birthing centers within rural hospitals. <strong>No RFP released yet — this is the pre-market window.</strong></td>
+        <td><span class="badge badge-primary">Primary</span></td>
+      </tr>
+      <tr>
+        <td class="init-num">2</td>
+        <td><strong>Rural Workforce Pipeline — Pathways, Upskilling &amp; Retention</strong></td>
+        <td><strong>~$13.5M</strong></td>
+        <td>Professional development from high school through employment. Five-year rural service commitments with housing stipends. Upskilling CHWs and pharmacists. DOH59715 RFP closed March 10, 2026 — awards being made. Organizations WINNING this contract run retention programs where WHOOP Unite is the direct-fit differentiator for providers on 5-year rural commitments.</td>
+        <td><span class="badge badge-secondary">Secondary</span></td>
+      </tr>
+      <tr>
+        <td class="init-num">3</td>
+        <td><strong>CHW Training and Technical Assistance</strong></td>
+        <td><strong>TBD</strong></td>
+        <td>Training and TA for Community Health Workers who serve as bridges between rural communities and healthcare systems. DOH59679 (SRC0000038332) ACTIVE — closes June 15, 2026. Services contract for CHW training programs. WHOOP is not a direct bidder, but organizations building CHW curricula around chronic disease monitoring (diabetes, hypertension, maternal health) could incorporate WHOOP as the patient-side monitoring tool.</td>
+        <td><span class="badge badge-watch">Watch</span></td>
+      </tr>
+      <tr>
+        <td class="init-num">4</td>
+        <td><strong>School-Based Health Centers</strong></td>
+        <td><strong>~$21.1M</strong></td>
+        <td>15 brick-and-mortar expansions and 4 new facilities across rural K–12 schools and college campuses. Offer primary, behavioral, dental, and telehealth services while serving as clinical training sites. Financial sustainability target within ~2 years.</td>
+        <td><span class="badge badge-none">Not Fit</span></td>
+      </tr>
+      <tr>
+        <td class="init-num">5</td>
+        <td><strong>OH SEE Vision, Hearing &amp; Dental Outreach</strong></td>
+        <td><strong>~$5M</strong></td>
+        <td>Mobile vision, hearing, and dental care expanding statewide from a successful 13-county pilot. Serves students in high-need counties. Non-technology initiative.</td>
+        <td><span class="badge badge-none">Not Fit</span></td>
+      </tr>
+      <tr>
+        <td class="init-num">+</td>
+        <td><strong>EMS Modernization / Emergency Care Transformation</strong></td>
+        <td><strong>TBD</strong></td>
+        <td>Scaling EMS pilot to enable "treat-in-place" and alternate-destination care, reducing unnecessary ED visits. Advanced EMS training. No technology procurement announced.</td>
+        <td><span class="badge badge-none">Not Fit</span></td>
+      </tr>
+      <tr>
+        <td class="init-num">+</td>
+        <td><strong>RHT Pharmacy Initiative</strong></td>
+        <td><strong>TBD</strong></td>
+        <td>Pharmacy workforce upskilling and rural pharmacy sustainability. Open solicitation — specific dates not confirmed. Not a WHOOP technology play.</td>
+        <td><span class="badge badge-none">Not Fit</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Active Solicitations</div>
+
+  <div class="solicitation-grid">
+
+    <div class="sol-card">
+      <div class="sol-card-accent" style="background:var(--red);"></div>
+      <div class="sol-id">DOH59679 · SRC0000038332 · Lot 1, Round 1</div>
+      <div class="sol-title">Community Health Worker Training and Technical Assistance</div>
+      <div class="sol-status sol-open">ACTIVE — Closes June 15</div>
+      <div class="sol-body">Ohio Department of Health is soliciting organizations to provide training and technical assistance for Community Health Workers serving rural Ohio. Opened April 10, 2026. Submitted via OhioBuys.<br><br><strong>WHOOP play:</strong> Not a direct vendor opportunity. Partner play — identify prime bidders and pitch WHOOP as the patient-side biometric monitoring tool within their CHW chronic disease protocol. CHWs armed with WHOOP population health data become active WHOOP purchasing pathways.</div>
+      <div class="sol-meta">Deadline: <span>June 15, 2026 at 3:00 PM</span> · Platform: <span>OhioBuys (ohiobuys.ohio.gov)</span> · Contracting Entity: <span>DOH-Dept of Health</span></div>
+    </div>
+
+    <div class="sol-card">
+      <div class="sol-card-accent" style="background:var(--muted);"></div>
+      <div class="sol-id">DOH59715 · Rural Health Workforce Pipeline</div>
+      <div class="sol-title">Workforce Pipeline — Pathways, Upskilling &amp; Retention</div>
+      <div class="sol-status sol-closed">CLOSED — March 10, 2026</div>
+      <div class="sol-body">$10M/year services contract for rural healthcare workforce pipeline development — 5-year rural service commitments, housing stipends, CHW/pharmacist upskilling. Bidders conference January 13, 2026. Submissions due March 10, 2026. Awards in progress.<br><br><strong>WHOOP play:</strong> WHOOP did not bid directly (workforce services contract, not device procurement). Organizations WINNING this contract and running 5-year rural commitment programs are now <strong>active WHOOP Unite prospects</strong>. Monitor for award announcements — contact winning organizations.</div>
+      <div class="sol-meta">Deadline: <span>March 10, 2026 (CLOSED)</span> · Budget: <span>$10M/yr</span> · Award period: <span>April 2026 – June 2027 (renewable through 2031)</span></div>
+    </div>
+
+    <div class="sol-card">
+      <div class="sol-card-accent" style="background:var(--orange);"></div>
+      <div class="sol-id">Innovation Hubs · RPM Component · No RFP Released</div>
+      <div class="sol-title">Rural Health Innovation Hubs — Technology &amp; RPM</div>
+      <div class="sol-status sol-watch">PRE-MARKET — No RFP</div>
+      <div class="sol-body">The $92M Innovation Hubs / Clinically Integrated Networks initiative is Ohio's largest program and the primary WHOOP lane. Remote patient monitoring and consumer health technology are embedded in the care coordination model. <strong>No solicitation has been released yet.</strong> ODH is building the hub network structure now — vendor engagement before RFPs drop = being written into requirements. Pre-market window is the most valuable moment to engage.</div>
+      <div class="sol-meta">Status: <span>Pre-Market — Contact ODH Now</span> · Monitor: <span>odh.ohio.gov + ohiobuys.ohio.gov</span></div>
+    </div>
+
+    <div class="sol-card">
+      <div class="sol-card-accent" style="background:var(--muted);"></div>
+      <div class="sol-id">RHT Pharmacy Initiative · Open</div>
+      <div class="sol-title">RHT Pharmacy Initiative</div>
+      <div class="sol-status sol-watch">OPEN — Dates TBD</div>
+      <div class="sol-body">Pharmacy workforce upskilling and rural pharmacy sustainability programs. Open solicitation — specific submission dates not confirmed in available sources. Monitor OhioBuys for details.<br><br><strong>WHOOP play:</strong> Not a technology device procurement. Not a direct WHOOP opportunity.</div>
+      <div class="sol-meta">Monitor: <span>ohiobuys.ohio.gov</span> · Contracting Entity: <span>DOH-Dept of Health</span></div>
+    </div>
+
+  </div>
+
+  <div class="section-title">Procurement Timeline</div>
+
+  <table class="timeline-table">
+    <tbody>
+      <tr>
+        <td class="tl-date">Dec 29, 2025</td>
+        <td>
+          <div class="tl-event">CMS Award Announced — $202,030,262</div>
+          <div class="tl-detail">Cooperative Agreement RHTCMS332087. Ohio RHTP launched. Budget Period 1: Dec 29, 2025 – Oct 30, 2026.</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="tl-date">Jan 2, 2026</td>
+        <td>
+          <div class="tl-event">DOH59715 Workforce Pipeline RFP Posted</div>
+          <div class="tl-detail">$10M/yr services contract for rural workforce pipeline, upskilling, 5-year service commitments. Bidders conference January 13.</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="tl-date">Mar 10, 2026</td>
+        <td>
+          <div class="tl-event">DOH59715 Workforce Pipeline CLOSED</div>
+          <div class="tl-detail">Submissions due 3:00 PM EST. Awards now being processed. Monitor for winning organizations — they are WHOOP Unite targets.</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="tl-date">Apr 10, 2026</td>
+        <td>
+          <div class="tl-event">DOH59679 CHW Training RFP Opened</div>
+          <div class="tl-detail">Community Health Worker Training and Technical Assistance (SRC0000038332). Active on OhioBuys. WHOOP partner/subcontractor play — find prime bidders to include WHOOP in CHW protocol.</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="tl-date" style="color:var(--red);">Jun 15, 2026</td>
+        <td>
+          <div class="tl-event" style="color:var(--red);">DOH59679 CHW Training CLOSES — 3:00 PM</div>
+          <div class="tl-detail">Last opportunity to influence this solicitation as a named partner in a prime bidder's proposal. After this date, focus fully on Innovation Hubs pre-market positioning.</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="tl-date">Q3–Q4 2026 (Est.)</td>
+        <td>
+          <div class="tl-event">Innovation Hubs Technology / RPM Procurement — Expected</div>
+          <div class="tl-detail">As ODH builds the CIN network structure, technology solicitations for RPM, care coordination tools, and consumer health platforms are anticipated. No date confirmed. Pre-market engagement with ODH now = being in the requirements before the RFP is written.</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Key Contacts &amp; Registration</div>
+
+  <div class="contact-block">
+    <div class="contact-name">Ohio Department of Health — RHTP Program Office</div>
+    <div class="contact-role">Rural Health Transformation Program — Technology &amp; Innovation Hubs Contact</div>
+    <div class="contact-detail"><a href="https://odh.ohio.gov/know-our-programs/rural-health-transformation-program" target="_blank">odh.ohio.gov/know-our-programs/rural-health-transformation-program</a></div>
+  </div>
+
+  <div class="contact-block">
+    <div class="contact-name">OhioBuys Procurement Portal</div>
+    <div class="contact-role">All Ohio state solicitations — required for formal RFP responses and active solicitation monitoring</div>
+    <div class="contact-detail"><a href="https://ohiobuys.ohio.gov" target="_blank">ohiobuys.ohio.gov</a></div>
+  </div>
+
+  <div class="callout callout-blue" style="margin-top:24px;">
+    <div class="callout-title" style="color:var(--blue);">Vendor Registration</div>
+    <div class="callout-body">Register on <strong>OhioBuys (ohiobuys.ohio.gov)</strong> — required to receive solicitation notifications, respond to RFPs, and be listed as an eligible Ohio state vendor. Complete before the Innovation Hubs technology solicitation drops. Ohio also uses the <strong>Supplier Registration System (SRS)</strong> via the Ohio Department of Administrative Services — register at <strong>supplier.ohio.gov</strong>.</div>
+  </div>
+
+  <div class="doc-links">
+    <a href="ohio-gtm-strategy.html" class="doc-link-btn doc-link-primary">GTM Strategy →</a>
+    <a href="rhtp-hub.html" class="doc-link-btn doc-link-secondary">← RHTP Hub</a>
+    <a href="rhtp-command.html" class="doc-link-btn doc-link-secondary">Command Center</a>
+    <a href="https://odh.ohio.gov/know-our-programs/rural-health-transformation-program" target="_blank" class="doc-link-btn doc-link-secondary">Ohio RHTP Site ↗</a>
+    <a href="https://ohiobuys.ohio.gov" target="_blank" class="doc-link-btn doc-link-secondary">OhioBuys ↗</a>
+  </div>
+
+</div>
+</body>
+</html>

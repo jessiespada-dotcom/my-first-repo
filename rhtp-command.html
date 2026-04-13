@@ -283,12 +283,12 @@
   </div>
   <div class="stats-divider"></div>
   <div class="stat-item">
-    <div class="stat-value stat-v-blue" id="stat-built">10 / 50</div>
+    <div class="stat-value stat-v-blue" id="stat-built">11 / 50</div>
     <div class="stat-label">States Built</div>
   </div>
   <div class="stats-divider"></div>
   <div class="stat-item">
-    <div class="stat-value stat-v-teal" id="stat-covered">$2.33B</div>
+    <div class="stat-value stat-v-teal" id="stat-covered">$2.53B</div>
     <div class="stat-label">Pipeline Covered</div>
   </div>
   <div class="stats-divider"></div>
@@ -343,9 +343,9 @@
 
   <div class="filter-bar">
     <span class="filter-label">Filter:</span>
-    <button class="filter-btn active" onclick="filterCards('all')">All <span class="filter-count" id="fc-all">10</span></button>
+    <button class="filter-btn active" onclick="filterCards('all')">All <span class="filter-count" id="fc-all">11</span></button>
     <button class="filter-btn" onclick="filterCards('critical')">Critical <span class="filter-count" id="fc-critical">1</span></button>
-    <button class="filter-btn" onclick="filterCards('hot')">Hot <span class="filter-count" id="fc-hot">4</span></button>
+    <button class="filter-btn" onclick="filterCards('hot')">Hot <span class="filter-count" id="fc-hot">5</span></button>
     <button class="filter-btn" onclick="filterCards('warm')">Warm <span class="filter-count" id="fc-warm">2</span></button>
     <button class="filter-btn" onclick="filterCards('active')">Active <span class="filter-count" id="fc-active">1</span></button>
     <button class="filter-btn" onclick="filterCards('monitoring')">Monitoring <span class="filter-count" id="fc-monitoring">1</span></button>
@@ -619,6 +619,25 @@ const BUILT_STATES = [
     deadline: 'Hub Lead Awards Expected: <span>May–June 2026</span>',
     por: 'north-carolina-rht-por.html',
     gtm: 'north-carolina-gtm-strategy.html',
+  },
+  {
+    abbr: 'OH',
+    name: 'Ohio',
+    award: '$202.0M',
+    urgency: 7,
+    tier: 'hot',
+    badge: 'Hot',
+    badgeColor: '#ff8c00',
+    headline: 'CHW Training Partner Play June 15 — Innovation Hubs Pre-Market',
+    actions: [
+      { text: 'Chief of Staff forwarded OhioBuys invite for DOH59679 CHW Training (SRC0000038332, closes June 15) — WHOOP doesn\'t bid directly; find prime bidder organizations and pitch WHOOP as the patient-side CHW monitoring tool before deadline', color: '#ff5a5a' },
+      { text: 'Contact Ohio Department of Health RHTP office — introduce WHOOP for Innovation Hubs / CINs ($92M) RPM component before any RFP is released. Pre-market window open now.', color: '#ff8c00' },
+      { text: 'Register on OhioBuys (ohiobuys.ohio.gov) and supplier.ohio.gov — required before Innovation Hubs technology RFP drops', color: '#ffb347' },
+      { text: 'Monitor OhioBuys for DOH59715 Workforce Pipeline award announcements — winning orgs running 5-yr rural service commitments are WHOOP Unite targets', color: '#a8cc44' },
+    ],
+    deadline: 'CHW Training Partner Play Closes: <span>June 15, 2026</span>',
+    por: 'ohio-rht-por.html',
+    gtm: 'ohio-gtm-strategy.html',
   },
 ];
 
