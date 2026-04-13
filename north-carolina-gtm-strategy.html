@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>North Carolina RHTP — GTM Strategy | WHOOP</title>
+<style>
+  :root {
+    --bg: #0d1215; --surface: #151c21; --surface2: #1a2530; --border: #1e2d38;
+    --teal: #00F19F; --blue: #0093E7; --orange: #ffb347; --red: #ff5a5a;
+    --yellow: #e6c020; --green: #a8cc44; --text: #e8eef2; --muted: #6b8394;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); }
+  a { color: var(--teal); text-decoration: none; }
+
+  .top-nav {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 12px 32px; display: flex; align-items: center; gap: 16px;
+    font-size: 12px; color: var(--muted);
+  }
+  .top-nav a { color: var(--muted); }
+  .top-nav a:hover { color: var(--teal); }
+  .top-nav .sep { color: var(--border); }
+
+  .hero {
+    background: linear-gradient(135deg, #0d1215 0%, #0d1a14 60%, #0a1210 100%);
+    border-bottom: 1px solid var(--border); padding: 40px 48px 36px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--teal); margin-bottom: 8px;
+  }
+  .hero-title { font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+  .hero-sub { font-size: 14px; color: var(--muted); }
+
+  .main { max-width: 1100px; margin: 0 auto; padding: 36px 48px 60px; }
+
+  .callout {
+    border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; border-left: 4px solid;
+  }
+  .callout-orange { background: #1a1408; border-color: var(--orange); }
+  .callout-teal   { background: #081a14; border-color: var(--teal); }
+  .callout-title  { font-size: 13px; font-weight: 800; margin-bottom: 5px; }
+  .callout-body   { font-size: 13px; line-height: 1.6; color: #c8d8e0; }
+
+  .section-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--muted); margin: 32px 0 14px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+
+  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .plan-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 22px; position: relative; overflow: hidden;
+  }
+  .plan-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .plan-label {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.8px; margin-bottom: 6px;
+  }
+  .plan-name { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+  .plan-tag {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 8px; margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .plan-desc { font-size: 13px; line-height: 1.6; color: #c0d0d8; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 13px; }
+  .compare-table th {
+    text-align: left; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--muted); padding: 8px 12px;
+    border-bottom: 1px solid var(--border); font-weight: 600;
+  }
+  .compare-table td { padding: 10px 12px; border-bottom: 1px solid #151c21; vertical-align: top; }
+  .compare-table tr:hover td { background: var(--surface2); }
+  .compare-table td:first-child { font-weight: 700; color: var(--muted); white-space: nowrap; }
+  .rec-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 11px;
+    font-weight: 700; background: #0d2e20; color: var(--teal);
+  }
+
+  .timeline-block { margin-bottom: 12px; }
+  .timeline-period {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--orange); margin-bottom: 8px;
+  }
+  .timeline-items { list-style: none; }
+  .timeline-items li {
+    padding: 8px 0 8px 18px; border-bottom: 1px solid var(--border);
+    font-size: 13px; position: relative; line-height: 1.5;
+  }
+  .timeline-items li:last-child { border-bottom: none; }
+  .timeline-items li::before {
+    content: ''; position: absolute; left: 0; top: 14px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--border);
+  }
+  .timeline-items li.hot::before { background: var(--orange); }
+  .timeline-items li.critical::before { background: var(--red); }
+  .timeline-items li.teal::before { background: var(--teal); }
+
+  .email-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin-bottom: 8px;
+  }
+  .email-header {
+    background: var(--surface2); padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .email-field { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .email-field span { color: var(--text); font-weight: 600; }
+  .email-body { padding: 20px; font-size: 13px; line-height: 1.8; white-space: pre-wrap; color: #c8d8e0; }
+
+  .doc-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .doc-link-btn {
+    padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    text-decoration: none; border: 1px solid; transition: all 0.15s;
+  }
+  .doc-link-primary { background: var(--teal); color: #000; border-color: var(--teal); }
+  .doc-link-secondary { background: transparent; color: var(--text); border-color: var(--border); }
+  .doc-link-secondary:hover { border-color: var(--teal); color: var(--teal); }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="rhtp-hub.html">← RHTP Hub</a>
+  <span class="sep">|</span>
+  <a href="north-carolina-rht-por.html">Plan of Record</a>
+  <span class="sep">|</span>
+  <span>GTM Strategy</span>
+  <span class="sep">|</span>
+  <span style="color:var(--orange);">Hub Lead Awards Imminent — May–June 2026</span>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">North Carolina · GTM Strategy · WHOOP</div>
+  <div class="hero-title">North Carolina Go-To-Market — $213M Award</div>
+  <div class="hero-sub">NC ROOTS · Technology &amp; Innovation Initiative · Hub Lead Awards Expected May–June 2026</div>
+</div>
+
+<div class="main">
+
+  <div class="callout callout-orange">
+    <div class="callout-title" style="color:var(--orange);">The Hub Lead Window — Why the Next 6 Weeks Define the NC Opportunity</div>
+    <div class="callout-body">NC ROOTS Hub Lead applications closed April 2, 2026. NC DHHS is evaluating now. Awards are expected May–June 2026 — up to 6 Hub Leads, one per Medicaid region. The moment a Hub Lead is named, they become the technology procurement decision-maker for their entire regional network. <strong>Vendors who are already in conversation with Hub Lead applicants before awards are announced will be on the short list when procurement begins.</strong> This is not a "wait for the RFP" situation. The window is open now, while the field is still undecided.</div>
+  </div>
+
+  <div class="callout callout-teal">
+    <div class="callout-title" style="color:var(--teal);">Two Primary WHOOP Lanes in NC ROOTS</div>
+    <div class="callout-body"><strong>Technology &amp; Innovation</strong> — primary lane. No RFP yet; pre-market outreach to NC DHHS ORH positions WHOOP in the requirements design. Digital health infrastructure, RPM integration, and interoperability are the stated priorities. <strong>Prevention &amp; Chronic Disease</strong> — primary lane. Diabetes, hypertension, and maternal health are explicit NC ROOTS focus areas. WHOOP continuous biometric monitoring (HRV, resting heart rate, SpO2, sleep) maps directly to every one of these chronic condition management needs without clinical device infrastructure.</div>
+  </div>
+
+  <div class="section-title">Three GTM Plans</div>
+
+  <div class="plan-grid">
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--teal);"></div>
+      <div class="plan-label" style="color:var(--teal);">Plan A</div>
+      <div class="plan-name">NC DHHS State Partnership</div>
+      <div class="plan-tag" style="background:#0d2e20;color:var(--teal);">Recommended</div>
+      <div class="plan-desc">Engage NC DHHS Office of Rural Health now — before Hub Lead awards lock in vendor relationships. Position WHOOP for the Technology &amp; Innovation initiative and the Prevention &amp; Chronic Disease pillar. One state-level relationship cascades to all 6 Hub Lead networks and all sub-awarded community hubs. Pre-market positioning = being written into requirements before the RFP is drafted.</div>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--orange);"></div>
+      <div class="plan-label" style="color:var(--orange);">Plan B</div>
+      <div class="plan-name">Hub Lead Direct Engagement</div>
+      <div class="plan-tag" style="background:#1a1408;color:var(--orange);">High Value</div>
+      <div class="plan-desc">Identify the leading Hub Lead applicants now — hospital associations, health systems, and FQHCs who submitted for the 2026-NCROOTS RFA. Each Hub Lead becomes an independent technology buyer for their regional network (hospitals, CAHs, FQHCs, community orgs). Contact them before awards are announced. A relationship that starts before the award is confirmed = partner status; one that starts after = vendor response to an RFP.</div>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--blue);"></div>
+      <div class="plan-label" style="color:var(--blue);">Plan C</div>
+      <div class="plan-name">WHOOP Unite — 36 NC CAHs</div>
+      <div class="plan-tag" style="background:#0a1a2e;color:var(--blue);">Fastest Close</div>
+      <div class="plan-desc">North Carolina has ~36 Critical Access Hospitals across 85 rural counties. The Workforce Development initiative within NC ROOTS funds rural provider retention and recruitment programs — a direct fit for WHOOP Unite. CAH administrators and HR directors running 5-year rural service commitment programs are active buyers. Fastest path to signed paper (14–30 days) and an immediate case study to leverage in state-level conversations.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Plan Comparison</div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Plan A — NC DHHS State Partnership</th>
+        <th>Plan B — Hub Lead Engagement</th>
+        <th>Plan C — Direct CAH / WHOOP Unite</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Program Lane</td>
+        <td>Technology &amp; Innovation + Prevention &amp; Chronic Disease</td>
+        <td>Community-Rooted Care Networks/Hubs</td>
+        <td>Workforce Development</td>
+      </tr>
+      <tr>
+        <td>Funding Status</td>
+        <td>Active — pre-market, no RFP yet</td>
+        <td>Active — Hub Lead awards expected May–June 2026</td>
+        <td>Active — BP1 funds flowing to CAHs</td>
+      </tr>
+      <tr>
+        <td>Primary Contact</td>
+        <td>NC DHHS Office of Rural Health</td>
+        <td>Hub Lead applicants (hospital associations, health systems)</td>
+        <td>CAH Administrators + HR Directors</td>
+      </tr>
+      <tr>
+        <td>Sales Motion</td>
+        <td>Pre-market → shape requirements → RFP response</td>
+        <td>Technology partner for regional hub network</td>
+        <td>WHOOP Unite enterprise motion</td>
+      </tr>
+      <tr>
+        <td>Speed to Revenue</td>
+        <td>9–18 months (post-RFP)</td>
+        <td>3–6 months (post-Hub-Lead award)</td>
+        <td>14–30 days</td>
+      </tr>
+      <tr>
+        <td>Scale Ceiling</td>
+        <td>Statewide — all 6 Hub Lead networks</td>
+        <td>Regional — 1 network at a time</td>
+        <td>~36 CAHs individually</td>
+      </tr>
+      <tr>
+        <td>Probability</td>
+        <td>High — named initiatives, no competition yet</td>
+        <td>High — buyers actively forming vendor lists</td>
+        <td>High — proven WHOOP Unite motion</td>
+      </tr>
+      <tr>
+        <td>Recommendation</td>
+        <td><span class="rec-badge">Start Immediately</span></td>
+        <td><span class="rec-badge">Start Immediately</span></td>
+        <td>Parallel track</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">30 / 60 / 90 Day Action Plan</div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 1–30 — Immediate (Pre-Award Window)</div>
+    <ul class="timeline-items">
+      <li class="critical">Contact NC DHHS Office of Rural Health — introduce WHOOP for Technology &amp; Innovation initiative and Prevention &amp; Chronic Disease pillar. Pre-market positioning before Hub Lead awards are announced and vendor lists form.</li>
+      <li class="critical">Identify leading 2026-NCROOTS Hub Lead applicants — target North Carolina Hospital Association, health system anchor orgs, and regional FQHCs who likely submitted. Contact before awards are public.</li>
+      <li class="hot">Register on vendor.nc.gov and eprocurement.nc.gov — required to receive any state-issued solicitation. Complete before any RFP drops.</li>
+      <li class="hot">Begin WHOOP Unite outreach to NC CAH administrators — 36 critical access hospitals across 85 rural counties, Workforce Development retention angle.</li>
+      <li class="teal">Monitor ncdhhs.gov/divisions/office-rural-health/rural-health-transformation-program/rural-health-transformation-program-grant-opportunities for Hub Lead award announcements.</li>
+    </ul>
+  </div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 31–60 — Hub Lead Award Response</div>
+    <ul class="timeline-items">
+      <li class="hot">When Hub Lead awards are announced (expected May–June 2026): contact each Hub Lead within 48 hours. Congratulate on the award; offer WHOOP as the consumer digital health technology partner for their network build-out.</li>
+      <li class="hot">Follow up with NC DHHS ORH if no reply to initial outreach — reference Technology &amp; Innovation initiative by name. Request 20-min intro call to align WHOOP capabilities with program requirements.</li>
+      <li class="teal">Prepare NC ROOTS Technology &amp; Innovation positioning brief — one-pager showing WHOOP fit for chronic disease monitoring (diabetes, hypertension, maternal health) and digital health infrastructure build-out across 85 rural counties.</li>
+      <li>Identify first WHOOP Unite NC CAH prospect — 14–30 day close target to build a case study for state-level conversations.</li>
+    </ul>
+  </div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 61–90 — Scale &amp; Deepen</div>
+    <ul class="timeline-items">
+      <li class="teal">Engage each named Hub Lead with WHOOP technology partnership proposal — position as the consumer biometric monitoring layer for their regional care network. Leverage DHHS ORH relationship for warm intro where possible.</li>
+      <li class="teal">Close first WHOOP Unite deal with an NC CAH — use outcomes data as proof point in Hub Lead and DHHS conversations.</li>
+      <li>Prepare formal response materials for Technology &amp; Innovation solicitation — expected post-Hub-Lead onboarding, Q3–Q4 2026.</li>
+      <li>Identify sub-award opportunities: Hub Leads will issue sub-awards to community organizations. Position WHOOP for Technology &amp; Innovation sub-awards at the hub level.</li>
+    </ul>
+  </div>
+
+  <div class="section-title">Opening Email — NC DHHS State Partnership (Plan A)</div>
+
+  <div class="email-block">
+    <div class="email-header">
+      <div class="email-field">To: <span>NC DHHS Office of Rural Health — via ncdhhs.gov/divisions/office-rural-health/rural-health-transformation-program contact form</span></div>
+      <div class="email-field">Subject: <span>WHOOP — Consumer Biometric Monitoring for NC ROOTS Technology &amp; Innovation and Chronic Disease Prevention</span></div>
+    </div>
+    <div class="email-body">Hi,
+
+I'm reaching out regarding North Carolina's Rural Health Transformation Program — specifically the Technology & Innovation initiative and the Prevention & Chronic Disease pillar within NC ROOTS.
+
+WHOOP is a FDA-registered consumer biometric monitoring platform used by 17 million people globally to continuously track cardiovascular strain, heart rate variability, resting heart rate, SpO2, and sleep quality. We're writing to introduce WHOOP as a technology partner ahead of the Hub Lead award announcements and before formal procurement begins.
+
+The fit across NC ROOTS is direct:
+
+— Technology & Innovation: WHOOP provides continuous RPM-grade biometric data through a consumer wearable — no clinical device installation, no provider workflow burden. Population health dashboards aggregate data across a hub or regional network in real time.
+
+— Prevention & Chronic Disease: Diabetes, hypertension, and maternal health are explicit NC ROOTS focus areas. WHOOP's cardiovascular and recovery metrics (HRV, resting heart rate, sleep, strain) are the leading indicators for all three — enabling early detection and behavior change before clinical intervention is required.
+
+— Workforce Development: WHOOP Unite is an enterprise program designed for healthcare organizations. Rural providers with 5-year service commitments are among our highest-performing cohorts for retention outcomes.
+
+I'd welcome the opportunity to discuss how WHOOP could support NC ROOTS goals, and would appreciate being included in any vendor engagement sessions as the Technology & Innovation initiative moves into procurement. Is there a relevant contact or upcoming session I should be aware of?
+
+Thank you,
+[Name]
+WHOOP Enterprise
+[Email] | [Phone]</div>
+  </div>
+
+  <div class="section-title">Opening Email — Hub Lead Applicant Outreach (Plan B)</div>
+
+  <div class="email-block">
+    <div class="email-header">
+      <div class="email-field">To: <span>[Hub Lead Applicant Org — Hospital Association / Health System / FQHC]</span></div>
+      <div class="email-field">Subject: <span>WHOOP — Technology Partner for NC ROOTS Regional Hub Network</span></div>
+    </div>
+    <div class="email-body">Hi [Name],
+
+I understand [Organization] submitted an application for the NC ROOTS Hub Lead RFA (2026-NCROOTS). Congratulations on reaching this stage — the award decisions are expected in the next few weeks.
+
+I'm reaching out in advance of the award announcement because the organizations that build their vendor relationships early will be in the strongest position when they begin standing up their regional hub network.
+
+WHOOP is a consumer biometric monitoring platform that tracks cardiovascular health, sleep quality, and recovery in real time — without clinical devices or provider-facing workflow. For a regional hub network with Technology & Innovation and chronic disease prevention mandates, WHOOP addresses:
+
+— Remote monitoring for diabetes, hypertension, and maternal health populations across rural communities
+— Workforce wellness for providers in your network (WHOOP Unite enterprise program)
+— Population health data aggregation for outcomes reporting under the Sustainability pillar
+
+I'd like to have a brief conversation before or immediately after the award announcement to explore whether WHOOP is a fit for your regional network build-out. Would 15–20 minutes in the next two weeks work?
+
+Thank you,
+[Name]
+WHOOP Enterprise
+[Email] | [Phone]</div>
+  </div>
+
+  <div class="doc-links">
+    <a href="north-carolina-rht-por.html" class="doc-link-btn doc-link-primary">Plan of Record →</a>
+    <a href="rhtp-hub.html" class="doc-link-btn doc-link-secondary">← RHTP Hub</a>
+    <a href="rhtp-command.html" class="doc-link-btn doc-link-secondary">Command Center</a>
+    <a href="https://www.ncdhhs.gov/divisions/office-rural-health/rural-health-transformation-program/rural-health-transformation-program-grant-opportunities" target="_blank" class="doc-link-btn doc-link-secondary">NC ROOTS Grant Opportunities ↗</a>
+  </div>
+
+</div>
+</body>
+</html>

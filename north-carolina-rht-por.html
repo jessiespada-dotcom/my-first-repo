@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>North Carolina RHTP — Plan of Record | WHOOP</title>
+<style>
+  :root {
+    --bg: #0d1215; --surface: #151c21; --surface2: #1a2530; --border: #1e2d38;
+    --teal: #00F19F; --blue: #0093E7; --orange: #ffb347; --red: #ff5a5a;
+    --yellow: #e6c020; --green: #a8cc44; --text: #e8eef2; --muted: #6b8394;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); }
+  a { color: var(--teal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .top-nav {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 12px 32px; display: flex; align-items: center; gap: 16px;
+    font-size: 12px; color: var(--muted);
+  }
+  .top-nav a { color: var(--muted); } .top-nav a:hover { color: var(--teal); text-decoration: none; }
+  .top-nav .sep { color: var(--border); }
+
+  .hero {
+    background: linear-gradient(135deg, #0d1215 0%, #111d24 60%, #0d1a22 100%);
+    border-bottom: 1px solid var(--border); padding: 48px 48px 40px;
+  }
+  .hero-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange); margin-bottom: 10px; }
+  .hero-title { font-size: 32px; font-weight: 900; line-height: 1.1; margin-bottom: 6px; }
+  .hero-subtitle { font-size: 15px; color: var(--muted); margin-bottom: 10px; }
+  .hero-tagline { display: inline-block; font-size: 12px; color: var(--teal); border: 1px solid #0d3020; background: #081a10; border-radius: 6px; padding: 5px 12px; margin-bottom: 28px; }
+  .stat-row { display: flex; gap: 24px; flex-wrap: wrap; }
+  .stat-cell { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 22px; min-width: 140px; }
+  .stat-num { font-size: 26px; font-weight: 900; line-height: 1; }
+  .stat-lbl { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .main { max-width: 1100px; margin: 0 auto; padding: 36px 48px 60px; }
+
+  .callout { border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; border-left: 4px solid; }
+  .callout-orange { background: #1a1408; border-color: var(--orange); }
+  .callout-teal   { background: #081a14; border-color: var(--teal); }
+  .callout-red    { background: #1a0808; border-color: var(--red); }
+  .callout-title  { font-size: 13px; font-weight: 800; margin-bottom: 5px; }
+  .callout-body   { font-size: 13px; line-height: 1.6; color: #c8d8e0; }
+
+  .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  .init-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+  .init-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); padding: 8px 12px; border-bottom: 1px solid var(--border); font-weight: 600; }
+  .init-table td { padding: 11px 12px; border-bottom: 1px solid #151c21; font-size: 13px; vertical-align: top; }
+  .init-table tr:hover td { background: var(--surface2); }
+  .init-name { font-weight: 700; }
+  .fit-badge { display: inline-block; padding: 3px 9px; border-radius: 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; }
+  .fit-primary   { background: #0d2e20; color: var(--teal); }
+  .fit-secondary { background: #1a2510; color: var(--green); }
+  .fit-watch     { background: #1a1a10; color: var(--yellow); }
+  .fit-no        { background: #1a1515; color: var(--muted); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 8px; }
+  .info-block { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .info-block-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+  .info-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { color: var(--muted); }
+  .info-val { font-weight: 600; text-align: right; }
+
+  .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 8px; }
+  .hub-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .hub-region { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--orange); margin-bottom: 4px; }
+  .hub-name { font-size: 13px; font-weight: 700; }
+  .hub-status { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .contact-block { margin-bottom: 10px; }
+  .contact-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .contact-role { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .contact-email { font-size: 13px; }
+
+  .doc-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .doc-link-btn { padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; transition: all 0.15s; border: 1px solid; }
+  .doc-link-primary { background: var(--teal); color: #000; border-color: var(--teal); }
+  .doc-link-secondary { background: transparent; color: var(--text); border-color: var(--border); }
+  .doc-link-secondary:hover { border-color: var(--teal); color: var(--teal); }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="rhtp-hub.html">← RHTP Hub</a>
+  <span class="sep">|</span>
+  <span>North Carolina Plan of Record</span>
+  <span class="sep">|</span>
+  <span style="color:var(--orange);">Updated April 13, 2026</span>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">North Carolina · CMS Rural Health Transformation Program · Plan of Record</div>
+  <div class="hero-title">NC ROOTS — Rural Organizations Orchestrating Transformation for Sustainability</div>
+  <div class="hero-subtitle">NC Department of Health and Human Services (DHHS) / Office of Rural Health &nbsp;·&nbsp; 10th largest award nationally</div>
+  <div class="hero-tagline">NC ROOTS Hub Lead Applications Closed April 2 — Awards Imminent</div>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-num" style="color:var(--teal);">$213M</div>
+      <div class="stat-lbl">Award (Year 1)</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" style="color:var(--orange);">6</div>
+      <div class="stat-lbl">Hub Leads Being Awarded</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" style="color:var(--red);">May–Jun</div>
+      <div class="stat-lbl">Hub Lead Award Window</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" style="color:var(--teal);">85</div>
+      <div class="stat-lbl">Rural Counties</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" style="color:var(--blue);">400+</div>
+      <div class="stat-lbl">Rural Facilities</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="callout callout-red">
+    <div class="callout-title" style="color:var(--red);">NC ROOTS Hub Lead Awards Are Being Made NOW — This Is the Window</div>
+    <div class="callout-body">The NC ROOTS Hub Lead RFA (2026-NCROOTS) closed <strong>April 2, 2026</strong> — 11 days ago. NC DHHS is evaluating applications right now. Up to <strong>6 Hub Lead organizations</strong> (one per NC Medicaid region) will be selected in May–June 2026. These organizations become the technology procurement decision-makers for their entire regional network. WHOOP's strategy: engage the Hub Lead applicants before awards are announced so WHOOP is on their vendor list from day one.</div>
+  </div>
+
+  <div class="callout callout-teal">
+    <div class="callout-title" style="color:var(--teal);">Why Hub Leads Matter — One Deal = Regional Network Scale</div>
+    <div class="callout-body">Each Hub Lead is the "programmatic and fiduciary lead" for their NC Medicaid region. They manage the partner network, coordinate technology deployment, and distribute sub-awards to local health organizations. <strong>One Hub Lead partnership = reach across all facilities in their region.</strong> NC has 85 rural counties served by 400+ rural health facilities. Six Hub Leads collectively cover the entire state. This is NC's equivalent of MO's RCN structure — the leverage point is at the Hub Lead level, not individual hospitals.</div>
+  </div>
+
+  <div class="section-title">NC ROOTS Hub Lead Structure — 6 Regions</div>
+
+  <div class="hub-grid">
+    <div class="hub-card">
+      <div class="hub-region">Region 1 — Western NC</div>
+      <div class="hub-name">Hub Lead: Pending Award</div>
+      <div class="hub-status">Application submitted · Award expected May–Jun 2026</div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-region">Region 2 — Northwest</div>
+      <div class="hub-name">Hub Lead: Pending Award</div>
+      <div class="hub-status">Application submitted · Award expected May–Jun 2026</div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-region">Region 3 — Central</div>
+      <div class="hub-name">Hub Lead: Pending Award</div>
+      <div class="hub-status">Application submitted · Award expected May–Jun 2026</div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-region">Region 4 — Eastern</div>
+      <div class="hub-name">Hub Lead: Pending Award</div>
+      <div class="hub-status">Application submitted · Award expected May–Jun 2026</div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-region">Region 5 — Southeast</div>
+      <div class="hub-name">Hub Lead: Pending Award</div>
+      <div class="hub-status">Application submitted · Award expected May–Jun 2026</div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-region">Region 6 — Northeast</div>
+      <div class="hub-name">Hub Lead: Pending Award</div>
+      <div class="hub-status">Application submitted · Award expected May–Jun 2026</div>
+    </div>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:8px;margin-bottom:0;">Update Hub Lead names here once NC DHHS announces awards. Monitor: <a href="https://www.ncdhhs.gov/divisions/office-rural-health/rural-health-transformation-program/rural-health-transformation-program-grant-opportunities" target="_blank">ncdhhs.gov/divisions/office-rural-health/rhtp/grant-opportunities</a></p>
+
+  <div class="section-title">Six Core Initiatives — WHOOP Fit</div>
+
+  <table class="init-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Initiative</th>
+        <th>WHOOP Fit</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>6</td>
+        <td><div class="init-name">Technology &amp; Innovation</div></td>
+        <td><span class="fit-badge fit-primary">Primary</span></td>
+        <td>AI deployment, health information sharing, digital literacy initiatives. Consumer health technology for patient self-management is explicitly in scope. WHOOP = consumer-facing biometric monitoring platform. No vendor named. Direct lane.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><div class="init-name">Prevention &amp; Chronic Disease Management</div></td>
+        <td><span class="fit-badge fit-primary">Primary</span></td>
+        <td>Diabetes, hypertension, cancer screening, maternal health, nutrition/food-as-medicine. Continuous biometric monitoring (HRV, resting HR, SpO2, sleep) directly supports chronic disease outcomes measurement. WHOOP's core clinical use case.</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td><div class="init-name">Community-Rooted Care Networks (NC ROOTS Hubs)</div></td>
+        <td><span class="fit-badge fit-secondary">Secondary</span></td>
+        <td>6 regional hub networks connecting medical, behavioral, and social services. Each Hub Lead deploys technology tools across their partner network. Hub Lead partnership = network-wide deployment. WHOOP as the consumer health data layer for the hub structure.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><div class="init-name">Behavioral Health Expansion</div></td>
+        <td><span class="fit-badge fit-secondary">Secondary</span></td>
+        <td>Mental health clinics, mobile crisis teams, school-based programs, primary care integration. Sleep quality and HRV are validated biomarkers for behavioral health outcomes. WHOOP's sleep tracking data is a secondary fit here.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><div class="init-name">Workforce Development</div></td>
+        <td><span class="fit-badge fit-secondary">Secondary</span></td>
+        <td>Rural residency programs, provider incentives, innovative career pathways. WHOOP Unite = direct workforce retention tool for rural NC providers. ~36 Critical Access Hospitals statewide with high provider turnover risk.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><div class="init-name">Financial Sustainability</div></td>
+        <td><span class="fit-badge fit-no">Not Fit</span></td>
+        <td>Transition to value-based payment models. Payment model innovation — no technology vendor entry point in BP1.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Program Overview</div>
+
+  <div class="two-col">
+    <div class="info-block">
+      <div class="info-block-title">Award Details</div>
+      <div class="info-row"><span class="info-key">Award Amount</span><span class="info-val" style="color:var(--teal);">$213,008,356.47</span></div>
+      <div class="info-row"><span class="info-key">National Rank</span><span class="info-val">10th largest</span></div>
+      <div class="info-row"><span class="info-key">Recipient</span><span class="info-val">NC DHHS / Office of Rural Health</span></div>
+      <div class="info-row"><span class="info-key">Budget Period 1</span><span class="info-val">Dec 29, 2025 – Oct 30, 2026</span></div>
+      <div class="info-row"><span class="info-key">Program FY Range</span><span class="info-val">FY 2026 – FY 2030</span></div>
+      <div class="info-row"><span class="info-key">100% Federal Funding</span><span class="info-val">Yes (Stevens Amendment)</span></div>
+    </div>
+    <div class="info-block">
+      <div class="info-block-title">Scale &amp; Reach</div>
+      <div class="info-row"><span class="info-key">Rural Counties Covered</span><span class="info-val">85 of 100 NC counties</span></div>
+      <div class="info-row"><span class="info-key">Rural Population</span><span class="info-val">~3 million</span></div>
+      <div class="info-row"><span class="info-key">Rural Health Facilities</span><span class="info-val">400+</span></div>
+      <div class="info-row"><span class="info-key">Critical Access Hospitals</span><span class="info-val">~36 statewide</span></div>
+      <div class="info-row"><span class="info-key">NC ROOTS Hub Regions</span><span class="info-val">6 (one per Medicaid region)</span></div>
+      <div class="info-row"><span class="info-key">Stakeholders Engaged</span><span class="info-val">420+ in planning</span></div>
+    </div>
+  </div>
+
+  <div class="section-title">Procurement Timeline</div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:8px;">
+    <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:center;">
+      <div style="padding:4px 10px;border-radius:6px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;background:#1a0808;color:var(--red);border:1px solid #3a1010;white-space:nowrap;">Evaluating Now</div>
+      <div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:3px;">NC ROOTS Hub Lead Awards — RFA 2026-NCROOTS</div>
+        <div style="font-size:13px;color:#c0d0d8;">Applications closed April 2, 2026. NC DHHS evaluating now. Up to 6 Hub Leads to be awarded (one per Medicaid region). Hub Leads become the technology procurement lead for their entire regional network. Awards expected May–June 2026. <strong>Contact leading applicant organizations now — before they finalize their vendor lists.</strong></div>
+      </div>
+    </div>
+    <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:center;">
+      <div style="padding:4px 10px;border-radius:6px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;background:#081a14;color:var(--teal);border:1px solid #0d3020;white-space:nowrap;">Pre-Market</div>
+      <div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:3px;">Technology &amp; Innovation Initiative — Future Procurement</div>
+        <div style="font-size:13px;color:#c0d0d8;">No formal RFP released yet for the Technology & Innovation initiative. NC DHHS Office of Rural Health is the pre-market contact. Positioning now = being included in the requirements design for future digital health and RPM solicitations.</div>
+      </div>
+    </div>
+    <div style="padding:14px 18px;display:flex;gap:16px;align-items:center;">
+      <div style="padding:4px 10px;border-radius:6px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;background:#1a1408;color:var(--orange);border:1px solid #3a2a10;white-space:nowrap;">Watch</div>
+      <div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:3px;">Sub-Awards Through Hub Leads (Post-Award)</div>
+        <div style="font-size:13px;color:#c0d0d8;">Once Hub Leads are awarded, they will issue sub-awards and technology vendor contracts to their regional partner networks. Each Hub Lead is an independent buying center. 6 Hub Leads × regional network = 6 separate deal opportunities across 85 counties.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Key Contacts</div>
+
+  <div class="contact-block">
+    <div class="contact-name">NC DHHS Office of Rural Health</div>
+    <div class="contact-role">RHTP Program Lead — Technology &amp; Innovation Initiative Contact</div>
+    <div class="contact-email"><a href="https://www.ncdhhs.gov/divisions/office-rural-health/rural-health-transformation-program" target="_blank">ncdhhs.gov/divisions/office-rural-health/rural-health-transformation-program</a></div>
+  </div>
+
+  <div class="contact-block">
+    <div class="contact-name">NC DHHS Grant Opportunities</div>
+    <div class="contact-role">NC ROOTS Hub Lead RFA awards — monitor for Hub Lead names</div>
+    <div class="contact-email"><a href="https://www.ncdhhs.gov/divisions/office-rural-health/rural-health-transformation-program/rural-health-transformation-program-grant-opportunities" target="_blank">ncdhhs.gov RHTP Grant Opportunities Page</a></div>
+  </div>
+
+  <div class="callout callout-orange" style="margin-top:20px;">
+    <div class="callout-title" style="color:var(--orange);">Vendor Registration</div>
+    <div class="callout-body">North Carolina state vendor registration is through the NC Department of Administration (<strong>vendor.nc.gov</strong>) and NC eProcurement system (<strong>eprocurement.nc.gov</strong>). Register before responding to any Hub Lead sub-award solicitation. Hub Leads may also have their own vendor onboarding processes — once awards are announced, request vendor requirements from each Hub Lead organization directly.</div>
+  </div>
+
+  <div class="doc-links">
+    <a href="north-carolina-gtm-strategy.html" class="doc-link-btn doc-link-primary">GTM Strategy →</a>
+    <a href="rhtp-hub.html" class="doc-link-btn doc-link-secondary">← RHTP Hub</a>
+    <a href="rhtp-command.html" class="doc-link-btn doc-link-secondary">Command Center</a>
+    <a href="https://www.ncdhhs.gov/divisions/office-rural-health/rural-health-transformation-program" target="_blank" class="doc-link-btn doc-link-secondary">NC RHTP Site ↗</a>
+    <a href="https://www.ncdhhs.gov/divisions/office-rural-health/rural-health-transformation-program/rural-health-transformation-program-grant-opportunities" target="_blank" class="doc-link-btn doc-link-secondary">Grant Opportunities ↗</a>
+  </div>
+
+</div>
+</body>
+</html>

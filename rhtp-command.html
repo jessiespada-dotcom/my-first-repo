@@ -283,12 +283,12 @@
   </div>
   <div class="stats-divider"></div>
   <div class="stat-item">
-    <div class="stat-value stat-v-blue" id="stat-built">9 / 50</div>
+    <div class="stat-value stat-v-blue" id="stat-built">10 / 50</div>
     <div class="stat-label">States Built</div>
   </div>
   <div class="stats-divider"></div>
   <div class="stat-item">
-    <div class="stat-value stat-v-teal" id="stat-covered">$2.12B</div>
+    <div class="stat-value stat-v-teal" id="stat-covered">$2.33B</div>
     <div class="stat-label">Pipeline Covered</div>
   </div>
   <div class="stats-divider"></div>
@@ -343,9 +343,9 @@
 
   <div class="filter-bar">
     <span class="filter-label">Filter:</span>
-    <button class="filter-btn active" onclick="filterCards('all')">All <span class="filter-count" id="fc-all">9</span></button>
+    <button class="filter-btn active" onclick="filterCards('all')">All <span class="filter-count" id="fc-all">10</span></button>
     <button class="filter-btn" onclick="filterCards('critical')">Critical <span class="filter-count" id="fc-critical">1</span></button>
-    <button class="filter-btn" onclick="filterCards('hot')">Hot <span class="filter-count" id="fc-hot">3</span></button>
+    <button class="filter-btn" onclick="filterCards('hot')">Hot <span class="filter-count" id="fc-hot">4</span></button>
     <button class="filter-btn" onclick="filterCards('warm')">Warm <span class="filter-count" id="fc-warm">2</span></button>
     <button class="filter-btn" onclick="filterCards('active')">Active <span class="filter-count" id="fc-active">1</span></button>
     <button class="filter-btn" onclick="filterCards('monitoring')">Monitoring <span class="filter-count" id="fc-monitoring">1</span></button>
@@ -601,14 +601,31 @@ const BUILT_STATES = [
     por: 'missouri-rht-por.html',
     gtm: 'missouri-gtm-strategy.html',
   },
+  {
+    abbr: 'NC',
+    name: 'North Carolina',
+    award: '$213.0M',
+    urgency: 7,
+    tier: 'hot',
+    badge: 'Hot',
+    badgeColor: '#ff8c00',
+    headline: 'Hub Lead Awards Imminent — Position Now',
+    actions: [
+      { text: 'Contact NC DHHS Office of Rural Health — position WHOOP for Technology & Innovation initiative before Hub Lead awards lock in vendor relationships', color: '#ff8c00' },
+      { text: 'Identify leading NC ROOTS Hub Lead applicants (hospital associations, health systems, FQHCs) — engage before awards are announced in May–June 2026', color: '#ff8c00' },
+      { text: 'Register on vendor.nc.gov and eprocurement.nc.gov — required before Technology & Innovation RFP drops', color: '#ffb347' },
+      { text: 'Begin WHOOP Unite outreach to ~36 rural NC CAHs via Workforce Development initiative', color: '#a8cc44' },
+    ],
+    deadline: 'Hub Lead Awards Expected: <span>May–June 2026</span>',
+    por: 'north-carolina-rht-por.html',
+    gtm: 'north-carolina-gtm-strategy.html',
+  },
 ];
 
 // ─────────────────────────────────────────────
 // PIPELINE STATES — unbuilt, sorted by award
 // ─────────────────────────────────────────────
 const PIPELINE = [
-  {abbr:'MO', name:'Missouri',       award:'$216M'},
-  {abbr:'NC', name:'North Carolina', award:'$213M'},
   {abbr:'KY', name:'Kentucky',       award:'$213M'},
   {abbr:'NY', name:'New York',       award:'$212M'},
   {abbr:'NM', name:'New Mexico',     award:'$211M'},
@@ -617,6 +634,8 @@ const PIPELINE = [
   {abbr:'AR', name:'Arkansas',       award:'$209M'},
   {abbr:'LA', name:'Louisiana',      award:'$208M'},
   {abbr:'IN', name:'Indiana',        award:'$207M'},
+  {abbr:'WI', name:'Wisconsin',      award:'$206M'},
+  {abbr:'TN', name:'Tennessee',      award:'$205M'},
 ];
 
 // ─────────────────────────────────────────────
