@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RHTP Command Center — WHOOP National Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 <style>
   :root {
     --bg: #0d1215;
@@ -93,7 +95,9 @@
   .legend-item { display: flex; align-items: center; gap: 5px; }
   .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
   .legend-label { font-size: 11px; color: var(--muted); }
-  #heatmap-svg { display: block; overflow: visible; }
+  #map-container { width: 100%; }
+  #map-container svg { display: block; width: 100%; }
+  #map-container .state { transition: fill-opacity 0.15s; }
   .tile-tooltip {
     position: fixed;
     background: #0d1a22;
@@ -106,7 +110,7 @@
     transition: opacity 0.15s;
     z-index: 999;
     min-width: 180px;
-    max-width: 240px;
+    max-width: 260px;
   }
   .tile-tooltip.visible { opacity: 1; }
   .tt-state { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
@@ -327,7 +331,7 @@
           <div class="legend-item"><div class="legend-dot" style="background:#2a3540"></div><div class="legend-label">Not Built</div></div>
         </div>
       </div>
-      <svg id="heatmap-svg"></svg>
+      <div id="map-container"></div>
     </div>
   </div>
 
@@ -365,60 +369,60 @@
 
 <script>
 // ─────────────────────────────────────────────
-// STATE GRID DATA — 12-col × 8-row tile layout
+// FIPS → STATE DATA (for D3 geographic map)
 // ─────────────────────────────────────────────
-const GRID_STATES = [
-  {abbr:'AK', name:'Alaska',         award:272, r:0, c:0},
-  {abbr:'ME', name:'Maine',          award:190, r:0, c:11},
-  {abbr:'WA', name:'Washington',     award:181, r:1, c:0},
-  {abbr:'MT', name:'Montana',        award:234, r:1, c:2},
-  {abbr:'ND', name:'North Dakota',   award:199, r:1, c:3},
-  {abbr:'MN', name:'Minnesota',      award:193, r:1, c:4},
-  {abbr:'WI', name:'Wisconsin',      award:204, r:1, c:5},
-  {abbr:'MI', name:'Michigan',       award:173, r:1, c:6},
-  {abbr:'VT', name:'Vermont',        award:195, r:1, c:10},
-  {abbr:'NH', name:'New Hampshire',  award:204, r:1, c:11},
-  {abbr:'OR', name:'Oregon',         award:197, r:2, c:0},
-  {abbr:'ID', name:'Idaho',          award:186, r:2, c:1},
-  {abbr:'WY', name:'Wyoming',        award:205, r:2, c:2},
-  {abbr:'SD', name:'South Dakota',   award:189, r:2, c:3},
-  {abbr:'IA', name:'Iowa',           award:209, r:2, c:4},
-  {abbr:'IL', name:'Illinois',       award:193, r:2, c:5},
-  {abbr:'IN', name:'Indiana',        award:207, r:2, c:6},
-  {abbr:'OH', name:'Ohio',           award:202, r:2, c:7},
-  {abbr:'PA', name:'Pennsylvania',   award:193, r:2, c:8},
-  {abbr:'NY', name:'New York',       award:212, r:2, c:9},
-  {abbr:'CT', name:'Connecticut',    award:154, r:2, c:10},
-  {abbr:'RI', name:'Rhode Island',   award:156, r:2, c:11},
-  {abbr:'CA', name:'California',     award:234, r:3, c:0},
-  {abbr:'NV', name:'Nevada',         award:180, r:3, c:1},
-  {abbr:'CO', name:'Colorado',       award:200, r:3, c:2},
-  {abbr:'NE', name:'Nebraska',       award:219, r:3, c:3},
-  {abbr:'MO', name:'Missouri',       award:216, r:3, c:4},
-  {abbr:'KY', name:'Kentucky',       award:213, r:3, c:5},
-  {abbr:'WV', name:'West Virginia',  award:199, r:3, c:6},
-  {abbr:'VA', name:'Virginia',       award:190, r:3, c:7},
-  {abbr:'MD', name:'Maryland',       award:168, r:3, c:8},
-  {abbr:'NJ', name:'New Jersey',     award:147, r:3, c:9},
-  {abbr:'DE', name:'Delaware',       award:157, r:3, c:10},
-  {abbr:'MA', name:'Massachusetts',  award:162, r:3, c:11},
-  {abbr:'UT', name:'Utah',           award:196, r:4, c:1},
-  {abbr:'NM', name:'New Mexico',     award:211, r:4, c:2},
-  {abbr:'KS', name:'Kansas',         award:222, r:4, c:3},
-  {abbr:'AR', name:'Arkansas',       award:209, r:4, c:4},
-  {abbr:'TN', name:'Tennessee',      award:207, r:4, c:5},
-  {abbr:'NC', name:'North Carolina', award:213, r:4, c:6},
-  {abbr:'SC', name:'South Carolina', award:200, r:4, c:7},
-  {abbr:'AZ', name:'Arizona',        award:167, r:5, c:1},
-  {abbr:'OK', name:'Oklahoma',       award:223, r:5, c:3},
-  {abbr:'LA', name:'Louisiana',      award:208, r:5, c:4},
-  {abbr:'MS', name:'Mississippi',    award:206, r:5, c:5},
-  {abbr:'AL', name:'Alabama',        award:203, r:5, c:6},
-  {abbr:'GA', name:'Georgia',        award:219, r:5, c:7},
-  {abbr:'FL', name:'Florida',        award:210, r:5, c:8},
-  {abbr:'TX', name:'Texas',          award:281, r:6, c:3},
-  {abbr:'HI', name:'Hawaii',         award:189, r:7, c:1},
-];
+const FIPS_MAP = {
+  '1': {abbr:'AL',name:'Alabama',         award:'$203M'},
+  '2': {abbr:'AK',name:'Alaska',          award:'$272M'},
+  '4': {abbr:'AZ',name:'Arizona',         award:'$167M'},
+  '5': {abbr:'AR',name:'Arkansas',        award:'$209M'},
+  '6': {abbr:'CA',name:'California',      award:'$234M'},
+  '8': {abbr:'CO',name:'Colorado',        award:'$200M'},
+  '9': {abbr:'CT',name:'Connecticut',     award:'$154M'},
+  '10':{abbr:'DE',name:'Delaware',        award:'$157M'},
+  '12':{abbr:'FL',name:'Florida',         award:'$210M'},
+  '13':{abbr:'GA',name:'Georgia',         award:'$219M'},
+  '15':{abbr:'HI',name:'Hawaii',          award:'$189M'},
+  '16':{abbr:'ID',name:'Idaho',           award:'$186M'},
+  '17':{abbr:'IL',name:'Illinois',        award:'$193M'},
+  '18':{abbr:'IN',name:'Indiana',         award:'$207M'},
+  '19':{abbr:'IA',name:'Iowa',            award:'$209M'},
+  '20':{abbr:'KS',name:'Kansas',          award:'$222M'},
+  '21':{abbr:'KY',name:'Kentucky',        award:'$213M'},
+  '22':{abbr:'LA',name:'Louisiana',       award:'$208M'},
+  '23':{abbr:'ME',name:'Maine',           award:'$190M'},
+  '24':{abbr:'MD',name:'Maryland',        award:'$168M'},
+  '25':{abbr:'MA',name:'Massachusetts',   award:'$162M'},
+  '26':{abbr:'MI',name:'Michigan',        award:'$173M'},
+  '27':{abbr:'MN',name:'Minnesota',       award:'$193M'},
+  '28':{abbr:'MS',name:'Mississippi',     award:'$206M'},
+  '29':{abbr:'MO',name:'Missouri',        award:'$216M'},
+  '30':{abbr:'MT',name:'Montana',         award:'$234M'},
+  '31':{abbr:'NE',name:'Nebraska',        award:'$219M'},
+  '32':{abbr:'NV',name:'Nevada',          award:'$180M'},
+  '33':{abbr:'NH',name:'New Hampshire',   award:'$204M'},
+  '34':{abbr:'NJ',name:'New Jersey',      award:'$147M'},
+  '35':{abbr:'NM',name:'New Mexico',      award:'$211M'},
+  '36':{abbr:'NY',name:'New York',        award:'$212M'},
+  '37':{abbr:'NC',name:'North Carolina',  award:'$213M'},
+  '38':{abbr:'ND',name:'North Dakota',    award:'$199M'},
+  '39':{abbr:'OH',name:'Ohio',            award:'$202M'},
+  '40':{abbr:'OK',name:'Oklahoma',        award:'$223M'},
+  '41':{abbr:'OR',name:'Oregon',          award:'$197M'},
+  '42':{abbr:'PA',name:'Pennsylvania',    award:'$193M'},
+  '44':{abbr:'RI',name:'Rhode Island',    award:'$156M'},
+  '45':{abbr:'SC',name:'South Carolina',  award:'$200M'},
+  '46':{abbr:'SD',name:'South Dakota',    award:'$189M'},
+  '47':{abbr:'TN',name:'Tennessee',       award:'$207M'},
+  '48':{abbr:'TX',name:'Texas',           award:'$281M'},
+  '49':{abbr:'UT',name:'Utah',            award:'$196M'},
+  '50':{abbr:'VT',name:'Vermont',         award:'$195M'},
+  '51':{abbr:'VA',name:'Virginia',        award:'$190M'},
+  '53':{abbr:'WA',name:'Washington',      award:'$181M'},
+  '54':{abbr:'WV',name:'West Virginia',   award:'$199M'},
+  '55':{abbr:'WI',name:'Wisconsin',       award:'$204M'},
+  '56':{abbr:'WY',name:'Wyoming',         award:'$205M'},
+};
 
 // ─────────────────────────────────────────────
 // BUILT STATE PLANS — add a state here → card appears
@@ -611,94 +615,162 @@ const URGENCY_MAP = {};
 BUILT_STATES.forEach(s => { URGENCY_MAP[s.abbr] = s; });
 
 // ─────────────────────────────────────────────
-// RENDER HEATMAP
+// RENDER D3 GEOGRAPHIC MAP
 // ─────────────────────────────────────────────
-function buildHeatmap() {
-  const TILE = 46, GAP = 4, COLS = 12, ROWS = 8;
-  const W = COLS * (TILE + GAP) - GAP;
-  const H = ROWS * (TILE + GAP) - GAP;
-  const svg = document.getElementById('heatmap-svg');
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svg.setAttribute('width', '100%');
-  svg.style.maxWidth = W + 'px';
-
+async function buildMap() {
+  const container = document.getElementById('map-container');
+  const W = container.clientWidth || 900;
+  const H = Math.round(W * 0.62);
   const tooltip = document.getElementById('tooltip');
 
-  GRID_STATES.forEach(gs => {
-    const x = gs.c * (TILE + GAP);
-    const y = gs.r * (TILE + GAP);
-    const built = URGENCY_MAP[gs.abbr];
-    const urgency = built ? built.urgency : 0;
-    const color = urgencyColor(urgency);
+  // Small states where abbreviation label doesn't fit
+  const SMALL = new Set(['CT','RI','DE','NJ','MD','MA','VT','NH','DC']);
 
-    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.style.cursor = built ? 'pointer' : 'default';
+  const svg = d3.select('#map-container')
+    .append('svg')
+    .attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('width', '100%');
 
-    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    rect.setAttribute('x', x); rect.setAttribute('y', y);
-    rect.setAttribute('width', TILE); rect.setAttribute('height', TILE);
-    rect.setAttribute('rx', 4);
-    rect.setAttribute('fill', color);
-    rect.setAttribute('fill-opacity', built ? '1' : '0.7');
-    rect.style.transition = 'fill-opacity 0.15s';
+  // Loading placeholder
+  const loading = svg.append('text')
+    .attr('x', W / 2).attr('y', H / 2)
+    .attr('text-anchor', 'middle')
+    .attr('fill', '#6b8394')
+    .attr('font-size', 13)
+    .attr('font-family', '-apple-system, sans-serif')
+    .text('Loading map…');
 
-    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    text.setAttribute('x', x + TILE / 2);
-    text.setAttribute('y', y + TILE / 2 + 4);
-    text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif');
-    text.setAttribute('font-size', '11');
-    text.setAttribute('font-weight', '700');
-    text.setAttribute('fill', built ? (urgency >= 5 ? '#000' : '#fff') : '#6b8394');
-    text.textContent = gs.abbr;
+  let us;
+  try {
+    us = await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json');
+  } catch (e) {
+    loading.text('Map unavailable — check internet connection.');
+    return;
+  }
+  loading.remove();
 
-    g.appendChild(rect);
-    g.appendChild(text);
+  const states   = topojson.feature(us, us.objects.states);
+  const borders  = topojson.mesh(us, us.objects.states, (a, b) => a !== b);
+  const nation   = topojson.mesh(us, us.objects.states, (a, b) => a === b);
 
-    g.addEventListener('mouseenter', (e) => {
-      rect.setAttribute('fill-opacity', '0.85');
-      document.getElementById('tt-state').textContent = gs.name + ' (' + gs.abbr + ')';
-      document.getElementById('tt-award').textContent = '$' + gs.award + 'M award';
+  const projection = d3.geoAlbersUsa().fitSize([W, H], states);
+  const path = d3.geoPath().projection(projection);
+
+  // ── NATION BACKGROUND (subtle outline) ──
+  svg.append('path')
+    .datum(nation)
+    .attr('d', path)
+    .attr('fill', 'none')
+    .attr('stroke', '#2a3a48')
+    .attr('stroke-width', 1.5);
+
+  // ── STATE FILLS ──
+  svg.selectAll('.state')
+    .data(states.features)
+    .join('path')
+    .attr('class', 'state')
+    .attr('d', path)
+    .attr('fill', function(d) {
+      const info = FIPS_MAP[String(d.id)];
+      if (!info) return '#1a2a35';
+      const built = URGENCY_MAP[info.abbr];
+      return built ? urgencyColor(built.urgency) : '#1e2d38';
+    })
+    .attr('fill-opacity', function(d) {
+      const info = FIPS_MAP[String(d.id)];
+      if (!info) return 0.6;
+      return URGENCY_MAP[info.abbr] ? 1 : 0.75;
+    })
+    .attr('stroke', '#0d1215')
+    .attr('stroke-width', 0.4)
+    .style('cursor', function(d) {
+      const info = FIPS_MAP[String(d.id)];
+      return (info && URGENCY_MAP[info.abbr]) ? 'pointer' : 'default';
+    })
+    .on('mouseenter', function(event, d) {
+      const info = FIPS_MAP[String(d.id)];
+      const built = info ? URGENCY_MAP[info.abbr] : null;
+      d3.select(this).attr('fill-opacity', 0.7);
+      document.getElementById('tt-state').textContent  = info ? info.name + ' (' + info.abbr + ')' : '—';
+      document.getElementById('tt-award').textContent  = info ? info.award + ' award' : '';
       if (built) {
         document.getElementById('tt-status').textContent = built.badge + ' · ' + built.headline;
-        document.getElementById('tt-action').textContent = built.actions[0] ? built.actions[0].text.substring(0, 80) + '…' : '';
+        document.getElementById('tt-action').textContent = built.actions[0] ? built.actions[0].text.substring(0, 90) + '…' : '';
       } else {
         document.getElementById('tt-status').textContent = 'Not yet built';
-        document.getElementById('tt-action').textContent = 'Add to pipeline →';
+        document.getElementById('tt-action').textContent = info ? 'Add to pipeline →' : '';
       }
       tooltip.classList.add('visible');
-    });
-
-    g.addEventListener('mousemove', (e) => {
-      const margin = 14;
-      let left = e.clientX + margin;
-      let top = e.clientY + margin;
-      const tw = 240, th = 80;
-      if (left + tw > window.innerWidth) left = e.clientX - tw - margin;
-      if (top + th > window.innerHeight) top = e.clientY - th - margin;
+    })
+    .on('mousemove', function(event) {
+      const M = 16, TW = 260, TH = 100;
+      let left = event.clientX + M;
+      let top  = event.clientY + M;
+      if (left + TW > window.innerWidth)  left = event.clientX - TW - M;
+      if (top  + TH > window.innerHeight) top  = event.clientY - TH - M;
       tooltip.style.left = left + 'px';
-      tooltip.style.top = top + 'px';
-    });
-
-    g.addEventListener('mouseleave', () => {
-      rect.setAttribute('fill-opacity', built ? '1' : '0.7');
+      tooltip.style.top  = top  + 'px';
+    })
+    .on('mouseleave', function(event, d) {
+      const info  = FIPS_MAP[String(d.id)];
+      const built = info ? URGENCY_MAP[info.abbr] : null;
+      d3.select(this).attr('fill-opacity', built ? 1 : 0.75);
       tooltip.classList.remove('visible');
+    })
+    .on('click', function(event, d) {
+      const info  = FIPS_MAP[String(d.id)];
+      const built = info ? URGENCY_MAP[info.abbr] : null;
+      if (!built) return;
+      const card = document.getElementById('card-' + info.abbr);
+      if (card) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.filter-btn').classList.add('active');
+        document.querySelectorAll('.action-card').forEach(c => c.style.display = '');
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const origBorder = card.style.borderColor;
+        card.style.transition = 'border-color 0.3s';
+        card.style.borderColor = urgencyColor(built.urgency);
+        setTimeout(() => { card.style.borderColor = origBorder; }, 1800);
+      }
     });
 
-    if (built) {
-      g.addEventListener('click', () => {
-        const card = document.getElementById('card-' + gs.abbr);
-        if (card) {
-          filterCards('all');
-          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          card.style.borderColor = urgencyColor(built.urgency);
-          setTimeout(() => { card.style.borderColor = ''; }, 1500);
-        }
-      });
-    }
+  // ── STATE BORDERS ──
+  svg.append('path')
+    .datum(borders)
+    .attr('d', path)
+    .attr('fill', 'none')
+    .attr('stroke', '#0d1215')
+    .attr('stroke-width', 0.5)
+    .attr('pointer-events', 'none');
 
-    svg.appendChild(g);
-  });
+  // ── ABBREVIATION LABELS ──
+  svg.selectAll('.state-label')
+    .data(states.features)
+    .join('text')
+    .attr('class', 'state-label')
+    .attr('transform', function(d) {
+      const c = path.centroid(d);
+      return (c && isFinite(c[0]) && isFinite(c[1])) ? 'translate(' + c + ')' : 'translate(-999,-999)';
+    })
+    .attr('text-anchor', 'middle')
+    .attr('dominant-baseline', 'middle')
+    .attr('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif')
+    .attr('font-size', function(d) {
+      const info = FIPS_MAP[String(d.id)];
+      return (info && SMALL.has(info.abbr)) ? 0 : 9;
+    })
+    .attr('font-weight', '700')
+    .attr('fill', function(d) {
+      const info  = FIPS_MAP[String(d.id)];
+      const built = info ? URGENCY_MAP[info.abbr] : null;
+      if (!built) return '#4a6070';
+      return built.urgency >= 5 ? '#000000' : '#e8eef2';
+    })
+    .attr('pointer-events', 'none')
+    .text(function(d) {
+      const info = FIPS_MAP[String(d.id)];
+      return info ? info.abbr : '';
+    });
 }
 
 // ─────────────────────────────────────────────
@@ -826,7 +898,7 @@ function updateCounts() {
 // ─────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────
-buildHeatmap();
+buildMap();
 buildCards();
 buildPipeline();
 updateCounts();
