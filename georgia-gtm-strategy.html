@@ -1,0 +1,496 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Georgia GREAT Health — WHOOP Go-To-Market Strategy</title>
+  <style>
+    :root {
+      --bg:        #0d1215;
+      --bg-card:   rgba(255,255,255,0.03);
+      --text:      #ffffff;
+      --muted:     #aaaaaa;
+      --meta:      #666666;
+      --rule:      rgba(255,255,255,0.08);
+      --teal:      #00F19F;
+      --blue:      #0093E7;
+      --orange:    #ffb347;
+      --red:       #ff5a5a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .header-bar {
+      background: #000;
+      border-bottom: 1px solid var(--rule);
+      padding: 0 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; }
+    .header-wordmark { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--teal); margin-right: 16px; }
+    .header-pipe { width: 1px; height: 14px; background: rgba(255,255,255,0.15); margin-right: 16px; }
+    .header-meta { font-size: 10px; color: var(--meta); letter-spacing: 0.08em; }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(0,241,159,0.35); background: rgba(0,241,159,0.06); padding: 4px 9px; border-radius: 2px; }
+
+    .page { max-width: 1180px; margin: 0 auto; padding: 48px 40px 80px; }
+
+    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .page-title { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 10px; }
+    .page-meta { font-size: 12px; color: var(--meta); letter-spacing: 0.04em; }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+
+    .rule { height: 1px; background: var(--rule); margin: 36px 0; }
+
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--meta); margin-bottom: 16px; }
+
+    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+    .stat-cell { background: var(--bg-card); padding: 24px 26px; border-right: 1px solid var(--rule); }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 14px; line-height: 1.5; }
+    .stat-number { font-size: 48px; font-weight: 700; line-height: 1; color: var(--teal); letter-spacing: -0.02em; margin-bottom: 8px; }
+    .stat-number.blue   { color: var(--blue); }
+    .stat-number.white  { color: #fff; }
+    .stat-number.orange { color: var(--orange); }
+    .stat-desc { font-size: 12px; color: #888; line-height: 1.55; }
+
+    .narrative-title { font-size: 17px; font-weight: 600; color: #fff; padding-bottom: 14px; border-bottom: 1px solid var(--rule); margin-bottom: 20px; }
+    .narrative-body { font-size: 13.5px; line-height: 1.85; color: #bbb; }
+    .narrative-body p { margin-bottom: 14px; }
+    .narrative-body p:last-child { margin-bottom: 0; }
+    .hl        { color: var(--teal);   font-weight: 600; }
+    .hl-orange { color: var(--orange); font-weight: 600; }
+    .hl-white  { color: #fff;          font-weight: 600; }
+
+    .strategy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+    .strategy-card { background: var(--bg-card); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+    .strategy-card.recommended { border-color: rgba(0,241,159,0.3); }
+    .strategy-header { padding: 20px 22px 16px; border-bottom: 1px solid var(--rule); }
+    .strategy-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; margin-bottom: 12px; }
+    .badge-teal   { background: rgba(0,241,159,0.10); color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .badge-blue   { background: rgba(0,147,231,0.10); color: var(--blue);   border: 1px solid rgba(0,147,231,0.25); }
+    .badge-orange { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .strategy-plan-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 6px; }
+    .strategy-title { font-size: 18px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 6px; }
+    .strategy-subtitle { font-size: 12px; color: #777; line-height: 1.5; }
+    .strategy-body { padding: 20px 22px; }
+    .strategy-section-label { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 10px; margin-top: 18px; }
+    .strategy-section-label:first-child { margin-top: 0; }
+    .strategy-body p { font-size: 13px; color: #bbb; line-height: 1.65; }
+    .dot-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .dot-list li { font-size: 12.5px; color: #bbb; padding-left: 16px; position: relative; line-height: 1.5; }
+    .dot-list li::before { content: '—'; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+    .dot-list.orange li::before { color: var(--orange); }
+    .dot-list.blue li::before   { color: var(--blue); }
+    .dot-list li strong { color: #e8e8e8; }
+    .strategy-footer { padding: 14px 22px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .footer-item-label { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--meta); margin-bottom: 4px; }
+    .footer-item-value { font-size: 12px; color: #bbb; }
+
+    .compare-table { width: 100%; border-collapse: collapse; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; font-size: 12.5px; }
+    .compare-table thead tr { background: rgba(255,255,255,0.04); }
+    .compare-table th { padding: 14px 20px; text-align: left; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+    .compare-table th:last-child { border-right: none; }
+    .compare-table td { padding: 14px 20px; color: #bbb; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+    .compare-table td:last-child { border-right: none; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+    .compare-table .row-label { font-weight: 600; color: #ccc; white-space: nowrap; }
+    .pill { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 2px; }
+    .pill-high { background: rgba(0,241,159,0.10);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .pill-med  { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .pill-low  { background: rgba(255,90,90,0.10);  color: var(--red);    border: 1px solid rgba(255,90,90,0.25); }
+
+    .timeline-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+    .timeline-col { padding: 24px 26px; border-right: 1px solid var(--rule); }
+    .timeline-col:last-child { border-right: none; }
+    .timeline-header { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+    .timeline-header.orange { color: var(--orange); }
+    .timeline-header.blue   { color: var(--blue); }
+    .timeline-sub { font-size: 11px; color: var(--meta); margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
+
+    .callout { border-left: 3px solid var(--teal); background: rgba(0,241,159,0.04); border-radius: 0 4px 4px 0; padding: 22px 26px; margin-bottom: 40px; }
+    .callout.orange { border-left-color: var(--orange); background: rgba(255,179,71,0.04); }
+    .callout-label { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .callout.orange .callout-label { color: var(--orange); }
+    .callout-body { font-size: 13.5px; line-height: 1.75; color: #bbb; }
+
+    .email-draft { background: rgba(255,255,255,0.02); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+    .email-header { background: rgba(255,255,255,0.04); border-bottom: 1px solid var(--rule); padding: 14px 22px; display: grid; grid-template-columns: auto 1fr; gap: 20px; }
+    .email-field-label { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); line-height: 1.8; }
+    .email-field-value { font-size: 13px; color: #ccc; line-height: 1.8; }
+    .email-body { padding: 22px 26px; font-size: 13.5px; line-height: 1.85; color: #bbb; }
+    .email-body p { margin-bottom: 14px; }
+    .email-body p:last-child { margin-bottom: 0; }
+
+    .page-footer { font-size: 10px; color: #333; letter-spacing: 0.08em; text-align: right; padding-top: 24px; border-top: 1px solid var(--rule); }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>CMS Rural Health Transformation<span class="sep">|</span>Georgia Go-To-Market<span class="sep">|</span>April 2026
+    </div>
+  </div>
+  <div class="header-badge">GTM Strategy</div>
+</div>
+
+
+<div class="page">
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-eyebrow">Georgia GREAT Health Program — Go-To-Market Strategy</div>
+  <div class="page-title">Three Plans. The AHEAD Model Changes Everything.<br>How WHOOP Becomes the Biometric Layer of Rural Georgia's Healthcare Transformation.</div>
+  <div class="page-meta">
+    Prepared by: Jessie Spada, Enterprise BDR
+    <span class="dot">·</span>
+    Audience: Manager + Chief of Staff
+    <span class="dot">·</span>
+    April 13, 2026
+    <span class="dot">·</span>
+    Based on $218,862,170 award to Georgia Department of Community Health
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── STATS ── -->
+  <div class="section-label">The Market</div>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Total Georgia Award<br>(7th Highest Nationally)</div>
+      <div class="stat-number">$219M</div>
+      <div class="stat-desc">5-year CMS cooperative agreement to DCH. 29 projects across 5 initiatives — more discrete programs than most states. Approved February 26, 2026.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">AHEAD LOI Hospitals<br>Service Line Support</div>
+      <div class="stat-number orange">$750K</div>
+      <div class="stat-desc">Per hospital, per year, for three years. Rural Georgia hospitals that submitted AHEAD Letters of Intent have direct service line investment funding available now. Technology qualifies.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Consumer Engagement<br>Platform — Assessment</div>
+      <div class="stat-number blue">2026</div>
+      <div class="stat-desc">DCH is assessing consumer engagement platform compatibility with Medicaid/Medicare in 2026. Implementation begins 2027. This is the pre-market window for WHOOP's primary lane.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Workforce Retention<br>Technology Grants</div>
+      <div class="stat-number white">Active</div>
+      <div class="stat-desc">Grant applications being disseminated and first awards being made in 2026. Five grant rounds through 2030. WHOOP Unite is the workforce retention technology for rural Georgia hospitals.</div>
+    </div>
+  </div>
+
+
+  <!-- ── CONTEXT ── -->
+  <div class="narrative-title">The Georgia Opportunity — Not Just Rural Health, Accountable Care</div>
+  <div class="narrative-body">
+    <p>
+      Georgia received <span class="hl">$218.9M</span> under the CMS Rural Health Transformation Program — the 7th-largest state award nationally — and unlike every other state in WHOOP's portfolio, Georgia explicitly built its program around preparation for the <span class="hl-white">AHEAD Model</span> (Achieving Healthcare Efficiency through Accountable Design). AHEAD is a CMS total cost of care program in which rural hospitals receive fixed annual global budgets and are paid based on quality outcomes, not patient volume. Georgia is applying for AHEAD Cohort 4 (NOFO due July 2026). If awarded, rural Georgia hospitals transition to performance-based global budgets starting in 2028–2029.
+    </p>
+    <p>
+      This context changes the WHOOP pitch fundamentally. In most states, WHOOP is a remote monitoring or wellness tool. In Georgia, WHOOP is the <span class="hl">continuous biometric outcomes data layer</span> that enables rural hospitals to perform under a global budget payment model. Under AHEAD, chronic disease outcomes — cardiovascular improvement, diabetes management, sleep-correlated metabolic markers — are the data that determine whether a hospital's global budget is adequate or insufficient. WHOOP generates those measurements continuously, between clinic visits, directly from the patient. For rural Georgia hospitals under AHEAD, WHOOP is not a wellness device — it is the financial infrastructure.
+    </p>
+    <p>
+      Georgia's two most immediate WHOOP opportunities are running in parallel. First, DCH is building a <span class="hl-white">Consumer Engagement Platform</span> for all Medicaid, Medicare, and State Health Benefit Plan members in rural hospital catchment areas — compatibility assessment underway in 2026, implementation starting 2027. WHOOP is the biometric data acquisition layer that makes this platform comprehensive. Second, <span class="hl">Workforce Retention Technology grants</span> are actively being awarded now — and WHOOP Unite is the provider wellness platform that rural Georgia hospitals need to compete for physicians and nurses against better-resourced urban competitors.
+    </p>
+    <p>
+      Below are three GTM plans for Georgia — structured around the near-term, medium-term, and strategic plays — with a 30/60/90 day action plan and opening email to the GREAT Health program office.
+    </p>
+  </div>
+
+  <div class="rule"></div>
+
+
+  <!-- ── THREE STRATEGY CARDS ── -->
+  <div class="section-label">The Three Plans</div>
+  <div class="strategy-grid">
+
+    <!-- PLAN A -->
+    <div class="strategy-card recommended">
+      <div class="strategy-header">
+        <div class="strategy-badge badge-teal">Plan A — Strategic Play · Recommended</div>
+        <div class="strategy-plan-label">Consumer Engagement Platform · AHEAD Technology Positioning</div>
+        <div class="strategy-title">DCH / GREAT Health State Partnership — Biometric Data Layer for Georgia's Consumer Engagement Ecosystem</div>
+        <div class="strategy-subtitle">DCH is building a consumer engagement platform for all rural Medicaid/Medicare/SHBP members. The compatibility assessment is underway now. Contact DCH before the vendor structure is set.</div>
+      </div>
+      <div class="strategy-body">
+        <div class="strategy-section-label">The Approach</div>
+        <p>Georgia DCH is assessing its Consumer Engagement Platform in 2026 — the platform that will give all Medicaid, Medicare, and State Health Benefit Plan members in participating rural hospital catchment areas access to a consumer health engagement experience. Implementation begins in 2027. A consumer health platform integration is planned for 2028. WHOOP is the biometric data acquisition layer that feeds continuous physiological data — cardiovascular strain, sleep quality, HRV, resting heart rate, respiratory rate — into consumer engagement platforms, making patient health profiles richer and more actionable for providers. Contact greathealth@dch.ga.gov now, before the vendor ecosystem for the Consumer Engagement Platform is defined. The window in 2026 is the pre-market engagement moment — DCH is deciding what the platform looks like. WHOOP should be part of that conversation. Frame this explicitly around the AHEAD Model: rural Georgia hospitals need population health outcomes data to succeed under global budgets, and WHOOP is the between-visit, always-on biometric data source that makes that possible.</p>
+        <div class="strategy-section-label">Key Actions</div>
+        <ul class="dot-list">
+          <li><strong>Email greathealth@dch.ga.gov</strong> — introduce WHOOP as the consumer biometric monitoring layer aligned with Georgia's Consumer Engagement Enhancement and AHEAD Model readiness goals. Opening email drafted below.</li>
+          <li><strong>Request a meeting with Stuart Portman</strong> — Executive Director, Medical Assistance Plans Division, DCH. He led the February 2026 GREAT Health briefing and is the named senior official for this program. Frame as a 30-minute introduction, not a sales call.</li>
+          <li><strong>Frame around AHEAD Model outcomes, not wellness</strong> — DCH is building toward global budget payment. WHOOP's value proposition in this context is: continuous biometric data that rural hospitals need to demonstrate quality improvement under a performance-based payment model. Lead with this, not device features.</li>
+          <li><strong>Ask about the Consumer Engagement Platform assessment timeline</strong> — 2026 is the compatibility assessment year. Understand whether there is an RFP, a vendor engagement process, or an informal review. WHOOP needs to be in whichever process DCH is running before vendor relationships are defined.</li>
+          <li><strong>Offer to brief DCH on WHOOP's API and data ecosystem</strong> — WHOOP's provider dashboard and API integration capabilities are the relevant assets for a consumer engagement platform partnership. Prepare a one-pager on WHOOP as a biometric data input for consumer health platforms.</li>
+        </ul>
+        <div class="strategy-section-label">Why It Works</div>
+        <p>One DCH-level relationship positions WHOOP as the biometric monitoring component for all enrolled members in every participating rural hospital catchment area simultaneously. Georgia is building a consumer health infrastructure that will serve Medicaid, Medicare, and SHBP members for years — getting WHOOP positioned in that infrastructure before vendor relationships are defined in 2026 is the strategic win. No state in the portfolio offers this kind of state-level, population-scale distribution pathway.</p>
+      </div>
+      <div class="strategy-footer">
+        <div>
+          <div class="footer-item-label">Speed to First Deal</div>
+          <div class="footer-item-value">90–180 days (platform integration)</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Scale</div>
+          <div class="footer-item-value">Highest — all rural Medicaid/Medicare/SHBP members</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Probability</div>
+          <div class="footer-item-value"><span class="pill pill-med">Medium</span></div>
+        </div>
+        <div>
+          <div class="footer-item-label">Risk</div>
+          <div class="footer-item-value">Platform vendor structure may be decided; timing sensitive</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PLAN B -->
+    <div class="strategy-card">
+      <div class="strategy-header">
+        <div class="strategy-badge badge-orange">Plan B — Volume Play</div>
+        <div class="strategy-plan-label">GHA + AHEAD LOI Hospitals · Service Line Support + Workforce Retention</div>
+        <div class="strategy-title">GHA Intermediary + Direct Rural Hospital Outreach — Service Line Funding and Workforce Grants</div>
+        <div class="strategy-subtitle">GHA has relationships with every rural Georgia hospital that submitted an AHEAD LOI. Each LOI hospital has $750K/yr × 3 years in service line support and access to Workforce Retention Technology grant funding.</div>
+      </div>
+      <div class="strategy-body">
+        <div class="strategy-section-label">The Approach</div>
+        <p>The Georgia Hospital Association (GHA) has direct relationships with every rural Georgia hospital that submitted a Letter of Intent to DCH for AHEAD participation (LOI deadline: March 15, 2026 — hospitals have been identified and engaged). GHA is WHOOP's fastest path to the rural hospital network that has been earmarked for GREAT Health investment. Each LOI hospital receives: up to $750K/year for 3 years in service line support (technology explicitly fundable), access to the Consumer Engagement Platform for their entire Medicaid/Medicare/SHBP member population, and Workforce Retention Technology grant access. Contact GHA's VP of Rural Health or their RHTP-dedicated staff. The pitch is two-pronged: WHOOP as the population health monitoring tool that helps hospitals demonstrate the outcomes quality needed for AHEAD global budget success, and WHOOP Unite as the workforce wellness technology that qualifies for the Workforce Retention Technology grant program. Both pitches are grounded in active, funded programs — not future NOFOs.</p>
+        <div class="strategy-section-label">Key Actions</div>
+        <ul class="dot-list orange">
+          <li><strong>Contact GHA's rural health team</strong> — (770) 249-4500 · gha.org — introduce WHOOP and ask for introductions to rural Georgia hospitals that have submitted AHEAD LOIs. Frame as a technology vendor aligned with the GREAT Health program goals. GHA has an active role in the RHTP page and can facilitate warm introductions.</li>
+          <li><strong>Request the LOI hospital list from GHA or DCH</strong> — the hospitals that submitted Letters of Intent are the highest-priority targets. These are the organizations with active GREAT Health funding, technology assessment funds, and workforce retention grants available.</li>
+          <li><strong>Pitch Service Line Support lane ($750K/yr)</strong> — for LOI hospitals, WHOOP devices and platform deployment can qualify as a technology investment in population health monitoring under the service line support mechanism. Target hospital CFOs, CNOs, and technology officers. Frame around AHEAD readiness.</li>
+          <li><strong>Pitch Workforce Retention Technology grants</strong> — WHOOP Unite as the physician and clinical staff wellness technology that helps rural Georgia hospitals compete for providers. Grants are being actively awarded in 2026. Use WHOOP Unite's existing enterprise motion — no new procurement cycle.</li>
+          <li><strong>Target hospitals with known provider recruitment challenges</strong> — rural Georgia CAHs and community hospitals with open physician roles or high turnover are the highest-probability WHOOP Unite buyers. GHA can identify them.</li>
+        </ul>
+        <div class="strategy-section-label">Why It Works</div>
+        <p>LOI hospitals have money and a direct mandate to invest in technology readiness for AHEAD. GHA is the trusted intermediary that introduced the RHTP program to its hospital members — a GHA introduction carries institutional credibility that cold outreach does not. $750K/year × 3 years per hospital × dozens of LOI hospitals = a substantial direct sales opportunity running in parallel with the Plan A DCH state-level play.</p>
+      </div>
+      <div class="strategy-footer">
+        <div>
+          <div class="footer-item-label">Speed to First Deal</div>
+          <div class="footer-item-value">30–60 days (WHOOP Unite + Service Line)</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Scale</div>
+          <div class="footer-item-value">Medium — rural GA LOI hospitals × 3-year grants</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Probability</div>
+          <div class="footer-item-value"><span class="pill pill-high">High</span></div>
+        </div>
+        <div>
+          <div class="footer-item-label">Risk</div>
+          <div class="footer-item-value">Requires GHA warm intro; LOI list not yet public</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PLAN C -->
+    <div class="strategy-card">
+      <div class="strategy-header">
+        <div class="strategy-badge badge-blue">Plan C — Quick Win</div>
+        <div class="strategy-plan-label">Workforce Retention Technology Grants · WHOOP Unite Enterprise Motion</div>
+        <div class="strategy-title">Rural Georgia Provider Wellness — Workforce Retention Technology Grants + WHOOP Unite Direct</div>
+        <div class="strategy-subtitle">Workforce Retention Technology grants are being awarded in 2026. WHOOP Unite is a direct fit. No government procurement cycle — use existing enterprise motion to close rural Georgia hospital deals now.</div>
+      </div>
+      <div class="strategy-body">
+        <div class="strategy-section-label">The Approach</div>
+        <p>Georgia's Workforce Retention Technology grant program is active and distributing funds in 2026 — with Grant Round 2 in 2027, Grant Round 3 in 2028, and ongoing rounds through 2030. The program funds "physician workforce retention technology" — explicitly for tools that help rural Georgia hospitals recruit and retain providers in underserved communities. While surgical robotic systems are the named example in DCH's materials, the grant language is broader: technology that supports physician and clinical workforce retention is in scope. WHOOP Unite — the enterprise provider wellness and recovery platform — maps directly to this category. Rural Georgia hospitals are competing against Atlanta-area health systems, academic medical centers, and well-resourced suburban practices for the same limited pool of physicians, NPs, and nurses. WHOOP Unite as a premium provider wellness benefit is the kind of differentiator that makes a rural Georgia hospital's recruiting package distinctive. The sale uses WHOOP's existing enterprise motion — it's a corporate wellness deal, not a government procurement. No NOFO, no RFP, no waiting.</p>
+        <div class="strategy-section-label">Key Actions</div>
+        <ul class="dot-list blue">
+          <li><strong>Identify rural Georgia hospitals with open provider positions</strong> — target CAHs and community hospitals in markets with demonstrated physician shortage. These are the organizations most motivated to invest in workforce retention technology.</li>
+          <li><strong>Frame WHOOP Unite as a workforce retention technology investment</strong> — use DCH's explicit program language: WHOOP Unite is a "physician workforce retention technology" that helps rural hospitals compete for providers. Connect the sale to the grant program that funds it.</li>
+          <li><strong>Lead with the competitive differentiation angle</strong> — rural Georgia hospitals can't match urban system salaries, research opportunities, or subspecialty infrastructure. WHOOP Unite as a premium wellness benefit is a differentiator that a large Atlanta hospital cannot offer in the same authentic way. Performance optimization tools for rural providers who carry high loads and face burnout risk are a meaningful recruiting and retention investment.</li>
+          <li><strong>Target GHA member hospitals directly</strong> — use GHA's public member directory to identify rural Georgia CAHs and community hospitals. These are the highest-probability targets for WHOOP Unite in the fastest timeframe.</li>
+          <li><strong>Build a Georgia rural provider case study</strong> — one WHOOP Unite deployment at a rural Georgia hospital is the proof point for both the GHA/Plan B outreach and the DCH/Plan A Consumer Engagement conversation. Shows Georgia-specific outcomes data and builds program credibility.</li>
+        </ul>
+        <div class="strategy-section-label">Why It Works</div>
+        <p>This is the fastest path to signed paper in Georgia. No government procurement cycle, no waiting for platform decisions — just a WHOOP Unite deal with a rural Georgia hospital using the existing enterprise motion. It generates revenue, builds the Georgia case study, and opens the GHA relationship that Plan B needs. Run this in parallel from Day 1.</p>
+      </div>
+      <div class="strategy-footer">
+        <div>
+          <div class="footer-item-label">Speed to First Deal</div>
+          <div class="footer-item-value">14–30 days (WHOOP Unite)</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Scale</div>
+          <div class="footer-item-value">Medium — rural GA CAHs and community hospitals</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Probability</div>
+          <div class="footer-item-value"><span class="pill pill-high">High</span></div>
+        </div>
+        <div>
+          <div class="footer-item-label">Risk</div>
+          <div class="footer-item-value">Lower ACV; use as land-and-expand beachhead</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ── COMPARISON TABLE ── -->
+  <div class="rule"></div>
+  <div class="section-label">Plan Comparison</div>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Plan A — DCH State Partnership</th>
+        <th>Plan B — GHA + LOI Hospital Outreach</th>
+        <th>Plan C — Workforce Retention Technology</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="row-label">Program Lane</td>
+        <td>Consumer Engagement Enhancement — AHEAD Technology Positioning</td>
+        <td>Service Line Support ($750K/yr) + Workforce Retention Grants</td>
+        <td>Workforce Retention Technology Grants — WHOOP Unite</td>
+      </tr>
+      <tr>
+        <td class="row-label">Funding Status</td>
+        <td>Assessment underway 2026; implementation begins 2027</td>
+        <td>Service line support active now for LOI hospitals; workforce grants active now</td>
+        <td>Active grant program — first awards 2026, ongoing through 2030</td>
+      </tr>
+      <tr>
+        <td class="row-label">Primary Contact</td>
+        <td>GREAT Health Program — greathealth@dch.ga.gov<br>Stuart Portman, DCH</td>
+        <td>GHA — (770) 249-4500<br>Rural Georgia LOI hospital CFOs/CEOs</td>
+        <td>Rural Georgia CAH Administrators<br>HR Directors / CMOs at rural hospitals</td>
+      </tr>
+      <tr>
+        <td class="row-label">Sales Motion</td>
+        <td>New — state-level biometric data platform partnership</td>
+        <td>Modified — population health monitoring + WHOOP Unite enterprise</td>
+        <td>Existing — WHOOP Unite enterprise wellness motion</td>
+      </tr>
+      <tr>
+        <td class="row-label">Speed to Revenue</td>
+        <td>90–180 days (platform integration timeline)</td>
+        <td>30–60 days (service line + workforce grants)</td>
+        <td>14–30 days (WHOOP Unite)</td>
+      </tr>
+      <tr>
+        <td class="row-label">Scale Ceiling</td>
+        <td><span class="pill pill-high">Highest</span> — all rural Medicaid/Medicare/SHBP members statewide</td>
+        <td><span class="pill pill-med">Medium</span> — all AHEAD LOI hospitals, deal by deal</td>
+        <td><span class="pill pill-med">Medium</span> — rural Georgia CAHs and community hospitals</td>
+      </tr>
+      <tr>
+        <td class="row-label">Probability</td>
+        <td><span class="pill pill-med">Medium</span> — platform timing sensitive; need to be in room before vendor structure is set</td>
+        <td><span class="pill pill-high">High</span> — GHA intro + active funding + AHEAD mandate</td>
+        <td><span class="pill pill-high">High</span> — existing motion, active grants, motivated buyers</td>
+      </tr>
+      <tr>
+        <td class="row-label">Recommendation</td>
+        <td>Contact DCH immediately — most strategic, highest scale</td>
+        <td>Activate through GHA in parallel — broadest hospital coverage</td>
+        <td>Run from Day 1 — fastest close, builds proof point for A and B</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── 30/60/90 ── -->
+  <div class="section-label">30 / 60 / 90 Day Action Plan</div>
+  <div class="timeline-grid">
+    <div class="timeline-col">
+      <div class="timeline-header">Days 1–30</div>
+      <div class="timeline-sub">Email DCH. Contact GHA. Begin WHOOP Unite outreach to rural Georgia CAHs.</div>
+      <ul class="dot-list">
+        <li><strong>Email greathealth@dch.ga.gov</strong> — opening email below. Introduce WHOOP for the Consumer Engagement Enhancement and AHEAD technology readiness goals. Ask for a 30-minute call with Stuart Portman or his team.</li>
+        <li><strong>Contact GHA</strong> — (770) 249-4500 — introduce WHOOP and request introductions to rural Georgia hospitals that submitted AHEAD LOIs. Ask about GHA's RHTP working group and how vendors engage with hospital members.</li>
+        <li><strong>Begin WHOOP Unite outreach to 3–5 rural Georgia CAHs</strong> — identify hospitals with open provider positions or active recruitment programs; use existing enterprise motion. Frame WHOOP Unite as the workforce retention technology benefit. Fastest path to signed paper.</li>
+        <li><strong>Build a Georgia AHEAD one-pager</strong> — map WHOOP's biometric monitoring capabilities to the AHEAD Model quality metrics: cardiovascular outcomes, chronic disease management, preventive care population health. Have it ready for both DCH and GHA conversations.</li>
+      </ul>
+    </div>
+    <div class="timeline-col">
+      <div class="timeline-header orange">Days 31–60</div>
+      <div class="timeline-sub">Follow up with DCH. Get GHA meeting. Close first WHOOP Unite deal.</div>
+      <ul class="dot-list orange">
+        <li><strong>Follow up with DCH</strong> — if no meeting scheduled, push for call. Bring the AHEAD one-pager. Ask specifically about the Consumer Engagement Platform assessment: is there a vendor engagement process? Who is the technology lead for the assessment?</li>
+        <li><strong>GHA meeting</strong> — get the rural hospital LOI list or a warm introduction to 5–10 LOI hospitals. Pitch Service Line Support ($750K/yr) as the funding mechanism for WHOOP population health technology at the hospital level.</li>
+        <li><strong>Close first WHOOP Unite deal</strong> with a rural Georgia hospital. Document the outcomes as the Georgia provider wellness case study. This is the proof point for both DCH and GHA conversations.</li>
+        <li><strong>Identify which LOI hospitals have filed technology assessment requests</strong> — DCH is beginning technology and EMR assessments in 2026. Hospitals that are actively in that process are the highest-probability service line support buyers.</li>
+      </ul>
+    </div>
+    <div class="timeline-col">
+      <div class="timeline-header blue">Days 61–90</div>
+      <div class="timeline-sub">DCH relationship secured. Expand hospital pipeline. Position for Consumer Engagement Platform.</div>
+      <ul class="dot-list blue">
+        <li><strong>DCH call completed</strong> — present WHOOP as the biometric data layer for Georgia's Consumer Engagement Platform. Ask to be included in the vendor assessment process for 2026 and the RFP/RFA that will govern platform implementation starting 2027.</li>
+        <li><strong>Expand LOI hospital pipeline through GHA</strong> — use the WHOOP Unite case study and the AHEAD one-pager to pitch 10+ rural Georgia hospitals with active service line support funding for population health monitoring technology.</li>
+        <li><strong>Monitor AHEAD Cohort 4 NOFO</strong> — due July 2026. If Georgia is awarded, the 2027–2028 implementation timeline accelerates and DCH will need all technology vendor relationships defined. A WHOOP relationship established before the NOFO award is awarded puts WHOOP on the short list.</li>
+        <li><strong>Attend GHA Annual Conference or RHTP convenings</strong> — GHA hosts events that bring rural Georgia hospital leaders together. These are the venues where WHOOP can become the recognized biometric monitoring name in Georgia's rural health transformation conversation.</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ── CALLOUT: AHEAD MODEL CONTEXT ── -->
+  <div class="callout">
+    <div class="callout-label">Why the AHEAD Model Changes the WHOOP Pitch in Georgia</div>
+    <div class="callout-body">
+      In every other state in the national RHT portfolio, the WHOOP pitch is about chronic disease monitoring, remote patient monitoring, or workforce wellness. In Georgia, there is an additional layer: under the AHEAD global budget model, rural Georgia hospitals are paid based on <strong style="color:#e8e8e8;">quality outcomes across their entire attributed population</strong> — not individual patient encounters. A hospital that can demonstrate continuous improvement in cardiovascular health, diabetes management, sleep quality, and chronic disease risk across its member population earns better global budget performance. WHOOP provides the continuous, between-visit biometric data that makes that population health performance visible and documentable. The pitch to a Georgia rural hospital CEO is not "buy WHOOP for wellness" — it is "WHOOP generates the outcomes data you need to succeed under the payment model your hospital is building toward." That is a different conversation, a different buyer (CFO, CMO, Population Health Director), and a different deal size than a wellness play. Lead with the AHEAD context in every Georgia conversation.
+    </div>
+  </div>
+
+
+  <!-- ── OPENING EMAIL ── -->
+  <div class="section-label">Opening Email — DCH GREAT Health Program Office (Plan A)</div>
+  <div class="email-draft">
+    <div class="email-header">
+      <div class="email-field-label">To:<br>Subject:</div>
+      <div class="email-field-value">
+        greathealth@dch.ga.gov (GREAT Health Program Office / Stuart Portman)<br>
+        WHOOP — Consumer Health Monitoring Technology for Georgia's GREAT Health Consumer Engagement Initiative
+      </div>
+    </div>
+    <div class="email-body">
+      <p>Stuart / GREAT Health Team,</p>
+      <p>I'm writing on behalf of WHOOP to introduce our consumer health monitoring platform as a technology aligned with two of Georgia's GREAT Health program priorities: the Consumer Engagement Enhancement and the Workforce Retention Technology grant program.</p>
+      <p>WHOOP is a wearable biometric device and provider-facing monitoring platform that tracks cardiovascular strain, sleep quality, heart rate variability, resting heart rate, and respiratory rate — continuously, from the member's home. For Georgia's GREAT Health program specifically:</p>
+      <p>— For the <strong style="color:#e8e8e8;">Consumer Engagement Enhancement</strong>: WHOOP generates the continuous biometric data that consumer health engagement platforms need to be clinically meaningful. As DCH assesses the Consumer Engagement Platform in 2026, WHOOP is positioned as the biometric monitoring hardware and data layer that makes the platform comprehensive — giving enrolled Medicaid, Medicare, and SHBP members and their providers access to the continuous physiological measurements that support chronic disease management, preventive care, and population health outcomes tracking.<br>
+      — For the <strong style="color:#e8e8e8;">AHEAD Model readiness</strong>: Under global budget payment, rural Georgia hospitals are accountable for total population health outcomes. WHOOP provides the continuous between-visit data that enables hospitals to demonstrate meaningful chronic disease improvement across their attributed member population — cardiovascular improvement, metabolic risk reduction, and preventive care adherence.<br>
+      — For <strong style="color:#e8e8e8;">Workforce Retention Technology</strong>: WHOOP Unite is our enterprise provider wellness platform, used by healthcare organizations to support physician and clinical staff recovery, sleep, and readiness. For rural Georgia hospitals competing for provider talent, WHOOP Unite is a premium workforce benefit that supports the physician and nurse retention goals that the Workforce Retention Technology grant program was designed to fund.</p>
+      <p>I would welcome a 30-minute call to explore how WHOOP can support Georgia's consumer engagement and AHEAD readiness goals. Could you connect me with the right member of the GREAT Health team, or let me know if a brief call would be possible?</p>
+      <p>Thank you for the work DCH is doing to transform rural health across Georgia.</p>
+      <p>Jessie Spada<br>
+      Enterprise Business Development Representative, WHOOP<br>
+      [Contact Information]</p>
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    WHOOP — Georgia GREAT Health Go-To-Market Strategy · April 2026 · Prepared by Jessie Spada, Enterprise BDR · For internal use only
+  </div>
+
+</div>
+</body>
+</html>

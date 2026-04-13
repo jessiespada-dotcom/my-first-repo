@@ -1,0 +1,450 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Georgia GREAT Health — WHOOP Plan of Record</title>
+  <style>
+    :root {
+      --bg:        #0d1215;
+      --bg-card:   rgba(255,255,255,0.03);
+      --text:      #ffffff;
+      --muted:     #aaaaaa;
+      --meta:      #666666;
+      --rule:      rgba(255,255,255,0.08);
+      --teal:      #00F19F;
+      --blue:      #0093E7;
+      --orange:    #ffb347;
+      --red:       #ff5a5a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .header-bar {
+      background: #000;
+      border-bottom: 1px solid var(--rule);
+      padding: 0 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; }
+    .header-wordmark { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--teal); margin-right: 16px; }
+    .header-pipe { width: 1px; height: 14px; background: rgba(255,255,255,0.15); margin-right: 16px; }
+    .header-meta { font-size: 10px; color: var(--meta); letter-spacing: 0.08em; }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(0,241,159,0.35); background: rgba(0,241,159,0.06); padding: 4px 9px; border-radius: 2px; }
+
+    .page { max-width: 1180px; margin: 0 auto; padding: 48px 40px 80px; }
+
+    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .page-title { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 10px; }
+    .page-meta { font-size: 12px; color: var(--meta); letter-spacing: 0.04em; }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+
+    .rule { height: 1px; background: var(--rule); margin: 36px 0; }
+
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--meta); margin-bottom: 16px; }
+
+    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+    .stat-cell { background: var(--bg-card); padding: 24px 26px; border-right: 1px solid var(--rule); }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 14px; line-height: 1.5; }
+    .stat-number { font-size: 48px; font-weight: 700; line-height: 1; color: var(--teal); letter-spacing: -0.02em; margin-bottom: 8px; }
+    .stat-number.blue   { color: var(--blue); }
+    .stat-number.white  { color: #fff; }
+    .stat-number.orange { color: var(--orange); }
+    .stat-number.red    { color: var(--red); }
+    .stat-desc { font-size: 12px; color: #888; line-height: 1.55; }
+
+    .narrative-title { font-size: 17px; font-weight: 600; color: #fff; padding-bottom: 14px; border-bottom: 1px solid var(--rule); margin-bottom: 20px; }
+    .narrative-body { font-size: 13.5px; line-height: 1.85; color: #bbb; }
+    .narrative-body p { margin-bottom: 14px; }
+    .narrative-body p:last-child { margin-bottom: 0; }
+    .hl        { color: var(--teal);   font-weight: 600; }
+    .hl-orange { color: var(--orange); font-weight: 600; }
+    .hl-red    { color: var(--red);    font-weight: 600; }
+    .hl-white  { color: #fff;          font-weight: 600; }
+
+    /* ── Two-col layout ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+    .info-block { background: var(--bg-card); border: 1px solid var(--rule); border-radius: 4px; padding: 24px 26px; }
+    .info-block-label { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; }
+    .info-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .info-list li { font-size: 13px; color: #bbb; padding-left: 16px; position: relative; line-height: 1.55; }
+    .info-list li::before { content: '—'; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+    .info-list li strong { color: #e8e8e8; }
+
+    /* ── Program map table ── */
+    .program-table { width: 100%; border-collapse: collapse; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; font-size: 12.5px; }
+    .program-table thead tr { background: rgba(255,255,255,0.04); }
+    .program-table th { padding: 12px 18px; text-align: left; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+    .program-table th:last-child { border-right: none; }
+    .program-table td { padding: 13px 18px; color: #bbb; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+    .program-table td:last-child { border-right: none; }
+    .program-table tr:last-child td { border-bottom: none; }
+    .program-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+    .prog-name { font-size: 13px; font-weight: 600; color: #ddd; margin-bottom: 4px; }
+    .prog-sub  { font-size: 11px; color: #555; }
+    .fit-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; white-space: nowrap; }
+    .fit-primary   { background: rgba(0,241,159,0.10);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .fit-secondary { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .fit-watch     { background: rgba(255,255,255,0.04); color: #555; border: 1px solid rgba(255,255,255,0.08); }
+
+    /* ── Timeline ── */
+    .timeline-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+    .timeline-cell { padding: 20px 22px; border-right: 1px solid var(--rule); background: var(--bg-card); }
+    .timeline-cell:last-child { border-right: none; }
+    .timeline-year { font-size: 18px; font-weight: 700; color: var(--teal); margin-bottom: 8px; }
+    .timeline-year.orange { color: var(--orange); }
+    .timeline-year.blue   { color: var(--blue); }
+    .timeline-year.white  { color: #fff; }
+    .timeline-phase { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--meta); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+    .tl-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .tl-list li { font-size: 11.5px; color: #888; padding-left: 14px; position: relative; line-height: 1.5; }
+    .tl-list li::before { content: '·'; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+    .tl-list li strong { color: #ccc; }
+
+    /* ── Callout ── */
+    .callout { border-left: 3px solid var(--teal); background: rgba(0,241,159,0.04); border-radius: 0 4px 4px 0; padding: 22px 26px; margin-bottom: 40px; }
+    .callout.orange { border-left-color: var(--orange); background: rgba(255,179,71,0.04); }
+    .callout.blue   { border-left-color: var(--blue);   background: rgba(0,147,231,0.04); }
+    .callout-label { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .callout.orange .callout-label { color: var(--orange); }
+    .callout.blue   .callout-label { color: var(--blue); }
+    .callout-body { font-size: 13.5px; line-height: 1.75; color: #bbb; }
+
+    /* ── Source quote ── */
+    .source-quote { font-size: 13px; color: #777; font-style: italic; line-height: 1.7; border-left: 2px solid rgba(255,255,255,0.1); padding-left: 16px; margin-bottom: 12px; }
+    .source-attr { font-size: 10px; color: #444; letter-spacing: 0.08em; margin-bottom: 20px; }
+
+    /* ── Contacts ── */
+    .contact-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .contact-card { background: var(--bg-card); border: 1px solid var(--rule); border-radius: 4px; padding: 22px 24px; }
+    .contact-card-label { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 12px; }
+    .contact-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .contact-title { font-size: 12px; color: #888; margin-bottom: 10px; line-height: 1.5; }
+    .contact-detail { font-size: 12px; color: #bbb; line-height: 1.7; }
+    .contact-detail a { color: var(--blue); text-decoration: none; }
+    .contact-detail a:hover { text-decoration: underline; }
+
+    .page-footer { font-size: 10px; color: #333; letter-spacing: 0.08em; text-align: right; padding-top: 24px; border-top: 1px solid var(--rule); }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>CMS Rural Health Transformation<span class="sep">|</span>Georgia Plan of Record<span class="sep">|</span>April 2026
+    </div>
+  </div>
+  <div class="header-badge">Plan of Record</div>
+</div>
+
+
+<div class="page">
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-eyebrow">CMS Rural Health Transformation Program — Georgia</div>
+  <div class="page-title">GREAT Health Program — Plan of Record</div>
+  <div class="page-meta">
+    Recipient: Georgia Department of Community Health (DCH)
+    <span class="dot">·</span>
+    Program: Georgia Rural Enhancement And Transformation of Health
+    <span class="dot">·</span>
+    April 2026
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── STATS ── -->
+  <div class="section-label">Award Overview</div>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Total Award<br>(7th Highest Nationally)</div>
+      <div class="stat-number">$219M</div>
+      <div class="stat-desc">$218,862,170 over 5 years. Georgia Department of Community Health. Rural populations ≤50,000. Approved February 26, 2026.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Projects Across<br>5 Initiatives</div>
+      <div class="stat-number white">29</div>
+      <div class="stat-desc">29 funded projects spanning system transformation, continuum of care, access, workforce, and technology. More discrete programs than most states in the national portfolio.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Service Line Support<br>Per Hospital (3 Yrs)</div>
+      <div class="stat-number orange">$750K</div>
+      <div class="stat-desc">Up to $750K per year for three years per rural hospital in the AHEAD LOI program. Direct service line investment at the individual hospital level.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Y1 Technology Funds<br>Status</div>
+      <div class="stat-number blue">Active</div>
+      <div class="stat-desc">Year 1 service delivery and technology improvement funds released in 2026. Technology and EMR assessments underway now across rural Georgia hospitals.</div>
+    </div>
+  </div>
+
+
+  <!-- ── OPPORTUNITY NARRATIVE ── -->
+  <div class="narrative-title">Why Georgia Is Structurally Different from Every Other State in the Program</div>
+  <div class="narrative-body">
+    <p>
+      Georgia's GREAT Health Program ($218.9M, 7th-largest nationally) was built with a purpose that no other state in the national portfolio shares: it is explicitly designed to prepare rural Georgia hospitals for the <span class="hl-white">AHEAD Model</span> — the CMS Innovation Center's Achieving Healthcare Efficiency through Accountable Design program, a state-wide total cost of care (TCOC) model with hospital global budgets. Georgia is applying for AHEAD Cohort 4. If awarded, rural Georgia hospitals will transition to fixed annual global budgets by 2028–2029, with payments based on quality outcomes rather than patient volume.
+    </p>
+    <p>
+      Every dollar Georgia spends under GREAT Health in 2026–2027 is building the infrastructure rural hospitals need to succeed under that model. This changes the WHOOP opportunity in two critical ways. First, <span class="hl">quality outcomes data matters enormously under global budgets</span> — hospitals are paid for results, not encounters, and chronic disease monitoring data that demonstrates continuous improvement in cardiovascular, metabolic, and respiratory outcomes directly supports the performance metrics hospitals need to hit. WHOOP provides that data continuously, between clinic visits, from the patient's home. Second, Georgia is building a <span class="hl-white">Consumer Engagement Platform</span> for all Medicaid, Medicare, and State Health Benefit Plan members across every participating rural hospital's catchment area — with a compatibility assessment underway in 2026, implementation beginning in 2027, and a named consumer health platform integration planned for 2028. WHOOP is the biometric monitoring hardware and data layer that makes consumer engagement platforms comprehensive.
+    </p>
+    <p>
+      Georgia's GREAT Health Program also runs a set of active technology grant programs with procurement underway now: <span class="hl">Workforce Retention Technology grants</span> (first awards in 2026–2027), Telehealth Enhancement grants (first cycle application released 2026), and EMR Enhancement grants (2027). These are all active procurement pathways — not future NOFOs, but current grant programs with money being deployed. WHOOP Unite fits directly into the Workforce Retention Technology lane as the provider wellness and retention platform for rural Georgia hospitals that are actively recruiting and struggling to keep physicians and nurses in underserved rural communities.
+    </p>
+    <p>
+      The engagement entry point for everything in Georgia is the <span class="hl-white">GREAT Health program office</span> at Georgia DCH — greathealth@dch.ga.gov. Stuart Portman (Executive Director, Medical Assistance Plans Division) is the lead. The Georgia Hospital Association (GHA) has direct relationships with every rural hospital that has submitted a Letter of Intent to participate in AHEAD (LOI deadline was March 15, 2026 — hospitals have been identified). GHA is the secondary intro path to the full rural hospital network.
+    </p>
+  </div>
+
+  <div class="rule"></div>
+
+
+  <!-- ── PROGRAM TIMELINE ── -->
+  <div class="section-label">GREAT Health — Implementation Timeline</div>
+  <div class="timeline-row">
+    <div class="timeline-cell">
+      <div class="timeline-year">2026</div>
+      <div class="timeline-phase">Readiness Phase — Active Now</div>
+      <ul class="tl-list">
+        <li><strong>Year 1 service delivery &amp; technology improvement funds released</strong></li>
+        <li><strong>Technology/EMR assessments begin</strong> at rural hospitals</li>
+        <li>AHEAD Cohort 4 NOFO due July 2026</li>
+        <li>Consumer Engagement Platform compatibility with Medicaid/Medicare assessed</li>
+        <li><strong>Workforce Retention Technology grants disseminated</strong> — first awards begin</li>
+        <li>Telehealth Enhancement grant application released and awarded (first cycle)</li>
+        <li>Telehealth telepods — initial round launched</li>
+        <li>Rural Stabilization Grants awarded to past unfunded applicants</li>
+        <li>Emergency preparedness assessments begin</li>
+      </ul>
+    </div>
+    <div class="timeline-cell">
+      <div class="timeline-year orange">2027</div>
+      <div class="timeline-phase">Pre-Implementation</div>
+      <ul class="tl-list">
+        <li>AHEAD Model Governance established</li>
+        <li><strong>Hospital EMR grants awarded</strong></li>
+        <li>Hospital and provider recruitment for AHEAD begins</li>
+        <li>Hospital assessments completed</li>
+        <li><strong>Consumer Engagement Enhancement implementation begins</strong></li>
+        <li>Year 2 service delivery and technology improvement funds released</li>
+        <li>Care to Consumer: Round 1 mobile units + Round 2 telehealth pods launch</li>
+        <li>Workforce Retention Technology — Grant Round 2</li>
+      </ul>
+    </div>
+    <div class="timeline-cell">
+      <div class="timeline-year blue">2028–29</div>
+      <div class="timeline-phase">AHEAD Performance Year 1</div>
+      <ul class="tl-list">
+        <li>Medicaid Alternative Payment Model / PCMH implemented</li>
+        <li>Medicaid hospital global budgets implemented</li>
+        <li>TCOC calculations determined</li>
+        <li><strong>Consumer Engagement Enhancement: Sharecare integrated as member benefit</strong></li>
+        <li>AHEAD Model ready (Jan 2029)</li>
+        <li>Risk mitigation funds available (FY 2029–2030)</li>
+        <li>Workforce Retention Technology — Grant Rounds 3–4</li>
+      </ul>
+    </div>
+    <div class="timeline-cell">
+      <div class="timeline-year white">2030–31</div>
+      <div class="timeline-phase">AHEAD Performance Year 2+</div>
+      <ul class="tl-list">
+        <li>Performance Year 2 begins</li>
+        <li>Ongoing global budget formula finalized</li>
+        <li>Ongoing: EMR enhancements, telehealth expansion, workforce technology</li>
+        <li>Facilities using enhanced EMR and fully AHEAD-ready</li>
+        <li>Full program maturity — outcomes data driving hospital payment</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ── CALLOUT: AHEAD + CONSUMER PLATFORM ── -->
+  <div class="callout">
+    <div class="callout-label">The AHEAD / Consumer Engagement Angle — WHOOP's Primary Strategic Lane</div>
+    <div class="callout-body">
+      Under the AHEAD Model, rural Georgia hospitals will be paid based on <strong style="color:#e8e8e8;">quality outcomes</strong> — not patient volume. Chronic disease monitoring data becomes a revenue driver, not just a clinical tool. WHOOP generates the continuous biometric data (cardiovascular strain, sleep quality, HRV, resting heart rate, respiratory rate) that rural hospitals need to demonstrate meaningful population health improvements to CMS. Georgia's Consumer Engagement Platform — being assessed in 2026 and integrated with a named consumer health platform starting 2028 — needs biometric data input from wearable devices to be comprehensive. WHOOP is the hardware layer that feeds continuous physiological data into that platform. Getting WHOOP positioned as the biometric monitoring component within Georgia's consumer engagement ecosystem, and as the continuous outcomes data tool for AHEAD-participating hospitals, is the single highest-leverage action in Georgia.
+    </div>
+  </div>
+
+
+  <!-- ── LOI SERVICES (WHAT HOSPITALS GET) ── -->
+  <div class="section-label">AHEAD Letter of Intent — What Participating Hospitals Receive</div>
+  <div class="two-col">
+    <div class="info-block">
+      <div class="info-block-label">Services Provided (Per LOI Hospital)</div>
+      <ul class="info-list">
+        <li><strong>AHEAD Assessment</strong> — DCH reviews all financial and care delivery data; full report on hospital's readiness for AHEAD model participation</li>
+        <li><strong>Technical Advisor</strong> — grant funds to bring on a technical advisor to assist with model compliance next steps</li>
+        <li><strong>Service Line Support</strong> — up to $750K per year for three years to address service line needs based on the assessment</li>
+        <li><strong>Engagement Platform</strong> — access for all Medicaid, Medicare, and State Health Benefit Plan members in catchment area to a consumer engagement platform</li>
+        <li><strong>Risk Mitigation Funds</strong> — available in FY 2029–2030 for hospitals participating in the AHEAD model</li>
+      </ul>
+    </div>
+    <div class="info-block">
+      <div class="info-block-label">Priority Placement Items (Technology-Specific)</div>
+      <ul class="info-list">
+        <li><strong>Population health elements of EMR systems</strong> — assessment and funds for improvement</li>
+        <li><strong>Multi-hub telehealth connections and improvements</strong> — assessment and funding</li>
+        <li><strong>Point-of-care telehealth pods</strong> — direct funding</li>
+        <li><strong>Workforce retention technology</strong> — evaluation for funding (surgical robotic systems named; broader retention tech in scope)</li>
+        <li><strong>Cybersecurity</strong> — assessments, funds, and partnerships</li>
+        <li><strong>Rural Stabilization Grants (RSG)</strong> — service line improvement funding</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ── PROGRAM MAP TABLE ── -->
+  <div class="section-label">Initiative &amp; Program Map — WHOOP Fit Analysis</div>
+
+  <div class="source-quote">"Rural progress creates systems-level change that leverages technology, drives innovation, and improves quality, while maintaining a patient focus and embracing patient voice."</div>
+  <div class="source-attr">— GREAT Health Vision Statement, Georgia DCH · February 2026</div>
+
+  <table class="program-table">
+    <thead>
+      <tr>
+        <th style="width:220px;">Initiative / Program</th>
+        <th>Description</th>
+        <th>WHOOP Fit</th>
+        <th style="width:90px;">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="prog-name">Consumer Engagement Enhancements</div>
+          <div class="prog-sub">Initiative 5 — Leveraging Technology</div>
+        </td>
+        <td>Consumer engagement platform for all Medicaid, Medicare, and State Health Benefit Plan members in rural hospital catchment areas. Compatibility with Medicaid/Medicare assessed 2026. Implementation begins 2027. Consumer health platform integration 2028.</td>
+        <td>WHOOP is the biometric hardware layer that feeds continuous physiological data (HRV, sleep, cardiovascular strain, respiratory rate) into consumer health platforms. One DCH-level partnership positions WHOOP as the wearable data source for all enrolled members in AHEAD-participating hospital catchment areas simultaneously.</td>
+        <td><span class="fit-badge fit-primary">Primary</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="prog-name">Workforce Retention Technology</div>
+          <div class="prog-sub">Initiative 5 — Leveraging Technology</div>
+        </td>
+        <td>Grant program actively disseminating applications and awarding first grants in 2026–2027. "Workforce retention technology" named as funded category. Surgical robotic systems explicitly named; broader retention technology scope implied across rounds. Ongoing through 2030.</td>
+        <td>WHOOP Unite as the physician and clinical staff wellness and recovery tool for rural Georgia hospitals. Provider wellness directly supports the recruitment and retention mandate of this grant program. The WHOOP Unite enterprise motion mirrors a corporate wellness deal — no new government procurement cycle required. Fastest path to signed paper in Georgia.</td>
+        <td><span class="fit-badge fit-primary">Primary</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="prog-name">Telehealth Enhancements</div>
+          <div class="prog-sub">Initiative 3 — Connecting to Care</div>
+        </td>
+        <td>Grant application released and first cycle awarded in 2026. Enrolling additional healthcare entities through 2030. Multi-hub telehealth connections and point-of-care telehealth pods funded separately as priority placement for LOI hospitals.</td>
+        <td>WHOOP as the between-visit remote monitoring layer that extends telehealth reach — continuous biometric data from the patient's home that providers can review asynchronously. Complements telehealth pod infrastructure by providing 24/7 data between scheduled telehealth visits.</td>
+        <td><span class="fit-badge fit-secondary">Secondary</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="prog-name">EMR Enhancements</div>
+          <div class="prog-sub">Initiative 5 — Leveraging Technology</div>
+        </td>
+        <td>Technology and EMR assessments beginning 2026. Hospital EMR grants awarded 2027. Population health elements of EMR systems explicitly named as priority funding area. Facilities fully AHEAD-ready on enhanced EMR by 2031.</td>
+        <td>WHOOP's provider-facing API and dashboard enable population health data integration with EMR systems — continuous biometric data flowing directly into clinical workflows. WHOOP as the wearable biometric input into EMR-based population health modules that Georgia hospitals are being funded to build.</td>
+        <td><span class="fit-badge fit-secondary">Secondary</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="prog-name">AHEAD Model — Service Line Support</div>
+          <div class="prog-sub">Initiative 1 — Transforming for Sustainable Health System</div>
+        </td>
+        <td>Up to $750K/year for 3 years per LOI hospital for service line needs identified in the hospital assessment. Covers a broad range of care delivery improvement investments including technology, staffing, and infrastructure.</td>
+        <td>WHOOP devices and platform deployment qualifies as a technology investment in population health monitoring. For hospitals that have been assessed and identify chronic disease monitoring as a service line need, a WHOOP program can be funded through this mechanism. Hospital CFO or CNO is the decision-maker.</td>
+        <td><span class="fit-badge fit-secondary">Secondary</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="prog-name">Growing a Highly Skilled Healthcare Workforce</div>
+          <div class="prog-sub">Initiative 4</div>
+        </td>
+        <td>Provider recruitment, retention, and training for rural Georgia. Graduate Medical Education program (up to 12 fellowship slots, $200K/PGY year). Workforce capacity and readiness is a formal AHEAD assessment area. Behavioral health integration included.</td>
+        <td>WHOOP Unite for rural Georgia healthcare providers — recovery monitoring, burnout prevention, and performance optimization as a workforce wellness benefit. The existing enterprise motion applies. Land workforce deal → expand to patient population monitoring when Consumer Engagement Platform scales.</td>
+        <td><span class="fit-badge fit-secondary">Secondary</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="prog-name">Care to Consumer: Telehealth Pods &amp; Mobile Clinics</div>
+          <div class="prog-sub">Initiative 3 — Connecting to Care</div>
+        </td>
+        <td>Point-of-care telehealth pods (initial round launched 2026) and mobile clinics deployed across rural Georgia over 5 years. Designed to bring care to patients in communities with limited facility access.</td>
+        <td>WHOOP as the patient-worn device that collects biometric data in between telehealth pod visits — extending the clinical reach of each pod encounter with continuous remote monitoring. Secondary opportunity as mobile clinic program scales.</td>
+        <td><span class="fit-badge fit-watch">Watch</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── CALLOUT: WORKFORCE RETENTION ── -->
+  <div class="callout orange">
+    <div class="callout-label">Fastest Path to Revenue — Workforce Retention Technology Grants Are Active Now</div>
+    <div class="callout-body">
+      Georgia's Workforce Retention Technology grant program is not a future NOFO — grants are being disseminated and first awards are being made in 2026 through 2027, with four additional rounds through 2030. The program explicitly funds "physician workforce retention technology" as a funded category (surgical robotic systems named as an example). WHOOP Unite as the clinical staff wellness and recovery platform is a direct fit for this category — supporting the recruitment and retention of physicians, nurses, and allied health professionals in rural Georgia communities that are competing against urban hospital systems for the same scarce provider talent. This is a sale that uses WHOOP's existing enterprise motion and does not require navigating new government procurement. It is the fastest path to a signed contract in Georgia.
+    </div>
+  </div>
+
+
+  <!-- ── CONTACTS ── -->
+  <div class="section-label">Key Contacts</div>
+  <div class="contact-row">
+    <div class="contact-card">
+      <div class="contact-card-label">Primary Program Contact</div>
+      <div class="contact-name">GREAT Health Program Office</div>
+      <div class="contact-title">Georgia Department of Community Health</div>
+      <div class="contact-detail">
+        <a href="mailto:greathealth@dch.ga.gov">greathealth@dch.ga.gov</a><br>
+        dch.georgia.gov/great-health-program<br>
+        2 Peachtree Street NW, Atlanta, GA 30303<br>
+        <br>
+        All inquiries about program details, vendor engagement, and future solicitation timelines routed here. Email first — frame WHOOP as a consumer health technology vendor aligned with the Consumer Engagement Enhancement and Workforce Retention Technology programs.
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">Program Leadership</div>
+      <div class="contact-name">Stuart Portman</div>
+      <div class="contact-title">Executive Director, Medical Assistance Plans Division<br>Georgia Department of Community Health</div>
+      <div class="contact-detail">
+        Presenter at February 2026 GREAT Health briefing. Named as the senior DCH official leading the GREAT Health / AHEAD integration. The decision-maker for consumer engagement platform partnerships and technology vendor relationships. Reach through greathealth@dch.ga.gov or directly via LinkedIn/DCH directory.
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">Hospital Intermediary</div>
+      <div class="contact-name">Georgia Hospital Association (GHA)</div>
+      <div class="contact-title">Statewide Rural Hospital Membership Organization<br>380 Interstate North Pkwy SE, Suite 150, Atlanta, GA 30339</div>
+      <div class="contact-detail">
+        (770) 249-4500<br>
+        gha.org/Advocacy/Rural-Healthcare/Rural-Health-Transformation-Program<br>
+        <br>
+        GHA has direct relationships with every rural Georgia hospital that submitted an AHEAD Letter of Intent (LOI deadline March 15, 2026). A GHA introduction introduces WHOOP to the full rural hospital LOI network simultaneously.
+      </div>
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    WHOOP — Georgia GREAT Health Plan of Record · April 2026 · Prepared by Jessie Spada, Enterprise BDR · For internal use only
+  </div>
+
+</div>
+</body>
+</html>
