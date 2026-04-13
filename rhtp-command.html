@@ -283,12 +283,12 @@
   </div>
   <div class="stats-divider"></div>
   <div class="stat-item">
-    <div class="stat-value stat-v-blue" id="stat-built">8 / 50</div>
+    <div class="stat-value stat-v-blue" id="stat-built">9 / 50</div>
     <div class="stat-label">States Built</div>
   </div>
   <div class="stats-divider"></div>
   <div class="stat-item">
-    <div class="stat-value stat-v-teal" id="stat-covered">$1.90B</div>
+    <div class="stat-value stat-v-teal" id="stat-covered">$2.12B</div>
     <div class="stat-label">Pipeline Covered</div>
   </div>
   <div class="stats-divider"></div>
@@ -343,9 +343,9 @@
 
   <div class="filter-bar">
     <span class="filter-label">Filter:</span>
-    <button class="filter-btn active" onclick="filterCards('all')">All <span class="filter-count" id="fc-all">8</span></button>
+    <button class="filter-btn active" onclick="filterCards('all')">All <span class="filter-count" id="fc-all">9</span></button>
     <button class="filter-btn" onclick="filterCards('critical')">Critical <span class="filter-count" id="fc-critical">1</span></button>
-    <button class="filter-btn" onclick="filterCards('hot')">Hot <span class="filter-count" id="fc-hot">2</span></button>
+    <button class="filter-btn" onclick="filterCards('hot')">Hot <span class="filter-count" id="fc-hot">3</span></button>
     <button class="filter-btn" onclick="filterCards('warm')">Warm <span class="filter-count" id="fc-warm">2</span></button>
     <button class="filter-btn" onclick="filterCards('active')">Active <span class="filter-count" id="fc-active">1</span></button>
     <button class="filter-btn" onclick="filterCards('monitoring')">Monitoring <span class="filter-count" id="fc-monitoring">1</span></button>
@@ -581,6 +581,25 @@ const BUILT_STATES = [
     deadline: 'Year 2 RFP Expected: <span>Summer 2026</span>',
     por: 'alaska-rht-por.html',
     gtm: 'alaska-gtm-strategy.html',
+  },
+  {
+    abbr: 'MO',
+    name: 'Missouri',
+    award: '$216.3M',
+    urgency: 7,
+    tier: 'hot',
+    badge: 'Hot',
+    badgeColor: '#ff8c00',
+    headline: 'Q2 RPM Feedback Window Live — $3M Dedicated Allocation',
+    actions: [
+      { text: 'Email DSS.RHTP@dss.mo.gov — submit WHOOP for Q2 2026 Remote Patient Technology Feedback period. Reference $3M RPM licensing allocation. Window closes June 2026.', color: '#ff8c00' },
+      { text: 'Register on MissouriBUYS (missouribuys.mo.gov) — required before Digital Foundation RPM RFP drops (expected Q3–Q4 2026)', color: '#ff8c00' },
+      { text: 'Monitor Q3 2026 Social Care CIE RFP — WHOOP biometric data layer feeds closed-loop referral platform', color: '#ffb347' },
+      { text: 'Begin WHOOP Unite outreach to ~36 rural Missouri CAHs — $17.8M Workforce Expansion pillar active', color: '#a8cc44' },
+    ],
+    deadline: 'RPM Feedback Closes: <span>June 2026 (Q2)</span>',
+    por: 'missouri-rht-por.html',
+    gtm: 'missouri-gtm-strategy.html',
   },
 ];
 

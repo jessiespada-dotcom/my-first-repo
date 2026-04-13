@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missouri RHTP — Plan of Record | WHOOP</title>
+<style>
+  :root {
+    --bg: #0d1215; --surface: #151c21; --surface2: #1a2530; --border: #1e2d38;
+    --teal: #00F19F; --blue: #0093E7; --orange: #ffb347; --red: #ff5a5a;
+    --yellow: #e6c020; --green: #a8cc44; --text: #e8eef2; --muted: #6b8394;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); }
+  a { color: var(--teal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .top-nav {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 12px 32px; display: flex; align-items: center; gap: 16px;
+    font-size: 12px; color: var(--muted);
+  }
+  .top-nav a { color: var(--muted); }
+  .top-nav a:hover { color: var(--teal); text-decoration: none; }
+  .top-nav .sep { color: var(--border); }
+
+  .hero {
+    background: linear-gradient(135deg, #0d1215 0%, #111d24 60%, #0d1a22 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 48px 40px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--orange); margin-bottom: 10px;
+  }
+  .hero-title { font-size: 32px; font-weight: 900; line-height: 1.1; margin-bottom: 6px; }
+  .hero-subtitle { font-size: 15px; color: var(--muted); margin-bottom: 24px; }
+  .hero-tagline {
+    display: inline-block; font-size: 12px; color: var(--orange);
+    border: 1px solid #4a3010; background: #1a1408; border-radius: 6px;
+    padding: 5px 12px; margin-bottom: 28px;
+  }
+  .stat-row { display: flex; gap: 24px; flex-wrap: wrap; }
+  .stat-cell {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 22px; min-width: 140px;
+  }
+  .stat-num { font-size: 26px; font-weight: 900; line-height: 1; }
+  .stat-lbl { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .main { max-width: 1100px; margin: 0 auto; padding: 36px 48px 60px; }
+
+  .callout {
+    border-radius: 10px; padding: 18px 22px; margin-bottom: 28px;
+    border-left: 4px solid;
+  }
+  .callout-orange { background: #1a1408; border-color: var(--orange); }
+  .callout-teal   { background: #081a14; border-color: var(--teal); }
+  .callout-red    { background: #1a0808; border-color: var(--red); }
+  .callout-title  { font-size: 13px; font-weight: 800; margin-bottom: 5px; }
+  .callout-body   { font-size: 13px; line-height: 1.6; color: #c8d8e0; }
+
+  .section-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--muted); margin: 32px 0 14px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+
+  .init-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+  .init-table th {
+    text-align: left; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--muted); padding: 8px 12px;
+    border-bottom: 1px solid var(--border); font-weight: 600;
+  }
+  .init-table td {
+    padding: 11px 12px; border-bottom: 1px solid #151c21;
+    font-size: 13px; vertical-align: top;
+  }
+  .init-table tr:hover td { background: var(--surface2); }
+  .init-name { font-weight: 700; }
+  .init-amount { color: var(--teal); font-weight: 700; white-space: nowrap; }
+  .fit-badge {
+    display: inline-block; padding: 3px 9px; border-radius: 10px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+    white-space: nowrap;
+  }
+  .fit-primary    { background: #0d2e20; color: var(--teal); }
+  .fit-secondary  { background: #1a2510; color: var(--green); }
+  .fit-watch      { background: #1a1a10; color: var(--yellow); }
+  .fit-no         { background: #1a1515; color: var(--muted); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 8px; }
+
+  .info-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+  }
+  .info-block-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+  .info-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { color: var(--muted); }
+  .info-val { font-weight: 600; text-align: right; }
+
+  .contact-block { margin-bottom: 10px; }
+  .contact-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .contact-role { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .contact-email { font-size: 13px; }
+
+  .procurement-row {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 18px; margin-bottom: 10px;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .proc-timing {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 4px 10px; border-radius: 6px;
+    white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+  }
+  .proc-live { background: #1a0808; color: var(--red); border: 1px solid #3a1010; }
+  .proc-q3   { background: #1a1408; color: var(--orange); border: 1px solid #3a2a10; }
+  .proc-name { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .proc-desc { font-size: 13px; color: #c0d0d8; }
+
+  .network-diagram {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px; margin-bottom: 8px;
+  }
+  .net-tier {
+    display: flex; align-items: center; gap: 12px; padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .net-tier:last-child { border-bottom: none; }
+  .net-level {
+    width: 28px; height: 28px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; font-size: 12px;
+    font-weight: 900; flex-shrink: 0;
+  }
+  .net-title { font-size: 14px; font-weight: 700; }
+  .net-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .doc-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .doc-link-btn {
+    padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    text-decoration: none; transition: all 0.15s; border: 1px solid;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .doc-link-primary { background: var(--teal); color: #000; border-color: var(--teal); }
+  .doc-link-secondary { background: transparent; color: var(--text); border-color: var(--border); }
+  .doc-link-secondary:hover { border-color: var(--teal); color: var(--teal); }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="rhtp-hub.html">← RHTP Hub</a>
+  <span class="sep">|</span>
+  <span>Missouri Plan of Record</span>
+  <span class="sep">|</span>
+  <span style="color:var(--orange);">Updated April 13, 2026</span>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">Missouri · CMS Rural Health Transformation Program · Plan of Record</div>
+  <div class="hero-title">Missouri Rural Health Transformation</div>
+  <div class="hero-subtitle">Missouri Department of Social Services / MO HealthNet Division &nbsp;·&nbsp; 9th largest award nationally</div>
+  <div class="hero-tagline">"Local Decisions. Local Results."</div>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-num" style="color:var(--teal);">$216M</div>
+      <div class="stat-lbl">Award (Year 1)</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" style="color:var(--orange);">$56.2M</div>
+      <div class="stat-lbl">Digital Foundation Pillar</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" style="color:var(--red);">Q2 2026</div>
+      <div class="stat-lbl">RPM Feedback Window</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" style="color:var(--teal);">$3M</div>
+      <div class="stat-lbl">Dedicated RPM Allocation</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" style="color:var(--blue);">Open</div>
+      <div class="stat-lbl">Vendor Status</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="callout callout-red">
+    <div class="callout-title" style="color:var(--red);">Q2 2026 — Remote Patient Technology Feedback Window Is Live Now</div>
+    <div class="callout-body">Missouri DSS has opened a <strong>Remote Patient Technology Feedback</strong> period in Q2 2026 — April through June. This is a pre-procurement market research window where DSS is actively soliciting vendor input before issuing a formal RFP. Being present in this window is how vendors get named in the subsequent solicitation. Email <a href="mailto:DSS.RHTP@dss.mo.gov">DSS.RHTP@dss.mo.gov</a> now. Reference the Digital Foundation pillar and the dedicated $3M RPM allocation.</div>
+  </div>
+
+  <div class="callout callout-teal">
+    <div class="callout-title" style="color:var(--teal);">$3M Dedicated RPM Allocation — No Vendor Selected</div>
+    <div class="callout-body">The Year 1 fund distribution explicitly allocates <strong>$3,000,000 for RPM licensing and integration</strong> within the Digital Foundation pillar. The Digital Foundation description reads: "EHR modernization and upgrades, interoperability and Cloud hosting, <strong>remote patient monitoring integration</strong>, and ambient AI tools." No vendor has been named. This is the most specific WHOOP fit in the 9-state portfolio — the only state with a dedicated dollar line for RPM licensing.</div>
+  </div>
+
+  <div class="section-title">Program Structure — 3-Tier Network Architecture</div>
+
+  <div class="network-diagram">
+    <div class="net-tier">
+      <div class="net-level" style="background:var(--teal);color:#000;">1</div>
+      <div>
+        <div class="net-title">State — DSS / MO HealthNet Division</div>
+        <div class="net-desc">Central administrator. Issues competitive procurements. Sets technology standards for RCNs and Hubs. One DSS partnership = reach to all RCNs simultaneously.</div>
+      </div>
+    </div>
+    <div class="net-tier">
+      <div class="net-level" style="background:var(--orange);color:#000;">2</div>
+      <div>
+        <div class="net-title">Regional Coordinating Networks (RCNs)</div>
+        <div class="net-desc">Intermediate administrators. First cohort being onboarded Q2 2026. Each RCN manages technology deployment and vendor relationships for their region's community hubs.</div>
+      </div>
+    </div>
+    <div class="net-tier">
+      <div class="net-level" style="background:var(--blue);color:#fff;">3</div>
+      <div>
+        <div class="net-title">Community Hubs — Local Healthcare Organizations</div>
+        <div class="net-desc">36 Critical Access Hospitals + Rural Health Clinics + FQHCs + CBOs. Receive funding through RCNs. Deploy consumer health tech tools to patients. Direct WHOOP Unite buyers.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Year 1 Fund Distribution — All Six Pillars</div>
+
+  <table class="init-table">
+    <thead>
+      <tr>
+        <th>Pillar</th>
+        <th>Amount</th>
+        <th>WHOOP Fit</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="init-name">Digital Foundation for Transformation</div></td>
+        <td class="init-amount">$56,159,145</td>
+        <td><span class="fit-badge fit-primary">Primary</span></td>
+        <td>Explicitly names "remote patient monitoring integration." $3M dedicated RPM allocation. Q2 2026 vendor feedback window open NOW. No vendor selected.</td>
+      </tr>
+      <tr>
+        <td><div class="init-name">Strengthening Rural Providers &amp; Service Delivery</div></td>
+        <td class="init-amount">$57,225,309</td>
+        <td><span class="fit-badge fit-watch">Watch</span></td>
+        <td>$30M for provider stabilization infrastructure. Technology-enabled care delivery innovation included. Future NOFO likely. Largest single pillar by dollar.</td>
+      </tr>
+      <tr>
+        <td><div class="init-name">Activating Regional Networks &amp; Local Hubs</div></td>
+        <td class="init-amount">$52,040,578</td>
+        <td><span class="fit-badge fit-secondary">Secondary</span></td>
+        <td>Consumer health tech deployed through hub structure. "Promoting technology that patients can use themselves to manage their health." Each hub independently selects tools for their patient population.</td>
+      </tr>
+      <tr>
+        <td><div class="init-name">Program Enablement</div></td>
+        <td class="init-amount">$24,215,707</td>
+        <td><span class="fit-badge fit-no">Not Fit</span></td>
+        <td>Administrative infrastructure, governance, staffing. No vendor entry point.</td>
+      </tr>
+      <tr>
+        <td><div class="init-name">Expanding Rural Health Workforce</div></td>
+        <td class="init-amount">$17,769,474</td>
+        <td><span class="fit-badge fit-secondary">Secondary</span></td>
+        <td>$12.5M expansion + $5.5M retention. Clinical placement, 5-year service commitments, two-year college funding for behavioral health. WHOOP Unite = direct workforce retention tool for rural Missouri CAHs.</td>
+      </tr>
+      <tr>
+        <td><div class="init-name">Advancing Sustainability Through Payment Reform</div></td>
+        <td class="init-amount">$8,791,933</td>
+        <td><span class="fit-badge fit-no">Not Fit</span></td>
+        <td>Alternative payment model innovation. No technology procurement entry point.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Active Procurement Opportunities</div>
+
+  <div class="procurement-row">
+    <div class="proc-timing proc-live">Live — Q2 2026</div>
+    <div>
+      <div class="proc-name">Remote Patient Technology Feedback</div>
+      <div class="proc-desc">DSS/MO HealthNet soliciting vendor input on remote patient monitoring tools before formal RFP. This window closes end of Q2 (June 2026). Submit input via <a href="mailto:DSS.RHTP@dss.mo.gov">DSS.RHTP@dss.mo.gov</a>. Reference Digital Foundation pillar and $3M RPM allocation. Being in this feedback round = being named in the RFP.</div>
+    </div>
+  </div>
+
+  <div class="procurement-row">
+    <div class="proc-timing proc-q3">Q3 2026</div>
+    <div>
+      <div class="proc-name">Social Care Referral Platform / Community Information Exchange (CIE)</div>
+      <div class="proc-desc">Closed-loop social care referral platform to support hub-to-hub coordination. WHOOP biometric data layer is a secondary opportunity here — chronic disease data feeds into the CIE infrastructure. Watch for solicitation from DSS Q3 2026.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Program Overview</div>
+
+  <div class="two-col">
+    <div class="info-block">
+      <div class="info-block-title">Award Details</div>
+      <div class="info-row"><span class="info-key">Award Amount</span><span class="info-val" style="color:var(--teal);">$216,276,817.66</span></div>
+      <div class="info-row"><span class="info-key">National Rank</span><span class="info-val">9th largest</span></div>
+      <div class="info-row"><span class="info-key">Recipient</span><span class="info-val">Missouri DSS / MO HealthNet</span></div>
+      <div class="info-row"><span class="info-key">Budget Period 1</span><span class="info-val">Dec 31, 2025 – Oct 30, 2026</span></div>
+      <div class="info-row"><span class="info-key">BP1 Spend Deadline</span><span class="info-val">Sep 30, 2026</span></div>
+      <div class="info-row"><span class="info-key">Program FY Range</span><span class="info-val">FY 2026 – FY 2030</span></div>
+    </div>
+    <div class="info-block">
+      <div class="info-block-title">Program Governance</div>
+      <div class="info-row"><span class="info-key">Lead Agency</span><span class="info-val">MO DSS / MO HealthNet Div.</span></div>
+      <div class="info-row"><span class="info-key">Co-Lead</span><span class="info-val">DHSS + Dept. of Mental Health</span></div>
+      <div class="info-row"><span class="info-key">Model</span><span class="info-val">3-Tier: State → RCNs → Hubs</span></div>
+      <div class="info-row"><span class="info-key">Stakeholders Engaged</span><span class="info-val">228 in planning</span></div>
+      <div class="info-row"><span class="info-key">Rural CAHs</span><span class="info-val">~36 statewide</span></div>
+      <div class="info-row"><span class="info-key">RPM Allocation</span><span class="info-val" style="color:var(--teal);">$3M dedicated</span></div>
+    </div>
+  </div>
+
+  <div class="section-title">Key Contacts</div>
+
+  <div class="contact-block">
+    <div class="contact-name">DSS RHTP Program Inbox</div>
+    <div class="contact-role">Missouri Department of Social Services — Primary RHTP Contact</div>
+    <div class="contact-email"><a href="mailto:DSS.RHTP@dss.mo.gov">DSS.RHTP@dss.mo.gov</a></div>
+  </div>
+
+  <div class="callout callout-orange" style="margin-top:20px;">
+    <div class="callout-title" style="color:var(--orange);">Vendor Registration</div>
+    <div class="callout-body">Missouri state vendor registration is through MissouriBUYS (the state procurement portal). Register at <strong>missouribuys.mo.gov</strong> before responding to any formal solicitation. The Digital Foundation RPM procurement will likely require registered vendor status.</div>
+  </div>
+
+  <div class="doc-links">
+    <a href="missouri-gtm-strategy.html" class="doc-link-btn doc-link-primary">GTM Strategy →</a>
+    <a href="rhtp-hub.html" class="doc-link-btn doc-link-secondary">← RHTP Hub</a>
+    <a href="rhtp-command.html" class="doc-link-btn doc-link-secondary">Command Center</a>
+    <a href="https://mydss.mo.gov/mhd/rural-health" target="_blank" class="doc-link-btn doc-link-secondary">MO RHTP Site ↗</a>
+    <a href="https://mydss.mo.gov/mo-rhtp-year-1-fund-distribution" target="_blank" class="doc-link-btn doc-link-secondary">Year 1 Distribution ↗</a>
+  </div>
+
+</div>
+</body>
+</html>

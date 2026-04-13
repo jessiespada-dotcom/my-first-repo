@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missouri RHTP — GTM Strategy | WHOOP</title>
+<style>
+  :root {
+    --bg: #0d1215; --surface: #151c21; --surface2: #1a2530; --border: #1e2d38;
+    --teal: #00F19F; --blue: #0093E7; --orange: #ffb347; --red: #ff5a5a;
+    --yellow: #e6c020; --green: #a8cc44; --text: #e8eef2; --muted: #6b8394;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); }
+  a { color: var(--teal); text-decoration: none; }
+
+  .top-nav {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 12px 32px; display: flex; align-items: center; gap: 16px;
+    font-size: 12px; color: var(--muted);
+  }
+  .top-nav a { color: var(--muted); }
+  .top-nav a:hover { color: var(--teal); }
+  .top-nav .sep { color: var(--border); }
+
+  .hero {
+    background: linear-gradient(135deg, #0d1215 0%, #0d1a14 60%, #0a1210 100%);
+    border-bottom: 1px solid var(--border); padding: 40px 48px 36px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--teal); margin-bottom: 8px;
+  }
+  .hero-title { font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+  .hero-sub { font-size: 14px; color: var(--muted); }
+
+  .main { max-width: 1100px; margin: 0 auto; padding: 36px 48px 60px; }
+
+  .callout {
+    border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; border-left: 4px solid;
+  }
+  .callout-orange { background: #1a1408; border-color: var(--orange); }
+  .callout-teal   { background: #081a14; border-color: var(--teal); }
+  .callout-title  { font-size: 13px; font-weight: 800; margin-bottom: 5px; }
+  .callout-body   { font-size: 13px; line-height: 1.6; color: #c8d8e0; }
+
+  .section-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--muted); margin: 32px 0 14px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+
+  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .plan-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 22px; position: relative; overflow: hidden;
+  }
+  .plan-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .plan-label {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.8px; margin-bottom: 6px;
+  }
+  .plan-name { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+  .plan-tag {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 8px; margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .plan-desc { font-size: 13px; line-height: 1.6; color: #c0d0d8; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 13px; }
+  .compare-table th {
+    text-align: left; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--muted); padding: 8px 12px;
+    border-bottom: 1px solid var(--border); font-weight: 600;
+  }
+  .compare-table td { padding: 10px 12px; border-bottom: 1px solid #151c21; vertical-align: top; }
+  .compare-table tr:hover td { background: var(--surface2); }
+  .compare-table td:first-child { font-weight: 700; color: var(--muted); white-space: nowrap; }
+  .rec-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 11px;
+    font-weight: 700; background: #0d2e20; color: var(--teal);
+  }
+
+  .timeline-block { margin-bottom: 12px; }
+  .timeline-period {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--orange); margin-bottom: 8px;
+  }
+  .timeline-items { list-style: none; }
+  .timeline-items li {
+    padding: 8px 0 8px 18px; border-bottom: 1px solid var(--border);
+    font-size: 13px; position: relative; line-height: 1.5;
+  }
+  .timeline-items li:last-child { border-bottom: none; }
+  .timeline-items li::before {
+    content: ''; position: absolute; left: 0; top: 14px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--border);
+  }
+  .timeline-items li.hot::before { background: var(--orange); }
+  .timeline-items li.critical::before { background: var(--red); }
+  .timeline-items li.teal::before { background: var(--teal); }
+
+  .email-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin-bottom: 8px;
+  }
+  .email-header {
+    background: var(--surface2); padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .email-field { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .email-field span { color: var(--text); font-weight: 600; }
+  .email-body { padding: 20px; font-size: 13px; line-height: 1.8; white-space: pre-wrap; color: #c8d8e0; }
+
+  .doc-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .doc-link-btn {
+    padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    text-decoration: none; border: 1px solid; transition: all 0.15s;
+  }
+  .doc-link-primary { background: var(--teal); color: #000; border-color: var(--teal); }
+  .doc-link-secondary { background: transparent; color: var(--text); border-color: var(--border); }
+  .doc-link-secondary:hover { border-color: var(--teal); color: var(--teal); }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="rhtp-hub.html">← RHTP Hub</a>
+  <span class="sep">|</span>
+  <a href="missouri-rht-por.html">Plan of Record</a>
+  <span class="sep">|</span>
+  <span>GTM Strategy</span>
+  <span class="sep">|</span>
+  <span style="color:var(--orange);">Q2 2026 RPM Feedback Window Open</span>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">Missouri · GTM Strategy · WHOOP</div>
+  <div class="hero-title">Missouri Go-To-Market — $216M Award</div>
+  <div class="hero-sub">Digital Foundation $56.2M · $3M Dedicated RPM Allocation · Q2 2026 Procurement Feedback Live</div>
+</div>
+
+<div class="main">
+
+  <div class="callout callout-orange">
+    <div class="callout-title" style="color:var(--orange);">The Q2 2026 Window — Why This Is the Most Specific Fit in the Portfolio</div>
+    <div class="callout-body">Every other state has RPM as an implied or likely use case. Missouri is the only state in the 9-state portfolio with a <strong>named $3M line item for "RPM licensing and integration"</strong> — and they are actively soliciting vendor input during Q2 2026 (April–June) before issuing the formal RFP. This is the pre-market window. The vendors who participate in this feedback period shape the requirements document. Miss it and you're responding to a spec written by someone else.</div>
+  </div>
+
+  <div class="section-title">Three GTM Plans</div>
+
+  <div class="plan-grid">
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--teal);"></div>
+      <div class="plan-label" style="color:var(--teal);">Plan A</div>
+      <div class="plan-name">DSS State Partnership</div>
+      <div class="plan-tag" style="background:#0d2e20;color:var(--teal);">Recommended</div>
+      <div class="plan-desc">Respond to Q2 2026 RPM vendor feedback period. Position WHOOP as the consumer-facing RPM platform for the Digital Foundation pillar. One DSS relationship reaches all Regional Coordinating Networks and all 36 rural CAHs simultaneously. The $3M dedicated RPM allocation is the entry point — broadens to the $56.2M Digital Foundation over time.</div>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--orange);"></div>
+      <div class="plan-label" style="color:var(--orange);">Plan B</div>
+      <div class="plan-name">RCN Direct Engagement</div>
+      <div class="plan-tag" style="background:#1a1408;color:var(--orange);">High Value</div>
+      <div class="plan-desc">Missouri's "Local Decisions. Local Results." structure gives Regional Coordinating Networks significant autonomy to select technology tools for their hubs. The first RCN cohort is being onboarded Q2 2026. Identify and contact RCN leads as they stand up — each RCN becomes an independent buying center for consumer health tools and workforce wellness.</div>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--blue);"></div>
+      <div class="plan-label" style="color:var(--blue);">Plan C</div>
+      <div class="plan-name">WHOOP Unite — 36 Missouri CAHs</div>
+      <div class="plan-tag" style="background:#0a1a2e;color:var(--blue);">Fastest Close</div>
+      <div class="plan-desc">Missouri has ~36 Critical Access Hospitals across rural counties. Existing WHOOP Unite enterprise motion applies directly. $17.8M Workforce Expansion pillar funds retention programs — CAH administrators and HR directors recruiting for 5-year rural service commitments are active buyers. Fastest path to signed paper (14–30 days).</div>
+    </div>
+  </div>
+
+  <div class="section-title">Plan Comparison</div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Plan A — DSS State Partnership</th>
+        <th>Plan B — RCN Engagement</th>
+        <th>Plan C — Direct CAH / WHOOP Unite</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Program Lane</td>
+        <td>Digital Foundation — $56.2M</td>
+        <td>Regional Networks/Hubs — $52M</td>
+        <td>Workforce Expansion — $17.8M</td>
+      </tr>
+      <tr>
+        <td>Funding Status</td>
+        <td>Active — $3M RPM allocation live</td>
+        <td>Active — RCNs onboarding Q2 2026</td>
+        <td>Active — BP1 funds flowing</td>
+      </tr>
+      <tr>
+        <td>Primary Contact</td>
+        <td>DSS.RHTP@dss.mo.gov</td>
+        <td>RCN leads (identify from DSS)</td>
+        <td>CAH Administrators + HR Directors</td>
+      </tr>
+      <tr>
+        <td>Sales Motion</td>
+        <td>State vendor feedback → RFP response</td>
+        <td>Technology partner for hub deployment</td>
+        <td>WHOOP Unite enterprise motion</td>
+      </tr>
+      <tr>
+        <td>Speed to Revenue</td>
+        <td>6–12 months (post-RFP)</td>
+        <td>3–6 months</td>
+        <td>14–30 days</td>
+      </tr>
+      <tr>
+        <td>Scale Ceiling</td>
+        <td>Statewide — all RCNs and hubs</td>
+        <td>Regional — 1 RCN at a time</td>
+        <td>36 CAHs individually</td>
+      </tr>
+      <tr>
+        <td>Probability</td>
+        <td>High — named in RPM feedback</td>
+        <td>Medium — RCN structure nascent</td>
+        <td>High — proven motion</td>
+      </tr>
+      <tr>
+        <td>Recommendation</td>
+        <td><span class="rec-badge">Start Immediately</span></td>
+        <td>Parallel track</td>
+        <td>Parallel track</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">30 / 60 / 90 Day Action Plan</div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 1–30 — Immediate Actions</div>
+    <ul class="timeline-items">
+      <li class="critical">Email <a href="mailto:DSS.RHTP@dss.mo.gov">DSS.RHTP@dss.mo.gov</a> — submit WHOOP as remote patient monitoring vendor for Digital Foundation RPM feedback period. Reference the $3M dedicated RPM allocation explicitly.</li>
+      <li class="critical">Register on MissouriBUYS (missouribuys.mo.gov) — required to respond to any formal solicitation. Do this before the RFP drops.</li>
+      <li class="hot">Request DSS clarification on timeline: when does the Q2 RPM feedback period close? Who is leading the RFP development?</li>
+      <li class="hot">Begin WHOOP Unite outreach to Missouri CAH administrators — 36 critical access hospitals, rural workforce retention angle.</li>
+      <li class="teal">Monitor mydss.mo.gov/mhd/rural-health for procurement announcements and RCN onboarding updates.</li>
+    </ul>
+  </div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 31–60 — Pre-RFP Positioning</div>
+    <ul class="timeline-items">
+      <li class="hot">Follow up with DSS if no reply — reference RPM feedback window and $3M allocation. Request a 20-min intro call.</li>
+      <li class="hot">Identify the first Regional Coordinating Networks being onboarded in Q2. Request RCN contact list or directory from DSS.</li>
+      <li class="teal">Prepare WHOOP Digital Foundation positioning brief — one-pager showing how WHOOP addresses Missouri's three objectives: Access, Health Outcomes, Sustainability.</li>
+      <li>Monitor Q3 2026 Social Care CIE procurement — WHOOP biometric data layer can feed into the closed-loop referral platform.</li>
+    </ul>
+  </div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 61–90 — Scale &amp; Deepen</div>
+    <ul class="timeline-items">
+      <li class="teal">Engage RCN leads directly — pitch WHOOP as the consumer health technology tool for their hub network. Leverage DSS relationship to get introduction.</li>
+      <li class="teal">Close first WHOOP Unite deal with a Missouri CAH — use as proof point in DSS RPM feedback and RFP response.</li>
+      <li>Prepare formal RFP response materials for Digital Foundation RPM solicitation (expected Q3–Q4 2026).</li>
+    </ul>
+  </div>
+
+  <div class="section-title">Opening Email — DSS State Partnership (Plan A)</div>
+
+  <div class="email-block">
+    <div class="email-header">
+      <div class="email-field">To: <span>DSS.RHTP@dss.mo.gov</span></div>
+      <div class="email-field">Subject: <span>WHOOP — Consumer Remote Patient Monitoring Platform for Digital Foundation RPM Integration Feedback</span></div>
+    </div>
+    <div class="email-body">Hi,
+
+I'm reaching out regarding Missouri's Remote Patient Technology Feedback period for the Rural Health Transformation Program's Digital Foundation pillar.
+
+WHOOP is a FDA-registered consumer biometric monitoring platform used by 17 million people globally to track cardiovascular strain, sleep quality, and recovery. We're writing to submit input for the Q2 2026 RPM vendor feedback period and to introduce WHOOP as a candidate for the $3M remote patient monitoring licensing allocation.
+
+Missouri's Digital Foundation description — "remote patient monitoring integration" alongside interoperability and EHR modernization — is exactly what WHOOP is built for. Specific fit:
+
+— Continuous biometric monitoring (HRV, resting heart rate, SpO2, sleep) without clinical-grade equipment or facility visits
+— Consumer device that rural patients self-manage — no provider workflow burden
+— Population health dashboard for chronic disease tracking across a hub or RCN network
+— Medicaid/Medicare chronic care management outcomes data for the Sustainability pillar
+
+I'd welcome the opportunity to participate in the RPM feedback process and discuss how WHOOP could support Missouri's Digital Foundation goals. Are there submission guidelines for the Q2 feedback period, or can you point me to the right contact?
+
+Thank you,
+[Name]
+WHOOP Enterprise
+[Email] | [Phone]</div>
+  </div>
+
+  <div class="doc-links">
+    <a href="missouri-rht-por.html" class="doc-link-btn doc-link-primary">Plan of Record →</a>
+    <a href="rhtp-hub.html" class="doc-link-btn doc-link-secondary">← RHTP Hub</a>
+    <a href="rhtp-command.html" class="doc-link-btn doc-link-secondary">Command Center</a>
+    <a href="https://mydss.mo.gov/mhd/rural-health" target="_blank" class="doc-link-btn doc-link-secondary">MO RHTP Site ↗</a>
+  </div>
+
+</div>
+</body>
+</html>
