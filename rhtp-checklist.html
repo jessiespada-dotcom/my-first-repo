@@ -240,8 +240,11 @@
 <body>
 
 <div class="print-bar no-print">
-  <span class="print-bar-text">Print this page or Save as PDF via Ctrl+P / Cmd+P → "Save as PDF"</span>
-  <button class="print-btn" onclick="window.print()">Save as PDF</button>
+  <span class="print-bar-text">Checks sync live with Command Center &nbsp;·&nbsp; <span id="progress-count" style="color:#00F19F;font-weight:700;">0 / 37 tasks completed</span></span>
+  <div style="display:flex;gap:12px;align-items:center;">
+    <a href="rhtp-command.html" style="color:#aaa;font-size:12px;text-decoration:none;font-weight:600;">← Command Center</a>
+    <button class="print-btn" onclick="window.print()">Save as PDF</button>
+  </div>
 </div>
 
 <div class="cover">
@@ -383,7 +386,7 @@
   </div>
 
   <!-- NEBRASKA -->
-  <div class="state-block">
+  <div class="state-block" data-state="ne">
     <div class="state-header" style="background:#fef2f2;">
       <div class="state-abbr" style="background:#e8272e;">NE</div>
       <div class="state-name-wrap">
@@ -422,7 +425,7 @@
   </div>
 
   <!-- MONTANA -->
-  <div class="state-block">
+  <div class="state-block" data-state="mt">
     <div class="state-header" style="background:#fef2f2;">
       <div class="state-abbr" style="background:#e8272e;">MT</div>
       <div class="state-name-wrap">
@@ -470,7 +473,7 @@
   </div>
 
   <!-- OHIO -->
-  <div class="state-block">
+  <div class="state-block" data-state="oh">
     <div class="state-header" style="background:#fff8f0;">
       <div class="state-abbr" style="background:#e86c00;">OH</div>
       <div class="state-name-wrap">
@@ -509,7 +512,7 @@
   </div>
 
   <!-- NORTH CAROLINA -->
-  <div class="state-block">
+  <div class="state-block" data-state="nc">
     <div class="state-header" style="background:#fff8f0;">
       <div class="state-abbr" style="background:#e86c00;">NC</div>
       <div class="state-name-wrap">
@@ -548,7 +551,7 @@
   </div>
 
   <!-- MISSOURI -->
-  <div class="state-block">
+  <div class="state-block" data-state="mo">
     <div class="state-header" style="background:#fff8f0;">
       <div class="state-abbr" style="background:#e86c00;">MO</div>
       <div class="state-name-wrap">
@@ -587,7 +590,7 @@
   </div>
 
   <!-- KANSAS -->
-  <div class="state-block">
+  <div class="state-block" data-state="ks">
     <div class="state-header" style="background:#fff8f0;">
       <div class="state-abbr" style="background:#e86c00;">KS</div>
       <div class="state-name-wrap">
@@ -626,7 +629,7 @@
   </div>
 
   <!-- TEXAS -->
-  <div class="state-block">
+  <div class="state-block" data-state="tx">
     <div class="state-header" style="background:#fff8f0;">
       <div class="state-abbr" style="background:#e86c00;">TX</div>
       <div class="state-name-wrap">
@@ -669,7 +672,7 @@
   </div>
 
   <!-- OKLAHOMA -->
-  <div class="state-block">
+  <div class="state-block" data-state="ok">
     <div class="state-header" style="background:#f0faf4;">
       <div class="state-abbr" style="background:#007a52;">OK</div>
       <div class="state-name-wrap">
@@ -703,7 +706,7 @@
   </div>
 
   <!-- CALIFORNIA -->
-  <div class="state-block">
+  <div class="state-block" data-state="ca">
     <div class="state-header" style="background:#fffdf0;">
       <div class="state-abbr" style="background:#c98a00;">CA</div>
       <div class="state-name-wrap">
@@ -737,7 +740,7 @@
   </div>
 
   <!-- GEORGIA -->
-  <div class="state-block">
+  <div class="state-block" data-state="ga">
     <div class="state-header" style="background:#fffdf0;">
       <div class="state-abbr" style="background:#c98a00;">GA</div>
       <div class="state-name-wrap">
@@ -780,7 +783,7 @@
   </div>
 
   <!-- ALASKA -->
-  <div class="state-block">
+  <div class="state-block" data-state="ak">
     <div class="state-header" style="background:#f0f7ff;">
       <div class="state-abbr" style="background:#005fa3;">AK</div>
       <div class="state-name-wrap">
@@ -816,23 +819,62 @@
 </div><!-- end .main -->
 
 <script>
-  // Allow checkboxes to be toggled on screen
-  document.querySelectorAll('.task-checkbox').forEach(cb => {
-    cb.style.cursor = 'pointer';
-    cb.addEventListener('click', function() {
-      if (this.style.background === 'rgb(0, 120, 80)') {
-        this.style.background = '';
-        this.style.borderColor = '#d1d5db';
-        this.innerHTML = '';
-        this.parentElement.style.opacity = '1';
-      } else {
-        this.style.background = '#007a52';
-        this.style.borderColor = '#007a52';
-        this.innerHTML = '<svg width="10" height="8" viewBox="0 0 10 8" fill="none" style="display:block;margin:2px auto"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-        this.parentElement.style.opacity = '0.5';
-      }
+  const STORAGE_KEY = 'rhtp_done';
+  const CHECK_SVG = '<svg width="10" height="8" viewBox="0 0 10 8" fill="none" style="display:block;margin:2px auto"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function getDone() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+  function saveDone(done) { localStorage.setItem(STORAGE_KEY, JSON.stringify(done)); }
+
+  function applyCheckbox(cb, checked) {
+    if (checked) {
+      cb.style.background = '#007a52';
+      cb.style.borderColor = '#007a52';
+      cb.innerHTML = CHECK_SVG;
+      cb.parentElement.style.opacity = '0.5';
+    } else {
+      cb.style.background = '';
+      cb.style.borderColor = '#d1d5db';
+      cb.innerHTML = '';
+      cb.parentElement.style.opacity = '1';
+    }
+  }
+
+  function updateProgress() {
+    const done = getDone();
+    const total = document.querySelectorAll('.task-item[data-task-id]').length;
+    const count = Object.keys(done).filter(k => done[k]).length;
+    const el = document.getElementById('progress-count');
+    if (el) el.textContent = count + ' / ' + total + ' tasks completed';
+  }
+
+  // Auto-assign task IDs from state-block data-state + index
+  document.querySelectorAll('.state-block[data-state]').forEach(block => {
+    const state = block.dataset.state;
+    block.querySelectorAll('.task-item').forEach((item, i) => {
+      item.dataset.taskId = state + '-' + i;
     });
   });
+
+  // Initialize checkboxes from localStorage
+  const initialDone = getDone();
+  document.querySelectorAll('.task-item[data-task-id]').forEach(item => {
+    const id = item.dataset.taskId;
+    const cb = item.querySelector('.task-checkbox');
+    if (!cb) return;
+    cb.style.cursor = 'pointer';
+    if (initialDone[id]) applyCheckbox(cb, true);
+
+    cb.addEventListener('click', function() {
+      const isChecked = this.style.background === 'rgb(0, 120, 80)';
+      applyCheckbox(this, !isChecked);
+      const done = getDone();
+      if (!isChecked) done[id] = true; else delete done[id];
+      saveDone(done);
+      updateProgress();
+    });
+  });
+
+  updateProgress();
 </script>
 
 </body>

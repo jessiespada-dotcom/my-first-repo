@@ -192,6 +192,14 @@
     align-items: flex-start;
   }
   .card-actions li:last-child { border-bottom: none; }
+  .action-done { opacity: 0.38; }
+  .action-done span { text-decoration: line-through; }
+  .action-done .action-dot { background: #00b870 !important; }
+  .card-progress {
+    font-size: 11px; color: #00b870; font-weight: 700;
+    padding: 2px 8px; background: rgba(0,184,112,0.12);
+    border-radius: 10px; border: 1px solid rgba(0,184,112,0.25);
+  }
   .action-dot {
     width: 7px; height: 7px; border-radius: 50%;
     margin-top: 4px; flex-shrink: 0;
@@ -483,9 +491,9 @@ const BUILT_STATES = [
     badgeColor: '#ff8c00',
     headline: '$33M EBP Funds Flowing Now',
     actions: [
-      { text: 'Email Dr. Matthew Ross + Rachel Moser at UKHS CCA — EBP technology infrastructure partnership (mross10@kumc.edu)', color: '#ff8c00' },
-      { text: 'Frame WHOOP as EBP technology infrastructure tool — diabetes/heart failure/CKM performance measures', color: '#ff8c00' },
-      { text: 'One CCA endorsement = access to 200+ enrolled providers simultaneously', color: '#ffb347' },
+      { text: 'Email Dr. Matthew Ross at UKHS CCA — mross10@kumc.edu — EBP technology infrastructure partnership. One CCA endorsement = access to 200+ enrolled rural Kansas providers.', color: '#ff8c00' },
+      { text: 'Also email Rachel Moser — rmoser@kumc.edu and care.collaborative@rhtp.net. Multiple contacts increases response probability.', color: '#ff8c00' },
+      { text: 'Frame WHOOP as EBP technology infrastructure tool — diabetes/heart failure/CKM performance measures. EBP FAQ explicitly allows "technology or data infrastructure" investments.', color: '#ffb347' },
       { text: 'Monitor KDHE program site for Initiative 5 Consumer Health Technology NOFO (future)', color: '#6b8394' },
     ],
     deadline: 'EBP Fund Expenditure: <span>Oct 30, 2026</span>',
@@ -520,8 +528,8 @@ const BUILT_STATES = [
     badgeColor: '#ffb347',
     headline: 'RTAC RFA Releasing Spring 2026',
     actions: [
-      { text: 'Email Hovik Khosrovian (hovik.khosrovian@hcai.ca.gov) — pre-RFA partnership for RTAC technology endorsement', color: '#ffb347' },
-      { text: 'RTAC = $23.55M state endorsement engine reaching 683+ rural health orgs — one deal unlocks all', color: '#ffb347' },
+      { text: 'Email Hovik Khosrovian (hovik.khosrovian@hcai.ca.gov) — pre-RFA partnership for RTAC technology endorsement. RTAC = $23.55M endorsement engine reaching 683+ rural health orgs.', color: '#ffb347' },
+      { text: 'Also email CalRHT@hcai.ca.gov — program inbox. Reference Initiative 1 (consumer-facing mobile tech and remote patient self-monitoring devices explicitly named) and RTAC technology endorsement lane.', color: '#ffb347' },
       { text: 'Direct outreach to ~16 Initiative 1 hub hospitals ($112.2M bucket)', color: '#a8cc44' },
     ],
     deadline: 'RFA Expected: <span>Spring 2026</span>',
@@ -871,8 +879,8 @@ function buildCards() {
       </div>
       <div style="font-size:13px;font-weight:700;color:${s.badgeColor};margin-bottom:12px;">${s.headline}</div>
       <ul class="card-actions">
-        ${s.actions.map(a => `
-          <li>
+        ${s.actions.map((a, i) => `
+          <li data-task-id="${s.abbr.toLowerCase()}-${i}">
             <div class="action-dot" style="background:${a.color}"></div>
             <span>${a.text}</span>
           </li>
@@ -969,10 +977,38 @@ function updateCounts() {
 // ─────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────
+// ─────────────────────────────────────────────
+// SYNC COMPLETED TASKS FROM CHECKLIST (localStorage)
+// ─────────────────────────────────────────────
+function syncCompleted() {
+  const done = JSON.parse(localStorage.getItem('rhtp_done') || '{}');
+  document.querySelectorAll('.card-actions li[data-task-id]').forEach(li => {
+    if (done[li.dataset.taskId]) li.classList.add('action-done');
+    else li.classList.remove('action-done');
+  });
+  document.querySelectorAll('.action-card').forEach(card => {
+    const lis = card.querySelectorAll('.card-actions li[data-task-id]');
+    const doneCount = [...lis].filter(li => li.classList.contains('action-done')).length;
+    let badge = card.querySelector('.card-progress');
+    if (doneCount > 0) {
+      if (!badge) {
+        badge = document.createElement('div');
+        badge.className = 'card-progress';
+        card.querySelector('.card-footer').prepend(badge);
+      }
+      badge.textContent = `${doneCount}/${lis.length} done`;
+    } else if (badge) {
+      badge.remove();
+    }
+  });
+}
+
 buildMap();
 buildCards();
 buildPipeline();
 updateCounts();
+syncCompleted();
+window.addEventListener('storage', e => { if (e.key === 'rhtp_done') syncCompleted(); });
 </script>
 </body>
 </html>
