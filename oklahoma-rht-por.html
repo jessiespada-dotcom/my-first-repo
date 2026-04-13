@@ -1,0 +1,648 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Oklahoma RHT — WHOOP Plan of Record</title>
+  <style>
+    :root {
+      --bg:        #0d1215;
+      --bg-card:   rgba(255,255,255,0.03);
+      --text:      #ffffff;
+      --muted:     #aaaaaa;
+      --meta:      #666666;
+      --rule:      rgba(255,255,255,0.08);
+      --teal:      #00F19F;
+      --blue:      #0093E7;
+      --orange:    #ffb347;
+      --red:       #ff5a5a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header-bar {
+      background: #000;
+      border-bottom: 1px solid var(--rule);
+      padding: 0 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .header-wordmark {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+      margin-right: 16px;
+    }
+    .header-pipe {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.15);
+      margin-right: 16px;
+    }
+    .header-meta {
+      font-size: 10px;
+      color: var(--meta);
+      letter-spacing: 0.08em;
+    }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      border: 1px solid rgba(255,179,71,0.35);
+      background: rgba(255,179,71,0.06);
+      padding: 4px 9px;
+      border-radius: 2px;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+    }
+
+    /* ── Page header ── */
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-size: 38px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .page-meta {
+      font-size: 12px;
+      color: var(--meta);
+      letter-spacing: 0.04em;
+    }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+
+    .rule {
+      height: 1px;
+      background: var(--rule);
+      margin: 36px 0;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 16px;
+    }
+
+    /* ── Stat row ── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .stat-cell {
+      background: var(--bg-card);
+      padding: 24px 26px;
+      border-right: 1px solid var(--rule);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .stat-number.blue   { color: var(--blue); }
+    .stat-number.white  { color: #fff; }
+    .stat-number.orange { color: var(--orange); }
+    .stat-number.red    { color: var(--red); }
+    .stat-desc {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.55;
+    }
+
+    /* ── Narrative ── */
+    .narrative-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 20px;
+    }
+    .narrative-body {
+      font-size: 13.5px;
+      line-height: 1.85;
+      color: #bbb;
+    }
+    .narrative-body p { margin-bottom: 14px; }
+    .narrative-body p:last-child { margin-bottom: 0; }
+    .hl        { color: var(--teal);   font-weight: 600; }
+    .hl-orange { color: var(--orange); font-weight: 600; }
+    .hl-red    { color: var(--red);    font-weight: 600; }
+    .hl-white  { color: #fff;          font-weight: 600; }
+
+    /* ── Two-column ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      margin-bottom: 40px;
+    }
+    .col-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--meta);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 22px;
+    }
+    .entry-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .entry {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .entry-tag {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tag-teal   { background: rgba(0,241,159,0.10);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .tag-blue   { background: rgba(0,147,231,0.10);  color: var(--blue);   border: 1px solid rgba(0,147,231,0.25); }
+    .tag-orange { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .tag-red    { background: rgba(255,90,90,0.10);  color: var(--red);    border: 1px solid rgba(255,90,90,0.25); }
+    .entry-text {
+      font-size: 13px;
+      color: #bbb;
+      line-height: 1.6;
+    }
+    .entry-text strong { color: #e8e8e8; }
+
+    /* ── Contacts ── */
+    .contacts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 18px 20px;
+    }
+    .contact-role {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 6px;
+    }
+    .contact-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .contact-detail {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.7;
+    }
+    .contact-detail a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* ── Callout box ── */
+    .callout {
+      border-left: 3px solid var(--teal);
+      background: rgba(0,241,159,0.04);
+      border-radius: 0 4px 4px 0;
+      padding: 22px 26px;
+      margin-bottom: 40px;
+    }
+    .callout.orange {
+      border-left-color: var(--orange);
+      background: rgba(255,179,71,0.04);
+    }
+    .callout.red {
+      border-left-color: var(--red);
+      background: rgba(255,90,90,0.04);
+    }
+    .callout-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .callout.orange .callout-label { color: var(--orange); }
+    .callout.red .callout-label    { color: var(--red); }
+    .callout-body {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #bbb;
+    }
+
+    /* ── Initiative table ── */
+    .init-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      font-size: 12.5px;
+    }
+    .init-table th {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .init-table td {
+      padding: 14px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: #bbb;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .init-table tr:last-child td { border-bottom: none; }
+    .init-table td:first-child { color: #fff; font-weight: 600; white-space: nowrap; }
+    .init-table td strong { color: #e8e8e8; }
+    .fit-high  { color: var(--teal);   font-weight: 700; font-size: 11px; }
+    .fit-med   { color: var(--orange); font-weight: 700; font-size: 11px; }
+    .fit-low   { color: #666;          font-weight: 700; font-size: 11px; }
+
+    /* ── Footer ── */
+    .page-footer {
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.08em;
+      text-align: right;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>CMS Rural Health Transformation<span class="sep">|</span>Oklahoma<span class="sep">|</span>Updated April 12, 2026
+    </div>
+  </div>
+  <div class="header-badge">Microgrant Awards: Late May 2026</div>
+</div>
+
+
+<div class="page">
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-eyebrow">CMS Rural Health Transformation Program — Oklahoma State Award</div>
+  <div class="page-title">Oklahoma Rural Health Transformation — Plan of Record</div>
+  <div class="page-meta">
+    Award: $223,476,948.62
+    <span class="dot">·</span>
+    Budget Period 1: Dec 29, 2025 – Oct 30, 2026
+    <span class="dot">·</span>
+    Recipient: Oklahoma State Department of Health (OSDH)
+    <span class="dot">·</span>
+    Award #: RHTCMS332048-01-00
+    <span class="dot">·</span>
+    5th Highest Award Nationally
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── STAT ROW ── -->
+  <div class="section-label">Summary</div>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Total Oklahoma Award<br>(5th Highest Nationally)</div>
+      <div class="stat-number">$223M</div>
+      <div class="stat-desc">Over 5 fiscal years via CMS cooperative agreement. Oklahoma covers 75 of 77 counties under the rural eligibility definition — one of the broadest rural footprints in the program.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Active NOFO<br>Microgrant Program</div>
+      <div class="stat-number blue">$3.75M</div>
+      <div class="stat-desc">$50K per county, 75 rural counties. Awards issuing Late May–June 2026. Wellness enabler hardware qualifies. Subscription costs explicitly prohibited — device-only deals required.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Remaining Future NOFOs<br>(Years 2–5)</div>
+      <div class="stat-number orange">~$219M</div>
+      <div class="stat-desc">The active microgrant is only 1.7% of the total award. The bulk of Oklahoma's program — technology, workforce, care delivery — flows through future NOFOs not yet announced. This is the primary opportunity.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Critical Constraint<br>for WHOOP</div>
+      <div class="stat-number red">Sub$</div>
+      <div class="stat-desc">Current NOFO explicitly prohibits "ongoing maintenance or subscription costs." WHOOP platform membership is not fundable under the active NOFO. Device hardware as "wellness enabler" is the current fundable lane.</div>
+    </div>
+  </div>
+
+
+  <!-- ── OPPORTUNITY NARRATIVE ── -->
+  <div class="narrative-title">The Opportunity</div>
+  <div class="narrative-body">
+    <p>
+      Oklahoma was awarded <span class="hl">$223,476,948.62</span> under the CMS Rural Health Transformation Program — the fifth-largest state award nationally — to fund chronic disease management, workforce development, technology modernization, and community health across rural Oklahoma. The program is administered by the <span class="hl-white">Oklahoma State Department of Health (OSDH)</span> and spans five budget periods through 2030. With 75 of 77 counties eligible under the rural footprint definition, Oklahoma represents one of the most geographically complete rural health programs in the country.
+    </p>
+    <p>
+      The only active NOFO as of April 2026 is the <span class="hl">Microgrants Program</span> — a $3.75M initiative distributing $50,000 to each of Oklahoma's 75 eligible rural counties. These microgrants are designed for small-dollar capital equipment and wellness infrastructure that rural county health organizations could not otherwise afford. The application deadline for rural organizations is <span class="hl-orange">April 13, 2026</span>, with awards issuing Late May–June 2026 and a hard expenditure deadline of October 30, 2026. Allowed purchases include clinical diagnostic equipment, telehealth carts, and explicitly named <em>"wellness enablers (fitness/sports equipment)"</em> — the category WHOOP devices fall under.
+    </p>
+    <p>
+      However, the microgrant carries a <span class="hl-red">critical constraint</span>: the NOFO explicitly prohibits "ongoing maintenance or subscription costs." WHOOP's platform membership is a subscription and would not be fundable under this program as structured. The fundable pathway is WHOOP <em>device hardware</em> purchased as a one-time wellness enabler capital item, with the platform subscription handled outside the grant. This distinction matters — any deal structured against this NOFO must be framed as a device purchase, not a platform subscription. Future NOFOs for Years 2–5 will have different rules and may accommodate platform costs under a technology infrastructure framing.
+    </p>
+    <p>
+      The real opportunity in Oklahoma is the <span class="hl">~$219M not yet deployed</span>. The microgrant is the opening act — but technology, remote monitoring, care delivery innovation, and workforce programs totaling the bulk of the $223M award will come through future solicitations. <span class="hl-red">No vendor has been selected for any major Oklahoma RHTP initiative.</span> Contacting OSDH now — before those solicitations are written — is the same pre-RFP window that exists in Texas and California. WHOOP needs to be in conversations with OSDH program staff before the technology and remote monitoring NOFOs drop, so the program is already familiar with WHOOP when it matters.
+    </p>
+    <p>
+      The reimbursement-based payment structure adds a practical note: funded organizations must pay for equipment out of pocket first, then submit for reimbursement. This means WHOOP's direct customer for the microgrant opportunity is a <span class="hl-orange">funded county health organization</span> that needs to spend before October 30, 2026, and WHOOP must be positioned as a named vendor the moment awards are announced in Late May.
+    </p>
+  </div>
+
+  <div class="rule"></div>
+
+
+  <!-- ── INITIATIVE TABLE ── -->
+  <div class="section-label">Program Structure — WHOOP Fit by Initiative</div>
+  <table class="init-table">
+    <thead>
+      <tr>
+        <th>Program Area</th>
+        <th>Focus</th>
+        <th>WHOOP Fit</th>
+        <th>WHOOP Fit Score</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Microgrant Program<br>Community Health &amp; Wellness</td>
+        <td>$50K/county capital equipment grants for 75 rural counties. Allowed: clinical diagnostic equipment, telehealth carts, wellness enablers (fitness/sports equipment), installable equipment, health education materials.</td>
+        <td><strong>Device hardware lane.</strong> WHOOP devices qualify as "wellness enablers" under the allowed uses. Prohibited: subscription costs. Structure deal as a one-time device purchase, not a platform subscription. Awards issuing Late May–June 2026 — funded orgs must spend by Oct 30. WHOOP must be positioned before awards announce.</td>
+        <td><span class="fit-high">PRIMARY</span></td>
+        <td>$3.75M active. Application deadline April 13. Awards Late May 2026. Hard expenditure deadline Oct 30, 2026.</td>
+      </tr>
+      <tr>
+        <td>Technology &amp; Innovation<br>(Future NOFOs)</td>
+        <td>Remote patient monitoring, consumer-facing digital health tools, telehealth infrastructure, and technology-enabled care delivery. No NOFO released. Expected in Years 2–5 of the program.</td>
+        <td><strong>Primary future lane.</strong> When OSDH releases technology and remote monitoring solicitations, WHOOP's full platform — device, biometric data, provider-facing dashboard, API — maps directly to chronic disease monitoring and patient self-reporting objectives. No vendor has been selected. Engage OSDH now to be known before the solicitations are written.</td>
+        <td><span class="fit-high">PRIMARY</span></td>
+        <td>No NOFO released. Pre-market window open. Monitor oklahoma.gov/health/rhtp for announcements.</td>
+      </tr>
+      <tr>
+        <td>Workforce Development<br>(Future NOFOs)</td>
+        <td>Rural healthcare workforce recruitment and retention — providers, community health workers, behavioral health staff, EMTs. No NOFO released. Expected alongside technology and care delivery programs.</td>
+        <td><strong>Workforce wellness play.</strong> Rural Oklahoma providers working in underserved communities face significant burnout risk and recruitment challenges. WHOOP Unite as the premium provider wellness benefit makes rural service more sustainable and gives rural health organizations a tangible retention tool. Existing WHOOP Unite enterprise motion — no new procurement cycle required. Fastest path to a signed deal.</td>
+        <td><span class="fit-med">SECONDARY</span></td>
+        <td>No NOFO released. Use existing WHOOP Unite enterprise motion for rural Oklahoma providers.</td>
+      </tr>
+      <tr>
+        <td>Chronic Disease Management<br>(Future NOFOs)</td>
+        <td>Population-level chronic disease monitoring, preventive care programs, and community health improvement for rural Oklahoma's high-burden disease profile — diabetes, heart disease, hypertension.</td>
+        <td><strong>Long-term population health play.</strong> Oklahoma has above-average rates of chronic disease. Future NOFOs for chronic disease management will call for remote monitoring tools and patient self-reporting technology. WHOOP is the consumer monitoring device that generates the outcomes data that fund performance-based payments. Position now, convert when NOFOs release.</td>
+        <td><span class="fit-med">SECONDARY</span></td>
+        <td>No NOFO released. Expected to be central to Years 2–5 program design. Engage OSDH on this framing now.</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── TWO COLUMNS ── -->
+  <div class="two-col">
+
+    <!-- LEFT: Key Fit Details -->
+    <div>
+      <div class="col-title">Why WHOOP Fits — Exact Language from Source Docs</div>
+      <div class="entry-list">
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">NOFO — Allowed Uses</div>
+          <div class="entry-text">
+            <strong>"Wellness enablers (fitness/sports equipment)"</strong> is explicitly listed as an allowable microgrant purchase category. WHOOP devices fit this category — hardware purchase only. This is the direct language creating the device procurement lane.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-red">NOFO — Prohibited</div>
+          <div class="entry-text">
+            <strong>"Ongoing maintenance or subscription costs"</strong> are explicitly prohibited under the microgrant NOFO. WHOOP platform membership cannot be funded under this program. All deals against this NOFO must be structured as device hardware purchases, not platform subscriptions.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">NOFO — Reimbursement</div>
+          <div class="entry-text">
+            <strong>Payment is reimbursement-based</strong> — funded organizations pay out of pocket first, then submit for reimbursement. This means WHOOP's deal with a funded county org must close before the org can submit for reimbursement. The October 30, 2026 expenditure deadline creates urgency for funded orgs.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Strategic Context</div>
+          <div class="entry-text">
+            <strong>The microgrant is 1.7% of the total award.</strong> $3.75M active vs. ~$219M coming. The near-term opportunity is device hardware sales to 75 funded county orgs. The real opportunity is positioning WHOOP now — before OSDH writes the technology and remote monitoring NOFOs that will deploy the remaining $219M.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Future NOFO Pathway</div>
+          <div class="entry-text">
+            <strong>No vendor has been selected for any Oklahoma RHTP technology initiative.</strong> The pre-RFP window that closed in Montana (May 15 deadline) is still wide open in Oklahoma. OSDH is in the program design phase for Years 2–5. Vendors who are in conversations with OSDH now will have an informational advantage when solicitations are published.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: Actions -->
+    <div>
+      <div class="col-title">Recommended Actions</div>
+      <div class="entry-list">
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Contact OSDH RHTP program office.</strong> Reach out to oklahoma.gov/health/rhtp to introduce WHOOP as a consumer wellness and remote monitoring device aligned with Oklahoma's rural health technology objectives. This is the pre-market outreach that sets up every future NOFO. Vendor inquiries go through OKSuppliers@omes.ok.gov — use this channel for a formal vendor introduction.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Monitor the microgrant award announcements.</strong> Awards issue Late May–June 2026. The moment funded county organizations are announced, begin direct outreach to each org positioning WHOOP device hardware as a "wellness enabler" equipment purchase within their $50K budget. Each funded org has a hard October 30 expenditure deadline — they will be actively looking for equipment to purchase.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Build a subscription-free WHOOP offer for Oklahoma microgrant buyers.</strong> The NOFO prohibits subscription costs, so WHOOP needs a device-only pricing structure it can offer to funded orgs — hardware purchase + separate commercial subscription if desired. Confirm with WHOOP's commercial team that a device-only SKU or quote format exists before outreach begins.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Soon</div>
+          <div class="entry-text">
+            <strong>Position WHOOP for the technology and chronic disease NOFOs.</strong> Build an Oklahoma-specific one-pager framing WHOOP as the consumer remote monitoring and chronic disease management device for Oklahoma's rural population — emphasizing WHOOP's outcomes data capabilities and biometric monitoring for high-burden conditions like diabetes, heart disease, and hypertension.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Soon</div>
+          <div class="entry-text">
+            <strong>Identify rural Oklahoma hospitals and health systems for WHOOP Unite outreach.</strong> Workforce development NOFOs will fund rural provider recruitment and retention. Oklahoma rural health systems — especially Critical Access Hospitals in the 75 eligible counties — are the targets for a WHOOP Unite workforce wellness pitch. Start building the list now so outreach is ready when the workforce NOFO drops.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Later</div>
+          <div class="entry-text">
+            <strong>Engage Oklahoma rural health associations.</strong> The Oklahoma Rural Health Association and the Oklahoma Primary Care Association represent the full landscape of rural health organizations receiving RHTP funding. A relationship with these associations creates access to all 75+ funded county organizations simultaneously and positions WHOOP as the recognized consumer health technology partner for Oklahoma's rural health infrastructure.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="rule"></div>
+
+
+  <!-- ── CONTACTS ── -->
+  <div class="section-label">Key Contacts</div>
+  <div class="contacts">
+    <div class="contact-card">
+      <div class="contact-role">OSDH — RHTP Program Office</div>
+      <div class="contact-name">Oklahoma RHTP Program</div>
+      <div class="contact-detail">
+        Oklahoma State Department of Health<br>
+        Rural Health Transformation Program<br>
+        <a href="https://www.oklahoma.gov/health/rhtp">oklahoma.gov/health/rhtp</a><br>
+        Program updates, NOFO announcements, vendor engagement
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-role">OMES — Vendor &amp; Procurement Inquiries</div>
+      <div class="contact-name">Oklahoma Vendor Inquiry Line</div>
+      <div class="contact-detail">
+        Office of Management &amp; Enterprise Services<br>
+        <a href="mailto:OKSuppliers@omes.ok.gov">OKSuppliers@omes.ok.gov</a><br>
+        (405) 521-2930<br>
+        123 Robert S. Kerr Ave., Suite 1702<br>
+        Oklahoma City, OK 73102
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-role">CMS — Federal Program Contact</div>
+      <div class="contact-name">CMS Rural Health Transformation</div>
+      <div class="contact-detail">
+        Centers for Medicare &amp; Medicaid Services<br>
+        Office of Rural Health Transformation<br>
+        Federal oversight of all 50-state RHTP awards<br>
+        Reference: Award #RHTCMS332048-01-00
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── SUBSCRIPTION CONSTRAINT CALLOUT ── -->
+  <div class="callout red">
+    <div class="callout-label">Critical Constraint — Subscription Costs Prohibited Under Active NOFO</div>
+    <div class="callout-body">
+      The Oklahoma microgrant NOFO explicitly states that <strong style="color:#e8e8e8;">"ongoing maintenance or subscription costs"</strong> are not allowable expenses. WHOOP's platform membership is a recurring subscription and cannot be funded under this program as written. Any deal structured against microgrant funding must be framed as a <strong style="color:#e8e8e8;">one-time hardware purchase</strong> — WHOOP devices as "wellness enablers" in the allowed capital equipment category. Platform subscriptions must be handled outside the grant as a separate commercial arrangement. Future Oklahoma NOFOs for technology infrastructure and remote patient monitoring programs are expected to have different budget structures that may accommodate platform and software costs — but that language must be confirmed when those solicitations are published.
+    </div>
+  </div>
+
+
+  <!-- ── TIMING CALLOUT ── -->
+  <div class="callout orange">
+    <div class="callout-label">Timing Window — Microgrant Awards Land Late May, Funds Expire Oct 30</div>
+    <div class="callout-body">
+      Oklahoma's microgrant awards issue Late May–Early June 2026. Each of the 75 funded county organizations has until <strong style="color:#e8e8e8;">October 30, 2026</strong> to spend all funds — or the money is recaptured. That's a ~5-month spend window with a hard deadline. Funded organizations will be actively procuring equipment in June and July. WHOOP needs to reach funded orgs the moment the award list is published — before their equipment budgets are committed. Monitor oklahoma.gov/health/rhtp for the award announcement. The day that list drops, deploy outreach to every funded organization with a device-only WHOOP quote ready to send.
+    </div>
+  </div>
+
+
+  <!-- ── FUTURE OPPORTUNITY CALLOUT ── -->
+  <div class="callout">
+    <div class="callout-label">The Real Opportunity — $219M in Future NOFOs</div>
+    <div class="callout-body">
+      The active microgrant ($3.75M) represents 1.7% of Oklahoma's $223M total award. The remaining ~$219M flows through future solicitations for technology infrastructure, remote patient monitoring, chronic disease management, workforce development, and care delivery innovation. <strong style="color:#e8e8e8;">None of these NOFOs have been published. No vendor has been selected for any of them.</strong> Oklahoma is at the same stage Texas and California were at when their strategies were built — everything that matters is still ahead. The vendors OSDH is already talking to when it starts writing Year 2+ solicitations will have structural advantages over vendors arriving after the fact. Contact OSDH now. The microgrant deadline is tomorrow (April 13) for rural orgs applying — but WHOOP's engagement with OSDH is not about the microgrant. It is about being the known partner when the $219M starts to move.
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Jessie Spada &nbsp;·&nbsp; April 12, 2026 &nbsp;·&nbsp; CONFIDENTIAL
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>
