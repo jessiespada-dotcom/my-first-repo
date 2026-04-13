@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RHTP Command Center — WHOOP National Dashboard</title>
+<style>
+  :root {
+    --bg: #0d1215;
+    --surface: #151c21;
+    --surface2: #1a2530;
+    --border: #1e2d38;
+    --teal: #00F19F;
+    --blue: #0093E7;
+    --orange: #ffb347;
+    --red: #ff5a5a;
+    --yellow: #e6c020;
+    --green: #a8cc44;
+    --text: #e8eef2;
+    --muted: #6b8394;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .header-logo {
+    width: 36px; height: 36px;
+    background: var(--teal);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px; color: #000; letter-spacing: -1px;
+  }
+  .header h1 { font-size: 18px; font-weight: 700; color: var(--text); }
+  .header-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .header-date { font-size: 12px; color: var(--muted); }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+  .stat-item { text-align: center; }
+  .stat-value { font-size: 22px; font-weight: 800; line-height: 1; }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-v-teal { color: var(--teal); }
+  .stat-v-orange { color: var(--orange); }
+  .stat-v-red { color: var(--red); }
+  .stat-v-blue { color: var(--blue); }
+  .stats-divider { width: 1px; height: 36px; background: var(--border); }
+
+  /* ── MAIN LAYOUT ── */
+  .main { padding: 28px 32px; max-width: 1400px; margin: 0 auto; }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 18px;
+  }
+  .section-title { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ── HEATMAP ── */
+  .heatmap-section { margin-bottom: 40px; }
+  .heatmap-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+  .heatmap-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .heatmap-title { font-size: 16px; font-weight: 700; }
+  .heatmap-desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .heatmap-legend {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+  .legend-label { font-size: 11px; color: var(--muted); }
+  #heatmap-svg { display: block; overflow: visible; }
+  .tile-tooltip {
+    position: fixed;
+    background: #0d1a22;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 999;
+    min-width: 180px;
+    max-width: 240px;
+  }
+  .tile-tooltip.visible { opacity: 1; }
+  .tt-state { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+  .tt-award { color: var(--teal); margin-bottom: 3px; }
+  .tt-status { margin-bottom: 3px; }
+  .tt-action { color: var(--orange); font-size: 11px; }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    display: flex; gap: 8px; align-items: center;
+    margin-bottom: 24px; flex-wrap: wrap;
+  }
+  .filter-label { font-size: 12px; color: var(--muted); margin-right: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .filter-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--teal); color: var(--text); }
+  .filter-btn.active { background: var(--teal); border-color: var(--teal); color: #000; }
+  .filter-count {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 0 6px;
+    font-size: 10px;
+    margin-left: 4px;
+  }
+
+  /* ── ACTION CARDS GRID ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .action-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.1s;
+    position: relative;
+    overflow: hidden;
+  }
+  .action-card:hover { transform: translateY(-1px); }
+  .card-accent {
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .card-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .card-state-name { font-size: 16px; font-weight: 800; }
+  .card-award { font-size: 12px; color: var(--teal); margin-top: 2px; }
+  .urgency-badge {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .card-actions { list-style: none; margin-bottom: 14px; }
+  .card-actions li {
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .card-actions li:last-child { border-bottom: none; }
+  .action-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    margin-top: 4px; flex-shrink: 0;
+  }
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 12px;
+  }
+  .card-deadline { font-size: 11px; color: var(--muted); }
+  .card-deadline span { color: var(--orange); font-weight: 600; }
+  .card-links { display: flex; gap: 8px; }
+  .card-link {
+    font-size: 11px; padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .card-link:hover { border-color: var(--teal); color: var(--teal); }
+  .card-hidden { display: none; }
+
+  /* ── PIPELINE SECTION ── */
+  .pipeline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+  .pipeline-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pipe-state { font-size: 13px; font-weight: 700; }
+  .pipe-award { font-size: 12px; color: var(--teal); }
+  .pipe-badge {
+    font-size: 10px; padding: 3px 8px;
+    border-radius: 10px;
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 24px 32px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .footer a { color: var(--teal); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- TOOLTIP -->
+<div class="tile-tooltip" id="tooltip">
+  <div class="tt-state" id="tt-state"></div>
+  <div class="tt-award" id="tt-award"></div>
+  <div class="tt-status" id="tt-status"></div>
+  <div class="tt-action" id="tt-action"></div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">W</div>
+    <div>
+      <div class="header h1" style="font-size:18px;font-weight:700;">RHTP National Command Center</div>
+      <div class="header-sub" style="font-size:12px;color:var(--muted);margin-top:2px;">CMS Rural Health Transformation Program · WHOOP Vendor Pursuit · 50-State Playbook</div>
+    </div>
+  </div>
+  <div class="header-date">Updated April 13, 2026</div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-value stat-v-teal" id="stat-national">$50B</div>
+    <div class="stat-label">National Program</div>
+  </div>
+  <div class="stats-divider"></div>
+  <div class="stat-item">
+    <div class="stat-value stat-v-blue" id="stat-built">8 / 50</div>
+    <div class="stat-label">States Built</div>
+  </div>
+  <div class="stats-divider"></div>
+  <div class="stat-item">
+    <div class="stat-value stat-v-teal" id="stat-covered">$1.90B</div>
+    <div class="stat-label">Pipeline Covered</div>
+  </div>
+  <div class="stats-divider"></div>
+  <div class="stat-item">
+    <div class="stat-value stat-v-red" id="stat-critical">3</div>
+    <div class="stat-label">Critical Actions</div>
+  </div>
+  <div class="stats-divider"></div>
+  <div class="stat-item">
+    <div class="stat-value stat-v-orange" id="stat-deadline">Apr 15</div>
+    <div class="stat-label">Next Deadline</div>
+  </div>
+  <div class="stats-divider"></div>
+  <div class="stat-item">
+    <div class="stat-value" style="color:var(--muted);font-size:18px;" id="stat-actions">24</div>
+    <div class="stat-label">Actions This Week</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- HEATMAP -->
+  <div class="heatmap-section">
+    <div class="section-header">
+      <div class="section-title">National Urgency Heatmap</div>
+      <div class="section-line"></div>
+    </div>
+    <div class="heatmap-wrapper">
+      <div class="heatmap-header">
+        <div>
+          <div class="heatmap-title">US State Urgency Map — All 50 States</div>
+          <div class="heatmap-desc">Brightness = action urgency. Hover any state for details. Click to jump to state card.</div>
+        </div>
+        <div class="heatmap-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#ff4444"></div><div class="legend-label">Critical</div></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ff8c00"></div><div class="legend-label">Hot</div></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ffb347"></div><div class="legend-label">Warm</div></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#a8cc44"></div><div class="legend-label">Active</div></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#0093E7"></div><div class="legend-label">Monitoring</div></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#2a3540"></div><div class="legend-label">Not Built</div></div>
+        </div>
+      </div>
+      <svg id="heatmap-svg"></svg>
+    </div>
+  </div>
+
+  <!-- ACTION CARDS -->
+  <div class="section-header">
+    <div class="section-title">Active State Plans</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" onclick="filterCards('all')">All <span class="filter-count" id="fc-all">8</span></button>
+    <button class="filter-btn" onclick="filterCards('critical')">Critical <span class="filter-count" id="fc-critical">1</span></button>
+    <button class="filter-btn" onclick="filterCards('hot')">Hot <span class="filter-count" id="fc-hot">2</span></button>
+    <button class="filter-btn" onclick="filterCards('warm')">Warm <span class="filter-count" id="fc-warm">2</span></button>
+    <button class="filter-btn" onclick="filterCards('active')">Active <span class="filter-count" id="fc-active">1</span></button>
+    <button class="filter-btn" onclick="filterCards('monitoring')">Monitoring <span class="filter-count" id="fc-monitoring">1</span></button>
+  </div>
+
+  <div class="cards-grid" id="cards-grid"></div>
+
+  <!-- PIPELINE -->
+  <div class="section-header">
+    <div class="section-title">Next States to Build — Top Pipeline by Award Size</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="pipeline-grid" id="pipeline-grid"></div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  WHOOP RHTP National Command Center &nbsp;·&nbsp; <a href="rhtp-hub.html">Full Hub (State Detail)</a> &nbsp;·&nbsp; <a href="https://jessiespada-dotcom.github.io/my-first-repo/rhtp-hub.html" target="_blank">Live Hub</a> &nbsp;·&nbsp; April 13, 2026
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// STATE GRID DATA — 12-col × 8-row tile layout
+// ─────────────────────────────────────────────
+const GRID_STATES = [
+  {abbr:'AK', name:'Alaska',         award:272, r:0, c:0},
+  {abbr:'ME', name:'Maine',          award:190, r:0, c:11},
+  {abbr:'WA', name:'Washington',     award:181, r:1, c:0},
+  {abbr:'MT', name:'Montana',        award:234, r:1, c:2},
+  {abbr:'ND', name:'North Dakota',   award:199, r:1, c:3},
+  {abbr:'MN', name:'Minnesota',      award:193, r:1, c:4},
+  {abbr:'WI', name:'Wisconsin',      award:204, r:1, c:5},
+  {abbr:'MI', name:'Michigan',       award:173, r:1, c:6},
+  {abbr:'VT', name:'Vermont',        award:195, r:1, c:10},
+  {abbr:'NH', name:'New Hampshire',  award:204, r:1, c:11},
+  {abbr:'OR', name:'Oregon',         award:197, r:2, c:0},
+  {abbr:'ID', name:'Idaho',          award:186, r:2, c:1},
+  {abbr:'WY', name:'Wyoming',        award:205, r:2, c:2},
+  {abbr:'SD', name:'South Dakota',   award:189, r:2, c:3},
+  {abbr:'IA', name:'Iowa',           award:209, r:2, c:4},
+  {abbr:'IL', name:'Illinois',       award:193, r:2, c:5},
+  {abbr:'IN', name:'Indiana',        award:207, r:2, c:6},
+  {abbr:'OH', name:'Ohio',           award:202, r:2, c:7},
+  {abbr:'PA', name:'Pennsylvania',   award:193, r:2, c:8},
+  {abbr:'NY', name:'New York',       award:212, r:2, c:9},
+  {abbr:'CT', name:'Connecticut',    award:154, r:2, c:10},
+  {abbr:'RI', name:'Rhode Island',   award:156, r:2, c:11},
+  {abbr:'CA', name:'California',     award:234, r:3, c:0},
+  {abbr:'NV', name:'Nevada',         award:180, r:3, c:1},
+  {abbr:'CO', name:'Colorado',       award:200, r:3, c:2},
+  {abbr:'NE', name:'Nebraska',       award:219, r:3, c:3},
+  {abbr:'MO', name:'Missouri',       award:216, r:3, c:4},
+  {abbr:'KY', name:'Kentucky',       award:213, r:3, c:5},
+  {abbr:'WV', name:'West Virginia',  award:199, r:3, c:6},
+  {abbr:'VA', name:'Virginia',       award:190, r:3, c:7},
+  {abbr:'MD', name:'Maryland',       award:168, r:3, c:8},
+  {abbr:'NJ', name:'New Jersey',     award:147, r:3, c:9},
+  {abbr:'DE', name:'Delaware',       award:157, r:3, c:10},
+  {abbr:'MA', name:'Massachusetts',  award:162, r:3, c:11},
+  {abbr:'UT', name:'Utah',           award:196, r:4, c:1},
+  {abbr:'NM', name:'New Mexico',     award:211, r:4, c:2},
+  {abbr:'KS', name:'Kansas',         award:222, r:4, c:3},
+  {abbr:'AR', name:'Arkansas',       award:209, r:4, c:4},
+  {abbr:'TN', name:'Tennessee',      award:207, r:4, c:5},
+  {abbr:'NC', name:'North Carolina', award:213, r:4, c:6},
+  {abbr:'SC', name:'South Carolina', award:200, r:4, c:7},
+  {abbr:'AZ', name:'Arizona',        award:167, r:5, c:1},
+  {abbr:'OK', name:'Oklahoma',       award:223, r:5, c:3},
+  {abbr:'LA', name:'Louisiana',      award:208, r:5, c:4},
+  {abbr:'MS', name:'Mississippi',    award:206, r:5, c:5},
+  {abbr:'AL', name:'Alabama',        award:203, r:5, c:6},
+  {abbr:'GA', name:'Georgia',        award:219, r:5, c:7},
+  {abbr:'FL', name:'Florida',        award:210, r:5, c:8},
+  {abbr:'TX', name:'Texas',          award:281, r:6, c:3},
+  {abbr:'HI', name:'Hawaii',         award:189, r:7, c:1},
+];
+
+// ─────────────────────────────────────────────
+// BUILT STATE PLANS — add a state here → card appears
+// ─────────────────────────────────────────────
+const BUILT_STATES = [
+  {
+    abbr: 'MT',
+    name: 'Montana',
+    award: '$233.5M',
+    urgency: 10,
+    tier: 'critical',
+    badge: 'Critical',
+    badgeColor: '#ff4444',
+    headline: 'Live RFP — Act Now',
+    actions: [
+      { text: 'Call prime bidders (Guidehouse, Manatt, HMA) — get named as subcontractor in CoE Implementation proposal before May 15', color: '#ff4444' },
+      { text: 'CoE Analytics RFP due May 1 — connect with BerryDunn / Wipfli analytics firms', color: '#ff4444' },
+      { text: 'Monitor eMACS (bids.mt.gov) commodity code 2620 for Initiative 5 direct technology RFP', color: '#ffb347' },
+      { text: 'All RFP communication via eMACS Q&A board only — cannot email Rhonda Peters directly about RFP specifics', color: '#6b8394' },
+    ],
+    deadline: 'CoE Implementation RFP: <span>May 15, 2026</span>',
+    por: 'montana-rht-por.html',
+    gtm: 'montana-gtm-strategy.html',
+  },
+  {
+    abbr: 'NE',
+    name: 'Nebraska',
+    award: '$218.5M',
+    urgency: 9,
+    tier: 'critical',
+    badge: 'Critical',
+    badgeColor: '#ff4444',
+    headline: 'Workforce Window Opens Apr 15',
+    actions: [
+      { text: 'Email DHHS.RHTP@nebraska.gov — pre-market intro for Initiative 4 eHealth + Initiative 7 Technology Catalyst Fund', color: '#ff4444' },
+      { text: 'Identify CAHs recruiting under Workforce Incentive Program (opens Apr 15) — fastest WHOOP Unite buyers', color: '#ff4444' },
+      { text: 'Contact dhhs.ruralhealth@nebraska.gov — Workforce Incentive list of eligible recruiting facilities', color: '#ffb347' },
+      { text: 'Register on DAS vendor portal (das.nebraska.gov/materiel/vendor-information.html)', color: '#6b8394' },
+    ],
+    deadline: 'Workforce Incentive Opens: <span>April 15, 2026</span>',
+    por: 'nebraska-rht-por.html',
+    gtm: 'nebraska-gtm-strategy.html',
+  },
+  {
+    abbr: 'KS',
+    name: 'Kansas',
+    award: '$221.9M',
+    urgency: 8,
+    tier: 'hot',
+    badge: 'Hot',
+    badgeColor: '#ff8c00',
+    headline: '$33M EBP Funds Flowing Now',
+    actions: [
+      { text: 'Email Dr. Matthew Ross + Rachel Moser at UKHS CCA — EBP technology infrastructure partnership (mross10@kumc.edu)', color: '#ff8c00' },
+      { text: 'Frame WHOOP as EBP technology infrastructure tool — diabetes/heart failure/CKM performance measures', color: '#ff8c00' },
+      { text: 'One CCA endorsement = access to 200+ enrolled providers simultaneously', color: '#ffb347' },
+      { text: 'Monitor KDHE program site for Initiative 5 Consumer Health Technology NOFO (future)', color: '#6b8394' },
+    ],
+    deadline: 'EBP Fund Expenditure: <span>Oct 30, 2026</span>',
+    por: 'kansas-rht-por.html',
+    gtm: 'kansas-gtm-strategy.html',
+  },
+  {
+    abbr: 'TX',
+    name: 'Texas',
+    award: '$281.3M',
+    urgency: 7,
+    tier: 'hot',
+    badge: 'Hot',
+    badgeColor: '#ff8c00',
+    headline: 'Pre-RFP Window Open — Init. 2',
+    actions: [
+      { text: 'Email Anthony Hawley (anthony.hawley@hhs.texas.gov) — Initiative 2 pre-RFP partner positioning', color: '#ff8c00' },
+      { text: 'Begin direct outreach to ~80 rural hospital districts — Initiative 1 ($750K each, immediate revenue)', color: '#ffb347' },
+      { text: 'Engage WHOOP Unite motion with Initiative 4 workforce contacts (fastest close)', color: '#a8cc44' },
+    ],
+    deadline: 'Budget Period 1: <span>Oct 30, 2026</span>',
+    por: 'texas-rht-por.html',
+    gtm: 'texas-gtm-strategy.html',
+  },
+  {
+    abbr: 'CA',
+    name: 'California',
+    award: '$233.6M',
+    urgency: 7,
+    tier: 'warm',
+    badge: 'Warm',
+    badgeColor: '#ffb347',
+    headline: 'RTAC RFA Releasing Spring 2026',
+    actions: [
+      { text: 'Email Hovik Khosrovian (hovik.khosrovian@hcai.ca.gov) — pre-RFA partnership for RTAC technology endorsement', color: '#ffb347' },
+      { text: 'RTAC = $23.55M state endorsement engine reaching 683+ rural health orgs — one deal unlocks all', color: '#ffb347' },
+      { text: 'Direct outreach to ~16 Initiative 1 hub hospitals ($112.2M bucket)', color: '#a8cc44' },
+    ],
+    deadline: 'RFA Expected: <span>Spring 2026</span>',
+    por: 'california-rht-por.html',
+    gtm: 'california-gtm-strategy.html',
+  },
+  {
+    abbr: 'GA',
+    name: 'Georgia',
+    award: '$218.9M',
+    urgency: 6,
+    tier: 'warm',
+    badge: 'Warm',
+    badgeColor: '#e6c020',
+    headline: 'AHEAD Model — Consumer Platform Pre-Market',
+    actions: [
+      { text: 'Email greathealth@dch.ga.gov — Consumer Engagement Platform biometric data layer positioning', color: '#e6c020' },
+      { text: 'Workforce Retention Technology grants active — first awards 2026 (WHOOP Unite direct fit)', color: '#ffb347' },
+      { text: 'Contact GHA (770-249-4500) — LOI hospital outreach for service line support ($750K/yr)', color: '#a8cc44' },
+    ],
+    deadline: 'Consumer Platform Compat. Assessment: <span>2026</span>',
+    por: 'georgia-rht-por.html',
+    gtm: 'georgia-gtm-strategy.html',
+  },
+  {
+    abbr: 'OK',
+    name: 'Oklahoma',
+    award: '$223.5M',
+    urgency: 5,
+    tier: 'active',
+    badge: 'Active',
+    badgeColor: '#a8cc44',
+    headline: 'Microgrant Awards Pending — Late May',
+    actions: [
+      { text: 'Prepare device-only outreach for 75 funded county orgs — Late May award announcement = buying urgency with Oct 30 deadline', color: '#a8cc44' },
+      { text: 'Contact OSDH pre-market — position for ~$219M future technology NOFOs in Years 2–5', color: '#ffb347' },
+      { text: 'Note: Subscriptions are PROHIBITED under current NOFO — device-only pricing only', color: '#ff5a5a' },
+    ],
+    deadline: 'Microgrant Awards: <span>Late May–June 2026</span>',
+    por: 'oklahoma-rht-por.html',
+    gtm: 'oklahoma-gtm-strategy.html',
+  },
+  {
+    abbr: 'AK',
+    name: 'Alaska',
+    award: '$272.2M',
+    urgency: 3,
+    tier: 'monitoring',
+    badge: 'Monitoring',
+    badgeColor: '#0093E7',
+    headline: 'Year 2 Re-Engage Summer 2026',
+    actions: [
+      { text: 'Monitor health.alaska.gov/rhtp + aws.state.ak.us/OnlinePublicNotices for Year 2 RFP postings', color: '#0093E7' },
+      { text: 'Follow up with ACF (rhtp@alaskacf.org) if no reply by Apr 17', color: '#0093E7' },
+      { text: 'DOH declined Apr 12 call — portal closed for review. NOT dead — timing issue. Re-engage summer 2026.', color: '#6b8394' },
+    ],
+    deadline: 'Year 2 RFP Expected: <span>Summer 2026</span>',
+    por: 'alaska-rht-por.html',
+    gtm: 'alaska-gtm-strategy.html',
+  },
+];
+
+// ─────────────────────────────────────────────
+// PIPELINE STATES — unbuilt, sorted by award
+// ─────────────────────────────────────────────
+const PIPELINE = [
+  {abbr:'MO', name:'Missouri',       award:'$216M'},
+  {abbr:'NC', name:'North Carolina', award:'$213M'},
+  {abbr:'KY', name:'Kentucky',       award:'$213M'},
+  {abbr:'NY', name:'New York',       award:'$212M'},
+  {abbr:'NM', name:'New Mexico',     award:'$211M'},
+  {abbr:'FL', name:'Florida',        award:'$210M'},
+  {abbr:'IA', name:'Iowa',           award:'$209M'},
+  {abbr:'AR', name:'Arkansas',       award:'$209M'},
+  {abbr:'LA', name:'Louisiana',      award:'$208M'},
+  {abbr:'IN', name:'Indiana',        award:'$207M'},
+];
+
+// ─────────────────────────────────────────────
+// URGENCY → COLOR
+// ─────────────────────────────────────────────
+function urgencyColor(u) {
+  if (u >= 10) return '#ff4444';
+  if (u >= 9)  return '#ff5533';
+  if (u >= 8)  return '#ff8c00';
+  if (u >= 7)  return '#ffb347';
+  if (u >= 6)  return '#e6c020';
+  if (u >= 5)  return '#a8cc44';
+  if (u >= 3)  return '#0093E7';
+  if (u >= 1)  return '#336688';
+  return '#2a3540';
+}
+
+// ─────────────────────────────────────────────
+// BUILD URGENCY LOOKUP from BUILT_STATES
+// ─────────────────────────────────────────────
+const URGENCY_MAP = {};
+BUILT_STATES.forEach(s => { URGENCY_MAP[s.abbr] = s; });
+
+// ─────────────────────────────────────────────
+// RENDER HEATMAP
+// ─────────────────────────────────────────────
+function buildHeatmap() {
+  const TILE = 46, GAP = 4, COLS = 12, ROWS = 8;
+  const W = COLS * (TILE + GAP) - GAP;
+  const H = ROWS * (TILE + GAP) - GAP;
+  const svg = document.getElementById('heatmap-svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', '100%');
+  svg.style.maxWidth = W + 'px';
+
+  const tooltip = document.getElementById('tooltip');
+
+  GRID_STATES.forEach(gs => {
+    const x = gs.c * (TILE + GAP);
+    const y = gs.r * (TILE + GAP);
+    const built = URGENCY_MAP[gs.abbr];
+    const urgency = built ? built.urgency : 0;
+    const color = urgencyColor(urgency);
+
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.style.cursor = built ? 'pointer' : 'default';
+
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', x); rect.setAttribute('y', y);
+    rect.setAttribute('width', TILE); rect.setAttribute('height', TILE);
+    rect.setAttribute('rx', 4);
+    rect.setAttribute('fill', color);
+    rect.setAttribute('fill-opacity', built ? '1' : '0.7');
+    rect.style.transition = 'fill-opacity 0.15s';
+
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', x + TILE / 2);
+    text.setAttribute('y', y + TILE / 2 + 4);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif');
+    text.setAttribute('font-size', '11');
+    text.setAttribute('font-weight', '700');
+    text.setAttribute('fill', built ? (urgency >= 5 ? '#000' : '#fff') : '#6b8394');
+    text.textContent = gs.abbr;
+
+    g.appendChild(rect);
+    g.appendChild(text);
+
+    g.addEventListener('mouseenter', (e) => {
+      rect.setAttribute('fill-opacity', '0.85');
+      document.getElementById('tt-state').textContent = gs.name + ' (' + gs.abbr + ')';
+      document.getElementById('tt-award').textContent = '$' + gs.award + 'M award';
+      if (built) {
+        document.getElementById('tt-status').textContent = built.badge + ' · ' + built.headline;
+        document.getElementById('tt-action').textContent = built.actions[0] ? built.actions[0].text.substring(0, 80) + '…' : '';
+      } else {
+        document.getElementById('tt-status').textContent = 'Not yet built';
+        document.getElementById('tt-action').textContent = 'Add to pipeline →';
+      }
+      tooltip.classList.add('visible');
+    });
+
+    g.addEventListener('mousemove', (e) => {
+      const margin = 14;
+      let left = e.clientX + margin;
+      let top = e.clientY + margin;
+      const tw = 240, th = 80;
+      if (left + tw > window.innerWidth) left = e.clientX - tw - margin;
+      if (top + th > window.innerHeight) top = e.clientY - th - margin;
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+    });
+
+    g.addEventListener('mouseleave', () => {
+      rect.setAttribute('fill-opacity', built ? '1' : '0.7');
+      tooltip.classList.remove('visible');
+    });
+
+    if (built) {
+      g.addEventListener('click', () => {
+        const card = document.getElementById('card-' + gs.abbr);
+        if (card) {
+          filterCards('all');
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          card.style.borderColor = urgencyColor(built.urgency);
+          setTimeout(() => { card.style.borderColor = ''; }, 1500);
+        }
+      });
+    }
+
+    svg.appendChild(g);
+  });
+}
+
+// ─────────────────────────────────────────────
+// RENDER ACTION CARDS
+// ─────────────────────────────────────────────
+function buildCards() {
+  const grid = document.getElementById('cards-grid');
+  grid.innerHTML = '';
+
+  // Sort: highest urgency first
+  const sorted = [...BUILT_STATES].sort((a, b) => b.urgency - a.urgency);
+
+  sorted.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'action-card';
+    card.id = 'card-' + s.abbr;
+    card.dataset.tier = s.tier;
+
+    card.innerHTML = `
+      <div class="card-accent" style="background:${s.badgeColor}"></div>
+      <div class="card-header">
+        <div>
+          <div class="card-state-name">${s.name}</div>
+          <div class="card-award">${s.award} award</div>
+        </div>
+        <div class="urgency-badge" style="background:${s.badgeColor}22;color:${s.badgeColor};border:1px solid ${s.badgeColor}44">${s.badge}</div>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:${s.badgeColor};margin-bottom:12px;">${s.headline}</div>
+      <ul class="card-actions">
+        ${s.actions.map(a => `
+          <li>
+            <div class="action-dot" style="background:${a.color}"></div>
+            <span>${a.text}</span>
+          </li>
+        `).join('')}
+      </ul>
+      <div class="card-footer">
+        <div class="card-deadline">${s.deadline}</div>
+        <div class="card-links">
+          <a class="card-link" href="${s.por}" target="_blank">POR</a>
+          <a class="card-link" href="${s.gtm}" target="_blank">GTM</a>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ─────────────────────────────────────────────
+// FILTER CARDS
+// ─────────────────────────────────────────────
+let currentFilter = 'all';
+function filterCards(tier) {
+  currentFilter = tier;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event && event.target && event.target.classList.add('active');
+  if (!event || !event.target) {
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      if (b.textContent.trim().toLowerCase().startsWith(tier)) b.classList.add('active');
+    });
+  }
+
+  const cards = document.querySelectorAll('.action-card');
+  cards.forEach(card => {
+    if (tier === 'all' || card.dataset.tier === tier) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// ─────────────────────────────────────────────
+// RENDER PIPELINE
+// ─────────────────────────────────────────────
+function buildPipeline() {
+  const grid = document.getElementById('pipeline-grid');
+  grid.innerHTML = '';
+  PIPELINE.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'pipeline-card';
+    card.innerHTML = `
+      <div>
+        <div class="pipe-state">${p.name}</div>
+        <div class="pipe-award">${p.award}</div>
+      </div>
+      <div class="pipe-badge">Not Built</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ─────────────────────────────────────────────
+// FILTER BUTTON CLICK — reattach clean handler
+// ─────────────────────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tierMap = { 'all':'all', 'critical':'critical', 'hot':'hot', 'warm':'warm', 'active':'active', 'monitoring':'monitoring' };
+    const label = this.textContent.trim().toLowerCase().split(' ')[0];
+    const tier = tierMap[label] || 'all';
+    currentFilter = tier;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    document.querySelectorAll('.action-card').forEach(card => {
+      card.style.display = (tier === 'all' || card.dataset.tier === tier) ? '' : 'none';
+    });
+  });
+});
+
+// ─────────────────────────────────────────────
+// UPDATE FILTER COUNTS
+// ─────────────────────────────────────────────
+function updateCounts() {
+  const counts = { all: 0, critical: 0, hot: 0, warm: 0, active: 0, monitoring: 0 };
+  BUILT_STATES.forEach(s => {
+    counts.all++;
+    if (counts[s.tier] !== undefined) counts[s.tier]++;
+  });
+  Object.keys(counts).forEach(k => {
+    const el = document.getElementById('fc-' + k);
+    if (el) el.textContent = counts[k];
+  });
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+buildHeatmap();
+buildCards();
+buildPipeline();
+updateCounts();
+</script>
+</body>
+</html>
