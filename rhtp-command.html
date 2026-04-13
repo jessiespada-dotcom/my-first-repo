@@ -625,18 +625,21 @@ BUILT_STATES.forEach(s => { URGENCY_MAP[s.abbr] = s; });
 // RENDER D3 GEOGRAPHIC MAP
 // ─────────────────────────────────────────────
 async function buildMap() {
-  const container = document.getElementById('map-container');
-  const W = container.clientWidth || 900;
-  const H = Math.round(W * 0.62);
   const tooltip = document.getElementById('tooltip');
 
   // Small states where abbreviation label doesn't fit
   const SMALL = new Set(['CT','RI','DE','NJ','MD','MA','VT','NH','DC']);
 
+  // Fixed 960×600 viewBox — industry standard for D3 AlbersUsa maps.
+  // This guarantees Alaska (lower-left inset) and Hawaii are always visible.
+  // width:100% CSS handles responsive scaling.
+  const W = 960, H = 600;
+
   const svg = d3.select('#map-container')
     .append('svg')
     .attr('viewBox', `0 0 ${W} ${H}`)
-    .attr('width', '100%');
+    .attr('width', '100%')
+    .attr('preserveAspectRatio', 'xMidYMid meet');
 
   // Loading placeholder
   const loading = svg.append('text')
@@ -660,7 +663,11 @@ async function buildMap() {
   const borders  = topojson.mesh(us, us.objects.states, (a, b) => a !== b);
   const nation   = topojson.mesh(us, us.objects.states, (a, b) => a === b);
 
-  const projection = d3.geoAlbersUsa().fitSize([W, H], states);
+  // Standard AlbersUsa scale/translate for 960×600 — places Alaska and Hawaii
+  // insets correctly in lower-left and lower-center-left respectively.
+  const projection = d3.geoAlbersUsa()
+    .scale(1300)
+    .translate([487, 305]);
   const path = d3.geoPath().projection(projection);
 
   // ── NATION BACKGROUND (subtle outline) ──
