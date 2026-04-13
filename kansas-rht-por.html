@@ -1,0 +1,369 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Kansas RHT — WHOOP Plan of Record</title>
+  <style>
+    :root {
+      --bg:        #0d1215;
+      --bg-card:   rgba(255,255,255,0.03);
+      --text:      #ffffff;
+      --muted:     #aaaaaa;
+      --meta:      #666666;
+      --rule:      rgba(255,255,255,0.08);
+      --teal:      #00F19F;
+      --blue:      #0093E7;
+      --orange:    #ffb347;
+      --red:       #ff5a5a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    .header-bar { background: #000; border-bottom: 1px solid var(--rule); padding: 0 40px; height: 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .header-left { display: flex; align-items: center; gap: 0; }
+    .header-wordmark { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--teal); margin-right: 16px; }
+    .header-pipe { width: 1px; height: 14px; background: rgba(255,255,255,0.15); margin-right: 16px; }
+    .header-meta { font-size: 10px; color: var(--meta); letter-spacing: 0.08em; }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(0,241,159,0.35); background: rgba(0,241,159,0.06); padding: 4px 9px; border-radius: 2px; }
+    .page { max-width: 1180px; margin: 0 auto; padding: 48px 40px 80px; }
+    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .page-title { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 10px; }
+    .page-meta { font-size: 12px; color: var(--meta); letter-spacing: 0.04em; }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+    .rule { height: 1px; background: var(--rule); margin: 36px 0; }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--meta); margin-bottom: 16px; }
+    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+    .stat-cell { background: var(--bg-card); padding: 24px 26px; border-right: 1px solid var(--rule); }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 14px; line-height: 1.5; }
+    .stat-number { font-size: 48px; font-weight: 700; line-height: 1; color: var(--teal); letter-spacing: -0.02em; margin-bottom: 8px; }
+    .stat-number.blue   { color: var(--blue); }
+    .stat-number.white  { color: #fff; }
+    .stat-number.orange { color: var(--orange); }
+    .stat-desc { font-size: 12px; color: #888; line-height: 1.55; }
+    .narrative-title { font-size: 17px; font-weight: 600; color: #fff; padding-bottom: 14px; border-bottom: 1px solid var(--rule); margin-bottom: 20px; }
+    .narrative-body { font-size: 13.5px; line-height: 1.85; color: #bbb; }
+    .narrative-body p { margin-bottom: 14px; }
+    .narrative-body p:last-child { margin-bottom: 0; }
+    .hl        { color: var(--teal);   font-weight: 600; }
+    .hl-orange { color: var(--orange); font-weight: 600; }
+    .hl-red    { color: var(--red);    font-weight: 600; }
+    .hl-white  { color: #fff;          font-weight: 600; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-bottom: 40px; }
+    .col-title { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--meta); padding-bottom: 12px; border-bottom: 1px solid var(--rule); margin-bottom: 22px; }
+    .entry-list { display: flex; flex-direction: column; gap: 20px; }
+    .entry { display: flex; align-items: flex-start; gap: 12px; }
+    .entry-tag { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 7px; border-radius: 2px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+    .tag-teal   { background: rgba(0,241,159,0.10);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .tag-blue   { background: rgba(0,147,231,0.10);  color: var(--blue);   border: 1px solid rgba(0,147,231,0.25); }
+    .tag-orange { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .tag-red    { background: rgba(255,90,90,0.10);  color: var(--red);    border: 1px solid rgba(255,90,90,0.25); }
+    .entry-text { font-size: 13px; color: #bbb; line-height: 1.6; }
+    .entry-text strong { color: #e8e8e8; }
+    .contacts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 40px; }
+    .contact-card { background: var(--bg-card); border: 1px solid var(--rule); border-radius: 4px; padding: 18px 20px; }
+    .contact-role { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 6px; }
+    .contact-name { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .contact-detail { font-size: 12px; color: #777; line-height: 1.7; }
+    .contact-detail a { color: var(--blue); text-decoration: none; }
+    .callout { border-left: 3px solid var(--teal); background: rgba(0,241,159,0.04); border-radius: 0 4px 4px 0; padding: 22px 26px; margin-bottom: 40px; }
+    .callout.orange { border-left-color: var(--orange); background: rgba(255,179,71,0.04); }
+    .callout-label { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .callout.orange .callout-label { color: var(--orange); }
+    .callout-body { font-size: 13.5px; line-height: 1.75; color: #bbb; }
+    .init-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 12.5px; }
+    .init-table th { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--rule); }
+    .init-table td { padding: 14px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #bbb; vertical-align: top; line-height: 1.6; }
+    .init-table tr:last-child td { border-bottom: none; }
+    .init-table td:first-child { color: #fff; font-weight: 600; white-space: nowrap; }
+    .init-table td strong { color: #e8e8e8; }
+    .fit-high  { color: var(--teal);   font-weight: 700; font-size: 11px; }
+    .fit-med   { color: var(--orange); font-weight: 700; font-size: 11px; }
+    .fit-low   { color: #666;          font-weight: 700; font-size: 11px; }
+    .page-footer { font-size: 10px; color: #333; letter-spacing: 0.08em; text-align: right; padding-top: 24px; border-top: 1px solid var(--rule); }
+  </style>
+</head>
+<body>
+
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>CMS Rural Health Transformation<span class="sep">|</span>Kansas<span class="sep">|</span>Updated April 12, 2026
+    </div>
+  </div>
+  <div class="header-badge">EBP Program Active — Money Flowing Now</div>
+</div>
+
+<div class="page">
+
+  <div class="page-eyebrow">CMS Rural Health Transformation Program — Kansas State Award</div>
+  <div class="page-title">Kansas Rural Health Transformation — Plan of Record</div>
+  <div class="page-meta">
+    Award: $221,890,000
+    <span class="dot">·</span>
+    Budget Period 1: Dec 29, 2025 – Oct 30, 2026
+    <span class="dot">·</span>
+    Recipient: Kansas Dept. of Health &amp; Environment (KDHE)
+    <span class="dot">·</span>
+    6th Largest Award Nationally
+    <span class="dot">·</span>
+    5 Initiatives · 24 Programs
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="section-label">Summary</div>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Total Kansas Award<br>(6th Largest Nationally)</div>
+      <div class="stat-number">$222M</div>
+      <div class="stat-desc">Over 5 fiscal years via CMS cooperative agreement. ~900,000 rural Kansas residents. Year 2 funding is contingent on Year 1 performance — Kansas must execute in 2026.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">EBP Program — Active Now<br>(Year 1 Provider Payments)</div>
+      <div class="stat-number blue">$33M</div>
+      <div class="stat-desc">$22M infrastructure + $11M incentive payments flowing to rural hospitals and clinics right now. Hospitals: $100K infra + $50K incentive. Clinics: $50K infra + $25K incentive.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Technology &amp; Remote Monitoring<br>(Future Programs — Pre-Market)</div>
+      <div class="stat-number orange">3</div>
+      <div class="stat-desc">Programs 1.2 (Consumer-Facing Technologies), 5.1 (Remote Patient Monitoring), and 5.4 (Emerging Technology) are programmed but not yet solicited. No vendor selected. Pre-market window open.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Eligible Rural Providers<br>for EBP Program</div>
+      <div class="stat-number white">200+</div>
+      <div class="stat-desc">Rural hospitals (incl. 83 CAHs), Rural Health Clinics, FQHCs, CCBHCs, and full-time primary care physician practices — all eligible for infrastructure payments now.</div>
+    </div>
+  </div>
+
+  <div class="narrative-title">The Opportunity</div>
+  <div class="narrative-body">
+    <p>
+      Kansas was awarded <span class="hl">$221,890,000</span> under the CMS Rural Health Transformation Program — the sixth-largest state award nationally — to fund evidence-based care delivery, prevention, technology innovation, and workforce development across rural Kansas. The program is administered by the <span class="hl-white">Kansas Department of Health and Environment (KDHE)</span> and covers approximately 900,000 rural residents across a state that has structured its plan as <span class="hl">5 Initiatives and 24 discrete programs</span>. Year 2 funding is explicitly contingent on Year 1 performance, meaning KDHE is under real pressure to show results before October 30, 2026.
+    </p>
+    <p>
+      The immediate and distinctive opportunity in Kansas is the <span class="hl">Evidence-Based Practice (EBP) Program</span>, launched March 30, 2026, and currently distributing infrastructure payments to rural hospitals and clinics. KDHE has contracted with the <span class="hl-white">University of Kansas Health System Care Collaborative Association (CCA)</span> to operate the program. Rural hospitals receive <span class="hl">$100,000 in infrastructure payments</span> and an additional <span class="hl">$50,000 in performance incentives</span>. Rural clinics, FQHCs, and CCBHCs receive $50,000 and $25,000 respectively. The EBP FAQ explicitly states that infrastructure payments can fund <em>"investments in technology or data infrastructure to support expanded quality improvement activities."</em> This is the direct lane for WHOOP.
+    </p>
+    <p>
+      The performance measures that EBP-funded hospitals and clinics must report on include: <span class="hl">Diabetes Hospital Discharge Checklist, Heart Failure Hospital Discharge Checklist, Cardiovascular-Kidney-Metabolic (CKM) Syndrome management, STEMI/NSTEMI protocols, stroke management, and sepsis response.</span> These are the exact chronic disease conditions that WHOOP monitors continuously — resting heart rate, heart rate variability, sleep quality, cardiovascular strain, and recovery readiness. A rural Kansas hospital that deploys WHOOP as its biometric monitoring infrastructure has a data collection layer that directly supports EBP performance measure reporting on its highest-burden patient populations. <span class="hl-red">The funded hospitals and clinics are signing their Participation Agreements right now and building their technology workplans.</span> WHOOP needs to be in those conversations before the workplan investments are finalized.
+    </p>
+    <p>
+      Beyond the EBP program, Kansas has programmed three technology-specific programs under Initiatives 1 and 5 that have not yet been solicited: <span class="hl">Program 1.2 — Consumer-Facing Technologies</span>, <span class="hl">Program 5.1 — Remote Patient Monitoring</span>, and <span class="hl">Program 5.4 — Emerging Technology</span>. These are future NOFOs — but they represent the larger, multi-year technology deployment opportunity. WHOOP is the exact product category each program was designed for. No vendor has been selected. The pre-market engagement window is open simultaneously with the EBP rollout.
+    </p>
+    <p>
+      CCA is the structural leverage point. CCA operates the EBP program for all eligible Kansas providers, produces all resources and tools, and conducts on-site visits with every participating hospital and clinic. <span class="hl-orange">Getting WHOOP endorsed by CCA as the recommended biometric monitoring technology for EBP participants means state-level reach to every funded provider simultaneously — without WHOOP needing to close each hospital individually.</span> CCA's mandate explicitly includes helping providers make "investments in technology or data infrastructure." WHOOP is that investment.
+    </p>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="section-label">Program Map — WHOOP Fit Across Kansas's 24 Programs</div>
+  <table class="init-table">
+    <thead>
+      <tr>
+        <th>Program</th>
+        <th>Initiative / Focus</th>
+        <th>WHOOP Fit</th>
+        <th>Score</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>4.1 — Evidence-Based<br>Practice Program</td>
+        <td>Infrastructure payments to rural hospitals and clinics for implementing evidence-based practices. Performance measures include diabetes, heart failure, CKM syndrome, STEMI/NSTEMI, stroke. $100K hospitals / $50K clinics.</td>
+        <td><strong>Direct entry now.</strong> EBP FAQ explicitly allows "investments in technology or data infrastructure." WHOOP's continuous biometric monitoring (HRV, resting HR, sleep, recovery) directly supports performance measure collection for diabetes, HF, and CKM. Funded providers are building technology workplans right now. WHOOP must be named before workplans close.</td>
+        <td><span class="fit-high">PRIMARY</span></td>
+        <td>$33M active. Infrastructure attestation due Oct 1, 2027. Incentive attestation due Oct 30, 2026. Providers signing now.</td>
+      </tr>
+      <tr>
+        <td>1.2 — Consumer-Facing<br>Technologies Program</td>
+        <td>Expand primary and secondary prevention via consumer-facing health technology. Consumer apps, wearable devices, and patient-facing digital health tools for prevention programming.</td>
+        <td><strong>Exact product category.</strong> WHOOP is the consumer-facing health technology the program was designed to deploy. No vendor selected. No solicitation published. Pre-market window open. Position WHOOP with KDHE before RFP language is written.</td>
+        <td><span class="fit-high">PRIMARY</span></td>
+        <td>No solicitation released. Pre-market window open. Monitor kdhe.ks.gov/2361 for NOFO announcements.</td>
+      </tr>
+      <tr>
+        <td>5.1 — Remote Patient<br>Monitoring Program</td>
+        <td>Leverage remote monitoring technology to bridge geographic gaps and enhance care delivery for rural Kansas patients. Continuous biometric data, provider-accessible dashboards, chronic disease management.</td>
+        <td><strong>Core use case.</strong> WHOOP generates continuous remote biometric data — HR, HRV, sleep, SpO2, skin temperature — accessible via provider-facing dashboard and API. This is the exact infrastructure Program 5.1 was designed to fund. No vendor selected. Engage KDHE before solicitation is written.</td>
+        <td><span class="fit-high">PRIMARY</span></td>
+        <td>No solicitation released. Pre-market window open. Positioned under Initiative 5: Harness Data and Technology.</td>
+      </tr>
+      <tr>
+        <td>5.4 — Emerging<br>Technology Program</td>
+        <td>Deploy emerging technologies — mobile health, data analytics, AI-enabled care tools — to enhance rural health delivery and empower patients in underserved Kansas communities.</td>
+        <td><strong>Platform play.</strong> WHOOP's biometric wearable + AI-driven recovery and readiness scoring + provider dashboard positions as emerging health technology for rural Kansas. API integration enables workflow embedding in EHR and care coordination platforms. Pre-market engagement shapes what "emerging technology" KDHE funds.</td>
+        <td><span class="fit-high">PRIMARY</span></td>
+        <td>No solicitation released. Pre-market window open.</td>
+      </tr>
+      <tr>
+        <td>3.3 — Recruitment &amp;<br>Retention Program</td>
+        <td>Build a sustainable rural health workforce — recruit physicians, nurses, and allied health professionals to rural Kansas communities and retain them through career support and wellness benefits.</td>
+        <td><strong>Workforce wellness play.</strong> WHOOP Unite as the premium provider wellness benefit for rural Kansas health systems. Supports provider recovery, sleep, and readiness in high-demand rural environments. Existing WHOOP Unite enterprise motion — fastest path to signed paper without a new government procurement cycle.</td>
+        <td><span class="fit-med">SECONDARY</span></td>
+        <td>No solicitation released. Use existing enterprise motion. Fund future workforce NOFOs.</td>
+      </tr>
+      <tr>
+        <td>2.1 — Regional Partnerships<br>Grant Program</td>
+        <td>$44M for collaborative regional arrangements promoting preventive healthcare. Hub-and-spoke regional networks. Application deadline April 3, 2026.</td>
+        <td><strong>Missed window.</strong> RPGP application deadline was April 3, 2026. Organizations that applied will need technology vendors to execute their project scopes. Once RPGP awards are announced, funded regional partnerships are outreach targets for WHOOP as the consumer health monitoring layer.</td>
+        <td><span class="fit-med">SECONDARY</span></td>
+        <td>Application window closed April 3. Award list pending. Target funded orgs when announced.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="two-col">
+    <div>
+      <div class="col-title">Why WHOOP Fits — Exact Language from Source Docs</div>
+      <div class="entry-list">
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">EBP FAQ — Infrastructure</div>
+          <div class="entry-text">
+            <strong>"A hospital or clinic may need to hire additional staff or make investments in technology or data infrastructure to support expanded quality improvement activities."</strong> This is the exact language that authorizes WHOOP as an EBP infrastructure investment. No interpretation required — the FAQ names this category explicitly.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">EBP — Performance Measures</div>
+          <div class="entry-text">
+            <strong>Hospital measures: Diabetes Discharge Checklist, Heart Failure Discharge Checklist, Cardiovascular-Kidney-Metabolic Syndrome, STEMI/NSTEMI, Stroke.</strong> Clinic measures include: CKM Syndrome, Abnormal WHtR (waist-to-height ratio) with action plan, Medication Reconciliation. WHOOP continuously monitors the biometric markers — HRV, resting heart rate, sleep quality, cardiovascular strain — that underlie every one of these conditions.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Initiative 5 — Program Vision</div>
+          <div class="entry-text">
+            <strong>"Rural Kansas providers should leverage technology, from telehealth and remote monitoring to data analytics and mobile health solutions, to bridge geographic gaps, enhance care delivery, and empower patients."</strong> This is Kansas's stated technology vision. WHOOP is the mobile health + remote monitoring solution this language was written for.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">CCA Structure</div>
+          <div class="entry-text">
+            <strong>CCA is contracted to provide "development and provision of supportive resources" and "verification of provider infrastructure investments."</strong> CCA visits every EBP-participating hospital and clinic within 12 months of attestation. A WHOOP partnership with CCA means the WHOOP recommendation reaches every provider during that on-site visit — at the moment they're deciding how to spend their infrastructure funds.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Year 2 Pressure</div>
+          <div class="entry-text">
+            <strong>"Year 2 funding contingent on Year 1 performance."</strong> KDHE must demonstrate outcomes to CMS to unlock Year 2 funding. Hospitals and clinics that fail to show performance improvement on EBP measures risk Kansas losing Year 2 funding. WHOOP gives providers the continuous monitoring data they need to demonstrate exactly the outcomes that protect Year 2 funding.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <div class="col-title">Recommended Actions</div>
+      <div class="entry-list">
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Contact CCA to propose WHOOP as the EBP technology infrastructure tool.</strong> CCA operates the entire EBP program — they provide resources, do on-site visits, and help providers decide where to invest their infrastructure funds. Email mross10@kumc.edu (non-clinical lead) and care.collaborative@rhtp.net. Frame WHOOP as the biometric monitoring technology that directly supports EBP performance measure collection for diabetes, HF, and CKM syndrome. This is the highest-leverage single outreach action in Kansas.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Contact KDHE about Initiative 5 technology programs (1.2, 5.1, 5.4).</strong> Reach KDHE's RHT program team at kdhe.ks.gov/2361. Introduce WHOOP as the consumer-facing and remote monitoring technology aligned with Kansas's technology innovation vision. Ask about the solicitation timeline for Programs 1.2, 5.1, and 5.4. Get in the conversation before language is written.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-teal">Now</div>
+          <div class="entry-text">
+            <strong>Target rural Kansas CAHs that are signing EBP Participation Agreements now.</strong> Kansas has 83 Critical Access Hospitals — all eligible for the $100K EBP infrastructure payment. They are building their technology workplans right now. Call and email hospital administrators. Frame WHOOP as the technology investment that positions their EBP program for success on diabetes, heart failure, and CKM performance measures.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Soon</div>
+          <div class="entry-text">
+            <strong>Monitor RPGP award announcements.</strong> The $44M Regional Partnerships Grant Program application deadline was April 3. When KDHE announces award recipients, funded regional partnerships become immediate outreach targets — they have money, a mandate to build preventive health networks, and need technology to execute. WHOOP as the consumer health monitoring layer for regional partnerships.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-orange">Soon</div>
+          <div class="entry-text">
+            <strong>Engage the Kansas Hospital Association (KHA) and Kansas Office of Rural Health.</strong> KHA co-built the QHi reporting infrastructure used by EBP participants. KHA has a direct relationship with every rural Kansas hospital. A KHA endorsement or presentation slot reaches the entire rural Kansas hospital network simultaneously. Contact KHA's rural health team.
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-tag tag-blue">Later</div>
+          <div class="entry-text">
+            <strong>Build a WHOOP–EBP performance measure one-pager.</strong> Create an asset that maps WHOOP's biometric monitoring to each EBP performance measure — showing exactly how WHOOP data supports diabetes, HF, and CKM quality improvement reporting. This is the document CCA hospital and clinic performance improvement specialists can use during on-site visits to justify WHOOP as an infrastructure investment.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="section-label">Key Contacts</div>
+  <div class="contacts">
+    <div class="contact-card">
+      <div class="contact-role">KDHE — RHT Program Office</div>
+      <div class="contact-name">Kansas KDHE RHT Program</div>
+      <div class="contact-detail">
+        Kansas Dept. of Health &amp; Environment<br>
+        Rural Health Transformation Program<br>
+        <a href="https://www.kdhe.ks.gov/2361/Rural-Health-Transformation-Program">kdhe.ks.gov/2361</a><br>
+        Program updates, NOFO announcements, program contacts
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-role">CCA — EBP Program Operator (Primary)</div>
+      <div class="contact-name">UKHS Care Collaborative Assoc.</div>
+      <div class="contact-detail">
+        University of Kansas Health System<br>
+        Operates EBP program for KDHE<br>
+        Non-clinical: <a href="mailto:mross10@kumc.edu">mross10@kumc.edu</a><br>
+        Clinical: <a href="mailto:rmoser@kumc.edu">rmoser@kumc.edu</a> (Dr. Bob Moser)<br>
+        <a href="mailto:care.collaborative@rhtp.net">care.collaborative@rhtp.net</a>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-role">Kansas Hospital Association — QHi / Rural Network</div>
+      <div class="contact-name">KHA / Kansas Healthworks</div>
+      <div class="contact-detail">
+        Built QHi reporting infrastructure used by all EBP participants<br>
+        Stuart Moore: <a href="mailto:smoore@kha-net.org">smoore@kha-net.org</a><br>
+        Azucena Gonzalez: <a href="mailto:agonzalez@kha-net.org">agonzalez@kha-net.org</a><br>
+        <a href="https://www.myqhi.org">myqhi.org</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">The EBP Entry Point — Technology Infrastructure Funds Are Available Right Now</div>
+    <div class="callout-body">
+      Kansas is the only state in this playbook where WHOOP has an immediate, active funding mechanism to point to. The EBP Program is live, providers are signing agreements, and the infrastructure payments explicitly allow technology investments. <strong style="color:#e8e8e8;">Rural Kansas hospitals have $100K right now and are asking what technology to buy.</strong> The EBP performance measures — diabetes, heart failure, cardiovascular-kidney-metabolic syndrome — are the exact chronic disease conditions WHOOP monitors continuously. Every other state required waiting for a NOFO. Kansas doesn't. The conversation with a rural Kansas CAH administrator can happen today, with an active funding program to reference and a clear category match. This is the most immediately actionable WHOOP opportunity in the national $50B program as of April 2026.
+    </div>
+  </div>
+
+  <div class="callout orange">
+    <div class="callout-label">The CCA Leverage Play — One Relationship Reaches All 200+ Funded Providers</div>
+    <div class="callout-body">
+      CCA is contracted to operate the EBP program for all eligible Kansas providers. Its mandate includes: program design, provider education, development of supportive resources, and on-site verification visits with every participating hospital and clinic. <strong style="color:#e8e8e8;">If WHOOP is embedded in CCA's resource library as the recommended biometric monitoring technology for EBP participants, it is promoted to every rural Kansas hospital and clinic simultaneously</strong> — during the on-site visits where administrators are making infrastructure investment decisions. This is the California RTAC play applied to Kansas's EBP infrastructure. Contact CCA's non-clinical lead (mross10@kumc.edu) and position WHOOP as the data infrastructure tool CCA should be recommending. CCA has every incentive to help providers succeed on performance measures — WHOOP helps them do exactly that.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Jessie Spada &nbsp;·&nbsp; April 12, 2026 &nbsp;·&nbsp; CONFIDENTIAL
+  </div>
+
+</div>
+</body>
+</html>
