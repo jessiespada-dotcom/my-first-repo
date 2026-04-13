@@ -370,15 +370,17 @@
 <script>
 // ─────────────────────────────────────────────
 // FIPS → STATE DATA (for D3 geographic map)
+// Keys are zero-padded 2-digit strings to match us-atlas@3 TopoJSON ids.
+// Lookup uses padStart(2,'0') so integer ids (2) and string ids ('02') both work.
 // ─────────────────────────────────────────────
 const FIPS_MAP = {
-  '1': {abbr:'AL',name:'Alabama',         award:'$203M'},
-  '2': {abbr:'AK',name:'Alaska',          award:'$272M'},
-  '4': {abbr:'AZ',name:'Arizona',         award:'$167M'},
-  '5': {abbr:'AR',name:'Arkansas',        award:'$209M'},
-  '6': {abbr:'CA',name:'California',      award:'$234M'},
-  '8': {abbr:'CO',name:'Colorado',        award:'$200M'},
-  '9': {abbr:'CT',name:'Connecticut',     award:'$154M'},
+  '01':{abbr:'AL',name:'Alabama',         award:'$203M'},
+  '02':{abbr:'AK',name:'Alaska',          award:'$272M'},
+  '04':{abbr:'AZ',name:'Arizona',         award:'$167M'},
+  '05':{abbr:'AR',name:'Arkansas',        award:'$209M'},
+  '06':{abbr:'CA',name:'California',      award:'$234M'},
+  '08':{abbr:'CO',name:'Colorado',        award:'$200M'},
+  '09':{abbr:'CT',name:'Connecticut',     award:'$154M'},
   '10':{abbr:'DE',name:'Delaware',        award:'$157M'},
   '12':{abbr:'FL',name:'Florida',         award:'$210M'},
   '13':{abbr:'GA',name:'Georgia',         award:'$219M'},
@@ -423,6 +425,11 @@ const FIPS_MAP = {
   '55':{abbr:'WI',name:'Wisconsin',       award:'$204M'},
   '56':{abbr:'WY',name:'Wyoming',         award:'$205M'},
 };
+
+// Handles both integer ids (2) and zero-padded string ids ('02')
+function fipsLookup(id) {
+  return FIPS_MAP[String(id).padStart(2, '0')] || null;
+}
 
 // ─────────────────────────────────────────────
 // BUILT STATE PLANS — add a state here → card appears
@@ -671,24 +678,24 @@ async function buildMap() {
     .attr('class', 'state')
     .attr('d', path)
     .attr('fill', function(d) {
-      const info = FIPS_MAP[String(d.id)];
+      const info = fipsLookup(d.id);
       if (!info) return '#1a2a35';
       const built = URGENCY_MAP[info.abbr];
       return built ? urgencyColor(built.urgency) : '#1e2d38';
     })
     .attr('fill-opacity', function(d) {
-      const info = FIPS_MAP[String(d.id)];
+      const info = fipsLookup(d.id);
       if (!info) return 0.6;
       return URGENCY_MAP[info.abbr] ? 1 : 0.75;
     })
     .attr('stroke', '#0d1215')
     .attr('stroke-width', 0.4)
     .style('cursor', function(d) {
-      const info = FIPS_MAP[String(d.id)];
+      const info = fipsLookup(d.id);
       return (info && URGENCY_MAP[info.abbr]) ? 'pointer' : 'default';
     })
     .on('mouseenter', function(event, d) {
-      const info = FIPS_MAP[String(d.id)];
+      const info = fipsLookup(d.id);
       const built = info ? URGENCY_MAP[info.abbr] : null;
       d3.select(this).attr('fill-opacity', 0.7);
       document.getElementById('tt-state').textContent  = info ? info.name + ' (' + info.abbr + ')' : '—';
@@ -712,13 +719,13 @@ async function buildMap() {
       tooltip.style.top  = top  + 'px';
     })
     .on('mouseleave', function(event, d) {
-      const info  = FIPS_MAP[String(d.id)];
+      const info  = fipsLookup(d.id);
       const built = info ? URGENCY_MAP[info.abbr] : null;
       d3.select(this).attr('fill-opacity', built ? 1 : 0.75);
       tooltip.classList.remove('visible');
     })
     .on('click', function(event, d) {
-      const info  = FIPS_MAP[String(d.id)];
+      const info  = fipsLookup(d.id);
       const built = info ? URGENCY_MAP[info.abbr] : null;
       if (!built) return;
       const card = document.getElementById('card-' + info.abbr);
@@ -756,19 +763,19 @@ async function buildMap() {
     .attr('dominant-baseline', 'middle')
     .attr('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif')
     .attr('font-size', function(d) {
-      const info = FIPS_MAP[String(d.id)];
+      const info = fipsLookup(d.id);
       return (info && SMALL.has(info.abbr)) ? 0 : 9;
     })
     .attr('font-weight', '700')
     .attr('fill', function(d) {
-      const info  = FIPS_MAP[String(d.id)];
+      const info  = fipsLookup(d.id);
       const built = info ? URGENCY_MAP[info.abbr] : null;
       if (!built) return '#4a6070';
       return built.urgency >= 5 ? '#000000' : '#e8eef2';
     })
     .attr('pointer-events', 'none')
     .text(function(d) {
-      const info = FIPS_MAP[String(d.id)];
+      const info = fipsLookup(d.id);
       return info ? info.abbr : '';
     });
 }
