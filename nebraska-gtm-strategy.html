@@ -1,0 +1,497 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Nebraska RHTP — WHOOP Go-To-Market Strategy</title>
+  <style>
+    :root {
+      --bg:        #0d1215;
+      --bg-card:   rgba(255,255,255,0.03);
+      --text:      #ffffff;
+      --muted:     #aaaaaa;
+      --meta:      #666666;
+      --rule:      rgba(255,255,255,0.08);
+      --teal:      #00F19F;
+      --blue:      #0093E7;
+      --orange:    #ffb347;
+      --red:       #ff5a5a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .header-bar {
+      background: #000;
+      border-bottom: 1px solid var(--rule);
+      padding: 0 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; }
+    .header-wordmark { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--teal); margin-right: 16px; }
+    .header-pipe { width: 1px; height: 14px; background: rgba(255,255,255,0.15); margin-right: 16px; }
+    .header-meta { font-size: 10px; color: var(--meta); letter-spacing: 0.08em; }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(0,241,159,0.35); background: rgba(0,241,159,0.06); padding: 4px 9px; border-radius: 2px; }
+
+    .page { max-width: 1180px; margin: 0 auto; padding: 48px 40px 80px; }
+
+    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .page-title { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 10px; }
+    .page-meta { font-size: 12px; color: var(--meta); letter-spacing: 0.04em; }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+
+    .rule { height: 1px; background: var(--rule); margin: 36px 0; }
+
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--meta); margin-bottom: 16px; }
+
+    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+    .stat-cell { background: var(--bg-card); padding: 24px 26px; border-right: 1px solid var(--rule); }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 14px; line-height: 1.5; }
+    .stat-number { font-size: 48px; font-weight: 700; line-height: 1; color: var(--teal); letter-spacing: -0.02em; margin-bottom: 8px; }
+    .stat-number.blue   { color: var(--blue); }
+    .stat-number.white  { color: #fff; }
+    .stat-number.orange { color: var(--orange); }
+    .stat-desc { font-size: 12px; color: #888; line-height: 1.55; }
+
+    .narrative-title { font-size: 17px; font-weight: 600; color: #fff; padding-bottom: 14px; border-bottom: 1px solid var(--rule); margin-bottom: 20px; }
+    .narrative-body { font-size: 13.5px; line-height: 1.85; color: #bbb; }
+    .narrative-body p { margin-bottom: 14px; }
+    .narrative-body p:last-child { margin-bottom: 0; }
+    .hl        { color: var(--teal);   font-weight: 600; }
+    .hl-orange { color: var(--orange); font-weight: 600; }
+    .hl-white  { color: #fff;          font-weight: 600; }
+
+    .strategy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+    .strategy-card { background: var(--bg-card); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+    .strategy-card.recommended { border-color: rgba(0,241,159,0.3); }
+    .strategy-header { padding: 20px 22px 16px; border-bottom: 1px solid var(--rule); }
+    .strategy-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; margin-bottom: 12px; }
+    .badge-teal   { background: rgba(0,241,159,0.10); color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .badge-blue   { background: rgba(0,147,231,0.10); color: var(--blue);   border: 1px solid rgba(0,147,231,0.25); }
+    .badge-orange { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .strategy-plan-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 6px; }
+    .strategy-title { font-size: 18px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 6px; }
+    .strategy-subtitle { font-size: 12px; color: #777; line-height: 1.5; }
+    .strategy-body { padding: 20px 22px; }
+    .strategy-section-label { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 10px; margin-top: 18px; }
+    .strategy-section-label:first-child { margin-top: 0; }
+    .strategy-body p { font-size: 13px; color: #bbb; line-height: 1.65; }
+    .dot-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .dot-list li { font-size: 12.5px; color: #bbb; padding-left: 16px; position: relative; line-height: 1.5; }
+    .dot-list li::before { content: '—'; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+    .dot-list.orange li::before { color: var(--orange); }
+    .dot-list.blue li::before   { color: var(--blue); }
+    .dot-list li strong { color: #e8e8e8; }
+    .strategy-footer { padding: 14px 22px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .footer-item-label { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--meta); margin-bottom: 4px; }
+    .footer-item-value { font-size: 12px; color: #bbb; }
+
+    .compare-table { width: 100%; border-collapse: collapse; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; font-size: 12.5px; }
+    .compare-table thead tr { background: rgba(255,255,255,0.04); }
+    .compare-table th { padding: 14px 20px; text-align: left; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+    .compare-table th:last-child { border-right: none; }
+    .compare-table td { padding: 14px 20px; color: #bbb; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+    .compare-table td:last-child { border-right: none; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+    .compare-table .row-label { font-weight: 600; color: #ccc; white-space: nowrap; }
+    .pill { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 2px; }
+    .pill-high { background: rgba(0,241,159,0.10);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .pill-med  { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .pill-low  { background: rgba(255,90,90,0.10);  color: var(--red);    border: 1px solid rgba(255,90,90,0.25); }
+
+    .timeline-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+    .timeline-col { padding: 24px 26px; border-right: 1px solid var(--rule); }
+    .timeline-col:last-child { border-right: none; }
+    .timeline-header { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+    .timeline-header.orange { color: var(--orange); }
+    .timeline-header.blue   { color: var(--blue); }
+    .timeline-sub { font-size: 11px; color: var(--meta); margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
+
+    .callout { border-left: 3px solid var(--teal); background: rgba(0,241,159,0.04); border-radius: 0 4px 4px 0; padding: 22px 26px; margin-bottom: 40px; }
+    .callout.orange { border-left-color: var(--orange); background: rgba(255,179,71,0.04); }
+    .callout-label { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .callout.orange .callout-label { color: var(--orange); }
+    .callout-body { font-size: 13.5px; line-height: 1.75; color: #bbb; }
+
+    .email-draft { background: rgba(255,255,255,0.02); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+    .email-header { background: rgba(255,255,255,0.04); border-bottom: 1px solid var(--rule); padding: 14px 22px; display: grid; grid-template-columns: auto 1fr; gap: 20px; }
+    .email-field-label { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); line-height: 1.8; }
+    .email-field-value { font-size: 13px; color: #ccc; line-height: 1.8; }
+    .email-body { padding: 22px 26px; font-size: 13.5px; line-height: 1.85; color: #bbb; }
+    .email-body p { margin-bottom: 14px; }
+    .email-body p:last-child { margin-bottom: 0; }
+
+    .page-footer { font-size: 10px; color: #333; letter-spacing: 0.08em; text-align: right; padding-top: 24px; border-top: 1px solid var(--rule); }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>CMS Rural Health Transformation<span class="sep">|</span>Nebraska Go-To-Market<span class="sep">|</span>April 2026
+    </div>
+  </div>
+  <div class="header-badge">GTM Strategy</div>
+</div>
+
+
+<div class="page">
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-eyebrow">Nebraska RHTP — Go-To-Market Strategy</div>
+  <div class="page-title">Two Named Primary Lanes. One Urgent Workforce Window.<br>How WHOOP Wins in Nebraska's Rural Health Transformation.</div>
+  <div class="page-meta">
+    Prepared by: Jessie Spada, Enterprise BDR
+    <span class="dot">·</span>
+    Audience: Manager + Chief of Staff
+    <span class="dot">·</span>
+    April 13, 2026
+    <span class="dot">·</span>
+    Based on $218,529,075.01 award to Nebraska DHHS
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── STATS ── -->
+  <div class="section-label">The Market</div>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Total Nebraska Award<br>(8th Largest Nationally)</div>
+      <div class="stat-number">$219M</div>
+      <div class="stat-desc">5-year cooperative agreement to Nebraska DHHS. 7 initiatives across food, access, workforce, eHealth, behavioral health, assisted living, and technology innovation.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Workforce Incentive<br>Program — Opens</div>
+      <div class="stat-number orange">Apr 15</div>
+      <div class="stat-desc">Application opens April 15 — 2 days away. Facilities recruiting incentivized providers ($7,500–$75K/yr × 5 yrs) are buying WHOOP Unite now. Time-sensitive urgency is real.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Initiative 4 — eHealth<br>Vendor Named?</div>
+      <div class="stat-number blue">None</div>
+      <div class="stat-desc">No vendor selected for Initiative 4 remote patient monitoring or Initiative 7 Technology Catalyst Fund. Pre-market window is open. Contact DHHS.RHTP@nebraska.gov this week.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Nebraska Critical<br>Access Hospitals</div>
+      <div class="stat-number white">41</div>
+      <div class="stat-desc">41 CAHs across rural Nebraska — the primary direct outreach targets for WHOOP Unite. Small, independently administered facilities with direct decision-making authority. Fastest close path.</div>
+    </div>
+  </div>
+
+
+  <!-- ── CONTEXT ── -->
+  <div class="narrative-title">The Nebraska Opportunity — Named Remote Monitoring, Active Workforce Window, and a Technology Fund with No Vendor</div>
+  <div class="narrative-body">
+    <p>
+      Nebraska received <span class="hl">$218.5M</span> under the CMS Rural Health Transformation Program — the 8th-largest state award nationally — and structured its program with a level of initiative specificity that is unusual in the national portfolio. Most states build broad technology or innovation categories. Nebraska named its eHealth initiative explicitly: <span class="hl-white">Initiative 4 (eHealth and Mobile Care)</span> funds <em>chronic disease management and remote patient monitoring</em> — not "health technology broadly," but the specific use case that WHOOP occupies. This is as direct a mandate as any state in the portfolio has written for a product like WHOOP. No vendor has been named. No RFP has been released.
+    </p>
+    <p>
+      Nebraska's <span class="hl-white">Initiative 7 (Rural Health Technology Catalyst Fund)</span> is the dedicated procurement vehicle for the program — a competitive grant fund for consumer health technology deployment in rural settings. No vendor selected. No solicitation released. This is the same structural opportunity as Alaska's Spark Technology Fund — a designated pool where WHOOP can win on its own merits as a consumer health technology rather than being named as a line item inside a larger program.
+    </p>
+    <p>
+      The third Nebraska opportunity operates on a different timeline. The <span class="hl-orange">Rural Health Workforce Incentive Program</span> opens for applications on April 15, 2026 — two days from today. This program awards $7,500–$75,000/year for 5-year rural service commitments to physicians, nurses, and allied health professionals in rural Nebraska. Facilities participating in this program are currently thinking about what makes their recruiting package competitive against larger urban systems. WHOOP Unite is that differentiator. A rural CAH that is about to commit a physician to a 5-year rural service incentive can offer WHOOP Unite as part of the benefits package — provider wellness technology that helps rural physicians manage the physical and cognitive demands of high-load rural practice. The urgency is real: these facilities are making those decisions now, not in a future procurement cycle.
+    </p>
+    <p>
+      Below are three GTM plans for Nebraska, structured around the near-term, medium-term, and strategic plays — with a 30/60/90 day action plan and opening email to the DHHS RHTP program office.
+    </p>
+  </div>
+
+  <div class="rule"></div>
+
+
+  <!-- ── THREE STRATEGY CARDS ── -->
+  <div class="section-label">The Three Plans</div>
+  <div class="strategy-grid">
+
+    <!-- PLAN A -->
+    <div class="strategy-card recommended">
+      <div class="strategy-header">
+        <div class="strategy-badge badge-teal">Plan A — Strategic Play · Recommended</div>
+        <div class="strategy-plan-label">Initiative 4 (eHealth) + Initiative 7 (Technology Catalyst Fund)</div>
+        <div class="strategy-title">DHHS State Partnership — Pre-Market Engagement for Remote Monitoring and Technology Catalyst Fund</div>
+        <div class="strategy-subtitle">Nebraska explicitly named chronic disease management and remote patient monitoring in Initiative 4. Initiative 7 is a dedicated technology fund with no vendor. Contact DHHS.RHTP@nebraska.gov before either solicitation is drafted.</div>
+      </div>
+      <div class="strategy-body">
+        <div class="strategy-section-label">The Approach</div>
+        <p>Nebraska's Initiative 4 (eHealth and Mobile Care) is the most directly named WHOOP opportunity in the state's program — it explicitly funds chronic disease management technology and remote patient monitoring. Initiative 7 (Rural Health Technology Catalyst Fund) is Nebraska's dedicated competitive procurement vehicle for consumer health technology in rural settings. Neither initiative has a vendor named. Neither has released an RFP or solicitation. The pre-market window is the moment to introduce WHOOP to DHHS as the consumer wearable monitoring platform before either vendor selection process is defined. Contact DHHS.RHTP@nebraska.gov — introduce WHOOP as the continuous remote monitoring platform for chronic disease management, explain WHOOP's fit for both Initiative 4 and Initiative 7, and ask about the timeline for vendor selection in these two initiatives. Register as a vendor at das.nebraska.gov/materiel/vendor-information.html and monitor DHHS grants/contract opportunities pages for solicitation releases. The single most important action in Nebraska is getting a pre-RFP conversation with DHHS before the Initiative 4 and Initiative 7 vendor ecosystem is defined.</p>
+        <div class="strategy-section-label">Key Actions</div>
+        <ul class="dot-list">
+          <li><strong>Email DHHS.RHTP@nebraska.gov</strong> — introduce WHOOP as the consumer wearable remote patient monitoring platform for chronic disease management. Frame around Initiative 4 eHealth explicitly. Ask about the timeline for Initiative 4 and Initiative 7 vendor engagement. Opening email drafted below.</li>
+          <li><strong>Register as a vendor at das.nebraska.gov/materiel/vendor-information.html</strong> — Nebraska state vendor registration. Required to receive notifications when any DHHS RHTP solicitation is released, including Initiative 4 and Initiative 7 RFPs.</li>
+          <li><strong>Monitor DHHS grants and contract opportunities</strong> at dhhs.ne.gov/Pages/Grants-and-Contract-Opportunities.aspx and dhhs.ne.gov/Pages/Contract-Opportunities.aspx — any Initiative 4 or Initiative 7 solicitation posts here. Set a calendar reminder to check weekly.</li>
+          <li><strong>Frame WHOOP around DHHS's own language</strong> — Nebraska's program explicitly names "chronic disease management and remote patient monitoring" in Initiative 4. Lead every communication with that exact language. WHOOP is the continuous between-visit biometric monitoring tool that makes chronic disease management programs measurable and patient-activated.</li>
+          <li><strong>Ask about the Initiative 7 Technology Catalyst Fund structure</strong> — Is it a competitive grant that WHOOP applies to directly? Is it a state-curated technology list? Understanding the procurement structure determines the right entry strategy before the RFP drops.</li>
+        </ul>
+        <div class="strategy-section-label">Why It Works</div>
+        <p>Nebraska named the use case. Getting WHOOP into a pre-RFP conversation with DHHS positions WHOOP as the vendor that understood Initiative 4's mandate before the solicitation was written. States that receive vendor engagement before drafting solicitations often write RFP criteria that reflect those conversations. The window is open now.</p>
+      </div>
+      <div class="strategy-footer">
+        <div>
+          <div class="footer-item-label">Speed to First Deal</div>
+          <div class="footer-item-value">90–180 days (RFP cycle)</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Scale</div>
+          <div class="footer-item-value">Highest — statewide remote monitoring program</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Probability</div>
+          <div class="footer-item-value"><span class="pill pill-med">Medium</span></div>
+        </div>
+        <div>
+          <div class="footer-item-label">Risk</div>
+          <div class="footer-item-value">RFP timeline unknown; vendor competition likely when it drops</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PLAN B -->
+    <div class="strategy-card">
+      <div class="strategy-header">
+        <div class="strategy-badge badge-orange">Plan B — Urgency Play</div>
+        <div class="strategy-plan-label">Rural Health Workforce Incentive Program Facilities · Opens April 15</div>
+        <div class="strategy-title">Workforce Incentive Program Facilities — WHOOP Unite for 5-Year Incentivized Providers</div>
+        <div class="strategy-subtitle">Application window opens April 15 — 2 days from today. Facilities recruiting providers on 5-year incentive commitments are active WHOOP Unite buyers right now. The window is open. Contact them before the competing offer is made.</div>
+      </div>
+      <div class="strategy-body">
+        <div class="strategy-section-label">The Approach</div>
+        <p>The Nebraska Rural Health Workforce Incentive Program opens on April 15, 2026. Eligible facilities — Critical Access Hospitals, FQHCs, RHCs, behavioral health clinics — are applying to recruit physicians (up to $75K/year), RNs (up to $45K/year), and allied health professionals for 5-year rural service commitments. These facilities are actively building their recruitment packages right now. The competitive landscape for rural Nebraska providers includes better-paying urban systems, academic medical centers, and suburban practices offering more amenities. WHOOP Unite is the type of premium wellness differentiator that rural Nebraska facilities can offer that urban competitors typically don't — performance monitoring, recovery optimization, and health intelligence for providers managing high patient loads in under-resourced settings. Contact Nebraska's 41 CAHs and the network of FQHCs and RHCs directly. Frame WHOOP Unite as the provider wellness benefit that anchors a competitive recruiting package for 5-year Workforce Incentive Program commitments. The urgency is real: facilities are making these decisions this week.</p>
+        <div class="strategy-section-label">Key Actions</div>
+        <ul class="dot-list orange">
+          <li><strong>Email dhhs.ruralhealth@nebraska.gov</strong> — introduce WHOOP Unite and ask about the Workforce Incentive Program facility list. The Office of Rural Health administers the program and has direct relationships with all participating facilities. Ask if there is a mechanism to reach participating facilities as a wellness technology vendor.</li>
+          <li><strong>Build a Nebraska CAH target list</strong> — Nebraska has 41 Critical Access Hospitals. These are the highest-probability WHOOP Unite targets in the state. Small, independently operated, with direct administrative decision-making and high provider turnover risk. Search ZoomInfo: Hospital · Nebraska · "Critical Access" or ≤25 beds.</li>
+          <li><strong>Frame the WHOOP Unite pitch around the 5-year commitment context</strong> — providers committing to 5-year rural service terms deserve premium wellness technology to manage the demands of rural practice. WHOOP Unite monitors recovery, cardiovascular strain, sleep quality, and readiness — the tools that help rural physicians sustain high performance across a long-term commitment. Lead with this context, not generic wellness language.</li>
+          <li><strong>Target FQHC and RHC decision-makers</strong> — Nebraska has dozens of FQHCs and Rural Health Clinics eligible for the Workforce Incentive Program. FQHC executive directors and medical directors are direct decision-makers for provider wellness investments. Use HRSA's FQHC locator and Nebraska's rural health provider directory to build the target list.</li>
+          <li><strong>Contact Nebraska Hospital Association (NHA)</strong> — NHA represents all 93 Nebraska hospitals including all 41 CAHs. A single NHA introduction can create warm access to the full network. Ask about Workforce Incentive Program participation among rural members and request an introduction as a workforce wellness technology partner.</li>
+        </ul>
+        <div class="strategy-section-label">Why It Works</div>
+        <p>The application window opens in two days. Facilities are making recruitment package decisions now. WHOOP Unite doesn't require a government procurement cycle — it's an enterprise wellness deal using WHOOP's existing commercial motion. The Workforce Incentive Program creates a concentrated pool of facilities actively investing in provider recruitment right now. No state in the portfolio has a workforce incentive window opening this week.</p>
+      </div>
+      <div class="strategy-footer">
+        <div>
+          <div class="footer-item-label">Speed to First Deal</div>
+          <div class="footer-item-value">14–45 days (WHOOP Unite)</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Scale</div>
+          <div class="footer-item-value">Medium — 41 CAHs + FQHCs/RHCs statewide</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Probability</div>
+          <div class="footer-item-value"><span class="pill pill-high">High</span></div>
+        </div>
+        <div>
+          <div class="footer-item-label">Risk</div>
+          <div class="footer-item-value">Depends on timing — outreach must happen this week, not next month</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PLAN C -->
+    <div class="strategy-card">
+      <div class="strategy-header">
+        <div class="strategy-badge badge-blue">Plan C — Quick Win</div>
+        <div class="strategy-plan-label">Nebraska Rural CAH Direct Outreach · WHOOP Unite Enterprise Motion</div>
+        <div class="strategy-title">Direct Nebraska CAH Outreach — WHOOP Unite Provider Wellness, No Procurement Cycle</div>
+        <div class="strategy-subtitle">41 Nebraska CAHs. Direct administrative decision-making. High provider turnover. Existing enterprise motion. No government procurement cycle required. Fastest path to signed paper.</div>
+      </div>
+      <div class="strategy-body">
+        <div class="strategy-section-label">The Approach</div>
+        <p>Nebraska's 41 Critical Access Hospitals are small, independently operated rural facilities with direct administrative decision-making and some of the highest provider turnover rates in the state. CAH administrators make benefits decisions without going through a multi-layer procurement cycle — the same dynamics that make WHOOP Unite work well across other rural hospital targets in the national portfolio. The Nebraska CAH network is the fastest path to signed paper in the state. Approach the administrator or HR director at Nebraska CAHs directly with a WHOOP Unite provider wellness pitch: performance monitoring, recovery optimization, and health intelligence for physicians and nurses managing high loads in rural settings. No Workforce Incentive Program angle required — WHOOP Unite sells on its own merits as a workforce retention tool. The pitch is identical to any WHOOP Unite enterprise deal: institutional purchase, provider benefit, retention ROI framing. Run this in parallel from Day 1 while the Plan A DHHS relationship and Plan B Workforce Incentive Program outreach develop.</p>
+        <div class="strategy-section-label">Key Actions</div>
+        <ul class="dot-list blue">
+          <li><strong>Build the Nebraska CAH target list</strong> — 41 CAHs across rural Nebraska. Search ZoomInfo: Hospital · Nebraska · "Critical Access" or ≤25 beds. Filter by CEO/Administrator, HR Director, CMO. These are direct decision-makers.</li>
+          <li><strong>Lead with provider retention framing</strong> — rural Nebraska hospitals are competing for providers against Omaha-area health systems and out-of-state opportunities. WHOOP Unite as the provider wellness differentiator is the benefit that makes rural practice sustainable and the recruiting package distinctive.</li>
+          <li><strong>Contact Nebraska Hospital Association (NHA)</strong> — (402) 742-8140 · nebraskahospitals.org — NHA has direct relationships with all 41 Nebraska CAHs. A single NHA introduction or a presentation at an NHA member event gives WHOOP visibility across the full rural hospital network in one touch.</li>
+          <li><strong>Frame WHOOP Unite as a retention investment, not a wellness program</strong> — rural Nebraska hospitals lose providers to urban systems every year. WHOOP Unite is the premium performance wellness benefit that anchors provider retention. Lead with retention ROI: providers who feel supported in their physical wellbeing are more likely to renew their commitment to rural service. Connect this explicitly to the 5-year Workforce Incentive commitments where relevant.</li>
+          <li><strong>Build a Nebraska rural provider case study</strong> — one WHOOP Unite deployment at a Nebraska CAH is the proof point that opens the door for both Plan A (DHHS pre-market conversations about Initiative 4 workforce) and broader NHA member outreach. First deal is the beachhead.</li>
+        </ul>
+        <div class="strategy-section-label">Why It Works</div>
+        <p>This is the fastest path to revenue in Nebraska. No RFP cycle, no government procurement, no waiting for DHHS to release Initiative 4 or Initiative 7 solicitations. WHOOP Unite deals close in 14–30 days using the existing enterprise motion. Nebraska's 41 CAHs are direct analog to every rural hospital WHOOP Unite target in the portfolio — small, independent, high provider turnover, motivated buyers for wellness retention tools.</p>
+      </div>
+      <div class="strategy-footer">
+        <div>
+          <div class="footer-item-label">Speed to First Deal</div>
+          <div class="footer-item-value">14–30 days (WHOOP Unite)</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Scale</div>
+          <div class="footer-item-value">Medium — 41 CAHs + rural health facilities</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Probability</div>
+          <div class="footer-item-value"><span class="pill pill-high">High</span></div>
+        </div>
+        <div>
+          <div class="footer-item-label">Risk</div>
+          <div class="footer-item-value">Lower ACV per deal; land-and-expand beachhead model</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ── COMPARISON TABLE ── -->
+  <div class="rule"></div>
+  <div class="section-label">Plan Comparison</div>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Plan A — DHHS State Partnership</th>
+        <th>Plan B — Workforce Incentive Facilities</th>
+        <th>Plan C — Direct CAH Outreach</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="row-label">Program Lane</td>
+        <td>Initiative 4 (eHealth/Remote Monitoring) + Initiative 7 (Technology Catalyst Fund)</td>
+        <td>Rural Health Workforce Incentive Program — WHOOP Unite for incentivized provider facilities</td>
+        <td>Direct rural CAH workforce wellness — WHOOP Unite enterprise motion</td>
+      </tr>
+      <tr>
+        <td class="row-label">Funding Status</td>
+        <td>Pre-market — no vendor named, no RFP released. Contact DHHS before solicitation is drafted.</td>
+        <td>Application opens April 15, 2026. Facilities making recruitment package decisions this week.</td>
+        <td>No specific funding required — WHOOP Unite commercial deal using existing enterprise motion</td>
+      </tr>
+      <tr>
+        <td class="row-label">Primary Contact</td>
+        <td>DHHS.RHTP@nebraska.gov<br>Nebraska DHHS RHTP Program Office</td>
+        <td>dhhs.ruralhealth@nebraska.gov · (402) 471-2337<br>Nebraska Office of Rural Health + 41 CAHs / FQHCs</td>
+        <td>Nebraska CAH Administrators / HR Directors<br>Nebraska Hospital Association (NHA)</td>
+      </tr>
+      <tr>
+        <td class="row-label">Sales Motion</td>
+        <td>New — state-level remote monitoring vendor engagement, pre-RFP</td>
+        <td>Modified — WHOOP Unite as workforce recruiting differentiator, time-sensitive</td>
+        <td>Existing — WHOOP Unite enterprise wellness motion</td>
+      </tr>
+      <tr>
+        <td class="row-label">Speed to Revenue</td>
+        <td>90–180 days (depends on RFP release timeline)</td>
+        <td>14–45 days (WHOOP Unite + Workforce Incentive urgency)</td>
+        <td>14–30 days (WHOOP Unite direct)</td>
+      </tr>
+      <tr>
+        <td class="row-label">Scale Ceiling</td>
+        <td><span class="pill pill-high">Highest</span> — statewide remote monitoring program + Tech Catalyst Fund</td>
+        <td><span class="pill pill-med">Medium</span> — 41 CAHs + FQHCs/RHCs using Workforce Incentive Program</td>
+        <td><span class="pill pill-med">Medium</span> — 41 CAHs and rural health facilities, deal by deal</td>
+      </tr>
+      <tr>
+        <td class="row-label">Probability</td>
+        <td><span class="pill pill-med">Medium</span> — pre-RFP engagement is right but timeline is uncertain</td>
+        <td><span class="pill pill-high">High</span> — genuine time-sensitive urgency, active buying window</td>
+        <td><span class="pill pill-high">High</span> — existing WHOOP Unite motion, motivated rural CAH buyers</td>
+      </tr>
+      <tr>
+        <td class="row-label">Recommendation</td>
+        <td>Email DHHS this week — strategic priority, highest scale</td>
+        <td>Act immediately — application window opens April 15. Two days left to get ahead of this.</td>
+        <td>Run in parallel from Day 1 — fastest close, builds case study for Plans A and B</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── 30/60/90 ── -->
+  <div class="section-label">30 / 60 / 90 Day Action Plan</div>
+  <div class="timeline-grid">
+    <div class="timeline-col">
+      <div class="timeline-header">Days 1–30</div>
+      <div class="timeline-sub">Email DHHS. Contact rural health workforce office before April 15. Begin CAH outreach now.</div>
+      <ul class="dot-list">
+        <li><strong>Email DHHS.RHTP@nebraska.gov today</strong> — opening email below. Introduce WHOOP for Initiative 4 (eHealth/remote patient monitoring) and Initiative 7 (Technology Catalyst Fund). Ask about vendor engagement timeline. Ask if a call is possible. Don't wait for a perfect email — send now.</li>
+        <li><strong>Email dhhs.ruralhealth@nebraska.gov before April 15</strong> — Rural Workforce Incentive Program opens in 2 days. Ask about the program's facility landscape and whether there is a vendor introduction channel for wellness technology partners to reach participating facilities.</li>
+        <li><strong>Register at das.nebraska.gov/materiel</strong> — state vendor registration. Required to receive solicitation notifications when Initiative 4 and Initiative 7 RFPs are released. Do this today.</li>
+        <li><strong>Begin Nebraska CAH outreach</strong> — identify 5–10 Nebraska CAHs with open provider positions or known provider turnover. Pitch WHOOP Unite using existing enterprise motion. This is the fastest path to revenue in the state.</li>
+        <li><strong>Contact Nebraska Hospital Association</strong> — introduce WHOOP and ask about Workforce Incentive Program participation among rural member hospitals. Ask for an introduction or presentation opportunity.</li>
+      </ul>
+    </div>
+    <div class="timeline-col">
+      <div class="timeline-header orange">Days 31–60</div>
+      <div class="timeline-sub">Follow up with DHHS. Pipeline 10+ CAH targets. Close first WHOOP Unite deal.</div>
+      <ul class="dot-list orange">
+        <li><strong>Follow up with DHHS.RHTP@nebraska.gov</strong> — if no response in first 2 weeks, send a second outreach. Ask specifically about Initiative 4 and Initiative 7 vendor engagement processes and whether there is a pre-solicitation meeting or vendor day.</li>
+        <li><strong>Expand CAH pipeline to 10–15 facilities</strong> — using NHA member directory and ZoomInfo search for Nebraska CAH administrators and HR directors. Run a structured WHOOP Unite outreach sequence with rural provider retention framing.</li>
+        <li><strong>Close first WHOOP Unite deal</strong> with a rural Nebraska CAH or FQHC. Use the Workforce Incentive Program context as urgency: facilities are actively making recruitment package decisions, and WHOOP Unite is the differentiator that matters to a provider committing to 5 years in rural Nebraska.</li>
+        <li><strong>Check DHHS grants/contracts page weekly</strong> for any Initiative 4 or Initiative 7 RFA/RFP release. Set a calendar alert for dhhs.ne.gov/Pages/Grants-and-Contract-Opportunities.aspx.</li>
+      </ul>
+    </div>
+    <div class="timeline-col">
+      <div class="timeline-header blue">Days 61–90</div>
+      <div class="timeline-sub">DHHS relationship secured. Expand CAH pipeline. Position for Initiative 4 and Initiative 7 solicitations.</div>
+      <ul class="dot-list blue">
+        <li><strong>DHHS call completed</strong> — present WHOOP as the remote monitoring vendor for Initiative 4 and the technology innovation tool for Initiative 7. Ask to be included in any vendor engagement process before solicitations are released. Ask about the state's timeline for both initiatives.</li>
+        <li><strong>Expand beyond CAHs to FQHCs and RHCs</strong> — Nebraska's FQHCs and Rural Health Clinics are also eligible for the Workforce Incentive Program and are direct WHOOP Unite buyers. Use HRSA's Health Center finder to identify Nebraska FQHC locations and contacts.</li>
+        <li><strong>Monitor Initiative 4 RFA/RFP</strong> — Nebraska may bundle Initiative 4 vendor selection with a broader technology infrastructure solicitation. Being a known vendor in DHHS's consideration set before that RFP drops is the goal of the Plan A work done in Days 1–30.</li>
+        <li><strong>Build a Nebraska rural provider wellness case study</strong> — one WHOOP Unite deployment creates the proof point for the DHHS Initiative 4 conversation ("here is WHOOP working in a Nebraska rural CAH") and for NHA member outreach. Prioritize getting first deal closed and documented.</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ── CALLOUT ── -->
+  <div class="callout orange">
+    <div class="callout-label">The April 15 Window — Why Nebraska Is Unique in the National Portfolio</div>
+    <div class="callout-body">
+      No other state in the 8-state portfolio has a workforce incentive program application window opening this week. Nebraska's Rural Health Workforce Incentive Program application opens April 15 — two days from today. This creates a narrow, high-urgency buying window for WHOOP Unite that doesn't exist in any other state right now. Facilities that are actively recruiting providers under this program are making procurement decisions about what to include in their provider benefits packages. WHOOP Unite — as the provider wellness and performance monitoring platform — is exactly the kind of premium benefit that differentiates a rural Nebraska CAH's offer from what urban systems provide. The window is not open for months — it's open now. Outreach that happens this week captures facilities at the peak of their buying intent. Outreach that happens in 60 days misses the window entirely.
+    </div>
+  </div>
+
+
+  <!-- ── OPENING EMAIL ── -->
+  <div class="section-label">Opening Email — DHHS RHTP Program Office (Plan A)</div>
+  <div class="email-draft">
+    <div class="email-header">
+      <div class="email-field-label">To:<br>Subject:</div>
+      <div class="email-field-value">
+        DHHS.RHTP@nebraska.gov (Nebraska DHHS Rural Health Transformation Program)<br>
+        WHOOP — Consumer Remote Monitoring Platform for Initiative 4 eHealth and Technology Catalyst Fund Inquiry
+      </div>
+    </div>
+    <div class="email-body">
+      <p>Nebraska RHTP Team,</p>
+      <p>I'm writing on behalf of WHOOP to introduce our consumer remote patient monitoring platform as a technology aligned with two of Nebraska's Rural Health Transformation Program priorities: Initiative 4 (eHealth and Mobile Care) and the Rural Health Technology Catalyst Fund (Initiative 7).</p>
+      <p>WHOOP is a wearable biometric monitoring device and provider-facing data platform that tracks cardiovascular strain, sleep quality, heart rate variability, resting heart rate, and respiratory rate — continuously, from the patient's home, between clinic visits. For Nebraska's RHTP program specifically:</p>
+      <p>— For <strong style="color:#e8e8e8;">Initiative 4 (eHealth and Mobile Care)</strong>: WHOOP is the consumer-worn chronic disease management and remote patient monitoring tool that enables rural Nebraskans to self-monitor cardiovascular, metabolic, and respiratory health indicators continuously — and share that data with their rural care teams asynchronously. Initiative 4's explicit mandate for chronic disease management technology and remote patient monitoring describes exactly what WHOOP does.<br>
+      — For <strong style="color:#e8e8e8;">Initiative 7 (Rural Health Technology Catalyst Fund)</strong>: WHOOP is a consumer health technology platform purpose-built for continuous health monitoring — the kind of proven, scalable technology that a competitive rural health technology grant fund is designed to support. We would welcome the opportunity to understand the structure of the Technology Catalyst Fund and how emerging health technology vendors engage with the program.</p>
+      <p>We are reaching out now — before any solicitation has been released — because we believe the pre-market engagement period is the right time to introduce WHOOP to the RHTP team and understand how Nebraska intends to structure vendor engagement for these two initiatives.</p>
+      <p>Would a brief call with the Initiative 4 or Initiative 7 program leads be possible? I'm happy to share a brief overview of WHOOP's biometric monitoring capabilities and how they map to Nebraska's rural chronic disease management and remote patient monitoring goals.</p>
+      <p>Thank you for the work Nebraska DHHS is doing through this program.</p>
+      <p>Jessie Spada<br>
+      Enterprise Business Development Representative, WHOOP<br>
+      [Contact Information]</p>
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    WHOOP — Nebraska RHTP Go-To-Market Strategy · April 2026 · Prepared by Jessie Spada, Enterprise BDR · For internal use only
+  </div>
+
+</div>
+</body>
+</html>
