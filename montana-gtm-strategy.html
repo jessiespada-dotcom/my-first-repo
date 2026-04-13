@@ -1,0 +1,727 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Montana RHTP — WHOOP Go-To-Market Strategy</title>
+  <style>
+    :root {
+      --bg:        #0d1215;
+      --bg-card:   rgba(255,255,255,0.03);
+      --text:      #ffffff;
+      --muted:     #aaaaaa;
+      --meta:      #666666;
+      --rule:      rgba(255,255,255,0.08);
+      --teal:      #00F19F;
+      --blue:      #0093E7;
+      --orange:    #ffb347;
+      --red:       #ff5a5a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header-bar {
+      background: #000;
+      border-bottom: 1px solid var(--rule);
+      padding: 0 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; }
+    .header-wordmark {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+      margin-right: 16px;
+    }
+    .header-pipe {
+      width: 1px; height: 14px;
+      background: rgba(255,255,255,0.15);
+      margin-right: 16px;
+    }
+    .header-meta {
+      font-size: 10px;
+      color: var(--meta);
+      letter-spacing: 0.08em;
+    }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid rgba(0,241,159,0.35);
+      background: rgba(0,241,159,0.06);
+      padding: 4px 9px;
+      border-radius: 2px;
+    }
+
+    /* ── Page ── */
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+    }
+
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-size: 38px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .page-meta {
+      font-size: 12px;
+      color: var(--meta);
+      letter-spacing: 0.04em;
+    }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+
+    .rule { height: 1px; background: var(--rule); margin: 36px 0; }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 16px;
+    }
+
+    /* ── Stat row ── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .stat-cell {
+      background: var(--bg-card);
+      padding: 24px 26px;
+      border-right: 1px solid var(--rule);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .stat-number.blue   { color: var(--blue); }
+    .stat-number.white  { color: #fff; }
+    .stat-number.orange { color: var(--orange); }
+    .stat-desc { font-size: 12px; color: #888; line-height: 1.55; }
+
+    /* ── Narrative ── */
+    .narrative-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 20px;
+    }
+    .narrative-body { font-size: 13.5px; line-height: 1.85; color: #bbb; }
+    .narrative-body p { margin-bottom: 14px; }
+    .narrative-body p:last-child { margin-bottom: 0; }
+    .hl        { color: var(--teal);   font-weight: 600; }
+    .hl-orange { color: var(--orange); font-weight: 600; }
+    .hl-red    { color: var(--red);    font-weight: 600; }
+    .hl-white  { color: #fff;          font-weight: 600; }
+
+    /* ── Strategy cards ── */
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .strategy-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .strategy-card.recommended {
+      border-color: rgba(0,241,159,0.3);
+    }
+    .strategy-header {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .strategy-badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+    .badge-teal   { background: rgba(0,241,159,0.10); color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .badge-blue   { background: rgba(0,147,231,0.10); color: var(--blue);   border: 1px solid rgba(0,147,231,0.25); }
+    .badge-orange { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .strategy-plan-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 6px;
+    }
+    .strategy-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .strategy-subtitle {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.5;
+    }
+    .strategy-body { padding: 20px 22px; }
+    .strategy-section-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 10px;
+      margin-top: 18px;
+    }
+    .strategy-section-label:first-child { margin-top: 0; }
+    .strategy-body p {
+      font-size: 13px;
+      color: #bbb;
+      line-height: 1.65;
+    }
+    .dot-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .dot-list li {
+      font-size: 12.5px;
+      color: #bbb;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .dot-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 700;
+    }
+    .dot-list.orange li::before { color: var(--orange); }
+    .dot-list.blue li::before   { color: var(--blue); }
+    .dot-list li strong { color: #e8e8e8; }
+
+    .strategy-footer {
+      padding: 14px 22px;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .footer-item-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin-bottom: 4px;
+    }
+    .footer-item-value { font-size: 12px; color: #bbb; }
+
+    /* ── Comparison table ── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      font-size: 12.5px;
+    }
+    .compare-table thead tr { background: rgba(255,255,255,0.04); }
+    .compare-table th {
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--meta);
+      border-bottom: 1px solid var(--rule);
+      border-right: 1px solid var(--rule);
+    }
+    .compare-table th:last-child { border-right: none; }
+    .compare-table td {
+      padding: 14px 20px;
+      color: #bbb;
+      border-bottom: 1px solid var(--rule);
+      border-right: 1px solid var(--rule);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .compare-table td:last-child { border-right: none; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+    .compare-table .row-label { font-weight: 600; color: #ccc; white-space: nowrap; }
+    .pill {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 2px;
+    }
+    .pill-high   { background: rgba(0,241,159,0.10);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .pill-med    { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .pill-low    { background: rgba(255,90,90,0.10);  color: var(--red);    border: 1px solid rgba(255,90,90,0.25); }
+
+    /* ── 30/60/90 ── */
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .timeline-col {
+      padding: 24px 26px;
+      border-right: 1px solid var(--rule);
+    }
+    .timeline-col:last-child { border-right: none; }
+    .timeline-header {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+    .timeline-header.orange { color: var(--orange); }
+    .timeline-header.blue   { color: var(--blue); }
+    .timeline-sub {
+      font-size: 11px;
+      color: var(--meta);
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* ── Callout ── */
+    .callout {
+      border-left: 3px solid var(--teal);
+      background: rgba(0,241,159,0.04);
+      border-radius: 0 4px 4px 0;
+      padding: 22px 26px;
+      margin-bottom: 40px;
+    }
+    .callout.orange {
+      border-left-color: var(--orange);
+      background: rgba(255,179,71,0.04);
+    }
+    .callout-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .callout.orange .callout-label { color: var(--orange); }
+    .callout-body { font-size: 13.5px; line-height: 1.75; color: #bbb; }
+
+    /* ── Footer ── */
+    .page-footer {
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.08em;
+      text-align: right;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Enterprise Healthcare<span class="sep">|</span>CMS Rural Health Transformation<span class="sep">|</span>Montana Go-To-Market<span class="sep">|</span>April 2026
+    </div>
+  </div>
+  <div class="header-badge">GTM Strategy</div>
+</div>
+
+
+<div class="page">
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-eyebrow">Montana Rural Health Transformation — Go-To-Market Strategy</div>
+  <div class="page-title">Three Plans. One Structural Edge.<br>How WHOOP Wins Montana.</div>
+  <div class="page-meta">
+    Prepared by: Jessie Spada, Enterprise BDR
+    <span class="dot">·</span>
+    Audience: Manager + Chief of Staff
+    <span class="dot">·</span>
+    April 12, 2026
+    <span class="dot">·</span>
+    Based on $233,509,358.76 award to Montana DPHHS
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── STATS ── -->
+  <div class="section-label">The Market</div>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Total Montana Award</div>
+      <div class="stat-number">$233M</div>
+      <div class="stat-desc">Over 5 years. 4th largest nationally. 51 eligible counties. Up to $1.2B total program.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">CoE Implementation<br>Subcontractor Lane</div>
+      <div class="stat-number blue">$105M</div>
+      <div class="stat-desc">DPHHS-RFP-2026-0670R. Primary contractor manages all technology vendors and population health interventions. Deadline May 15 — 33 days.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">CoE Analytics Deadline</div>
+      <div class="stat-number orange">May 1</div>
+      <div class="stat-desc">DPHHS-RFP-2026-0671. $11.6M. 19 days away. Data/strategy for facility sustainability.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Initiative 5<br>Direct WHOOP Lane</div>
+      <div class="stat-number white">Future</div>
+      <div class="stat-desc">Deploy modern health care technologies. No RFP yet. When it drops, WHOOP responds directly as primary technology vendor. Monitor ruralhealth.mt.gov.</div>
+    </div>
+  </div>
+
+
+  <!-- ── CONTEXT ── -->
+  <div class="narrative-title">The Montana Opportunity</div>
+  <div class="narrative-body">
+    <p>
+      Montana received <span class="hl">$233.5M</span> — 4th largest nationally — to transform rural healthcare across 51 counties over 5 years. Montana DPHHS administers the program with a centralized RFP model: ~8 competitive procurements and ~5 grant programs, all through eMACS (bids.mt.gov), all by September 2026.
+    </p>
+    <p>
+      <span class="hl-white">Montana's structure has no parallel in Texas, Alaska, or California.</span> There are no individual hospital subawards. No LOI-funded organizations to cold-call. Every dollar flows through state contracts — which means every WHOOP deal in Montana flows through either (a) subcontractor positioning with a primary contractor, or (b) a direct state-level technology RFP.
+    </p>
+    <p>
+      Two RFPs are live right now. The <span class="hl">CoE Implementation contract ($105.5M, due May 15)</span> is the central operator for the entire program — managing technology subcontractors, population health interventions, and facility modernization across all of rural Montana. The firms bidding this contract are building proposals today. <span class="hl-red">WHOOP needs to be named in one of them before May 15.</span> Initiative 5 (deploy modern health care technologies) is WHOOP's direct lane — the RFP hasn't dropped yet, but when it does, WHOOP responds as a primary vendor. Three plans below.
+    </p>
+  </div>
+
+  <div class="rule"></div>
+
+
+  <!-- ── THREE STRATEGY CARDS ── -->
+  <div class="section-label">The Three Plans</div>
+  <div class="strategy-grid">
+
+    <!-- PLAN A -->
+    <div class="strategy-card recommended">
+      <div class="strategy-header">
+        <div class="strategy-badge badge-teal">Plan A — Immediate Play · Recommended</div>
+        <div class="strategy-plan-label">CoE Implementation Subcontractor · DPHHS-RFP-2026-0670R</div>
+        <div class="strategy-title">CoE Implementation Bidder Partnership</div>
+        <div class="strategy-subtitle">Get WHOOP named as the technology subcontractor for population health monitoring inside a CoE Implementation RFP proposal — before the May 15 deadline</div>
+      </div>
+      <div class="strategy-body">
+        <div class="strategy-section-label">The Approach</div>
+        <p>The $105.5M CoE Implementation contract goes to a firm that manages all of Montana's rural health transformation operations — subcontractors, technology deployments, population health interventions, and facility modernization. Whoever wins this contract will bring in technology vendors to support their scope. WHOOP positions as that technology vendor NOW — before proposals are submitted — by contacting the firms most likely to bid this contract and offering to be their named population health monitoring subcontractor.</p>
+        <div class="strategy-section-label">Key Actions</div>
+        <ul class="dot-list">
+          <li><strong>Identify the top 5 firms likely bidding DPHHS-RFP-2026-0670R</strong> — Guidehouse, Manatt Health, Health Management Associates, Public Consulting Group, Leavitt Partners, Deloitte, BerryDunn, Wipfli — healthcare implementation consultants that bid state health transformation contracts</li>
+          <li><strong>Contact their BD or partnerships teams this week</strong> — not next week. Proposals are being built now.</li>
+          <li><strong>Frame WHOOP as:</strong> "We want to be your named technology partner for population health monitoring and consumer health tools in your CoE Implementation proposal"</li>
+          <li><strong>Download and read the full CoE Implementation Scope of Services</strong> from eMACS — confirm the specific technology and population health language in the RFP, then map WHOOP directly to it</li>
+          <li><strong>Build a one-page WHOOP subcontractor brief</strong> — maps WHOOP's capabilities to the CoE Implementation scope, ready to hand to any bidder's proposal team in 24 hours</li>
+        </ul>
+        <div class="strategy-section-label">Why It Works</div>
+        <p>One subcontractor position in the CoE Implementation contract reaches every rural facility in Montana. WHOOP doesn't need to close 51 counties worth of individual deals — the primary contractor distributes WHOOP across the program. And firms bidding a $105.5M state contract WANT credible technology subcontractors named in their proposals. It makes their bid stronger.</p>
+      </div>
+      <div class="strategy-footer">
+        <div>
+          <div class="footer-item-label">Speed to First Deal</div>
+          <div class="footer-item-value">30–45 days</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Scale</div>
+          <div class="footer-item-value">Highest — statewide via contractor</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Probability</div>
+          <div class="footer-item-value"><span class="pill pill-med">Medium</span></div>
+        </div>
+        <div>
+          <div class="footer-item-label">Risk</div>
+          <div class="footer-item-value">Competitive — need to move before May 15</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PLAN B -->
+    <div class="strategy-card">
+      <div class="strategy-header">
+        <div class="strategy-badge badge-blue">Plan B — Direct Lane</div>
+        <div class="strategy-plan-label">Initiative 5 Technology RFP · Future Wave</div>
+        <div class="strategy-title">Direct Initiative 5 Technology Vendor</div>
+        <div class="strategy-subtitle">When DPHHS releases the Initiative 5 "Deploy Modern Health Care Technologies" RFP, WHOOP responds directly as the primary technology vendor — no intermediary</div>
+      </div>
+      <div class="strategy-body">
+        <div class="strategy-section-label">The Approach</div>
+        <p>Initiative 5 is Montana's technology initiative — "Deploy modern health care technologies to guide rural health interventions." This is WHOOP's cleanest, most direct lane in Montana. No subcontractor positioning. No intermediary. WHOOP submits a proposal responding to the Initiative 5 RFP as a primary vendor and competes for a state-level technology contract. The preparation work starts now: obtain the project narrative, confirm what Initiative 5 specifically describes as target technologies, build a Montana-specific WHOOP technology brief aligned to the scope, and be ready to submit the moment the RFP drops.</p>
+        <div class="strategy-section-label">Key Actions</div>
+        <ul class="dot-list blue">
+          <li><strong>Email HHSRuralHealthTransformation@mt.gov</strong> to request the Initiative 5 project narrative and timeline for the technology RFP release</li>
+          <li><strong>Monitor ruralhealth.mt.gov weekly</strong> — Initiative 5 technology RFP posting will appear here first</li>
+          <li><strong>Register in eMACS with commodity code 2620</strong> — this triggers automatic notification when Initiative 5 RFP posts</li>
+          <li><strong>Once the project narrative is in hand,</strong> map WHOOP's capabilities to the exact technology language Montana used — this becomes the core of the proposal response</li>
+          <li><strong>Engage WHOOP's BD/legal team on SAM.gov registration</strong> (UEI# required for federal-funded Montana contracts) and ensure WHOOP can contract directly with a state agency</li>
+        </ul>
+        <div class="strategy-section-label">Why It Works</div>
+        <p>This is WHOOP's highest-quality Montana deal — a state-level technology contract, not a subcontractor arrangement. If Initiative 5 names consumer wearables, remote monitoring, or population health technology (as Alaska and California's programs did), WHOOP is perfectly positioned to win it directly. The preparation starts now so WHOOP is ready when the RFP drops.</p>
+      </div>
+      <div class="strategy-footer">
+        <div>
+          <div class="footer-item-label">Speed to First Deal</div>
+          <div class="footer-item-value">90–180 days</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Scale</div>
+          <div class="footer-item-value">High — state technology contract</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Probability</div>
+          <div class="footer-item-value"><span class="pill pill-med">Medium</span></div>
+        </div>
+        <div>
+          <div class="footer-item-label">Risk</div>
+          <div class="footer-item-value">RFP not yet released — timing unknown</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PLAN C -->
+    <div class="strategy-card">
+      <div class="strategy-header">
+        <div class="strategy-badge badge-orange">Plan C — Quick Win</div>
+        <div class="strategy-plan-label">Initiative 1 Workforce · WHOOP Unite Enterprise Motion</div>
+        <div class="strategy-title">Rural Provider Wellness Entry</div>
+        <div class="strategy-subtitle">Get WHOOP Unite into rural Montana hospitals through Initiative 1 workforce wellness and resilience programs — fastest path to signed paper using the existing enterprise motion</div>
+      </div>
+      <div class="strategy-body">
+        <div class="strategy-section-label">The Approach</div>
+        <p>Initiative 1 workforce retention and upskilling includes "time-bound relocation assistance and wellness and resilience programs for HCPs in rural communities" as a funded activity. Rural Montana providers taking service commitments in isolated frontier communities face extreme conditions — geographic isolation, harsh climate, limited access to wellness resources. WHOOP Unite positions as the provider wellness benefit that makes rural Montana service sustainable. This uses the existing enterprise sales motion — no new government procurement cycle required. Land the staff deal, build a Montana case study, use it in the CoE Implementation subcontractor pitch and the Initiative 5 RFP response.</p>
+        <div class="strategy-section-label">Key Actions</div>
+        <ul class="dot-list orange">
+          <li><strong>Identify rural Montana hospitals and critical access hospitals</strong> actively recruiting under Initiative 1 workforce programs</li>
+          <li><strong>Use existing WHOOP Unite enterprise motion</strong> — this mirrors corporate wellness deals, not a government procurement</li>
+          <li><strong>Frame for Montana:</strong> geographic isolation, frontier conditions, long shifts, limited wellness infrastructure access for providers</li>
+          <li><strong>Target hospital HR Directors and CNOs</strong> with RHTP-funded workforce retention budgets</li>
+          <li><strong>Close the first Montana deal</strong> — document as proof point for Plan A (subcontractor pitch) and Plan B (Initiative 5 direct proposal)</li>
+        </ul>
+        <div class="strategy-section-label">Why It Works</div>
+        <p>Fastest path to a signed contract in Montana. No new sales motion, no waiting for an RFP. Montana hospitals with Initiative 1 funding have money and a mandate to retain providers. WHOOP arrives as the wellness benefit that makes rural service more sustainable — the same motion that works in corporate wellness, adapted for rural frontier healthcare.</p>
+      </div>
+      <div class="strategy-footer">
+        <div>
+          <div class="footer-item-label">Speed to First Deal</div>
+          <div class="footer-item-value">14–30 days</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Scale</div>
+          <div class="footer-item-value">Medium — workforce-funded hospitals</div>
+        </div>
+        <div>
+          <div class="footer-item-label">Probability</div>
+          <div class="footer-item-value"><span class="pill pill-high">High</span></div>
+        </div>
+        <div>
+          <div class="footer-item-label">Risk</div>
+          <div class="footer-item-value">Low ACV; use as land-and-expand plus proof point</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ── COMPARISON TABLE ── -->
+  <div class="section-label">Side-by-Side Comparison</div>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Plan A — CoE Implementation Subcontractor</th>
+        <th>Plan B — Initiative 5 Direct RFP</th>
+        <th>Plan C — Workforce Entry</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="row-label">Initiative</td>
+        <td>CoE Implementation (Initiative 2 structural contract)</td>
+        <td>Initiative 5 — Technology</td>
+        <td>Initiative 1 — Workforce</td>
+      </tr>
+      <tr>
+        <td class="row-label">Budget Available</td>
+        <td>$105.5M implementation contract</td>
+        <td>TBD — Initiative 5 budget not yet released</td>
+        <td>Part of overall workforce allocation</td>
+      </tr>
+      <tr>
+        <td class="row-label">Primary Contact</td>
+        <td>CoE Implementation bidding firms (BD teams)</td>
+        <td>HHSRuralHealthTransformation@mt.gov</td>
+        <td>Rural MT hospital HR Directors / CNOs</td>
+      </tr>
+      <tr>
+        <td class="row-label">Sales Motion</td>
+        <td>New — subcontractor partnership with implementation firm</td>
+        <td>New — direct state RFP response</td>
+        <td>Existing — WHOOP Unite enterprise motion</td>
+      </tr>
+      <tr>
+        <td class="row-label">Speed to Revenue</td>
+        <td>30–45 days</td>
+        <td>90–180 days</td>
+        <td>14–30 days</td>
+      </tr>
+      <tr>
+        <td class="row-label">Scale Ceiling</td>
+        <td><span class="pill pill-high">Highest</span> — reaches all rural MT facilities via contractor</td>
+        <td><span class="pill pill-med">High</span> — state technology contract</td>
+        <td><span class="pill pill-med">Medium</span> — workforce-funded hospitals</td>
+      </tr>
+      <tr>
+        <td class="row-label">Probability</td>
+        <td><span class="pill pill-med">Medium</span> — competitive, tight deadline</td>
+        <td><span class="pill pill-med">Medium</span> — RFP timing unknown</td>
+        <td><span class="pill pill-high">High</span> — existing motion, fastest close</td>
+      </tr>
+      <tr>
+        <td class="row-label">Recommendation</td>
+        <td>Start immediately — May 15 is 33 days away</td>
+        <td>Prepare now — RFP drops later 2026</td>
+        <td>Run in parallel — fastest close, builds proof point</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── 30/60/90 ── -->
+  <div class="section-label">30 / 60 / 90 Day Action Plan</div>
+  <div class="timeline-grid">
+    <div class="timeline-col">
+      <div class="timeline-header">Days 1–30</div>
+      <div class="timeline-sub">Subcontractor Outreach &amp; Quick Win</div>
+      <ul class="dot-list">
+        <li><strong>Contact CoE Implementation bidders this week</strong> — Guidehouse, Manatt Health, HMA, PCG, Leavitt Partners, Deloitte, BerryDunn, Wipfli. Their BD teams are building proposals now.</li>
+        <li><strong>Register in eMACS at bids.mt.gov</strong> — select commodity code 2620. Automatic notification on all future RHTP procurements including Initiative 5.</li>
+        <li><strong>Download CoE Implementation Scope of Services</strong> from eMACS and read for technology and population health language — confirm WHOOP fit as subcontractor.</li>
+        <li><strong>Email HHSRuralHealthTransformation@mt.gov</strong> requesting Initiative 5 project narrative and RFP timeline.</li>
+        <li><strong>Begin Plan C outreach</strong> to 2–3 rural Montana hospitals for WHOOP Unite workforce deals.</li>
+      </ul>
+    </div>
+    <div class="timeline-col">
+      <div class="timeline-header orange">Days 31–60</div>
+      <div class="timeline-sub">RFP Closes &amp; Pipeline Builds</div>
+      <ul class="dot-list orange">
+        <li><strong>CoE Implementation RFP closes May 15</strong> — WHOOP should already be named in at least one proposal. This window is closed.</li>
+        <li><strong>Follow up with HHSRuralHealthTransformation@mt.gov</strong> on Initiative 5 timing and project narrative.</li>
+        <li><strong>Close first Plan C workforce deal</strong> — document as Montana case study for subcontractor and Initiative 5 pitches.</li>
+        <li><strong>Monitor ruralhealth.mt.gov</strong> for Initiative 5 RFP posting and any additional Wave 2 RFP announcements.</li>
+      </ul>
+    </div>
+    <div class="timeline-col">
+      <div class="timeline-header blue">Days 61–90</div>
+      <div class="timeline-sub">Award &amp; Initiative 5 Prep</div>
+      <ul class="dot-list blue">
+        <li><strong>CoE Implementation award announced</strong> — identify which contractor won and approach them directly as a technology subcontractor if not already in their proposal.</li>
+        <li><strong>Build Initiative 5 RFP response framework</strong> using project narrative language. Map WHOOP capabilities to Initiative 5 technology scope.</li>
+        <li><strong>Expand Plan C</strong> — use first Montana case study to pitch 3–5 more rural hospitals. Build the Montana proof point library.</li>
+        <li><strong>Begin building WHOOP's Montana technology brief</strong> for Initiative 5 submission — ready to drop into a proposal the moment the RFP releases.</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ── MAY 15 CALLOUT ── -->
+  <div class="callout orange">
+    <div class="callout-label">The May 15 Clock</div>
+    <div class="callout-body">
+      The CoE Implementation RFP ($105.5M) closes May 15, 2026 at 2:00 PM MDT. That is 33 days from today. The firms submitting proposals are selecting their subcontractors right now. There is no equivalent deadline in any other state in this program — Montana is the only state where a single contract decision determines technology access to the entire rural healthcare market. <strong style="color:#e8e8e8;">Missing May 15 means waiting for Wave 2 procurements later in 2026.</strong> Contact CoE Implementation bidders today.
+    </div>
+  </div>
+
+
+  <!-- ── MONTANA VS OTHER STATES CALLOUT ── -->
+  <div class="callout">
+    <div class="callout-label">Montana vs. Other States — What's Different</div>
+    <div class="callout-body">
+      Texas: 80 individual hospital districts, direct outreach. Alaska: 1,800 LOI-funded organizations, ACF as gateway. California: RTAC state endorsement mechanism, 683+ orgs. Montana: centralized RFP model, no individual org pathway. This is harder to enter but higher leverage — <strong style="color:#fff;">one state contract covers the entire market.</strong> The CoE Implementation subcontractor position is the equivalent of California's RTAC endorsement. Win it once, reach everything.
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Jessie Spada &nbsp;·&nbsp; April 12, 2026 &nbsp;·&nbsp; CONFIDENTIAL
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
