@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delaware RHTP — GTM Strategy | WHOOP</title>
+<style>
+  :root {
+    --bg: #0d1215; --surface: #151c21; --surface2: #1a2530; --border: #1e2d38;
+    --teal: #00F19F; --blue: #0093E7; --orange: #ffb347; --red: #ff5a5a;
+    --yellow: #e6c020; --green: #a8cc44; --text: #e8eef2; --muted: #6b8394;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); }
+  a { color: var(--teal); text-decoration: none; }
+
+  .top-nav {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 12px 32px; display: flex; align-items: center; gap: 16px;
+    font-size: 12px; color: var(--muted);
+  }
+  .top-nav a { color: var(--muted); }
+  .top-nav a:hover { color: var(--teal); }
+  .top-nav .sep { color: var(--border); }
+
+  .hero {
+    background: linear-gradient(135deg, #0d1215 0%, #1a0d0d 60%, #120a0a 100%);
+    border-bottom: 1px solid var(--border); padding: 40px 48px 36px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--red); margin-bottom: 8px;
+  }
+  .hero-title { font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+  .hero-sub { font-size: 14px; color: var(--muted); }
+
+  .stats-row {
+    background: var(--surface2); border-bottom: 1px solid var(--border);
+    padding: 16px 48px; display: flex; gap: 40px; align-items: center;
+  }
+  .stat-item { text-align: center; }
+  .stat-value { font-size: 20px; font-weight: 800; line-height: 1; }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stats-divider { width: 1px; height: 32px; background: var(--border); }
+
+  .main { max-width: 1100px; margin: 0 auto; padding: 36px 48px 60px; }
+
+  .callout {
+    border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; border-left: 4px solid;
+  }
+  .callout-orange { background: #1a1408; border-color: var(--orange); }
+  .callout-teal   { background: #081a14; border-color: var(--teal); }
+  .callout-red    { background: #1a0808; border-color: var(--red); }
+  .callout-title  { font-size: 13px; font-weight: 800; margin-bottom: 5px; }
+  .callout-body   { font-size: 13px; line-height: 1.6; color: #c8d8e0; }
+
+  .section-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--muted); margin: 32px 0 14px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+
+  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .plan-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 22px; position: relative; overflow: hidden;
+  }
+  .plan-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .plan-label {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.8px; margin-bottom: 6px;
+  }
+  .plan-name { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+  .plan-tag {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 8px; margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .plan-desc { font-size: 13px; line-height: 1.6; color: #c0d0d8; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 13px; }
+  .compare-table th {
+    text-align: left; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--muted); padding: 8px 12px;
+    border-bottom: 1px solid var(--border); font-weight: 600;
+  }
+  .compare-table td { padding: 10px 12px; border-bottom: 1px solid #151c21; vertical-align: top; }
+  .compare-table tr:hover td { background: var(--surface2); }
+  .compare-table td:first-child { font-weight: 700; color: var(--muted); white-space: nowrap; }
+  .rec-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 11px;
+    font-weight: 700; background: #1a0808; color: var(--red);
+  }
+
+  .timeline-block { margin-bottom: 12px; }
+  .timeline-period {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--orange); margin-bottom: 8px;
+  }
+  .timeline-items { list-style: none; }
+  .timeline-items li {
+    padding: 8px 0 8px 18px; border-bottom: 1px solid var(--border);
+    font-size: 13px; position: relative; line-height: 1.5;
+  }
+  .timeline-items li:last-child { border-bottom: none; }
+  .timeline-items li::before {
+    content: ''; position: absolute; left: 0; top: 14px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--border);
+  }
+  .timeline-items li.hot::before { background: var(--orange); }
+  .timeline-items li.critical::before { background: var(--red); }
+  .timeline-items li.teal::before { background: var(--teal); }
+
+  .email-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin-bottom: 16px;
+  }
+  .email-header {
+    background: var(--surface2); padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .email-field { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .email-field span { color: var(--text); font-weight: 600; }
+  .email-body { padding: 20px; font-size: 13px; line-height: 1.8; white-space: pre-wrap; color: #c8d8e0; }
+
+  .doc-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .doc-link-btn {
+    padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    text-decoration: none; border: 1px solid; transition: all 0.15s;
+  }
+  .doc-link-primary { background: var(--red); color: #fff; border-color: var(--red); }
+  .doc-link-secondary { background: transparent; color: var(--text); border-color: var(--border); }
+  .doc-link-secondary:hover { border-color: var(--teal); color: var(--teal); }
+
+  .narrative-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px; margin-bottom: 24px;
+    font-size: 13.5px; line-height: 1.75; color: #c8d8e0;
+  }
+  .narrative-block p { margin-bottom: 12px; }
+  .narrative-block p:last-child { margin-bottom: 0; }
+  .hl-red { color: var(--red); font-weight: 700; }
+  .hl-teal { color: var(--teal); font-weight: 700; }
+  .hl-orange { color: var(--orange); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="rhtp-hub.html">← RHTP Hub</a>
+  <span class="sep">|</span>
+  <a href="delaware-rht-por.html">Plan of Record</a>
+  <span class="sep">|</span>
+  <span>GTM Strategy</span>
+  <span class="sep">|</span>
+  <span style="color:var(--red);font-weight:700;">HSS26062 Rural Community Health Hubs RFP Closes April 17 at 1PM</span>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">Delaware · GTM Strategy · WHOOP · RFP Closes April 17</div>
+  <div class="hero-title">Three Days. One RFP. WHOOP's Delaware Window.</div>
+  <div class="hero-sub">HSS26062 Rural Community Health Hubs · TidalHealth (6 attendees) + DocGo (4 attendees) · Get Named Before Thursday 1PM</div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-item">
+    <div class="stat-value" style="color:var(--teal);">$157M</div>
+    <div class="stat-label">CMS Award</div>
+  </div>
+  <div class="stats-divider"></div>
+  <div class="stat-item">
+    <div class="stat-value" style="color:var(--red);">Apr 17</div>
+    <div class="stat-label">RFP Deadline</div>
+  </div>
+  <div class="stats-divider"></div>
+  <div class="stat-item">
+    <div class="stat-value" style="color:var(--orange);">6</div>
+    <div class="stat-label">TidalHealth Attendees</div>
+  </div>
+  <div class="stats-divider"></div>
+  <div class="stat-item">
+    <div class="stat-value" style="color:var(--orange);">40%</div>
+    <div class="stat-label">Rural Population</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="callout callout-red">
+    <div class="callout-title" style="color:var(--red);">Delaware Is Different From Every Other State in This Portfolio</div>
+    <div class="callout-body">Delaware is unlike the other 11 states in the RHTP playbook. There is no pre-market window. There is no waiting for solicitations to drop. There is a live RFP closing in three days — April 17 at 1PM — and the question is whether WHOOP gets named in a proposal before then.<br><br>The answer to that question is almost entirely a function of what happens in the next 72 hours. TidalHealth sent 6 people to the pre-bid meeting. That is the strongest single-org bidder signal in the entire 11-state portfolio. They are bidding. Whether WHOOP is in their proposal or not depends on one email today to Gregory Mann at gregory.mann@tidalhealth.org.</div>
+  </div>
+
+  <div class="callout callout-orange">
+    <div class="callout-title" style="color:var(--orange);">The Play — Montana Subcontractor Model Applied to Delaware</div>
+    <div class="callout-body">HSS26062 is a services and operations contract — Delaware DHSS is hiring an organization to build and operate Rural Community Health Hubs in Kent and Sussex counties. WHOOP does not bid directly on this type of contract. The play is identical to Montana: <strong>get named in a prime bidder's proposal as the wearable health intelligence technology partner before April 17 submission.</strong><br><br>A hub operator who includes WHOOP in their proposal is positioning WHOOP as the continuous health insights layer for two functions: (1) workforce wellbeing for their community health workers and hub staff, and (2) population health engagement for the rural Kent/Sussex populations the hub serves. No clinical infrastructure required. Fits a low-resource rural hub model exactly.</div>
+  </div>
+
+  <div class="section-title">The Delaware Narrative</div>
+
+  <div class="narrative-block">
+    <p>Delaware is the 12th state in the RHTP playbook — and it is the most time-sensitive by a significant margin. Every other state in the portfolio is either in a pre-market window, waiting for solicitations to drop, or operating in a multi-month engagement timeline. Delaware has a live RFP with a 72-hour window.</p>
+    <p>The RFP is HSS26062-RURALCHHUB. The contract is for an organization to build and operate <span class="hl-teal">Rural Community Health Hubs</span> in Kent and Sussex counties — the two rural counties where approximately 40% of Delawareans live. Governor Meyer framed Delaware's program mission clearly: <em>"A person's zip code should never dictate the quality of care they receive."</em> The hub model is how Delaware operationalizes that goal — community-based care infrastructure extending health engagement beyond the clinic.</p>
+    <p>TidalHealth — a major health system serving the Maryland/Delaware border region and rural Sussex County — sent <span class="hl-red">6 people</span> to the pre-bid meeting. That is the highest attendee count of any single organization at the pre-bid. They are almost certainly bidding as prime or anchor partner. DocGo, a national mobile health operator, sent 4 people — another strong prime bidder signal. Delaware State University (HBCU, Kent County anchor) sent 6 people as well and may be bidding as a community anchor in a consortium.</p>
+    <p>One email to <span class="hl-teal">Gregory Mann at TidalHealth</span> today — pitching WHOOP as the wearable health intelligence layer in their hub proposal — could mean WHOOP is named in the submission that wins Delaware's $157M hub program. That window closes Thursday at 1PM.</p>
+  </div>
+
+  <div class="section-title">Three GTM Plans</div>
+
+  <div class="plan-grid">
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--red);"></div>
+      <div class="plan-label" style="color:var(--red);">Plan A — Critical</div>
+      <div class="plan-name">TidalHealth Proposal — April 17 Hard Deadline</div>
+      <div class="plan-tag" style="background:#1a0808;color:var(--red);">Start Immediately</div>
+      <div class="plan-desc">Contact Gregory Mann and Henry Nyce at TidalHealth today. TidalHealth sent 6 people to the pre-bid meeting — highest single-org signal in the portfolio. Pitch WHOOP as the wearable health intelligence layer in their hub model: continuous health insights for community health workers and the rural populations they serve. Workforce wellbeing + population health dual angle. Ask to be named in their proposal or included as a technology partner. Also contact DocGo (Amanda Jennings) and Beebe Healthcare (Kimberly Blanch) and Delaware State University (Pia Stokes) with the same pitch. April 17 at 1PM is the hard deadline. There is no extension.</div>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--orange);"></div>
+      <div class="plan-label" style="color:var(--orange);">Plan B — Hot</div>
+      <div class="plan-name">DHSS State Partnership — Broader RHTP Technology Positioning</div>
+      <div class="plan-tag" style="background:#1a1408;color:var(--orange);">Post-RFP / Parallel</div>
+      <div class="plan-desc">Contact ricky.williamson@delaware.gov — introduce WHOOP for the broader RHTP program. Delaware DHSS is expected to release additional RFPs in spring 2026. Position WHOOP for future technology solicitations before those RFPs are written. The pre-market relationship with DHSS also creates the foundation for conversations about Delaware Medical School wellness programs and School-Based Health Centers as those initiatives develop technology needs. Start this outreach in parallel with Plan A — it is not time-constrained by April 17.</div>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-card-accent" style="background:var(--blue);"></div>
+      <div class="plan-label" style="color:var(--blue);">Plan C — Active</div>
+      <div class="plan-name">WHOOP Unite — Beebe, Bayhealth, TidalHealth Direct</div>
+      <div class="plan-tag" style="background:#0a1a2e;color:var(--blue);">Fastest Close</div>
+      <div class="plan-desc">Direct WHOOP Unite enterprise outreach to Beebe Healthcare (major Sussex County health system), Bayhealth (major Kent County health system), and TidalHealth. These organizations are major Delaware employers with large clinical workforces — they are WHOOP Unite buyers independent of any RHTP procurement cycle. Workforce wellness pitch: WHOOP Unite for provider and clinical staff wellness, resilience, and retention. No procurement cycle required. Standard enterprise motion, 14–30 day close potential. This is the fastest path to signed paper in Delaware regardless of what happens with the RFP.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Plan Comparison</div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Plan A — TidalHealth Proposal</th>
+        <th>Plan B — DHSS Partnership</th>
+        <th>Plan C — WHOOP Unite Direct</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Program Lane</td>
+        <td>HSS26062 Rural Community Health Hubs</td>
+        <td>Broader RHTP — Future Technology RFPs</td>
+        <td>WHOOP Unite Workforce Wellness</td>
+      </tr>
+      <tr>
+        <td>Procurement Status</td>
+        <td>Active — Closes April 17, 2026 at 1PM</td>
+        <td>Pre-market — Additional RFPs spring 2026</td>
+        <td>No procurement cycle — enterprise motion</td>
+      </tr>
+      <tr>
+        <td>Primary Contact</td>
+        <td>Gregory Mann, TidalHealth (gregory.mann@tidalhealth.org)</td>
+        <td>ricky.williamson@delaware.gov</td>
+        <td>Beebe Healthcare · Bayhealth · TidalHealth</td>
+      </tr>
+      <tr>
+        <td>Sales Motion</td>
+        <td>Named subcontractor / technology partner in prime proposal</td>
+        <td>Pre-market relationship → shape future RFP requirements</td>
+        <td>WHOOP Unite enterprise motion</td>
+      </tr>
+      <tr>
+        <td>Speed to Revenue</td>
+        <td>6–12 months (post-award if named)</td>
+        <td>9–18 months (post-RFP, future solicitations)</td>
+        <td>14–30 days (direct enterprise deal)</td>
+      </tr>
+      <tr>
+        <td>Scale Ceiling</td>
+        <td>Hub program across Kent/Sussex counties — $157M program scale</td>
+        <td>Statewide — all future Delaware RHTP initiatives</td>
+        <td>Individual health system workforces</td>
+      </tr>
+      <tr>
+        <td>Probability</td>
+        <td>High if contacted today — depends on TidalHealth bidding</td>
+        <td>High — building relationship before solicitations drop</td>
+        <td>High — proven WHOOP Unite motion</td>
+      </tr>
+      <tr>
+        <td>Recommendation</td>
+        <td><span class="rec-badge">Start Immediately</span></td>
+        <td><span class="rec-badge" style="background:#1a1408;color:var(--orange);">Parallel Track</span></td>
+        <td><span class="rec-badge" style="background:#0a1a2e;color:var(--blue);">Parallel Track</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">30 / 60 / 90 Day Action Plan</div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 1–3 — Immediate (Before April 17)</div>
+    <ul class="timeline-items">
+      <li class="critical">Contact Gregory Mann (gregory.mann@tidalhealth.org) and Henry Nyce (henry.nyce@tidalhealth.org) at TidalHealth today. Pitch WHOOP as the wearable health intelligence layer in their hub proposal. Ask to be named as a technology partner or subcontractor before April 17 submission. Use the opening email below.</li>
+      <li class="critical">Contact Amanda Jennings at DocGo (Amanda.Jennings@docgo.com) — same pitch. DocGo is a mobile health operator with 4 pre-bid attendees. Strong prime bidder signal.</li>
+      <li class="hot">Contact Kimberly Blanch at Beebe Healthcare (kblanch@beebehealthcare.org) and Pia Stokes at Delaware State University (PZStokes@desu.edu) — pitch WHOOP for their hub proposal if they're bidding.</li>
+      <li class="hot">Email ricky.williamson@delaware.gov — DHSS RFP contact. Introduce WHOOP for the broader RHTP program and future technology solicitations. (Plan B — can run in parallel with RFP outreach.)</li>
+    </ul>
+  </div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 4–30 — Post-RFP Submission / Award Process</div>
+    <ul class="timeline-items">
+      <li class="hot">Follow up with any prime bidder contacts who did not respond before April 17 — even if WHOOP wasn't named in their original proposal, post-submission relationship building positions WHOOP for the award phase and any contract modifications.</li>
+      <li class="hot">Begin WHOOP Unite direct outreach to Beebe Healthcare and Bayhealth — clinical workforce wellness pitch, independent of hub RFP. Enterprise motion, no procurement cycle. Fastest path to signed paper in Delaware.</li>
+      <li class="teal">Monitor mmp.delaware.gov for award announcement and any new DHSS RFP releases. DHSS expected to release additional RFPs spring 2026.</li>
+    </ul>
+  </div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 31–60 — Award and Partnership Development</div>
+    <ul class="timeline-items">
+      <li class="hot">If TidalHealth or DocGo wins hub award and named WHOOP: begin partnership implementation discussions — workforce wellbeing program for hub staff and population health engagement design for Kent/Sussex residents.</li>
+      <li class="hot">If not named in hub award: pivot fully to Plan B (DHSS relationship) and Plan C (WHOOP Unite direct). Hub award losers may still be consortium partners with technology needs.</li>
+      <li class="teal">Follow up with ricky.williamson@delaware.gov — ask about additional RHTP RFPs expected spring 2026 and vendor engagement process.</li>
+    </ul>
+  </div>
+
+  <div class="timeline-block">
+    <div class="timeline-period">Days 61–90 — Scale and Deepen</div>
+    <ul class="timeline-items">
+      <li class="teal">Engage Delaware Medical School — WHOOP as wellness and performance platform for rural medicine students. Long-horizon but high-impact relationship.</li>
+      <li class="teal">Close first WHOOP Unite deal with Beebe or Bayhealth — use as proof point in DHSS conversations and future hub technology discussions.</li>
+      <li>Prepare positioning materials for any additional DHSS RHTP RFPs expected spring/summer 2026.</li>
+    </ul>
+  </div>
+
+  <div class="section-title">Opening Email 1 — TidalHealth (Send Today)</div>
+
+  <div class="email-block">
+    <div class="email-header">
+      <div class="email-field">To: <span>Gregory Mann — gregory.mann@tidalhealth.org</span></div>
+      <div class="email-field">CC: <span>Henry Nyce — henry.nyce@tidalhealth.org</span></div>
+      <div class="email-field">Subject: <span>WHOOP + TidalHealth — Delaware Rural Community Health Hubs Proposal</span></div>
+    </div>
+    <div class="email-body">Hi Gregory,
+
+I noticed TidalHealth had a strong presence at the Delaware Rural Community Health Hubs pre-bid meeting, and with the April 17 submission deadline approaching, I wanted to reach out directly.
+
+WHOOP provides intelligent health guidance across sleep, recovery, strain, fitness, and longevity through a consumer wearable platform. We work with health systems to extend wearable-based health insights between care touchpoints — supporting both population health engagement and workforce wellbeing for clinical and community health teams.
+
+For a hub model focused on ongoing community engagement in Kent and Sussex counties, WHOOP fits as the continuous health insights layer — helping hub staff monitor their own resilience while extending health visibility to the rural populations they serve.
+
+If there's an opportunity to be included as a technology partner in TidalHealth's proposal — even as a named subcontractor or technology layer — I'd love to share a quick overview today or tomorrow.
+
+Would a 15-minute call work before Thursday?
+
+Jessie Spada
+WHOOP Enterprise</div>
+  </div>
+
+  <div class="section-title">Opening Email 2 — DHSS / Ricky Williamson (Post-RFP / Parallel)</div>
+
+  <div class="email-block">
+    <div class="email-header">
+      <div class="email-field">To: <span>Ricky Williamson — ricky.williamson@delaware.gov</span></div>
+      <div class="email-field">Subject: <span>WHOOP — Consumer Wearable Health Intelligence for Delaware's Rural Health Transformation Program</span></div>
+    </div>
+    <div class="email-body">Hi Ricky,
+
+I'm reaching out to introduce WHOOP in the context of Delaware's Rural Health Transformation Program. WHOOP provides intelligent health guidance across sleep, recovery, strain, fitness, and longevity — supporting population health and workforce wellbeing in community-based care models.
+
+As Delaware builds out its Rural Community Health Hubs and additional initiatives in Kent and Sussex counties, we'd welcome the opportunity to discuss how WHOOP's wearable health intelligence platform could support both community engagement goals and the wellbeing of hub staff and community health workers.
+
+Would there be an appropriate time to connect, or a vendor engagement process I should be aware of as additional RFPs are developed?
+
+Jessie Spada
+WHOOP Enterprise</div>
+  </div>
+
+  <div class="doc-links">
+    <a href="delaware-rht-por.html" class="doc-link-btn doc-link-primary">Plan of Record →</a>
+    <a href="rhtp-hub.html" class="doc-link-btn doc-link-secondary">← RHTP Hub</a>
+    <a href="rhtp-command.html" class="doc-link-btn doc-link-secondary">Command Center</a>
+    <a href="https://mmp.delaware.gov/Bids/Details/8989" target="_blank" class="doc-link-btn doc-link-secondary">Delaware RFP Portal ↗</a>
+  </div>
+
+</div>
+</body>
+</html>

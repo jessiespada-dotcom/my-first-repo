@@ -135,9 +135,13 @@
     }
     .urgent-grid {
       display: grid;
-      grid-template-columns: repeat(11, 1fr);
+      grid-template-columns: repeat(12, 1fr);
       gap: 0;
     }
+    .urgent-list { list-style: none; padding: 0; margin: 0; }
+    .urgent-item { padding: 8px 0 8px 12px; border-left: 3px solid rgba(255,90,90,0.3); margin-bottom: 10px; font-size: 12px; color: #ccc; line-height: 1.55; }
+    .urgent-item:last-child { margin-bottom: 0; }
+    .urgent-item strong { color: #fff; }
     .urgent-col {
       padding: 22px 24px;
       border-right: 1px solid rgba(255,90,90,0.12);
@@ -701,7 +705,7 @@
       Enterprise Healthcare<span class="sep">|</span>CMS Rural Health Transformation<span class="sep">|</span>State Command Center<span class="sep">|</span>Updated April 13, 2026
     </div>
   </div>
-  <div class="header-badge">33 Actions Due This Week</div>
+  <div class="header-badge">37 Actions Due This Week</div>
 </div>
 
 
@@ -717,7 +721,7 @@
   <div class="urgent-banner">
     <div class="urgent-banner-header">
       <div class="urgent-banner-title">Critical Actions — Due This Week</div>
-      <div class="urgent-banner-sub">Week of April 13, 2026 — Nebraska Workforce Incentive opens April 15 · Montana CoE RFPs closing · Missouri Q2 RPM feedback window live · NC Hub Lead awards imminent · Ohio CHW Training closes June 15</div>
+      <div class="urgent-banner-sub">Week of April 13, 2026 — Nebraska Workforce Incentive opens April 15 · Montana CoE RFPs closing · Missouri Q2 RPM feedback window live · NC Hub Lead awards imminent · Ohio CHW Training closes June 15 · Delaware Community Health Hubs RFP closes April 17</div>
     </div>
     <div class="urgent-grid">
 
@@ -917,6 +921,25 @@
         </div>
       </div>
 
+      <!-- Delaware Column -->
+      <div class="urgent-col">
+        <div class="urgent-col-label" style="color:#ff4444;">Delaware · $157M — April 17 RFP</div>
+        <ul class="urgent-list">
+          <li class="urgent-item" style="border-left-color:#ff4444;">
+            <strong>Contact TidalHealth today</strong> — gregory.mann@tidalhealth.org — Rural Community Health Hubs RFP closes April 17 at 1PM. TidalHealth sent 6 people to pre-bid. They are bidding. Pitch WHOOP as the wearable health insights layer in their proposal.
+          </li>
+          <li class="urgent-item" style="border-left-color:#ff4444;">
+            <strong>Contact DocGo</strong> — Amanda.Jennings@docgo.com — 4 attendees at pre-bid, mobile health operator. Same pitch. April 17 deadline.
+          </li>
+          <li class="urgent-item" style="border-left-color:#ff8c00;">
+            <strong>Contact Beebe Healthcare</strong> — kblanch@beebehealthcare.org — Sussex County health system. 2 pre-bid attendees.
+          </li>
+          <li class="urgent-item" style="border-left-color:#ffb347;">
+            <strong>Email ricky.williamson@delaware.gov</strong> — DHSS RFP contact. Introduce WHOOP for future RHTP technology solicitations.
+          </li>
+        </ul>
+      </div>
+
       <!-- Nebraska Column -->
       <div class="urgent-col">
         <div class="urgent-col-label">Nebraska · $219M Award — Apr 15 Urgent</div>
@@ -1028,6 +1051,7 @@
   <!-- ── STATE TABS ── -->
   <div class="tab-bar">
     <button class="tab-btn active" onclick="showTab('all')">All States</button>
+    <button class="tab-btn" onclick="showTab('delaware')" style="color:var(--red);">Delaware</button>
     <button class="tab-btn" onclick="showTab('alaska')">Alaska</button>
     <button class="tab-btn" onclick="showTab('texas')">Texas</button>
     <button class="tab-btn" onclick="showTab('california')">California</button>
@@ -1048,8 +1072,37 @@
   ══════════════════════════════════════ -->
   <div id="tab-all" class="tab-content active">
 
-    <div class="section-label">Active State Opportunities — 11 States · $2.53B Total</div>
+    <div class="section-label">Active State Opportunities — 12 States · $2.69B Total</div>
     <div class="overview-grid">
+
+      <!-- Delaware Card -->
+      <div class="state-overview-card" onclick="showTab('delaware')" style="border-color:rgba(255,68,68,0.4);">
+        <div class="soc-header" style="display:flex;align-items:center;gap:12px;padding:16px 22px 12px;border-bottom:1px solid var(--rule);">
+          <div class="soc-abbr" style="background:#ff4444;width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;flex-shrink:0;">DE</div>
+          <div class="soc-info" style="flex:1;">
+            <div class="soc-name" style="font-size:22px;font-weight:700;color:#fff;margin-bottom:2px;">Delaware</div>
+            <div class="soc-award" style="font-size:12px;color:var(--teal);">$157.0M Award</div>
+          </div>
+          <div class="soc-badge" style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:2px;color:#ff4444;border:1px solid rgba(255,68,68,0.4);background:rgba(255,68,68,0.06);">Critical</div>
+        </div>
+        <div class="state-overview-body">
+          <div class="state-status-row">
+            <span class="status-pill sp-red">RFP Closes April 17</span>
+            <span class="status-pill sp-teal">6 TidalHealth Attendees</span>
+          </div>
+          <div class="state-desc">
+            Live RFP — HSS26062 Rural Community Health Hubs closes April 17 at 1PM. TidalHealth sent 6 people to the pre-bid meeting — strongest bidder signal in the entire portfolio. WHOOP play: get named in TidalHealth, DocGo, or Beebe Healthcare proposal before Thursday submission. Same subcontractor model as Montana.
+          </div>
+          <div class="state-doc-links">
+            <a class="doc-link por" href="https://jessiespada-dotcom.github.io/my-first-repo/delaware-rht-por.html" target="_blank" onclick="event.stopPropagation()">
+              <span>Plan of Record</span><span class="doc-arrow">↗</span>
+            </a>
+            <a class="doc-link gtm" href="https://jessiespada-dotcom.github.io/my-first-repo/delaware-gtm-strategy.html" target="_blank" onclick="event.stopPropagation()">
+              <span>GTM Strategy</span><span class="doc-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
 
       <!-- Alaska Card -->
       <div class="state-overview-card" onclick="showTab('alaska')">
@@ -2643,6 +2696,7 @@
 
     <div class="zi-filter-row">
       <button class="zi-filter-btn active" onclick="filterZI('all')">All States</button>
+      <button class="zi-filter-btn" onclick="filterZI('delaware')">Delaware</button>
       <button class="zi-filter-btn" onclick="filterZI('montana')">Montana</button>
       <button class="zi-filter-btn" onclick="filterZI('texas')">Texas</button>
       <button class="zi-filter-btn" onclick="filterZI('california')">California</button>
@@ -2658,7 +2712,7 @@
       <button class="zi-filter-btn" onclick="filterZI('warm')">Warm Only</button>
     </div>
 
-    <div class="zi-count">Showing <span id="zi-visible-count">53</span> of <span id="zi-total-count">53</span> targets</div>
+    <div class="zi-count">Showing <span id="zi-visible-count">56</span> of <span id="zi-total-count">56</span> targets</div>
 
     <div class="zi-table-wrap">
       <table class="zi-table">
@@ -3329,6 +3383,50 @@
             <td class="zi-notes">Two parallel target lists. (1) Rural Ohio CAHs: independently operated critical access hospitals with direct procurement authority and high provider turnover risk. Target for WHOOP Unite workforce retention entry (Plan C, fastest close 14–30 days). (2) DOH59715 Workforce Pipeline winners: organizations awarded the $10M/yr workforce pipeline contract are now running 5-year rural service commitment programs — they are active WHOOP Unite buyers for provider retention. Monitor OhioBuys for award announcements. Search ZoomInfo: Hospital · Ohio · "Critical Access" or ≤25 beds. Workforce org search: "Rural Health Workforce" + Ohio + Nonprofit/Consulting.</td>
           </tr>
 
+          <!-- ── DELAWARE — Pre-Bid Attendees ── -->
+          <tr class="zi-row" data-state="delaware">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">Delaware</span></td>
+            <td>
+              <div class="zi-org">Gregory Mann</div>
+              <div class="zi-hq">TidalHealth</div>
+            </td>
+            <td>
+              <div class="zi-role">VP/Director level</div>
+              <div class="zi-role-alt">gregory.mann@tidalhealth.org</div>
+            </td>
+            <td>Delaware</td>
+            <td class="zi-notes">RFP pre-bid attendee — 6 TidalHealth staff attended. Highest priority contact for April 17 RFP. TidalHealth is the strongest prime bidder signal in the entire Delaware pre-bid attendee list. Contact today.</td>
+          </tr>
+          <tr class="zi-row" data-state="delaware">
+            <td><span class="zi-priority zi-p-hot">Hot</span></td>
+            <td><span class="zi-state-tag">Delaware</span></td>
+            <td>
+              <div class="zi-org">Amanda Jennings</div>
+              <div class="zi-hq">DocGo</div>
+            </td>
+            <td>
+              <div class="zi-role">Director</div>
+              <div class="zi-role-alt">Amanda.Jennings@docgo.com</div>
+            </td>
+            <td>Delaware</td>
+            <td class="zi-notes">DocGo pre-bid attendee — mobile health operator, 4 staff attended. Strong prime bidder signal. Pitch WHOOP as the wearable health intelligence layer in DocGo's hub operations proposal. April 17 deadline.</td>
+          </tr>
+          <tr class="zi-row" data-state="delaware">
+            <td><span class="zi-priority zi-p-warm">Warm</span></td>
+            <td><span class="zi-state-tag">Delaware</span></td>
+            <td>
+              <div class="zi-org">Kimberly Blanch</div>
+              <div class="zi-hq">Beebe Healthcare</div>
+            </td>
+            <td>
+              <div class="zi-role">Director</div>
+              <div class="zi-role-alt">kblanch@beebehealthcare.org</div>
+            </td>
+            <td>Delaware</td>
+            <td class="zi-notes">Beebe Healthcare pre-bid attendee — major Sussex County health system. Likely partner or prime in a consortium bid. Also a direct WHOOP Unite target for provider workforce wellness independent of the RFP.</td>
+          </tr>
+
           <!-- ── CROSS-STATE — Consulting Firms (Multiple States) ── -->
           <tr data-state="all" data-priority="warm">
             <td><span class="zi-priority zi-p-warm">Warm</span></td>
@@ -3388,6 +3486,165 @@
 
         </tbody>
       </table>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       TAB: DELAWARE
+  ══════════════════════════════════════ -->
+  <div id="tab-delaware" class="tab-content">
+
+    <div class="state-hero">
+      <div>
+        <div class="state-hero-eyebrow" style="color:var(--red);">CMS Rural Health Transformation Program — Delaware · RFP CLOSES APRIL 17</div>
+        <div class="state-hero-title">Delaware DHSS — Rural Community Health Hubs</div>
+        <div class="state-hero-meta">
+          Agency: Delaware Department of Health and Social Services (DHSS)<br>
+          Active RFP: <strong style="color:var(--red);">HSS26062-RURALCHHUB — Closes April 17, 2026 at 1:00 PM</strong><br>
+          RFP Portal: <a href="https://mmp.delaware.gov/Bids/Details/8989" target="_blank" style="color:var(--blue);text-decoration:none;">mmp.delaware.gov/Bids/Details/8989</a><br>
+          DHSS Contact: <a href="mailto:ricky.williamson@delaware.gov" style="color:var(--blue);text-decoration:none;">ricky.williamson@delaware.gov</a> &nbsp;·&nbsp; Focus: Kent and Sussex Counties
+        </div>
+      </div>
+      <div class="state-hero-award">
+        <div class="state-hero-number" style="color:var(--red);">$157M</div>
+        <div class="state-hero-number-label">5-Year CMS Award</div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-eyebrow">Active RFP<br>HSS26062-RURALCHHUB</div>
+        <div class="stat-number" style="color:var(--red);">Apr 17</div>
+        <div class="stat-desc">Rural Community Health Hubs — closes April 17 at 1PM. WHOOP play: get named in a prime bidder's proposal. Same model as Montana CoE subcontractor play.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-eyebrow">TidalHealth<br>Pre-Bid Attendees</div>
+        <div class="stat-number" style="color:var(--red);">6</div>
+        <div class="stat-desc">TidalHealth sent 6 people to the pre-bid meeting — highest single-org count. They are almost certainly bidding as prime or anchor partner. Contact Gregory Mann today.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-eyebrow">Rural Population<br>in Delaware</div>
+        <div class="stat-number orange">40%</div>
+        <div class="stat-desc">Approximately 40% of Delawareans live in rural areas — concentrated in Kent and Sussex counties, the hub program's target geography.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-eyebrow">WHOOP Play<br>Structure</div>
+        <div class="stat-number blue">Sub</div>
+        <div class="stat-desc">Hub model is a services/operations contract. WHOOP enters as a named technology layer in a prime bidder's proposal — same structure as Montana CoE play.</div>
+      </div>
+    </div>
+
+    <!-- Urgent Actions -->
+    <div class="state-urgent">
+      <div class="state-urgent-label" style="color:var(--red);">Critical — RFP Closes April 17 at 1PM — 3 Days</div>
+      <div class="state-urgent-list">
+        <div class="sui">
+          <div class="sui-dot" style="background:var(--red);"></div>
+          <div class="sui-text"><strong>Contact Gregory Mann at TidalHealth TODAY</strong> — <a href="mailto:gregory.mann@tidalhealth.org">gregory.mann@tidalhealth.org</a> and Henry Nyce — <a href="mailto:henry.nyce@tidalhealth.org">henry.nyce@tidalhealth.org</a>. TidalHealth sent 6 people to the Rural Community Health Hubs pre-bid meeting — highest single-org count. They are almost certainly bidding as prime. Pitch WHOOP as the wearable health intelligence layer in their hub proposal: workforce wellbeing for CHWs and hub staff, population health engagement for Kent/Sussex rural populations. Ask to be named as a technology partner before April 17 submission. Opening email in GTM Strategy.</div>
+        </div>
+        <div class="sui">
+          <div class="sui-dot" style="background:var(--red);"></div>
+          <div class="sui-text"><strong>Contact DocGo — <a href="mailto:Amanda.Jennings@docgo.com">Amanda.Jennings@docgo.com</a></strong> — DocGo is a national mobile health operator that sent 4 people to the pre-bid meeting. Strong prime bidder signal. Same pitch: WHOOP as the population health and workforce wellbeing layer in their hub operations model. April 17 deadline.</div>
+        </div>
+        <div class="sui">
+          <div class="sui-dot" style="background:var(--orange);"></div>
+          <div class="sui-text"><strong>Contact Beebe Healthcare — <a href="mailto:kblanch@beebehealthcare.org">kblanch@beebehealthcare.org</a></strong> (Kimberly Blanch) and Delaware State University — <a href="mailto:PZStokes@desu.edu">PZStokes@desu.edu</a> (Pia Z. Stokes). Beebe sent 2 attendees (major Sussex County health system), DSU sent 6 (HBCU, community anchor in Kent County). Both likely in a consortium bid. Get WHOOP named before April 17 submission.</div>
+        </div>
+        <div class="sui">
+          <div class="sui-dot" style="background:var(--orange);"></div>
+          <div class="sui-text"><strong>Email ricky.williamson@delaware.gov</strong> — DHSS RFP contact. Introduce WHOOP for the broader RHTP program. Delaware expected to release additional RFPs spring 2026 — position for future technology solicitations before they are written. Run in parallel with prime bidder outreach.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pre-Bid Attendee Analysis -->
+    <div class="section-label">Pre-Bid Attendee Analysis — Who Is Likely Bidding</div>
+    <div class="init-list">
+      <div class="init-row" style="grid-template-columns:220px 80px 1fr 100px;">
+        <div class="init-name" style="font-weight:700;color:#fff;">TidalHealth</div>
+        <div style="font-size:20px;font-weight:800;color:#ff4444;">6</div>
+        <div class="init-desc">Maryland/Delaware border health system serving Sussex County. 6 attendees = strongest bidder signal. Almost certainly bidding as prime or anchor partner. Primary contact: gregory.mann@tidalhealth.org, henry.nyce@tidalhealth.org, james.trumble@tidalhealth.org, katherine.rodgers@tidalhealth.org, kathryn.fiddler@tidalhealth.org, tanisha.armstrong@tidalhealth.org</div>
+        <div class="init-fit fit-primary">Contact Today</div>
+      </div>
+      <div class="init-row" style="grid-template-columns:220px 80px 1fr 100px;">
+        <div class="init-name" style="font-weight:700;color:#fff;">Delaware State University</div>
+        <div style="font-size:20px;font-weight:800;color:#ff4444;">6</div>
+        <div class="init-desc">HBCU with deep community roots in Kent County. 6 attendees — likely bidding as prime or community anchor in consortium. Contacts: PZStokes@desu.edu, bpride@desu.edu, nbell@desu.edu, tajones@desu.edu, lgulledge@desu.edu, kshockley@desu.edu</div>
+        <div class="init-fit fit-primary">Tier 1</div>
+      </div>
+      <div class="init-row" style="grid-template-columns:220px 80px 1fr 100px;">
+        <div class="init-name" style="font-weight:700;color:#fff;">DocGo</div>
+        <div style="font-size:20px;font-weight:800;color:#ff4444;">4</div>
+        <div class="init-desc">National mobile health operator. 4 attendees — strong prime bidder signal. Contacts: Amanda.Jennings@docgo.com, Jen.McLean@docgo.com, Jim.Clark@docgo.com, sjean@docgo.com</div>
+        <div class="init-fit fit-primary">Contact Today</div>
+      </div>
+      <div class="init-row" style="grid-template-columns:220px 80px 1fr 100px;">
+        <div class="init-name" style="font-weight:700;color:#fff;">Benten Technologies</div>
+        <div style="font-size:18px;font-weight:700;color:var(--orange);">3</div>
+        <div class="init-desc">Technology subcontractor. 3 attendees suggest consortium participation as technology infrastructure partner. Contacts: ebajracharya@bententech.com, hkchang@bententech.com, kisaacs@bententech.com</div>
+        <div class="init-fit fit-secondary">Tier 1</div>
+      </div>
+      <div class="init-row" style="grid-template-columns:220px 80px 1fr 100px;">
+        <div class="init-name" style="font-weight:700;color:#fff;">Beebe Healthcare</div>
+        <div style="font-size:18px;font-weight:700;color:var(--orange);">2</div>
+        <div class="init-desc">Major Sussex County health system. 2 attendees signal bidding interest or consortium participation. Primary contact: kblanch@beebehealthcare.org, llucinski@beebehealthcare.org. Also WHOOP Unite direct target.</div>
+        <div class="init-fit fit-secondary">Tier 2</div>
+      </div>
+      <div class="init-row" style="grid-template-columns:220px 80px 1fr 100px;">
+        <div class="init-name" style="font-weight:700;color:#fff;">SAIC</div>
+        <div style="font-size:18px;font-weight:700;color:var(--orange);">2</div>
+        <div class="init-desc">Government services contractor. 2 attendees suggest technology infrastructure or operations prime interest. Contacts: carla.allison@saic.com, Pamela.N.Miller-Casey@saic.com</div>
+        <div class="init-fit fit-secondary">Tier 2</div>
+      </div>
+      <div class="init-row" style="grid-template-columns:220px 80px 1fr 100px;">
+        <div class="init-name" style="font-weight:700;color:#fff;">Bayhealth · Deloitte · OnMed · Others</div>
+        <div style="font-size:16px;font-weight:600;color:#aaa;">1+</div>
+        <div class="init-desc">Bayhealth (Kent County — carrie_hart@bayhealth.org), Deloitte (disridhar@deloitte.com), OnMed (corourke@onmed.com), Hamilton Health Box, International SOS, Westside Family Healthcare, AMC Health, Unite US, Gainwell Technologies, University of Delaware</div>
+        <div class="init-fit fit-watch">Monitor</div>
+      </div>
+    </div>
+
+    <!-- WHOOP Fit -->
+    <div class="section-label">WHOOP Fit — Hub Model</div>
+    <div class="init-list">
+      <div class="init-row">
+        <div class="init-num">1</div>
+        <div class="init-name">Workforce Wellbeing for Hub Staff &amp; CHWs</div>
+        <div class="init-desc">Community health workers and hub staff are the frontline of community-based care delivery in Kent and Sussex counties. WHOOP helps CHWs monitor their own resilience and recovery — reducing burnout in a demanding community health role. Workforce wellbeing angle does not require clinical approval or population enrollment.</div>
+        <div class="init-fit fit-primary">Primary</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">2</div>
+        <div class="init-name">Population Health Engagement Layer</div>
+        <div class="init-desc">WHOOP extends health visibility for the rural Kent/Sussex populations served by the hub — providing continuous health insights between care touchpoints without clinical infrastructure. Hub model is explicitly designed around ongoing community engagement between visits. WHOOP is the technology layer that makes that engagement data-driven.</div>
+        <div class="init-fit fit-primary">Primary</div>
+      </div>
+      <div class="init-row">
+        <div class="init-num">3</div>
+        <div class="init-name">Future RHTP Technology Solicitations</div>
+        <div class="init-desc">Delaware DHSS expected to release additional RFPs spring 2026. Delaware Medical School (rural primary care focus) and School-Based Health Centers also offer future technology engagement opportunities. Pre-market relationship with ricky.williamson@delaware.gov now positions WHOOP for these future solicitations.</div>
+        <div class="init-fit fit-secondary">Secondary</div>
+      </div>
+    </div>
+
+    <!-- Documents -->
+    <div class="section-label">Strategy Documents</div>
+    <div class="doc-cards">
+      <a class="doc-card por-card" href="https://jessiespada-dotcom.github.io/my-first-repo/delaware-rht-por.html" target="_blank">
+        <div class="doc-card-type">Plan of Record</div>
+        <div class="doc-card-title">Delaware RHTP — What We Know</div>
+        <div class="doc-card-desc">Full award overview, active HSS26062 solicitation details, complete pre-bid attendee analysis table with all org contacts, WHOOP fit by initiative, and key contacts for TidalHealth, DocGo, Beebe Healthcare, DSU, and DHSS.</div>
+        <div class="doc-card-cta">Open Plan of Record ↗</div>
+      </a>
+      <a class="doc-card gtm-card" href="https://jessiespada-dotcom.github.io/my-first-repo/delaware-gtm-strategy.html" target="_blank">
+        <div class="doc-card-type">Go-To-Market Strategy</div>
+        <div class="doc-card-title">Delaware RHTP — Three Days to Close</div>
+        <div class="doc-card-desc">Three-plan GTM: Plan A (TidalHealth proposal — contact today), Plan B (DHSS state partnership — future RFPs), Plan C (WHOOP Unite direct — Beebe/Bayhealth). Opening emails to TidalHealth and DHSS. 30/60/90 day action plan.</div>
+        <div class="doc-card-cta">Open GTM Strategy ↗</div>
+      </a>
     </div>
 
   </div>

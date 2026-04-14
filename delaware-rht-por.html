@@ -1,0 +1,507 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Delaware DHSS — Rural Health Transformation · Program of Record</title>
+  <style>
+    :root {
+      --bg:        #0d1215;
+      --bg-card:   rgba(255,255,255,0.03);
+      --text:      #ffffff;
+      --muted:     #aaaaaa;
+      --meta:      #666666;
+      --rule:      rgba(255,255,255,0.08);
+      --teal:      #00F19F;
+      --blue:      #0093E7;
+      --orange:    #ffb347;
+      --red:       #ff5a5a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .header-bar {
+      background: #000;
+      border-bottom: 1px solid var(--rule);
+      padding: 0 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; }
+    .header-wordmark { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--teal); margin-right: 16px; }
+    .header-pipe { width: 1px; height: 14px; background: rgba(255,255,255,0.15); margin-right: 16px; }
+    .header-meta { font-size: 10px; color: var(--meta); letter-spacing: 0.08em; }
+    .header-meta .sep { margin: 0 6px; opacity: 0.3; }
+    .header-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); border: 1px solid rgba(255,90,90,0.4); background: rgba(255,90,90,0.07); padding: 4px 9px; border-radius: 2px; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+    .page { max-width: 1180px; margin: 0 auto; padding: 48px 40px 80px; }
+
+    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .page-title { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 10px; }
+    .page-meta { font-size: 12px; color: var(--meta); letter-spacing: 0.04em; }
+    .page-meta .dot { margin: 0 8px; opacity: 0.4; }
+
+    .rule { height: 1px; background: var(--rule); margin: 36px 0; }
+
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--meta); margin-bottom: 16px; }
+
+    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+    .stat-cell { background: var(--bg-card); padding: 24px 26px; border-right: 1px solid var(--rule); }
+    .stat-cell:last-child { border-right: none; }
+    .stat-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 14px; line-height: 1.5; }
+    .stat-number { font-size: 48px; font-weight: 700; line-height: 1; color: var(--teal); letter-spacing: -0.02em; margin-bottom: 8px; }
+    .stat-number.blue   { color: var(--blue); }
+    .stat-number.white  { color: #fff; }
+    .stat-number.orange { color: var(--orange); }
+    .stat-number.red    { color: var(--red); }
+    .stat-desc { font-size: 12px; color: #888; line-height: 1.55; }
+
+    .narrative-title { font-size: 17px; font-weight: 600; color: #fff; padding-bottom: 14px; border-bottom: 1px solid var(--rule); margin-bottom: 20px; }
+    .narrative-body { font-size: 13.5px; line-height: 1.85; color: #bbb; }
+    .narrative-body p { margin-bottom: 14px; }
+    .narrative-body p:last-child { margin-bottom: 0; }
+    .hl        { color: var(--teal);   font-weight: 600; }
+    .hl-orange { color: var(--orange); font-weight: 600; }
+    .hl-red    { color: var(--red);    font-weight: 600; }
+    .hl-white  { color: #fff;          font-weight: 600; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+    .info-block { background: var(--bg-card); border: 1px solid var(--rule); border-radius: 4px; padding: 24px 26px; }
+    .info-block-label { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; }
+    .info-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .info-list li { font-size: 13px; color: #bbb; padding-left: 16px; position: relative; line-height: 1.55; }
+    .info-list li::before { content: '—'; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+    .info-list li strong { color: #e8e8e8; }
+
+    .program-table { width: 100%; border-collapse: collapse; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; font-size: 12.5px; }
+    .program-table thead tr { background: rgba(255,255,255,0.04); }
+    .program-table th { padding: 12px 18px; text-align: left; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+    .program-table th:last-child { border-right: none; }
+    .program-table td { padding: 13px 18px; color: #bbb; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+    .program-table td:last-child { border-right: none; }
+    .program-table tr:last-child td { border-bottom: none; }
+    .program-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+    .prog-name { font-size: 13px; font-weight: 600; color: #ddd; margin-bottom: 4px; }
+    .prog-sub  { font-size: 11px; color: #555; }
+    .fit-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; white-space: nowrap; }
+    .fit-primary   { background: rgba(0,241,159,0.10);  color: var(--teal);   border: 1px solid rgba(0,241,159,0.25); }
+    .fit-secondary { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+    .fit-watch     { background: rgba(255,255,255,0.04); color: #555; border: 1px solid rgba(255,255,255,0.08); }
+
+    .callout { border-left: 3px solid var(--teal); background: rgba(0,241,159,0.04); border-radius: 0 4px 4px 0; padding: 22px 26px; margin-bottom: 40px; }
+    .callout.orange { border-left-color: var(--orange); background: rgba(255,179,71,0.04); }
+    .callout.red    { border-left-color: var(--red);    background: rgba(255,90,90,0.06); }
+    .callout-label { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .callout.orange .callout-label { color: var(--orange); }
+    .callout.red    .callout-label { color: var(--red); }
+    .callout-body { font-size: 13.5px; line-height: 1.75; color: #bbb; }
+
+    .source-quote { font-size: 13px; color: #777; font-style: italic; line-height: 1.7; border-left: 2px solid rgba(255,255,255,0.1); padding-left: 16px; margin-bottom: 12px; }
+    .source-attr { font-size: 10px; color: #444; letter-spacing: 0.08em; margin-bottom: 20px; }
+
+    .contact-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .contact-card { background: var(--bg-card); border: 1px solid var(--rule); border-radius: 4px; padding: 22px 24px; }
+    .contact-card-label { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); margin-bottom: 12px; }
+    .contact-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .contact-title { font-size: 12px; color: #888; margin-bottom: 10px; line-height: 1.5; }
+    .contact-detail { font-size: 12px; color: #bbb; line-height: 1.7; }
+    .contact-detail a { color: var(--blue); text-decoration: none; }
+    .contact-detail a:hover { text-decoration: underline; }
+
+    .attendee-table { width: 100%; border-collapse: collapse; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 40px; font-size: 12.5px; }
+    .attendee-table thead tr { background: rgba(255,255,255,0.04); }
+    .attendee-table th { padding: 12px 18px; text-align: left; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+    .attendee-table th:last-child { border-right: none; }
+    .attendee-table td { padding: 13px 18px; color: #bbb; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+    .attendee-table td:last-child { border-right: none; }
+    .attendee-table tr:last-child td { border-bottom: none; }
+    .attendee-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+    .org-name { font-size: 13px; font-weight: 600; color: #ddd; margin-bottom: 3px; }
+    .org-sub  { font-size: 11px; color: #555; }
+    .tier-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; white-space: nowrap; }
+    .tier-1 { background: rgba(255,68,68,0.12); color: #ff4444; border: 1px solid rgba(255,68,68,0.3); }
+    .tier-2 { background: rgba(255,179,71,0.10); color: var(--orange); border: 1px solid rgba(255,179,71,0.25); }
+
+    .page-footer { font-size: 10px; color: #333; letter-spacing: 0.08em; text-align: right; padding-top: 24px; border-top: 1px solid var(--rule); }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header-bar">
+  <div class="header-left">
+    <div class="header-wordmark">WHOOP</div>
+    <div class="header-pipe"></div>
+    <div class="header-meta">
+      Delaware DHSS<span class="sep">|</span>Rural Health Transformation<span class="sep">|</span>Program of Record<span class="sep">|</span>April 2026
+    </div>
+  </div>
+  <div class="header-badge">RFP Closes April 17</div>
+</div>
+
+
+<div class="page">
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-eyebrow">CMS Rural Health Transformation Program — Delaware</div>
+  <div class="page-title">Delaware Rural Health Transformation — Rural Community Health Hubs RFP Open</div>
+  <div class="page-meta">
+    Recipient: Delaware Department of Health and Social Services (DHSS)
+    <span class="dot">·</span>
+    HSS26062-RURALCHHUB Active — Closes April 17, 2026 at 1:00 PM
+    <span class="dot">·</span>
+    April 2026
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── STATS ── -->
+  <div class="section-label">Award Overview</div>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-eyebrow">CMS RHTP Award<br>5-Year Total</div>
+      <div class="stat-number">$157M</div>
+      <div class="stat-desc">$157.0M awarded to Delaware DHSS under the CMS Rural Health Transformation Program. Kent and Sussex counties are the primary focus geography.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Active RFP<br>Deadline</div>
+      <div class="stat-number red">Apr 17</div>
+      <div class="stat-desc">HSS26062-RURALCHHUB — Rural Community Health Hubs. Closes April 17, 2026 at 1:00 PM. WHOOP play: get named in a prime bidder's proposal before submission.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Rural Counties<br>in Scope</div>
+      <div class="stat-number white">2</div>
+      <div class="stat-desc">Kent and Sussex counties are the primary rural focus for Delaware's RHTP. Rural Community Health Hubs anchor community-based care delivery across both counties.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-eyebrow">Delawareans<br>in Rural Areas</div>
+      <div class="stat-number orange">40%</div>
+      <div class="stat-desc">Approximately 40% of Delawareans live in rural areas. Governor Meyer: "A person's zip code should never dictate the quality of care they receive."</div>
+    </div>
+  </div>
+
+
+  <!-- ── URGENT CALLOUT ── -->
+  <div class="callout red">
+    <div class="callout-label">Urgent — RFP Closes April 17 at 1PM · 3 Days Away</div>
+    <div class="callout-body">
+      <strong style="color:#fff;">HSS26062 — Rural Community Health Hubs</strong> closes April 17, 2026 at 1:00 PM. This is the most urgent deadline in the entire RHTP portfolio. WHOOP does not bid directly — the hub model is a services/operations contract. The play is identical to the Montana subcontractor model: <strong style="color:#fff;">get named in a prime bidder's proposal before submission.</strong><br><br>
+      TidalHealth sent <strong style="color:#fff;">6 people</strong> to the pre-bid meeting — the highest attendee count of any single organization. They are almost certainly bidding as prime or anchor partner. DocGo (4 attendees, mobile health operator) and Delaware State University (6 attendees, HBCU community anchor) are strong secondary targets.<br><br>
+      <strong style="color:#ff4444;">Contact Gregory Mann at TidalHealth today: <a href="mailto:gregory.mann@tidalhealth.org" style="color:#0093E7;">gregory.mann@tidalhealth.org</a></strong> — pitch WHOOP as the wearable health intelligence layer in their hub model. Workforce wellbeing for hub staff and CHWs plus population health engagement for Kent/Sussex rural populations. One email today could mean WHOOP is in the proposal before Thursday at 1PM.
+    </div>
+  </div>
+
+
+  <!-- ── PROGRAM OVERVIEW ── -->
+  <div class="narrative-title">Delaware DHSS — Rural Health Transformation Program Overview</div>
+  <div class="narrative-body">
+    <p>
+      Delaware received $157.0M under the CMS Rural Health Transformation Program. The Delaware Department of Health and Social Services (DHSS) is administering the program with a focus on <span class="hl">Kent and Sussex counties</span> — the state's two primary rural regions, where approximately 40% of Delawareans live. Governor Meyer has set the program's north star: <span class="hl-white">"A person's zip code should never dictate the quality of care they receive."</span>
+    </p>
+    <p>
+      Delaware's program is built around four core initiatives. The most urgent — and the one with an active RFP right now — is the <span class="hl-red">Rural Community Health Hubs</span> model: community-based care infrastructure that extends health engagement between clinical visits for rural Kent and Sussex residents. The hub model is a services and operations contract, not a technology procurement. WHOOP's entry is as a named technology layer in the proposal of a prime bidder — specifically a hub operator who positions WHOOP as the continuous wearable health insights layer for community health workers and the populations they serve.
+    </p>
+    <p>
+      The other three program pillars — the Delaware Medical School (first 4-year medical school in the state, emphasizing primary care for rural communities), School-Based Health Centers, and additional RFPs expected spring 2026 — represent longer-horizon opportunities. For those, the appropriate play is to establish a relationship with DHSS contact <a href="mailto:ricky.williamson@delaware.gov" style="color:var(--blue);text-decoration:none;">ricky.williamson@delaware.gov</a> now, before those solicitations are written.
+    </p>
+  </div>
+
+  <div class="rule"></div>
+
+
+  <!-- ── ACTIVE SOLICITATION ── -->
+  <div class="section-label">Active Solicitation</div>
+
+  <div class="source-quote">"Delaware is committed to ensuring that our rural communities — particularly in Kent and Sussex counties — have access to the community-based health infrastructure they need. The Rural Community Health Hubs will serve as anchors for ongoing health engagement, preventive care, and community wellness outside the traditional clinical setting."</div>
+  <div class="source-attr">— Delaware DHSS RHTP Program · April 2026</div>
+
+  <table class="program-table">
+    <thead>
+      <tr>
+        <th style="width:160px;">Bid Number</th>
+        <th style="width:220px;">Title</th>
+        <th>Description</th>
+        <th style="width:150px;">Deadline</th>
+        <th style="width:90px;">WHOOP Play</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="prog-name">HSS26062-RURALCHHUB</div>
+          <div class="prog-sub">mmp.delaware.gov/Bids/Details/8989</div>
+        </td>
+        <td>Rural Community Health Hubs</td>
+        <td>Services and operations contract to establish and operate Rural Community Health Hubs in Kent and Sussex counties. Hub model extends health engagement between clinical visits — community health workers (CHWs), preventive care, health education, and population health engagement for rural Delawareans. Hub operator will oversee community health workforce and rural population engagement programs. WHOOP fits as the wearable health intelligence layer — workforce wellbeing for hub staff and continuous health insights for hub-served populations.</td>
+        <td style="color:var(--red);font-weight:700;">April 17, 2026<br>1:00 PM</td>
+        <td><span class="fit-badge fit-primary">Subcontractor</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── PRE-BID ATTENDEE ANALYSIS ── -->
+  <div class="section-label">Pre-Bid Meeting Attendee Analysis — Who Is Likely Bidding</div>
+
+  <table class="attendee-table">
+    <thead>
+      <tr>
+        <th style="width:200px;">Organization</th>
+        <th style="width:80px;"># Attendees</th>
+        <th style="width:120px;">Tier / Signal</th>
+        <th>Role / Bidder Signal</th>
+        <th>WHOOP Opportunity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="org-name">TidalHealth</div>
+          <div class="org-sub">Maryland/Delaware border health system — serves Sussex County</div>
+        </td>
+        <td style="color:#ff4444;font-weight:700;font-size:18px;">6</div></td>
+        <td><span class="tier-badge tier-1">Tier 1 — Start Now</span></td>
+        <td>6 attendees is the highest count of any organization at the pre-bid meeting. TidalHealth is a major health system serving the Maryland/Delaware border region and rural Sussex County — the exact geography of the hub model. Almost certainly bidding as prime or anchor partner.</td>
+        <td>Primary target. Contact Gregory Mann today. Pitch WHOOP as the wearable health intelligence layer — workforce wellbeing for TidalHealth's hub staff and CHWs, plus population health insights for Sussex County rural populations. Deadline April 17.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="org-name">Delaware State University</div>
+          <div class="org-sub">HBCU — Dover, DE. Strong community anchor in Kent County.</div>
+        </td>
+        <td style="color:#ff4444;font-weight:700;font-size:18px;">6</div></td>
+        <td><span class="tier-badge tier-1">Tier 1 — Start Now</span></td>
+        <td>DSU is an HBCU with deep community roots in Kent County and strong relationships across Delaware's rural communities. 6 attendees signal a serious bidding interest. Likely to bid as prime or as a community anchor in a consortium.</td>
+        <td>Contact Pia Z. Stokes (PZStokes@desu.edu). DSU-led hub would anchor community engagement in Kent County — WHOOP as the continuous health insights layer for DSU's CHW network and population health programs.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="org-name">DocGo</div>
+          <div class="org-sub">Mobile health operator — national footprint</div>
+        </td>
+        <td style="color:#ff4444;font-weight:700;font-size:18px;">4</div></td>
+        <td><span class="tier-badge tier-1">Tier 1 — Start Now</span></td>
+        <td>DocGo is a national mobile health operator with experience running community-based health programs. 4 attendees signal serious bidder intent. Mobile health operators are natural hub prime bidders — they have the operational infrastructure to run services contracts.</td>
+        <td>Contact Amanda Jennings (Amanda.Jennings@docgo.com). Same pitch: WHOOP as the population health and workforce wellbeing layer in DocGo's hub operations model. Mobile health operators need continuous health insights infrastructure.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="org-name">Benten Technologies</div>
+          <div class="org-sub">Technology subcontractor</div>
+        </td>
+        <td style="color:#ffb347;font-weight:700;font-size:16px;">3</div></td>
+        <td><span class="tier-badge tier-1">Tier 1</span></td>
+        <td>Benten Technologies is a technology subcontractor. 3 attendees suggest they're planning to be part of a consortium bid — likely as a technology infrastructure partner for a prime bidder.</td>
+        <td>Technology subcontractor in a hub consortium bid could create a WHOOP partnership lane. If Benten is named as the technology layer, pitch WHOOP as the wearable component within their technology infrastructure stack. Contacts: ebajracharya@bententech.com, hkchang@bententech.com, kisaacs@bententech.com.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="org-name">Beebe Healthcare</div>
+          <div class="org-sub">Major Sussex County health system</div>
+        </td>
+        <td style="color:#ffb347;font-weight:700;font-size:16px;">2</div></td>
+        <td><span class="tier-badge tier-2">Tier 2 — Strong</span></td>
+        <td>Beebe Healthcare is a major health system serving Sussex County — one of the two hub counties. 2 attendees signal bidding interest or consortium participation. As the dominant health system in Sussex County, Beebe could bid as prime or as an anchor partner.</td>
+        <td>Contact Kimberly Blanch (kblanch@beebehealthcare.org). Same subcontractor pitch. Also a WHOOP Unite direct target — as a large Sussex County employer, Beebe is an enterprise workforce wellness buyer independent of the hub RFP.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="org-name">SAIC</div>
+          <div class="org-sub">Government services / defense technology contractor</div>
+        </td>
+        <td style="color:#ffb347;font-weight:700;font-size:16px;">2</div></td>
+        <td><span class="tier-badge tier-2">Tier 2 — Strong</span></td>
+        <td>SAIC is a large government services contractor. Their presence signals Delaware government contracting interest. May be bidding as an operations prime or as a technology infrastructure partner in a consortium.</td>
+        <td>Contact Carla Allison (carla.allison@saic.com) or Pamela Miller (Pamela.N.Miller-Casey@saic.com). If SAIC is building a technology stack for hub operations, WHOOP fits as the consumer wearable health layer.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="org-name">Bayhealth</div>
+          <div class="org-sub">Major Kent County health system</div>
+        </td>
+        <td style="color:#aaa;font-weight:600;font-size:15px;">1</div></td>
+        <td><span class="tier-badge tier-2">Tier 2</span></td>
+        <td>Bayhealth is a major health system serving Kent County — the other primary hub county. Single attendee suggests monitoring interest or consortium partnership consideration.</td>
+        <td>Contact Carrie Hart (carrie_hart@bayhealth.org). Bayhealth-anchored hub would serve Kent County. Also a WHOOP Unite target for provider workforce wellness independent of the hub RFP.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="org-name">Deloitte</div>
+          <div class="org-sub">Consulting / government services</div>
+        </td>
+        <td style="color:#aaa;font-weight:600;font-size:15px;">1</div></td>
+        <td><span class="tier-badge tier-2">Tier 2</span></td>
+        <td>Deloitte's presence at a hub operations pre-bid is notable — suggests they may be building a technology or program management subcontracting role in a consortium bid.</td>
+        <td>Contact Divya Sridhar (disridhar@deloitte.com). If Deloitte is building a technology component, WHOOP fits as the wearable health intelligence layer in their proposal package.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="org-name">Westside Family Healthcare</div>
+          <div class="org-sub">FQHC — serves Delaware rural communities</div>
+        </td>
+        <td style="color:#aaa;font-weight:600;font-size:15px;">2</div></td>
+        <td><span class="tier-badge tier-2">Tier 2</span></td>
+        <td>FQHC with existing Delaware rural health presence. FQHCs are natural hub anchor organizations — they have the community infrastructure and patient relationships to operate community-based health programs.</td>
+        <td>Contact Heather Patosky (Heather.Patosky@Westsidehealth.org). FQHC-operated hub creates WHOOP opportunity for population health engagement with their existing patient panels and for CHW workforce wellbeing.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="org-name">Other Notable Attendees</div>
+          <div class="org-sub">Unite US · Findhelp · Gainwell Technologies · University of Delaware · OnMed · Hamilton Health Box · International SOS · AMC Health · Dover Family Physicians · Delaware Kidney · Planned Parenthood of Delaware</div>
+        </td>
+        <td style="color:#555;font-size:13px;">Various</td>
+        <td><span class="tier-badge" style="background:rgba(255,255,255,0.04);color:#555;border:1px solid rgba(255,255,255,0.08);">Monitor</span></td>
+        <td>Mix of social care integration platforms, Medicaid IT, telehealth, mobile health, and specialty providers. These organizations may be bidding as part of consortia or as specialty subcontractors within hub proposals.</td>
+        <td>Secondary contacts if primary Tier 1 and 2 outreach doesn't surface a path to proposal inclusion. University of Delaware could be a research partner angle post-award.</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── WHOOP FIT BY INITIATIVE ── -->
+  <div class="section-label">WHOOP Fit by Initiative</div>
+
+  <table class="program-table">
+    <thead>
+      <tr>
+        <th style="width:220px;">Initiative</th>
+        <th>Description</th>
+        <th>WHOOP Fit</th>
+        <th style="width:90px;">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="prog-name">Rural Community Health Hubs</div>
+          <div class="prog-sub">Active RFP — HSS26062 — Closes April 17</div>
+        </td>
+        <td>Community-based care infrastructure in Kent and Sussex counties. Hub model extends health engagement between clinical visits — community health workers, preventive care, health education, and population health engagement. Services and operations contract.</td>
+        <td>WHOOP as the continuous wearable health insights layer for hub operations — two angles: (1) <strong style="color:#e8e8e8;">Workforce wellbeing</strong> for hub staff and community health workers who deliver the program; (2) <strong style="color:#e8e8e8;">Population health engagement</strong> for the rural Kent/Sussex populations the hub serves. No clinical infrastructure required — fits the low-resource rural hub deployment model. Get named in a prime bidder's proposal before April 17.</td>
+        <td><span class="fit-badge fit-primary">Primary</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="prog-name">Delaware Medical School</div>
+          <div class="prog-sub">First 4-year medical school in Delaware — emphasizes rural primary care</div>
+        </td>
+        <td>First 4-year medical school in Delaware, with curriculum emphasis on primary care for rural communities. Designed to train and retain physicians for rural Delaware practice.</td>
+        <td>WHOOP Unite as the wellness and performance platform for medical students and faculty committed to rural Delaware practice. Long-horizon opportunity — establish DHSS relationship now for future partnership conversations as the school develops its technology and wellness program.</td>
+        <td><span class="fit-badge fit-secondary">Secondary</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="prog-name">School-Based Health Centers</div>
+          <div class="prog-sub">Rural school health infrastructure</div>
+        </td>
+        <td>Health center infrastructure embedded in rural Delaware schools — providing access to preventive care, behavioral health, and chronic disease management for rural youth in Kent and Sussex counties.</td>
+        <td>WHOOP youth health and performance platform — potential fit for school-based wellness programs targeting rural adolescent health. Not a current primary procurement entry point, but relevant as school-based programs expand technology investments.</td>
+        <td><span class="fit-badge fit-watch">Watch</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="prog-name">Additional RFPs — Spring 2026</div>
+          <div class="prog-sub">Future solicitations expected from DHSS</div>
+        </td>
+        <td>Delaware DHSS is expected to release additional RFPs in spring 2026 related to the broader RHTP program. Specific focus areas not yet announced.</td>
+        <td>Contact ricky.williamson@delaware.gov now to introduce WHOOP and position for future technology solicitations. Pre-market relationship before solicitations are written = ability to shape requirements language. The relationship built around the hub RFP creates the foundation for future technology procurement conversations.</td>
+        <td><span class="fit-badge fit-primary">Primary</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── KEY CONTACTS ── -->
+  <div class="section-label">Key Contacts</div>
+  <div class="contact-row">
+    <div class="contact-card">
+      <div class="contact-card-label">DHSS RFP Contact</div>
+      <div class="contact-name">Ricky Williamson</div>
+      <div class="contact-title">Delaware DHSS<br>Rural Health Transformation Program</div>
+      <div class="contact-detail">
+        <a href="mailto:ricky.williamson@delaware.gov">ricky.williamson@delaware.gov</a><br>
+        RFP Portal: mmp.delaware.gov/Bids/Details/8989<br>
+        Bid Number: HSS26062-RURALCHHUB
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">TidalHealth — Primary Target (6 Pre-Bid Attendees)</div>
+      <div class="contact-name">Gregory Mann · Henry Nyce</div>
+      <div class="contact-title">TidalHealth<br>Maryland/Delaware border health system — serves Sussex County</div>
+      <div class="contact-detail">
+        <a href="mailto:gregory.mann@tidalhealth.org">gregory.mann@tidalhealth.org</a><br>
+        <a href="mailto:henry.nyce@tidalhealth.org">henry.nyce@tidalhealth.org</a><br>
+        Also: james.trumble@tidalhealth.org · katherine.rodgers@tidalhealth.org<br>
+        kathryn.fiddler@tidalhealth.org · tanisha.armstrong@tidalhealth.org
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">DocGo — Secondary Target (4 Pre-Bid Attendees)</div>
+      <div class="contact-name">Amanda Jennings · Jen McLean</div>
+      <div class="contact-title">DocGo<br>Mobile health operator — national footprint</div>
+      <div class="contact-detail">
+        <a href="mailto:Amanda.Jennings@docgo.com">Amanda.Jennings@docgo.com</a><br>
+        <a href="mailto:Jen.McLean@docgo.com">Jen.McLean@docgo.com</a><br>
+        Also: Jim.Clark@docgo.com · sjean@docgo.com
+      </div>
+    </div>
+  </div>
+  <div class="contact-row">
+    <div class="contact-card">
+      <div class="contact-card-label">Delaware State University — Tier 1 (6 Pre-Bid Attendees)</div>
+      <div class="contact-name">Pia Z. Stokes · Brittney Pride</div>
+      <div class="contact-title">Delaware State University (HBCU)<br>Community anchor — Kent County</div>
+      <div class="contact-detail">
+        <a href="mailto:PZStokes@desu.edu">PZStokes@desu.edu</a><br>
+        <a href="mailto:bpride@desu.edu">bpride@desu.edu</a><br>
+        Also: nbell@desu.edu · tajones@desu.edu · lgulledge@desu.edu · kshockley@desu.edu
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">Beebe Healthcare — Tier 2 (2 Pre-Bid Attendees)</div>
+      <div class="contact-name">Kimberly Blanch · Laurie Lucinski</div>
+      <div class="contact-title">Beebe Healthcare<br>Major Sussex County health system</div>
+      <div class="contact-detail">
+        <a href="mailto:kblanch@beebehealthcare.org">kblanch@beebehealthcare.org</a><br>
+        <a href="mailto:llucinski@beebehealthcare.org">llucinski@beebehealthcare.org</a>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">Bayhealth — Tier 2 (1 Pre-Bid Attendee)</div>
+      <div class="contact-name">Carrie Hart</div>
+      <div class="contact-title">Bayhealth<br>Major Kent County health system</div>
+      <div class="contact-detail">
+        <a href="mailto:carrie_hart@bayhealth.org">carrie_hart@bayhealth.org</a><br>
+        Kent County — primary rural hub geography
+      </div>
+    </div>
+  </div>
+
+
+  <div class="callout">
+    <div class="callout-label">WHOOP Positioning for Delaware — Hub Model Fit</div>
+    <div class="callout-body">
+      WHOOP provides intelligent health guidance across sleep, recovery, strain, fitness, and longevity. For Delaware's hub model, the positioning is a <strong style="color:#e8e8e8;">dual-angle fit</strong>: (1) <strong style="color:#e8e8e8;">Workforce wellbeing</strong> — hub staff and community health workers are the frontline of community-based care delivery. WHOOP helps CHWs monitor their own resilience and recovery, reducing burnout in a demanding community health role. (2) <strong style="color:#e8e8e8;">Population health engagement</strong> — WHOOP extends health visibility for the rural Kent/Sussex populations served by the hub, providing continuous health insights between care touchpoints without requiring clinical infrastructure. Both angles require no clinical infrastructure and fit the low-resource deployment model of a rural community health hub.
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Delaware DHSS RHTP &nbsp;·&nbsp; Program of Record &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; CONFIDENTIAL
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>

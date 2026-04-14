@@ -291,17 +291,17 @@
   </div>
   <div class="stats-divider"></div>
   <div class="stat-item">
-    <div class="stat-value stat-v-blue" id="stat-built">11 / 50</div>
+    <div class="stat-value stat-v-blue" id="stat-built">12 / 50</div>
     <div class="stat-label">States Built</div>
   </div>
   <div class="stats-divider"></div>
   <div class="stat-item">
-    <div class="stat-value stat-v-teal" id="stat-covered">$2.53B</div>
+    <div class="stat-value stat-v-teal" id="stat-covered">$2.69B</div>
     <div class="stat-label">Pipeline Covered</div>
   </div>
   <div class="stats-divider"></div>
   <div class="stat-item">
-    <div class="stat-value stat-v-red" id="stat-critical">3</div>
+    <div class="stat-value stat-v-red" id="stat-critical">4</div>
     <div class="stat-label">Critical Actions</div>
   </div>
   <div class="stats-divider"></div>
@@ -351,8 +351,8 @@
 
   <div class="filter-bar">
     <span class="filter-label">Filter:</span>
-    <button class="filter-btn active" onclick="filterCards('all')">All <span class="filter-count" id="fc-all">11</span></button>
-    <button class="filter-btn" onclick="filterCards('critical')">Critical <span class="filter-count" id="fc-critical">1</span></button>
+    <button class="filter-btn active" onclick="filterCards('all')">All <span class="filter-count" id="fc-all">12</span></button>
+    <button class="filter-btn" onclick="filterCards('critical')">Critical <span class="filter-count" id="fc-critical">2</span></button>
     <button class="filter-btn" onclick="filterCards('hot')">Hot <span class="filter-count" id="fc-hot">5</span></button>
     <button class="filter-btn" onclick="filterCards('warm')">Warm <span class="filter-count" id="fc-warm">2</span></button>
     <button class="filter-btn" onclick="filterCards('active')">Active <span class="filter-count" id="fc-active">1</span></button>
@@ -443,6 +443,25 @@ function fipsLookup(id) {
 // BUILT STATE PLANS — add a state here → card appears
 // ─────────────────────────────────────────────
 const BUILT_STATES = [
+  {
+    abbr: 'DE',
+    name: 'Delaware',
+    award: '$157.0M',
+    urgency: 10,
+    tier: 'critical',
+    badge: 'Critical',
+    badgeColor: '#ff4444',
+    headline: 'Rural Community Health Hubs RFP Closes April 17 — Contact Prime Bidders Today',
+    actions: [
+      { text: 'Contact TidalHealth today — 6 attendees at pre-bid meeting, highest bidder signal. Email Gregory Mann (gregory.mann@tidalhealth.org) and Henry Nyce (henry.nyce@tidalhealth.org). Pitch WHOOP as the wearable health intelligence layer in their hub proposal. RFP closes April 17 at 1PM.', color: '#ff4444' },
+      { text: 'Contact DocGo — 4 attendees (Amanda.Jennings@docgo.com). Mobile health operator, strong prime bidder signal. Same pitch: WHOOP as population health and workforce wellbeing layer in hub model.', color: '#ff4444' },
+      { text: 'Contact Beebe Healthcare (kblanch@beebehealthcare.org) and Delaware State University (PZStokes@desu.edu) — both sent multiple attendees, likely bidding or partnering. Get named before April 17.', color: '#ff8c00' },
+      { text: 'Contact ricky.williamson@delaware.gov — DHSS RFP contact. Introduce WHOOP for broader RHTP program and future technology solicitations beyond the current RFP.', color: '#ffb347' },
+    ],
+    deadline: 'Rural Community Health Hubs RFP: <span>April 17, 2026 at 1PM</span>',
+    por: 'delaware-rht-por.html',
+    gtm: 'delaware-gtm-strategy.html',
+  },
   {
     abbr: 'MT',
     name: 'Montana',
