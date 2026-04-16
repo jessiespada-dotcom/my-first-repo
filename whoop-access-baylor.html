@@ -1,0 +1,938 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WHOOP × Baylor Scott &amp; White — CMS ACCESS Partnership</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       WHOOP × BAYLOR — CMS ACCESS PARTNERSHIP DECK
+       Level: 201 — Informational / Operational Deep Dive
+       Design: Black canvas · WHOOP Blue accent · Inter typeface
+       ═══════════════════════════════════════════════════════════════
+
+       DESIGN TOKENS
+       ──────────────────────────────────────────────────────────── */
+    :root {
+      /* Color */
+      --c-bg:       #000000;
+      --c-border:   rgba(255,255,255,.07);
+      --c-text:     #ffffff;
+      --c-text-2:   #888888;
+      --c-text-3:   #363636;
+      --c-blue:     #0093E7;    /* WHOOP Blue — primary accent, use sparingly */
+
+      /* Type */
+      --f:          'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --f-eye:      10.67px;
+      --f-body-sm:  16px;
+      --f-body:     19px;
+      --f-body-lg:  21px;
+      --f-title:    31px;
+      --f-div:      66px;
+      --f-display:  90px;
+
+      /* Layout */
+      --g:     72px;    /* gutter */
+      --hh:    36px;    /* header height */
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body, .reveal {
+      font-family: var(--f);
+      background: var(--c-bg);
+    }
+    .reveal .slides section { padding: 0; top: 0 !important; left: 0 !important; }
+    .reveal .slides { text-align: left; }
+
+    /* ── Slide shell ──────────────────────────────────────────── */
+    .s {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: var(--f);
+    }
+
+    /* ── Persistent header ────────────────────────────────────── */
+    .hdr {
+      position: absolute;
+      left: 0; top: 0;
+      width: 1280px; height: var(--hh);
+      border-bottom: 1px solid var(--c-border);
+      z-index: 10;
+    }
+    .hdr-w {
+      position: absolute;
+      left: var(--g); top: 50%;
+      transform: translateY(-50%);
+      font-size: var(--f-eye);
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--c-blue);
+    }
+    .hdr-m {
+      position: absolute;
+      left: 126px; top: 50%;
+      transform: translateY(-50%);
+      font-size: var(--f-eye);
+      font-weight: 400;
+      color: var(--c-text-2);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+    .hdr-m .sep { opacity: 0.28; margin: 0 6px; }
+    .hdr-c {
+      position: absolute;
+      right: var(--g); top: 50%;
+      transform: translateY(-50%);
+      font-size: var(--f-eye);
+      font-weight: 400;
+      color: var(--c-text-3);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /* ── Cover ────────────────────────────────────────────────── */
+    .cov-tag {
+      position: absolute;
+      left: var(--g); top: 204px;
+      font-size: var(--f-eye);
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-blue);
+    }
+    .cov-rule {
+      position: absolute;
+      left: var(--g); top: 230px;
+      width: 44px; height: 1px;
+      background: var(--c-blue);
+      opacity: 0.5;
+    }
+    .cov-h {
+      position: absolute;
+      left: var(--g); top: 248px;
+      font-size: var(--f-display);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 0.92;
+      color: var(--c-text);
+    }
+    .cov-sub {
+      position: absolute;
+      left: var(--g); top: 478px;
+      font-size: 21px;
+      font-weight: 300;
+      line-height: 1.45;
+      color: var(--c-text-2);
+    }
+    .cov-tag2 {
+      position: absolute;
+      left: var(--g); top: 548px;
+      font-size: var(--f-eye);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-text-3);
+    }
+    .cov-ft {
+      position: absolute;
+      left: var(--g); bottom: 30px;
+      font-size: 10px;
+      color: var(--c-text-3);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── Section divider ──────────────────────────────────────── */
+    .div-eye {
+      position: absolute;
+      left: var(--g); top: 88px;
+      font-size: var(--f-eye);
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-blue);
+    }
+    .div-rule {
+      position: absolute;
+      left: var(--g); top: 114px;
+      width: 40px; height: 1px;
+      background: var(--c-blue); opacity: 0.5;
+    }
+    .div-h {
+      position: absolute;
+      left: var(--g); top: 138px;
+      width: 1020px;
+      font-size: var(--f-div);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1.0;
+      color: var(--c-text);
+    }
+    .div-sub {
+      position: absolute;
+      left: var(--g); bottom: 72px;
+      width: 700px;
+      font-size: 19px;
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--c-text-2);
+    }
+
+    /* ── Standard content slide ───────────────────────────────── */
+    .eye {
+      position: absolute;
+      left: var(--g); top: 52px;
+      font-size: var(--f-eye);
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-blue);
+    }
+    .ttl {
+      position: absolute;
+      left: var(--g); top: 84px;
+      width: 1090px;
+      font-size: var(--f-title);
+      font-weight: 400;
+      line-height: 1.22;
+      color: var(--c-text);
+    }
+    .rule {
+      position: absolute;
+      left: var(--g); top: 172px;
+      width: 1136px; height: 1px;
+      background: var(--c-border);
+    }
+    .body {
+      position: absolute;
+      left: var(--g); top: 196px;
+      width: 1136px;
+    }
+
+    /* ── Bullet list ──────────────────────────────────────────── */
+    ul.bl {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    ul.bl li {
+      font-size: var(--f-body-lg);
+      font-weight: 400;
+      padding-left: 22px;
+      position: relative;
+      line-height: 1.5;
+      color: var(--c-text);
+    }
+    ul.bl li::before {
+      content: '—';
+      position: absolute; left: 0;
+      color: var(--c-text-3);
+      font-weight: 300;
+    }
+    ul.bl li strong { font-weight: 600; }
+    ul.bl li.dim {
+      font-size: var(--f-body-sm);
+      color: var(--c-text-2);
+      font-weight: 300;
+      padding-left: 34px;
+      margin-top: -4px;
+    }
+    ul.bl li.dim::before {
+      content: '·'; left: 18px;
+      color: var(--c-text-3);
+    }
+
+    /* ── Callout / featured line ──────────────────────────────── */
+    .co {
+      border-left: 1px solid var(--c-blue);
+      padding: 12px 18px;
+      font-size: var(--f-body-lg);
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--c-text-2);
+      margin-bottom: 22px;
+    }
+    .co strong { font-weight: 600; color: var(--c-text); }
+
+    /* ── Two-column ───────────────────────────────────────────── */
+    .tc {
+      position: absolute;
+      left: var(--g); top: 196px;
+      width: 1136px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
+    }
+    .ch {
+      font-size: var(--f-eye);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--c-text-2);
+      margin-bottom: 18px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--c-border);
+    }
+
+    /* ── Three-column ─────────────────────────────────────────── */
+    .thc {
+      position: absolute;
+      left: var(--g); top: 196px;
+      width: 1136px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    /* ── Stat grid ────────────────────────────────────────────── */
+    .sg {
+      position: absolute;
+      left: var(--g); top: 228px;
+      width: 1136px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .sc {
+      padding-right: 44px;
+      border-right: 1px solid var(--c-border);
+      margin-right: 44px;
+    }
+    .sc:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+    .sn {
+      font-size: 86px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--c-text);
+      letter-spacing: -0.03em;
+    }
+    .sn.hi { color: var(--c-blue); }
+    .sl {
+      font-size: var(--f-eye);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--c-text-2);
+      margin-top: 13px;
+      line-height: 1.6;
+    }
+
+    /* ── Numbered step ────────────────────────────────────────── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      width: 1136px;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-n {
+      font-size: var(--f-eye);
+      font-weight: 700;
+      color: var(--c-blue);
+      letter-spacing: 0.1em;
+      min-width: 28px;
+      padding-top: 3px;
+    }
+    .step-body {}
+    .step-t {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--c-text);
+      margin-bottom: 3px;
+    }
+    .step-d {
+      font-size: var(--f-body);
+      font-weight: 300;
+      color: var(--c-text-2);
+      line-height: 1.45;
+    }
+
+    /* ── Tag / pill ───────────────────────────────────────────── */
+    .tag {
+      display: inline-block;
+      border: 1px solid rgba(0,147,231,0.35);
+      border-radius: 2px;
+      padding: 3px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-blue);
+      margin-bottom: 6px;
+    }
+
+    /* ── Appendix label ───────────────────────────────────────── */
+    .apx {
+      position: absolute;
+      left: var(--g); top: 52px;
+      font-size: var(--f-eye);
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-text-3);
+    }
+
+    /* ── Footnote / page ──────────────────────────────────────── */
+    .fn {
+      position: absolute;
+      left: var(--g); bottom: 20px;
+      font-size: 10px;
+      color: var(--c-text-3);
+      letter-spacing: 0.04em;
+    }
+    .pg {
+      position: absolute;
+      right: var(--g); bottom: 18px;
+      font-size: 10px;
+      color: var(--c-text-3);
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 1 — COVER
+     ═══════════════════════════════════════════════════════════════ -->
+<section>
+<div class="s">
+  <div class="cov-tag">CMS ACCESS Program</div>
+  <div class="cov-rule"></div>
+  <div class="cov-h">WHOOP ×<br>Baylor Scott<br>&amp; White</div>
+  <div class="cov-sub">A 201-Level Discussion on<br>Partnership, Outcomes, and Scale</div>
+  <div class="cov-tag2">April 2026 &nbsp;·&nbsp; Confidential</div>
+  <div class="cov-ft">WHOOP &nbsp;·&nbsp; Confidential</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 2 — WHAT IS CMS ACCESS?
+     ═══════════════════════════════════════════════════════════════ -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">CMS ACCESS<span class="sep">|</span>Baylor Scott &amp; White</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="eye">The Program</div>
+  <div class="ttl">What is the CMS ACCESS Program?</div>
+  <div class="rule"></div>
+  <div class="body">
+    <div class="co">
+      ACCESS is a <strong>10-year CMS Innovation Center initiative</strong> that expands technology-enabled care to Medicare beneficiaries managing chronic conditions — reimbursing organizations based on measurable health outcomes, not visit volume.
+    </div>
+    <ul class="bl">
+      <li><strong>Outcome Aligned Payments (OAPs) —</strong> organizations are paid when patient health measurably improves: blood pressure, weight, lipids, hemoglobin A1c</li>
+      <li><strong>WHOOP is not the provider —</strong> Baylor clinicians remain the primary care authority; WHOOP extends care between visits and handles day-to-day engagement</li>
+      <li><strong>Highly scalable —</strong> the model is designed for population-level deployment; one referral workflow can reach thousands of eligible patients</li>
+      <li><strong>Funding follows outcomes —</strong> this is not a fee-for-service model; reimbursement is tied directly to documented clinical improvement</li>
+      <li class="dim">Focused on the early cardio-kidney-metabolic (eCKM) track: hypertension, prediabetes, obesity, dyslipidemia</li>
+    </ul>
+  </div>
+  <div class="pg">1</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 3 — WHOOP SELECTED FOR ACCESS
+     ═══════════════════════════════════════════════════════════════ -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">CMS ACCESS<span class="sep">|</span>Baylor Scott &amp; White</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="eye">WHOOP &amp; ACCESS</div>
+  <div class="ttl">WHOOP was selected by CMS for inclusion —<br>one of ~150 approved organizations</div>
+  <div class="rule"></div>
+
+  <!-- Two-column: credibility left / urgency right -->
+  <div class="tc">
+    <div>
+      <div class="ch">Why This Matters</div>
+      <ul class="bl">
+        <li><strong>No other wearable company</strong> is on the approved ACCESS vendor list — WHOOP is the only device of its kind in this program</li>
+        <li>WHOOP Physician Services, PC operates as the affiliated healthcare provider, meaning WHOOP carries clinical accountability, not Baylor</li>
+        <li>Led by <strong>Dr. Dan Henderson</strong>, Medical Director of WHOOP Physician Services, alongside world-class engineers and health industry decision-makers</li>
+        <li>Backed by <strong>$900M+ in venture capital</strong> — this is a long-term strategic investment, not a short-cycle product launch</li>
+      </ul>
+    </div>
+    <div>
+      <div class="ch">Timeline &amp; Commitment</div>
+      <ul class="bl">
+        <li>CMS selection announced <strong>April 2026</strong></li>
+        <li>Enrollment launch expected <strong>Summer 2026</strong> — the window to build the referral infrastructure is now</li>
+        <li>WHOOP is investing millions of dollars into ACCESS-specific infrastructure, AI coaching, and clinical reporting</li>
+        <li>This is a <strong>long-view initiative</strong> — WHOOP's primary goal is to prove that continuous wearable data moves clinical outcomes at population scale</li>
+        <li class="dim">Revenue is secondary; proving WHOOP is the most powerful chronic condition management tool in the world is the mission</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pg">2</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 4 — WHY WHOOP IS IN THIS
+     ═══════════════════════════════════════════════════════════════ -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">CMS ACCESS<span class="sep">|</span>Baylor Scott &amp; White</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="eye">Strategic Intent</div>
+  <div class="ttl">Why WHOOP is in this program</div>
+  <div class="rule"></div>
+  <div class="body">
+    <div class="co">
+      WHOOP is not primarily in ACCESS to generate revenue. This is the <strong>highest-visibility opportunity in the industry</strong> to demonstrate that continuous wearable data — combined with behavioral science and AI — can produce meaningful clinical outcomes in mid-to-moderate chronic disease.
+    </div>
+    <ul class="bl">
+      <li><strong>The best device in the world deserves the hardest test —</strong> ACCESS puts WHOOP alongside Medicare's most complex chronic disease population and asks for measurable results</li>
+      <li><strong>Lifestyle and medicine together —</strong> WHOOP's model is not a replacement for medication or clinical care; it closes the gap between appointments through continuous monitoring and behavioral guidance</li>
+      <li><strong>Mid-to-moderate conditions are the right fit —</strong> patients who are metabolically at risk but not yet in crisis are exactly where sustained behavioral change and early intervention matter most</li>
+      <li>Millions of members worldwide, ships to 56 countries, 14-day battery life — the infrastructure to scale this nationally already exists</li>
+      <li class="dim">Proving clinical outcomes in a CMS-sanctioned model establishes WHOOP as the standard for health system wearable partnerships globally</li>
+    </ul>
+  </div>
+  <div class="pg">3</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 5 — THE eCKM TRACK: WHAT WE'RE RESPONSIBLE FOR
+     ═══════════════════════════════════════════════════════════════ -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">CMS ACCESS<span class="sep">|</span>Baylor Scott &amp; White</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="eye">The eCKM Track</div>
+  <div class="ttl">What this partnership covers —<br>and what WHOOP is accountable for</div>
+  <div class="rule"></div>
+
+  <div class="tc">
+    <div>
+      <div class="ch">Eligible Conditions</div>
+      <ul class="bl">
+        <li>Hypertension</li>
+        <li>Prediabetes</li>
+        <li>Obesity / overweight</li>
+        <li>Dyslipidemia</li>
+        <li class="dim">Full eligibility criteria defined by CMS eCKM track guidelines</li>
+      </ul>
+      <div style="margin-top:24px;">
+        <div class="ch">What Every Member Receives</div>
+        <ul class="bl">
+          <li>WHOOP device (continuous monitoring, 14-day battery)</li>
+          <li>Best-in-class connected blood pressure cuff</li>
+          <li>Full WHOOP membership and platform access</li>
+          <li>Enrollment and member support managed by WHOOP</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="ch">Outcomes WHOOP Is Responsible For</div>
+      <ul class="bl">
+        <li><strong>Blood pressure reduction</strong> — continuous BP monitoring, daily tracking, behavioral coaching</li>
+        <li><strong>Weight and metabolic improvement</strong> — activity and strain optimization, behavioral nudges</li>
+        <li><strong>Lipid and A1c progression</strong> — program-specific behavior change plans tied to lab results</li>
+        <li><strong>Engagement and adherence</strong> — 12-month continuous program, not a 30-day intervention</li>
+        <li class="dim">Baylor clinicians are not responsible for ACCESS program delivery — WHOOP Physician Services carries clinical accountability</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pg">4</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 6 — THE MEMBER EXPERIENCE
+     ═══════════════════════════════════════════════════════════════ -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">CMS ACCESS<span class="sep">|</span>Baylor Scott &amp; White</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="eye">The Member Experience</div>
+  <div class="ttl">From referral to enrolled member — what the patient experiences</div>
+  <div class="rule"></div>
+
+  <div class="body">
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div class="step-body">
+          <div class="step-t">Eligibility &amp; Enrollment</div>
+          <div class="step-d">Patient fills out a questionnaire in the WHOOP app to confirm eCKM eligibility. WHOOP verifies Medicare status and enrolls the member.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div class="step-body">
+          <div class="step-t">Kit Delivery &amp; Onboarding</div>
+          <div class="step-d">WHOOP ships a kit — device and best-in-class blood pressure cuff. Member is onboarded digitally with dedicated member support throughout the program.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div class="step-body">
+          <div class="step-t">Continuous Monitoring &amp; Data</div>
+          <div class="step-d">Daily blood pressure readings, lab result uploads, sleep, recovery, and activity tracked continuously. Data is visible within the WHOOP platform.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div class="step-body">
+          <div class="step-t">Behavior Change Program</div>
+          <div class="step-d">Condition-specific in-app programs: diabetic diet plans, medication adherence nudges, CMS track exercise goals. WHOOP AI coach generates personalized weekly plans targeting the member's exact conditions.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">05</div>
+        <div class="step-body">
+          <div class="step-t">Clinical Escalation</div>
+          <div class="step-d">Baylor providers are engaged only when clinically relevant — structured alerts via DIRECT to EHR inbox when thresholds are crossed or meaningful trend changes occur.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pg">5</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 7 — CLINICAL REPORTING & DASHBOARDS
+     ═══════════════════════════════════════════════════════════════ -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">CMS ACCESS<span class="sep">|</span>Baylor Scott &amp; White</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="eye">Clinical Reporting</div>
+  <div class="ttl">What Baylor sees — and when</div>
+  <div class="rule"></div>
+
+  <div class="tc">
+    <div>
+      <div class="ch">Clinical Reports</div>
+      <ul class="bl">
+        <li>Structured clinical summaries sent on a <strong>monthly cadence</strong> (or preferred interval) directly to the patient's care team</li>
+        <li>Delivered to <strong>PCP, endocrinologist, or cardiologist</strong> via DIRECT to EHR inbox — no new tooling required</li>
+        <li>Report includes: BP trends, activity levels, sleep performance, lab uploads, adherence metrics, and flagged changes</li>
+        <li>Escalation alerts sent in real time when clinically relevant thresholds are crossed</li>
+        <li class="dim">Providers review data on their own schedule — no routine workflow burden is added to the clinical team</li>
+      </ul>
+    </div>
+    <div>
+      <div class="ch">Health System Dashboards</div>
+      <ul class="bl">
+        <li>WHOOP can deploy a <strong>dedicated Baylor dashboard</strong> — population-level view of all enrolled patients across the network</li>
+        <li>Metrics visible at program, cohort, and individual level: BP control rates, engagement scores, outcome trajectory</li>
+        <li>Supports <strong>ACO quality reporting</strong> and population health management workflows</li>
+        <li>Data available via secure API endpoints for integration into Baylor's existing analytics infrastructure</li>
+        <li class="dim">Data streams and EHR integration specifics — including HL7 FHIR compatibility — to be defined jointly as part of the partnership agreement</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pg">6</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 8 — WHOOP AI COACH
+     ═══════════════════════════════════════════════════════════════ -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">CMS ACCESS<span class="sep">|</span>Baylor Scott &amp; White</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="eye">WHOOP AI</div>
+  <div class="ttl">The AI coach — proprietary, closed, built by WHOOP engineers</div>
+  <div class="rule"></div>
+
+  <div class="tc">
+    <div>
+      <div class="ch">What It Does</div>
+      <ul class="bl">
+        <li>WHOOP's AI model is <strong>fully proprietary</strong> — built and operated by WHOOP's engineering team, closed to external systems, and trained exclusively on WHOOP member data</li>
+        <li>Generates <strong>condition-specific weekly plans</strong> for each member: diabetic diet guidance, hypertension management behaviors, exercise prescriptions tied to CMS track goals</li>
+        <li>Monitors longitudinal trends and adjusts recommendations in real time as the member's data evolves</li>
+        <li>Delivers behavioral nudges via in-app prompts timed to the member's daily patterns — not generic reminders</li>
+      </ul>
+    </div>
+    <div>
+      <div class="ch">Why It's Differentiated</div>
+      <ul class="bl">
+        <li>Operates on <strong>continuous physiological data</strong> — sleep, HRV, resting heart rate, strain, blood pressure — not just self-reported inputs</li>
+        <li>Engagement is personalized to each member's baseline, not a population average — the plan reflects how <em>this person's body</em> actually responds</li>
+        <li>Built to drive the specific behavior changes that move <strong>eCKM outcomes</strong>: medication adherence, activity consistency, dietary pattern improvement</li>
+        <li class="dim">WHOOP's AI infrastructure scales to any enrollment volume — no capacity ceiling on coaching at population level</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pg">7</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 9 — HOW BAYLOR REFERS
+     ═══════════════════════════════════════════════════════════════ -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">CMS ACCESS<span class="sep">|</span>Baylor Scott &amp; White</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="eye">The Referral Model</div>
+  <div class="ttl">Two paths to enrollment — and what Baylor earns from each</div>
+  <div class="rule"></div>
+
+  <div class="tc">
+    <div>
+      <div class="ch">Path 1 — Provider-Initiated</div>
+      <ul class="bl">
+        <li>Baylor provides a list of eligible Medicare patients who fit the eCKM profile</li>
+        <li>WHOOP reaches out to candidates directly, obtains consent, and manages enrollment — Baylor's clinical team is not involved in the process</li>
+        <li>Flexible on what "good candidate" looks like — WHOOP can work from ICD codes, population health lists, or care coordinator referrals</li>
+      </ul>
+      <div style="margin-top:20px;">
+        <div class="ch">Path 2 — Patient-Initiated</div>
+        <ul class="bl">
+          <li>Patients encounter WHOOP ACCESS through <strong>in-office flyers, EHR portals, or a provider recommendation</strong> during a routine visit</li>
+          <li>Patient self-enrolls through the WHOOP app — no provider workflow required beyond the initial touchpoint</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="ch">What Baylor Receives</div>
+      <ul class="bl">
+        <li><strong>~$100 per enrolled patient per year</strong> in Medicare care coordination payments — billed monthly through existing co-management codes, no new billing infrastructure required</li>
+        <li><strong>Staff efficiency gains —</strong> PCPs currently spend appointment time reviewing BP readings and lifestyle adherence; enrolled patients arrive with 12 months of continuous data already documented</li>
+        <li>Population health nurses and care coordinators can be <strong>redeployed</strong> from manual outreach to higher-complexity cases</li>
+        <li>Better-controlled chronic conditions reduce <strong>downstream ED visits and hospitalizations</strong> — meaningful for ACOs and risk-bearing entities with financial exposure to total cost of care</li>
+        <li class="dim">At 100,000 enrolled patients across Baylor's network: ~$10M in annual care coordination payments</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pg">8</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 10 — NEXT STEPS: LEGAL, DATA & PARTNERSHIP STRUCTURE
+     ═══════════════════════════════════════════════════════════════ -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">CMS ACCESS<span class="sep">|</span>Baylor Scott &amp; White</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="eye">Next Steps</div>
+  <div class="ttl">What we need to define together<br>before Summer 2026 launch</div>
+  <div class="rule"></div>
+
+  <div class="thc">
+    <div>
+      <div class="ch">Legal &amp; Compliance</div>
+      <ul class="bl" style="font-size:var(--f-body);">
+        <li>Business Associate Agreement (BAA)</li>
+        <li>Data use and sharing agreement</li>
+        <li>Patient consent framework</li>
+        <li>CMS program compliance structure</li>
+        <li class="dim">To be defined jointly — open for discussion</li>
+      </ul>
+    </div>
+    <div>
+      <div class="ch">Data &amp; EHR Integration</div>
+      <ul class="bl" style="font-size:var(--f-body);">
+        <li>EHR data stream specifications</li>
+        <li>Clinical report format and cadence</li>
+        <li>Dashboard access and permissions</li>
+        <li>HL7 FHIR integration timeline</li>
+        <li class="dim">WHOOP to build to Baylor's existing workflows</li>
+      </ul>
+    </div>
+    <div>
+      <div class="ch">People &amp; Process</div>
+      <ul class="bl" style="font-size:var(--f-body);">
+        <li>Identify Baylor program lead and clinical champion</li>
+        <li>Define referral workflow and point of care touchpoints</li>
+        <li>Agree on enrollment targets and ramp timeline</li>
+        <li>Align on reporting cadence and success metrics</li>
+        <li class="dim">WHOOP team: Dr. Dan Henderson, engineering, and clinical operations</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CTA line at bottom -->
+  <div style="position:absolute;left:72px;bottom:36px;width:1000px;font-size:19px;font-weight:300;color:#888;border-top:1px solid rgba(255,255,255,.07);padding-top:16px;">
+    Enrollment opens <strong style="color:#fff;">Summer 2026.</strong> The infrastructure to refer, enroll, and report needs to be in place before that window.
+  </div>
+  <div class="pg">9</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     ── APPENDIX ──
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- APPENDIX A — ACCESS Financial Model -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">Appendix<span class="sep">|</span>Financial Model</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="apx">Appendix A</div>
+  <div class="ttl" style="top:84px;">Baylor revenue opportunity — ACCESS enrollment scenarios</div>
+  <div class="rule"></div>
+  <div class="sg">
+    <div class="sc">
+      <div class="sn">10K</div>
+      <div class="sl">Enrolled patients<br><span style="color:#fff;font-weight:600;">~$1M / year</span><br>in care coordination<br>payments</div>
+    </div>
+    <div class="sc">
+      <div class="sn hi">50K</div>
+      <div class="sl">Enrolled patients<br><span style="color:#fff;font-weight:600;">~$5M / year</span><br>in care coordination<br>payments</div>
+    </div>
+    <div class="sc">
+      <div class="sn">100K</div>
+      <div class="sl">Enrolled patients<br><span style="color:#fff;font-weight:600;">~$10M / year</span><br>in care coordination<br>payments</div>
+    </div>
+  </div>
+  <div class="fn">~$100 per patient per year · CMS Outcome Aligned Payment structure · billed via existing co-management codes · does not include downstream savings from reduced hospitalizations and ED utilization</div>
+</div>
+</section>
+
+
+<!-- APPENDIX B — eCKM Conditions Detail -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">Appendix<span class="sep">|</span>eCKM Track</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="apx">Appendix B</div>
+  <div class="ttl" style="top:84px;">eCKM track — conditions, outcomes, and WHOOP's role</div>
+  <div class="rule"></div>
+  <div class="tc">
+    <div>
+      <div class="ch">Condition + CMS Outcome Target</div>
+      <ul class="bl">
+        <li><strong>Hypertension —</strong> BP reduction below 130/80 mmHg; continuous monitoring via connected cuff</li>
+        <li><strong>Prediabetes —</strong> A1c reduction; behavioral intervention, diet, activity tracking</li>
+        <li><strong>Obesity / Overweight —</strong> BMI trajectory and weight reduction; strain and activity optimization</li>
+        <li><strong>Dyslipidemia —</strong> lipid panel improvement; lifestyle and medication adherence monitoring</li>
+      </ul>
+    </div>
+    <div>
+      <div class="ch">WHOOP Data Points Driving Outcomes</div>
+      <ul class="bl">
+        <li>Blood pressure (daily, connected cuff)</li>
+        <li>HRV and resting heart rate (cardiovascular health proxy)</li>
+        <li>Activity and daily strain (exercise adherence)</li>
+        <li>Sleep duration, efficiency, consistency (metabolic recovery)</li>
+        <li>Lab result uploads (A1c, lipid panel — member-submitted)</li>
+        <li>Medication adherence and behavior check-ins (in-app)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!-- APPENDIX C — About WHOOP -->
+<section>
+<div class="s">
+  <div class="hdr">
+    <div class="hdr-w">WHOOP</div>
+    <div class="hdr-m">Appendix<span class="sep">|</span>About WHOOP</div>
+    <div class="hdr-c">Confidential</div>
+  </div>
+  <div class="apx">Appendix C</div>
+  <div class="ttl" style="top:84px;">WHOOP at a glance</div>
+  <div class="rule"></div>
+  <div class="sg">
+    <div class="sc">
+      <div class="sn hi">$900M+</div>
+      <div class="sl">Venture capital raised<br>since founding in 2012</div>
+    </div>
+    <div class="sc">
+      <div class="sn">56</div>
+      <div class="sl">Countries WHOOP<br>ships to globally</div>
+    </div>
+    <div class="sc">
+      <div class="sn">14</div>
+      <div class="sl">Day battery life —<br>no gaps in data,<br>no device removal</div>
+    </div>
+  </div>
+  <div class="fn">Founded 2012 · Headquartered in Boston · Millions of members worldwide · CMS-approved ACCESS vendor (April 2026)</div>
+</div>
+</section>
+
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash:        true,
+  slideNumber: false,
+  transition:  'none',
+  width:       1280,
+  height:      720,
+  margin:      0,
+  controls:    true,
+  progress:    false,
+  center:      false,
+});
+</script>
+</body>
+</html>
