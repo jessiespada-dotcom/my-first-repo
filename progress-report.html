@@ -5,261 +5,120 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WHOOP Enterprise — BDR Progress Report · April 2026</title>
   <style>
-    :root {
-      --bg: #0a0c0f;
-      --surface: #111318;
-      --surface2: #181c22;
-      --rule: rgba(255,255,255,0.07);
-      --text: #e8eaed;
-      --muted: #8a9099;
-      --green: #00b870;
-      --teal: #00c8d4;
-      --blue: #4a9eff;
-      --orange: #ff8c00;
-      --red: #ff4444;
-      --yellow: #f5c518;
-      --whoop: #00b870;
-    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: #f5f6f8;
+      color: #1a1d23;
       font-size: 14px;
       line-height: 1.6;
     }
 
-    /* ── HEADER ── */
-    .report-header {
-      background: linear-gradient(135deg, #0d1f14 0%, #0a1520 100%);
-      border-bottom: 1px solid var(--rule);
-      padding: 40px 48px 32px;
-    }
-    .report-header-top {
+    /* HEADER */
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #e4e6ea;
+      padding: 36px 56px 28px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 24px;
+      align-items: flex-end;
     }
-    .report-logo {
+    .header-left {}
+    .logo {
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--whoop);
-    }
-    .report-meta {
-      text-align: right;
-      font-size: 11px;
-      color: var(--muted);
-      line-height: 1.8;
+      color: #00b870;
+      margin-bottom: 10px;
     }
     .report-title {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 800;
-      color: #fff;
+      color: #0f1217;
       letter-spacing: -0.02em;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
-    .report-subtitle {
-      font-size: 14px;
-      color: var(--muted);
+    .report-sub {
+      font-size: 13px;
+      color: #6b7280;
     }
-    .report-subtitle strong {
-      color: var(--whoop);
+    .header-right {
+      text-align: right;
+      font-size: 12px;
+      color: #9ca3af;
+      line-height: 1.9;
     }
 
-    /* ── CONTAINER ── */
-    .container {
-      max-width: 1080px;
+    /* LAYOUT */
+    .page {
+      max-width: 960px;
       margin: 0 auto;
-      padding: 40px 48px;
+      padding: 40px 56px;
     }
 
-    /* ── SECTION LABEL ── */
-    .section-label {
+    /* SECTION */
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-title {
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--muted);
-      border-bottom: 1px solid var(--rule);
+      color: #9ca3af;
+      margin-bottom: 16px;
       padding-bottom: 10px;
-      margin-bottom: 20px;
-      margin-top: 40px;
-    }
-    .section-label:first-child { margin-top: 0; }
-
-    /* ── EXEC SUMMARY ── */
-    .exec-summary {
-      background: var(--surface);
-      border: 1px solid var(--rule);
-      border-left: 3px solid var(--whoop);
-      border-radius: 8px;
-      padding: 24px 28px;
-      margin-bottom: 32px;
-    }
-    .exec-summary-title {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--whoop);
-      margin-bottom: 14px;
-    }
-    .exec-bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .exec-bullets li {
-      display: flex;
-      gap: 10px;
-      font-size: 13.5px;
-      color: var(--text);
-      line-height: 1.5;
-    }
-    .exec-bullets li::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: var(--whoop);
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin-top: 7px;
+      border-bottom: 1px solid #e4e6ea;
     }
 
-    /* ── KPI ROW ── */
+    /* KPI ROW */
     .kpi-row {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 14px;
-      margin-bottom: 8px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
     }
-    .kpi-card {
-      background: var(--surface);
-      border: 1px solid var(--rule);
-      border-radius: 8px;
-      padding: 18px 20px;
-      text-align: center;
+    .kpi {
+      background: #fff;
+      border: 1px solid #e4e6ea;
+      border-radius: 10px;
+      padding: 22px 24px;
     }
     .kpi-number {
-      font-size: 30px;
+      font-size: 34px;
       font-weight: 900;
       letter-spacing: -0.03em;
       line-height: 1;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .kpi-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.4;
     }
 
-    /* ── ACTIVITY TABLE ── */
-    .activity-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .activity-table th {
-      text-align: left;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 8px 14px;
-      border-bottom: 1px solid var(--rule);
-    }
-    .activity-table td {
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      vertical-align: top;
-      font-size: 13px;
-    }
-    .activity-table tr:last-child td { border-bottom: none; }
-    .activity-table tr:hover td { background: rgba(255,255,255,0.02); }
-
-    .status-pill {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 3px;
-    }
-    .sp-green  { background: rgba(0,184,112,0.12); color: var(--green); }
-    .sp-red    { background: rgba(255,68,68,0.12);  color: var(--red); }
-    .sp-orange { background: rgba(255,140,0,0.12);  color: var(--orange); }
-    .sp-blue   { background: rgba(74,158,255,0.12); color: var(--blue); }
-    .sp-muted  { background: rgba(255,255,255,0.06); color: var(--muted); }
-    .sp-yellow { background: rgba(245,197,24,0.12); color: var(--yellow); }
-
-    /* ── STATE PIPELINE TABLE ── */
-    .pipeline-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .pipeline-table th {
-      text-align: left;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 8px 14px;
-      border-bottom: 1px solid var(--rule);
-      background: var(--surface);
-    }
-    .pipeline-table td {
-      padding: 11px 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      font-size: 12.5px;
-      vertical-align: middle;
-    }
-    .pipeline-table tr:hover td { background: rgba(255,255,255,0.02); }
-    .state-tag {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;
-      height: 22px;
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      color: #fff;
-      margin-right: 8px;
-    }
-
-    /* ── OUTREACH LOG ── */
-    .outreach-grid {
+    /* STATE STATUS */
+    .state-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
-    .outreach-card {
-      background: var(--surface);
-      border: 1px solid var(--rule);
-      border-radius: 8px;
+    .state-card {
+      background: #fff;
+      border: 1px solid #e4e6ea;
+      border-radius: 10px;
       padding: 18px 20px;
     }
-    .outreach-card-header {
+    .state-card-header {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--rule);
+      margin-bottom: 10px;
     }
-    .outreach-state-badge {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
+    .state-abbr {
+      width: 34px;
+      height: 34px;
+      border-radius: 7px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -268,609 +127,324 @@
       color: #fff;
       flex-shrink: 0;
     }
-    .outreach-card-title {
-      font-size: 13px;
+    .state-name {
+      font-size: 14px;
       font-weight: 700;
-      color: #fff;
+      color: #0f1217;
     }
-    .outreach-card-sub {
+    .state-award {
       font-size: 11px;
-      color: var(--muted);
-      margin-top: 1px;
+      color: #6b7280;
     }
-    .contact-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .contact-item {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-    .contact-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin-top: 6px;
-    }
-    .contact-name {
-      font-size: 12.5px;
-      color: var(--text);
-      font-weight: 600;
-    }
-    .contact-org {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    /* ── NEXT STEPS ── */
-    .next-steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    .next-step-card {
-      background: var(--surface);
-      border: 1px solid var(--rule);
-      border-radius: 8px;
-      padding: 18px 20px;
-    }
-    .next-step-horizon {
+    .state-pill {
+      display: inline-block;
       font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.14em;
+      font-weight: 700;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-    .next-step-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
-    .next-step-list li {
-      display: flex;
-      gap: 8px;
-      font-size: 12px;
-      color: #c8cdd5;
-      line-height: 1.45;
-    }
-    .next-step-list li::before {
-      content: '→';
-      color: var(--muted);
-      flex-shrink: 0;
-      font-size: 11px;
-      margin-top: 1px;
-    }
-
-    /* ── INFRASTRUCTURE ── */
-    .infra-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    .infra-card {
-      background: var(--surface);
-      border: 1px solid var(--rule);
-      border-radius: 8px;
-      padding: 18px 20px;
-    }
-    .infra-icon {
-      font-size: 22px;
+      padding: 3px 9px;
+      border-radius: 4px;
       margin-bottom: 10px;
     }
-    .infra-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-    .infra-desc {
+    .pill-red    { background: #fef2f2; color: #dc2626; }
+    .pill-orange { background: #fff7ed; color: #c2410c; }
+    .pill-blue   { background: #eff6ff; color: #1d4ed8; }
+    .pill-green  { background: #f0fdf4; color: #16a34a; }
+    .state-desc {
       font-size: 12px;
-      color: var(--muted);
+      color: #4b5563;
       line-height: 1.5;
     }
 
-    /* ── FOOTER ── */
-    .report-footer {
-      margin-top: 52px;
+    /* DONE LIST */
+    .done-list {
+      background: #fff;
+      border: 1px solid #e4e6ea;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .done-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 20px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .done-item:last-child { border-bottom: none; }
+    .done-check {
+      width: 18px;
+      height: 18px;
+      background: #00b870;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .done-check::after {
+      content: '';
+      width: 5px;
+      height: 9px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg) translateY(-1px);
+      display: block;
+    }
+    .done-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .done-text {
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.5;
+    }
+    .done-text strong { color: #0f1217; }
+
+    /* NEXT STEPS */
+    .next-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .next-card {
+      background: #fff;
+      border: 1px solid #e4e6ea;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .next-horizon {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .next-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .next-list li {
+      font-size: 12.5px;
+      color: #374151;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .next-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #d1d5db;
+      font-size: 11px;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 8px;
       padding-top: 20px;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid #e4e6ea;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       font-size: 11px;
-      color: var(--muted);
+      color: #9ca3af;
     }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
-  <div class="report-header">
-    <div class="report-header-top">
-      <div class="report-logo">WHOOP · Enterprise Sales</div>
-      <div class="report-meta">
-        Prepared by: Jessie Spada, BDR — Enterprise &amp; Private Sector<br>
-        Reporting Period: Q1–Q2 2026 · April 2026 Update<br>
-        Focus: CMS Rural Health Transformation Program
-      </div>
+  <div class="header">
+    <div class="header-left">
+      <div class="logo">WHOOP · Enterprise Sales</div>
+      <div class="report-title">BDR Progress Report</div>
+      <div class="report-sub">CMS Rural Health Transformation Program · April 2026</div>
     </div>
-    <div class="report-title">Enterprise Pipeline — BDR Progress Report</div>
-    <div class="report-subtitle">CMS Rural Health Transformation Program · <strong>$2.69B Total Award Pipeline · 12 Active States</strong></div>
+    <div class="header-right">
+      Prepared by: Jessie Spada<br>
+      Role: Enterprise BDR, Private Sector<br>
+      April 17, 2026
+    </div>
   </div>
 
-  <div class="container">
+  <div class="page">
 
-    <!-- EXEC SUMMARY -->
-    <div class="section-label">Executive Summary</div>
-    <div class="exec-summary">
-      <div class="exec-summary-title">Where We Stand</div>
-      <ul class="exec-bullets">
-        <li>Identified and mapped the CMS Rural Health Transformation Program as a high-priority enterprise pipeline — $157M to $293M per state across 50 states. Actively working 12 states representing <strong>$2.69B in CMS award value</strong> with a structured outreach strategy for each.</li>
-        <li>Built a <strong>12-state intelligence and tracking system</strong> covering live RFPs, prime bidder targets, ZoomInfo outreach contacts, urgency tiers, and deadlines — allowing real-time prioritization of outreach activity as new solicitations are released.</li>
-        <li><strong>Delaware added to pipeline within 48 hours</strong> of opportunity identification — full attendee analysis of the Rural Community Health Hubs RFP pre-bid meeting (70+ organizations), GTM strategy built, and outreach initiated to 8 prime bidder organizations ahead of the April 17 deadline.</li>
-        <li>Active outreach underway in Delaware, Nebraska, and Montana. Nebraska Critical Access Hospital (CAH) outreach initiated in parallel with state agency pre-market engagement. Montana CoE prime bidder targeting underway with May 1 and May 15 deadlines approaching.</li>
-        <li>Positioning WHOOP as a <strong>continuous health intelligence layer</strong> in federally-funded rural health infrastructure — subcontractor and technology partner model, not direct state contract.</li>
-      </ul>
-    </div>
-
-    <!-- KPI ROW -->
-    <div class="section-label">Pipeline at a Glance</div>
-    <div class="kpi-row">
-      <div class="kpi-card">
-        <div class="kpi-number" style="color:var(--whoop);">$2.69B</div>
-        <div class="kpi-label">Total CMS Award Value<br>12 Active States</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-number" style="color:var(--blue);">12</div>
-        <div class="kpi-label">States With Active<br>GTM Strategy Built</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-number" style="color:var(--red);">3</div>
-        <div class="kpi-label">States With Live RFPs<br>or Imminent Deadlines</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-number" style="color:var(--orange);">25+</div>
-        <div class="kpi-label">Prime Bidder Contacts<br>Identified or Reached</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-number" style="color:var(--yellow);">50</div>
-        <div class="kpi-label">Total States Mapped<br>Full Award List</div>
-      </div>
-    </div>
-
-    <!-- STATE PIPELINE TABLE -->
-    <div class="section-label" style="margin-top:36px;">State Pipeline — 12 Active States</div>
-    <table class="pipeline-table">
-      <thead>
-        <tr>
-          <th>State</th>
-          <th>CMS Award</th>
-          <th>Program / RFP</th>
-          <th>Status</th>
-          <th>WHOOP Play</th>
-          <th>Next Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="state-tag" style="background:#ff4444;">DE</span>Delaware</td>
-          <td style="color:var(--text);font-weight:700;">$157M</td>
-          <td>Rural Community Health Hubs · HSS26062</td>
-          <td><span class="status-pill sp-red">RFP Live</span></td>
-          <td>Subcontractor to prime bidder (TidalHealth, DocGo, Bayhealth, others)</td>
-          <td>Follow-up with 8 outreach targets post-submission</td>
-        </tr>
-        <tr>
-          <td><span class="state-tag" style="background:#ff4444;">MT</span>Montana</td>
-          <td style="color:var(--text);font-weight:700;">$234M</td>
-          <td>CoE Implementation (May 15) + CoE Analytics (May 1)</td>
-          <td><span class="status-pill sp-red">RFPs Live</span></td>
-          <td>Named tech partner in CoE Implementation proposal</td>
-          <td>BerryDunn, Wipfli, Guidehouse, Manatt outreach — May 1 priority</td>
-        </tr>
-        <tr>
-          <td><span class="state-tag" style="background:#ff4444;">NE</span>Nebraska</td>
-          <td style="color:var(--text);font-weight:700;">$219M</td>
-          <td>eHealth + Workforce Incentive + Technology Catalyst Fund</td>
-          <td><span class="status-pill sp-red">Active</span></td>
-          <td>Pre-market vendor intro + CAH workforce program direct sales</td>
-          <td>CAH follow-up; state agency pre-market window open</td>
-        </tr>
-        <tr>
-          <td><span class="state-tag" style="background:#ff8c00;">NC</span>North Carolina</td>
-          <td style="color:var(--text);font-weight:700;">$266M</td>
-          <td>Hub Lead Awards — imminent announcement</td>
-          <td><span class="status-pill sp-orange">Hot</span></td>
-          <td>Contact Hub Lead awardees as soon as announced</td>
-          <td>Monitor NCDHHS for award announcement</td>
-        </tr>
-        <tr>
-          <td><span class="state-tag" style="background:#ff8c00;">MO</span>Missouri</td>
-          <td style="color:var(--text);font-weight:700;">$201M</td>
-          <td>Health Technology Vendor Feedback Window · Q2 2026</td>
-          <td><span class="status-pill sp-orange">Hot</span></td>
-          <td>Vendor feedback submission + prime bidder positioning</td>
-          <td>Q2 feedback window active — submit WHOOP positioning</td>
-        </tr>
-        <tr>
-          <td><span class="state-tag" style="background:#ff8c00;">OH</span>Ohio</td>
-          <td style="color:var(--text);font-weight:700;">$248M</td>
-          <td>CHW Training + Health Technology Component</td>
-          <td><span class="status-pill sp-orange">Hot</span></td>
-          <td>Health technology and consumer wellness component</td>
-          <td>CHW Training RFP monitoring — deadline tracking</td>
-        </tr>
-        <tr>
-          <td><span class="state-tag" style="background:#a8cc44;">TX</span>Texas</td>
-          <td style="color:var(--text);font-weight:700;">$281M</td>
-          <td>Rural Health Transformation — Year 1 Implementation</td>
-          <td><span class="status-pill sp-blue">Monitoring</span></td>
-          <td>Subcontractor to large health system or consulting prime</td>
-          <td>Monitor HHSC for RFP release; contacts identified</td>
-        </tr>
-        <tr>
-          <td><span class="state-tag" style="background:#a8cc44;">CA</span>California</td>
-          <td style="color:var(--text);font-weight:700;">$293M</td>
-          <td>CalRHT Program · HCAI Lead</td>
-          <td><span class="status-pill sp-blue">Monitoring</span></td>
-          <td>Technology vendor engagement with HCAI and prime contractors</td>
-          <td>CalRHT@hcai.ca.gov outreach; RFP schedule TBD</td>
-        </tr>
-        <tr>
-          <td><span class="state-tag" style="background:#a8cc44;">OK</span>Oklahoma</td>
-          <td style="color:var(--text);font-weight:700;">$231M</td>
-          <td>OSDH Rural Health Division</td>
-          <td><span class="status-pill sp-blue">Monitoring</span></td>
-          <td>Pre-market vendor engagement; CAH direct sales</td>
-          <td>Monitor OSDH procurement; CAH outreach active</td>
-        </tr>
-        <tr>
-          <td><span class="state-tag" style="background:#a8cc44;">KS</span>Kansas</td>
-          <td style="color:var(--text);font-weight:700;">$201M</td>
-          <td>KDHE Rural Health Program</td>
-          <td><span class="status-pill sp-blue">Monitoring</span></td>
-          <td>KDHE agency engagement + prime bidder targeting</td>
-          <td>Matthew Ross + Rachel Moser contacts active</td>
-        </tr>
-        <tr>
-          <td><span class="state-tag" style="background:#a8cc44;">GA</span>Georgia</td>
-          <td style="color:var(--text);font-weight:700;">$218M</td>
-          <td>GDPH Rural Health</td>
-          <td><span class="status-pill sp-blue">Monitoring</span></td>
-          <td>State agency pre-market + health system targeting</td>
-          <td>Monitor GDPH procurement activity</td>
-        </tr>
-        <tr>
-          <td><span class="state-tag" style="background:#0093E7;">AK</span>Alaska</td>
-          <td style="color:var(--text);font-weight:700;">$272M</td>
-          <td>Year 2 RFP — Summer 2026</td>
-          <td><span class="status-pill sp-muted">Year 2</span></td>
-          <td>Pre-market positioning ahead of Year 2 solicitation</td>
-          <td>Monitor health.alaska.gov/rhtp for Year 2 announcements</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- OUTREACH ACTIVITY -->
-    <div class="section-label">Outreach Activity — April 2026</div>
-    <div class="outreach-grid">
-
-      <div class="outreach-card">
-        <div class="outreach-card-header">
-          <div class="outreach-state-badge" style="background:#ff4444;">DE</div>
-          <div>
-            <div class="outreach-card-title">Delaware — Rural Community Health Hubs</div>
-            <div class="outreach-card-sub">8 organizations contacted · April 2026</div>
-          </div>
+    <!-- KPIs -->
+    <div class="section">
+      <div class="section-title">Pipeline Overview</div>
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-number" style="color:#00b870;">$2.69B</div>
+          <div class="kpi-label">Total CMS award value<br>across active pipeline</div>
         </div>
-        <ul class="contact-list">
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff4444;"></div>
-            <div>
-              <div class="contact-name">Gregory Mann &amp; Henry Nyce</div>
-              <div class="contact-org">TidalHealth — 6 pre-bid attendees, strongest prime signal</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff4444;"></div>
-            <div>
-              <div class="contact-name">Amanda Jennings</div>
-              <div class="contact-org">DocGo — mobile health operator, 4 pre-bid attendees</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff8c00;"></div>
-            <div>
-              <div class="contact-name">Kimberly Blanch</div>
-              <div class="contact-org">Beebe Healthcare — Sussex County health system</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff8c00;"></div>
-            <div>
-              <div class="contact-name">Pia Z. Stokes</div>
-              <div class="contact-org">Delaware State University — 6 pre-bid attendees, HBCU anchor</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff8c00;"></div>
-            <div>
-              <div class="contact-name">Bayhealth Foundation</div>
-              <div class="contact-org">carrie_hart@bayhealth.org — Kent County's largest health system</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ffb347;"></div>
-            <div>
-              <div class="contact-name">Ricky Williamson</div>
-              <div class="contact-org">Delaware DHSS — RFP contact, future technology solicitations</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ffb347;"></div>
-            <div>
-              <div class="contact-name">Hamilton Health Box · Westside Family Healthcare</div>
-              <div class="contact-org">Mobile health kiosk + FQHC — ZoomInfo outreach initiated</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="outreach-card">
-        <div class="outreach-card-header">
-          <div class="outreach-state-badge" style="background:#e8272e;">NE</div>
-          <div>
-            <div class="outreach-card-title">Nebraska — CAH + State Agency Outreach</div>
-            <div class="outreach-card-sub">8 organizations contacted · April 2026</div>
-          </div>
+        <div class="kpi">
+          <div class="kpi-number" style="color:#1d4ed8;">12</div>
+          <div class="kpi-label">States with active<br>GTM strategy built</div>
         </div>
-        <ul class="contact-list">
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff4444;"></div>
-            <div>
-              <div class="contact-name">DHHS.RHTP@nebraska.gov</div>
-              <div class="contact-org">Nebraska DHHS — pre-market intro for Initiative 4 (eHealth) and Initiative 7 (Technology Catalyst Fund)</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff4444;"></div>
-            <div>
-              <div class="contact-name">dhhs.ruralhealth@nebraska.gov</div>
-              <div class="contact-org">Nebraska Rural Health — Workforce Incentive Program CAH facility list</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff8c00;"></div>
-            <div>
-              <div class="contact-name">Kimball Health Services · Thayer County Health</div>
-              <div class="contact-org">Critical Access Hospitals — WHOOP Unite workforce retention pitch</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff8c00;"></div>
-            <div>
-              <div class="contact-name">Box Butte General · Chadron Community Hospital</div>
-              <div class="contact-org">Critical Access Hospitals — WHOOP Unite workforce retention pitch</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff8c00;"></div>
-            <div>
-              <div class="contact-name">Harlan County Health · Cherry County Hospital</div>
-              <div class="contact-org">Critical Access Hospitals — WHOOP Unite workforce retention pitch</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="outreach-card">
-        <div class="outreach-card-header">
-          <div class="outreach-state-badge" style="background:#ff4444;">MT</div>
-          <div>
-            <div class="outreach-card-title">Montana — CoE Prime Bidder Targeting</div>
-            <div class="outreach-card-sub">8 firms identified · May 1 &amp; May 15 deadlines</div>
-          </div>
+        <div class="kpi">
+          <div class="kpi-number" style="color:#dc2626;">3</div>
+          <div class="kpi-label">States with live RFPs<br>or imminent deadlines</div>
         </div>
-        <ul class="contact-list">
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff4444;"></div>
-            <div>
-              <div class="contact-name">BerryDunn</div>
-              <div class="contact-org">Healthcare consulting firm — CoE Analytics prime candidate (May 1)</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff4444;"></div>
-            <div>
-              <div class="contact-name">Wipfli</div>
-              <div class="contact-org">Rural health consulting — CoE Analytics prime candidate (May 1)</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff8c00;"></div>
-            <div>
-              <div class="contact-name">Guidehouse · Manatt Health</div>
-              <div class="contact-org">Healthcare strategy firms — CoE Implementation (May 15)</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ff8c00;"></div>
-            <div>
-              <div class="contact-name">HMA · PCG · Leavitt Partners</div>
-              <div class="contact-org">Health management + government consulting — CoE Implementation (May 15)</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#ffb347;"></div>
-            <div>
-              <div class="contact-name">Deloitte</div>
-              <div class="contact-org">Large systems integrator — Delaware pre-bid attendee, also Montana CoE target</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="outreach-card">
-        <div class="outreach-card-header">
-          <div class="outreach-state-badge" style="background:#4a9eff;">SYS</div>
-          <div>
-            <div class="outreach-card-title">Intelligence Infrastructure Built</div>
-            <div class="outreach-card-sub">Proprietary tracking system — all 12 states</div>
-          </div>
+        <div class="kpi">
+          <div class="kpi-number" style="color:#c2410c;">25+</div>
+          <div class="kpi-label">Prime bidder contacts<br>identified or reached</div>
         </div>
-        <ul class="contact-list">
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#00b870;"></div>
-            <div>
-              <div class="contact-name">Command Center</div>
-              <div class="contact-org">Live urgency-ranked cards for all 12 states — deadlines, actions, contacts, RFP links</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#00b870;"></div>
-            <div>
-              <div class="contact-name">ZoomInfo Hub</div>
-              <div class="contact-org">State-by-state contact intelligence — 56 rows, filterable by state, with role guidance and outreach notes</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#00b870;"></div>
-            <div>
-              <div class="contact-name">Progress Checklist</div>
-              <div class="contact-org">Task-level tracking synced across tools — completed tasks update the command center in real time</div>
-            </div>
-          </li>
-          <li class="contact-item">
-            <div class="contact-dot" style="background:#00b870;"></div>
-            <div>
-              <div class="contact-name">Per-State GTM Strategies + Plans of Record</div>
-              <div class="contact-org">24 documents built across 12 states — strategy, positioning, opening emails, contact lists</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
-    <!-- WHOOP POSITIONING -->
-    <div class="section-label">WHOOP Positioning — How We Are Entering These Markets</div>
-    <table class="activity-table">
-      <thead>
-        <tr>
-          <th style="width:180px;">Market Entry Model</th>
-          <th>Rationale</th>
-          <th style="width:160px;">States Using This Model</th>
-          <th style="width:100px;">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="font-weight:700;color:#fff;">Subcontractor to Prime Bidder</td>
-          <td>Get named as a technology partner in a prime bidder's proposal before RFP submission. Prime wins the contract; WHOOP is built into the implementation scope. No direct state contract required.</td>
-          <td>Delaware, Montana</td>
-          <td><span class="status-pill sp-red">Active Now</span></td>
-        </tr>
-        <tr>
-          <td style="font-weight:700;color:#fff;">State Agency Pre-Market</td>
-          <td>Introduce WHOOP to state health agencies before RFPs are written. Influences technical specifications in future solicitations. Positions WHOOP ahead of competitors before the market opens publicly.</td>
-          <td>Nebraska, Missouri, Ohio, California</td>
-          <td><span class="status-pill sp-orange">In Progress</span></td>
-        </tr>
-        <tr>
-          <td style="font-weight:700;color:#fff;">WHOOP Unite Direct Sales</td>
-          <td>Direct enterprise sales to health systems, FQHCs, and CAHs that are receiving RHTP funding. These organizations are newly resourced and actively investing in technology. Workforce wellness and provider retention are the entry angle.</td>
-          <td>Nebraska (CAH), Delaware (Beebe, Bayhealth), All States</td>
-          <td><span class="status-pill sp-orange">Active</span></td>
-        </tr>
-        <tr>
-          <td style="font-weight:700;color:#fff;">Future Technology Solicitation</td>
-          <td>Delaware and other states expected to release technology-specific RFPs in spring/summer 2026 — distinct from the current operational health hub RFPs. WHOOP is building state agency relationships now to be positioned for those solicitations.</td>
-          <td>Delaware (Catalyst Fund), Nebraska (Initiative 7)</td>
-          <td><span class="status-pill sp-blue">Building</span></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- NEXT 30/60/90 -->
-    <div class="section-label">Next 30 · 60 · 90 Days</div>
-    <div class="next-steps-grid">
-      <div class="next-step-card">
-        <div class="next-step-horizon" style="color:var(--red);">Next 30 Days — Through May 17</div>
-        <ul class="next-step-list">
-          <li>Delaware post-submission follow-up — re-engage TidalHealth, DocGo, Bayhealth after April 17 close</li>
-          <li>Montana CoE Analytics prime outreach — BerryDunn, Wipfli before May 1 deadline</li>
-          <li>Montana CoE Implementation prime outreach — Guidehouse, Manatt, HMA, PCG, Leavitt before May 15</li>
-          <li>Nebraska CAH follow-up — 6 hospitals contacted, responses expected</li>
-          <li>Nebraska state agency follow-up — DHHS.RHTP and dhhs.ruralhealth</li>
-          <li>Missouri Q2 health technology vendor feedback submission</li>
-        </ul>
-      </div>
-      <div class="next-step-card">
-        <div class="next-step-horizon" style="color:var(--orange);">Next 60 Days — Through June 17</div>
-        <ul class="next-step-list">
-          <li>Delaware contract award expected — follow awardees into implementation conversations</li>
-          <li>Montana CoE contract award follow-up — get WHOOP into implementation scope</li>
-          <li>North Carolina Hub Lead awardee outreach — awards imminent</li>
-          <li>Ohio CHW Training RFP — monitor and target prime bidders before June 15 close</li>
-          <li>Kansas KDHE follow-up — Matthew Ross and Rachel Moser</li>
-          <li>California CalRHT engagement — HCAI contact and prime bidder identification</li>
-        </ul>
-      </div>
-      <div class="next-step-card">
-        <div class="next-step-horizon" style="color:var(--blue);">Next 90 Days — Through July 17</div>
-        <ul class="next-step-list">
-          <li>Delaware + Montana implementation partnerships formalized</li>
-          <li>Alaska Year 2 RFP — begin pre-market positioning as solicitation approaches</li>
-          <li>Expand to Tier 2 states — Georgia, Oklahoma, Texas deeper outreach</li>
-          <li>Technology-specific RFPs (Delaware Catalyst Fund, Nebraska Initiative 7) — apply directly as primary vendor</li>
-          <li>Evaluate next 10 states from 50-state pipeline for active build</li>
-        </ul>
       </div>
     </div>
 
-    <!-- INFRASTRUCTURE -->
-    <div class="section-label">Intelligence Infrastructure Built This Quarter</div>
-    <div class="infra-grid">
-      <div class="infra-card">
-        <div class="infra-icon">🗺</div>
-        <div class="infra-title">50-State Award Map</div>
-        <div class="infra-desc">Mapped all 50 CMS RHTP state awards — $157M to $293M per state. Prioritized 12 for active outreach based on RFP timing, bidder access, and WHOOP fit.</div>
-      </div>
-      <div class="infra-card">
-        <div class="infra-icon">⚡</div>
-        <div class="infra-title">Live Command Center</div>
-        <div class="infra-desc">Urgency-ranked dashboard covering all 12 states — live RFP deadlines, prime bidder contacts, action items, and linked strategy documents. Updates in real time.</div>
-      </div>
-      <div class="infra-card">
-        <div class="infra-icon">🎯</div>
-        <div class="infra-title">ZoomInfo Contact Hub</div>
-        <div class="infra-desc">56-row contact intelligence table covering all active states — filterable by state, with recommended roles, priority tiers, and outreach guidance per organization.</div>
-      </div>
-      <div class="infra-card">
-        <div class="infra-icon">📋</div>
-        <div class="infra-title">Per-State GTM Strategies</div>
-        <div class="infra-desc">24 strategy documents across 12 states — Plans of Record and full GTM strategies for each, including opening emails, contact lists, and WHOOP positioning by initiative.</div>
-      </div>
-      <div class="infra-card">
-        <div class="infra-icon">✅</div>
-        <div class="infra-title">Progress Tracking System</div>
-        <div class="infra-desc">Task-level checklist synced across all tools — completed outreach updates the command center in real time, giving a live view of what's done vs. outstanding.</div>
-      </div>
-      <div class="infra-card">
-        <div class="infra-icon">🔍</div>
-        <div class="infra-title">Pre-Bid Attendee Intelligence</div>
-        <div class="infra-desc">Delaware: analyzed 70+ pre-bid attendees — ranked by bidding probability, contact info sourced, ZoomInfo role guidance built, outreach initiated within 48 hours of identification.</div>
+    <!-- STATE STATUS -->
+    <div class="section">
+      <div class="section-title">Active State Status</div>
+      <div class="state-grid">
+
+        <div class="state-card">
+          <div class="state-card-header">
+            <div class="state-abbr" style="background:#dc2626;">DE</div>
+            <div>
+              <div class="state-name">Delaware</div>
+              <div class="state-award">$157M · Rural Community Health Hubs</div>
+            </div>
+          </div>
+          <span class="state-pill pill-red">RFP Closes Today</span>
+          <div class="state-desc">Outreach completed to 8 prime bidder organizations. TidalHealth, DocGo, Bayhealth Foundation, Beebe Healthcare, DSU, and DHSS all contacted. Positioning WHOOP as continuous health intelligence layer in hub proposals.</div>
+        </div>
+
+        <div class="state-card">
+          <div class="state-card-header">
+            <div class="state-abbr" style="background:#dc2626;">MT</div>
+            <div>
+              <div class="state-name">Montana</div>
+              <div class="state-award">$234M · CoE Implementation + Analytics</div>
+            </div>
+          </div>
+          <span class="state-pill pill-red">May 1 · May 15 Deadlines</span>
+          <div class="state-desc">8 consulting and implementation firms identified as prime targets — BerryDunn, Wipfli, Guidehouse, Manatt Health, HMA, PCG, Leavitt Partners, Deloitte. Outreach underway to get WHOOP named before submission.</div>
+        </div>
+
+        <div class="state-card">
+          <div class="state-card-header">
+            <div class="state-abbr" style="background:#dc2626;">NE</div>
+            <div>
+              <div class="state-name">Nebraska</div>
+              <div class="state-award">$219M · eHealth + CAH Workforce</div>
+            </div>
+          </div>
+          <span class="state-pill pill-red">Active Outreach</span>
+          <div class="state-desc">State agency pre-market introduction sent. 6 Critical Access Hospital emails deployed for WHOOP Unite workforce retention pitch. Workforce Incentive Program opened April 15.</div>
+        </div>
+
+        <div class="state-card">
+          <div class="state-card-header">
+            <div class="state-abbr" style="background:#ea580c;">NC</div>
+            <div>
+              <div class="state-name">North Carolina</div>
+              <div class="state-award">$266M · Hub Lead Awards</div>
+            </div>
+          </div>
+          <span class="state-pill pill-orange">Award Announcement Imminent</span>
+          <div class="state-desc">Hub Lead awardees expected to be named shortly. Outreach strategy ready to activate the moment awards are announced.</div>
+        </div>
+
+        <div class="state-card">
+          <div class="state-card-header">
+            <div class="state-abbr" style="background:#ea580c;">MO</div>
+            <div>
+              <div class="state-name">Missouri</div>
+              <div class="state-award">$201M · Health Technology Feedback</div>
+            </div>
+          </div>
+          <span class="state-pill pill-orange">Q2 Window Open</span>
+          <div class="state-desc">Q2 health technology vendor feedback window is live. WHOOP vendor submission in progress to influence technology specifications in upcoming solicitations.</div>
+        </div>
+
+        <div class="state-card">
+          <div class="state-card-header">
+            <div class="state-abbr" style="background:#1d4ed8;">TX · CA · OK · KS · GA · AK</div>
+          </div>
+          <span class="state-pill pill-blue">Pipeline Built · Monitoring</span>
+          <div class="state-desc">6 additional states mapped with full GTM strategies, contacts, and RFP monitoring in place. Combined award value: $1.5B+. Ready to activate as solicitations are released.</div>
+        </div>
+
       </div>
     </div>
 
-    <div class="report-footer">
+    <!-- WHAT'S BEEN DONE -->
+    <div class="section">
+      <div class="section-title">Completed This Period</div>
+      <div class="done-list">
+        <div class="done-item">
+          <div class="done-check"></div>
+          <span class="done-tag pill-blue">Strategy</span>
+          <div class="done-text">Built <strong>12-state GTM pipeline</strong> covering $2.69B in CMS RHTP awards — full strategy documents, prime bidder targets, ZoomInfo contacts, and opening emails for each state.</div>
+        </div>
+        <div class="done-item">
+          <div class="done-check"></div>
+          <span class="done-tag pill-red">Delaware</span>
+          <div class="done-text">Identified Delaware opportunity, <strong>analyzed 70+ pre-bid attendees</strong>, built full GTM strategy and Plan of Record, and initiated outreach to 8 organizations — all within 48 hours of opportunity identification.</div>
+        </div>
+        <div class="done-item">
+          <div class="done-check"></div>
+          <span class="done-tag pill-red">Nebraska</span>
+          <div class="done-text">Sent <strong>pre-market introduction to Nebraska DHHS</strong> for Initiative 4 (eHealth) and Initiative 7 (Technology Catalyst Fund). Deployed 6 Critical Access Hospital emails for WHOOP Unite workforce retention.</div>
+        </div>
+        <div class="done-item">
+          <div class="done-check"></div>
+          <span class="done-tag pill-orange">Montana</span>
+          <div class="done-text">Mapped <strong>8 prime bidder consulting firms</strong> for Montana CoE RFPs. Built ZoomInfo targeting strategy and outreach approach for BerryDunn, Wipfli, Guidehouse, Manatt, HMA, PCG, Leavitt, and Deloitte.</div>
+        </div>
+        <div class="done-item">
+          <div class="done-check"></div>
+          <span class="done-tag pill-green">Infrastructure</span>
+          <div class="done-text">Built proprietary <strong>live tracking dashboard</strong> — urgency-ranked command center, ZoomInfo contact hub (56 rows), progress checklist, and 24 per-state strategy documents — all synced and accessible in one place.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEXT STEPS -->
+    <div class="section">
+      <div class="section-title">What's Next</div>
+      <div class="next-grid">
+        <div class="next-card">
+          <div class="next-horizon" style="color:#dc2626;">This Week</div>
+          <ul class="next-list">
+            <li>Delaware post-submission follow-up — re-engage TidalHealth, DocGo, and Bayhealth now that RFP is closed</li>
+            <li>Montana CoE Analytics prime outreach — BerryDunn and Wipfli before May 1</li>
+            <li>Nebraska CAH and agency follow-up</li>
+          </ul>
+        </div>
+        <div class="next-card">
+          <div class="next-horizon" style="color:#ea580c;">Next 30 Days</div>
+          <ul class="next-list">
+            <li>Montana CoE Implementation prime outreach before May 15 — Guidehouse, Manatt, HMA, PCG, Leavitt</li>
+            <li>North Carolina — activate outreach the moment Hub Lead awards are announced</li>
+            <li>Missouri Q2 health technology vendor feedback submission</li>
+          </ul>
+        </div>
+        <div class="next-card">
+          <div class="next-horizon" style="color:#1d4ed8;">Next 60–90 Days</div>
+          <ul class="next-list">
+            <li>Delaware and Montana contract awards expected — move into implementation partnership conversations</li>
+            <li>Ohio CHW Training RFP closes June 15 — prime bidder targeting</li>
+            <li>Technology-specific RFPs (Delaware Catalyst Fund, Nebraska Initiative 7) — apply directly as primary vendor</li>
+            <li>Evaluate next 10 states for active pipeline expansion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
       <div>WHOOP Enterprise Sales · BDR Progress Report · April 2026</div>
-      <div>Jessie Spada · Enterprise &amp; Private Sector BDR</div>
+      <div>Jessie Spada · Enterprise BDR, Private Sector</div>
     </div>
 
   </div>
