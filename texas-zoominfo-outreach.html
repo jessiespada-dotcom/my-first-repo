@@ -255,8 +255,51 @@
     </table>
   </div>
 
+  <div class="rule"></div>
+
+  <div class="section-label">Known Contacts — ZoomInfo &amp; Research</div>
+
+  <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;">
+    <div style="background:rgba(0,241,159,0.05);border:1px solid rgba(0,241,159,0.15);border-radius:4px;padding:14px 20px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#666;margin-bottom:6px;">Total Contacts</div>
+      <div id="ctTotal" style="font-size:28px;font-weight:700;color:#00F19F;">—</div>
+    </div>
+    <div style="background:rgba(0,147,231,0.05);border:1px solid rgba(0,147,231,0.15);border-radius:4px;padding:14px 20px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#666;margin-bottom:6px;">With Email</div>
+      <div id="ctEmail" style="font-size:28px;font-weight:700;color:#0093E7;">—</div>
+    </div>
+    <div style="background:rgba(255,179,71,0.05);border:1px solid rgba(255,179,71,0.15);border-radius:4px;padding:14px 20px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#666;margin-bottom:6px;">With Phone</div>
+      <div id="ctPhone" style="font-size:28px;font-weight:700;color:#ffb347;">—</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:14px 20px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#666;margin-bottom:6px;">Hospitals Covered</div>
+      <div id="ctHospitals" style="font-size:28px;font-weight:700;color:#fff;">—</div>
+    </div>
+  </div>
+
+  <div class="search-bar">
+    <input class="search-input" id="ctSearch" type="text" placeholder="Search hospital or contact name…" oninput="filterContacts()">
+    <span id="ct-count" style="font-size:11px;color:#666;margin-left:auto;">— contacts shown</span>
+  </div>
+
+  <div class="table-wrap">
+    <table id="contactsTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Hospital</th>
+          <th>Contact Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+      <tbody id="contactsBody"></tbody>
+    </table>
+  </div>
+
   <div class="page-footer">
-    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Jessie Spada &nbsp;·&nbsp; April 9, 2026 &nbsp;·&nbsp; CONFIDENTIAL
+    WHOOP &nbsp;·&nbsp; Enterprise Healthcare &nbsp;·&nbsp; Jessie Spada &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; CONFIDENTIAL
   </div>
 
 </div>
@@ -273,6 +316,255 @@ function filterTable() {
   });
   document.getElementById('result-count').textContent = count + ' hospitals shown';
 }
+
+const CONTACTS = [
+  {h:'Yoakum County Hospital',n:'Jerry Osburn',e:'',p:'(806) 773-3001'},
+  {h:'Yoakum County Hospital',n:'Adam Pearson',e:'',p:'(806) 592-2122 ext. 733'},
+  {h:'Winkler County Memorial Hospital',n:'Corentine Ako',e:'',p:''},
+  {h:'Winkler County Memorial Hospital',n:'Melanie Adams',e:'',p:'(432) 586-5864 ext. 1255'},
+  {h:'Winkler County Memorial Hospital',n:'Karry Dronet',e:'',p:''},
+  {h:'Winkler County Memorial Hospital',n:'Crystal Bassham',e:'',p:'(432) 290-4293'},
+  {h:'Wilbarger General Hospital',n:'Lori Riley',e:'',p:'(580) 704-5674'},
+  {h:'Val Verde Regional Medical Center',n:'Victoria Barnthouse',e:'',p:'(830) 703-1746'},
+  {h:'Val Verde Regional Medical Center',n:'Betty Clark',e:'',p:'(210) 775-8566'},
+  {h:'Uvalde Memorial Hospital',n:'Carlos Gregorio',e:'',p:'(210) 831-6145'},
+  {h:'Uvalde Memorial Hospital',n:'Jeanne Leake',e:'',p:'(239) 218-7216'},
+  {h:'Uvalde Memorial Hospital',n:'Ben Durr',e:'',p:''},
+  {h:'Stonewall Memorial Hospital',n:'Michael Moorhead',e:'',p:'+91 95996 33223'},
+  {h:'Stephens Memorial Hospital',n:'Timothy Churchill',e:'',p:'(207) 665-2025'},
+  {h:'Seymour Hospital',n:'Leslie Hardin',e:'',p:'(940) 889-5572 ext. 101'},
+  {h:'Reagan Hospital District',n:'Savannah Allen',e:'',p:''},
+  {h:'Reagan Hospital District',n:'Joseph Sudolcan',e:'',p:'(325) 266-5295'},
+  {h:'Reagan Hospital District',n:'Bobby Ewell',e:'',p:''},
+  {h:'Plains Memorial Hospital',n:'Linda Aguero',e:'',p:'(806) 647-8780'},
+  {h:'Permian Regional Medical Center',n:'Russell Tippin',e:'',p:'(432) 464-2101'},
+  {h:'Pecos County Memorial Hospital',n:'Margaret Davis',e:'',p:'(432) 336-4201'},
+  {h:'Pecos County Memorial Hospital',n:'Auden Velasquez',e:'',p:'(432) 336-2291'},
+  {h:'Parmer Medical Center',n:'Marci Castillo',e:'',p:'(806) 681-9534'},
+  {h:'Parkview Health',n:'Cathy Rn',e:'',p:''},
+  {h:'Parkview Health',n:'Thomas Md',e:'',p:'(260) 373-3000'},
+  {h:'Parkview Health',n:'Angela Evans',e:'',p:'(260) 266-1018'},
+  {h:'Parkview Health',n:'Todd Sider',e:'',p:'(260) 625-3154'},
+  {h:'Parkview Health',n:'Chauneah Rhodes',e:'',p:'(806) 544-1854'},
+  {h:'Parkview Health',n:'Katherine Avery',e:'',p:'(260) 373-7665'},
+  {h:'Parkview Health',n:'Amanda Lake',e:'',p:'(260) 373-5342'},
+  {h:'Parkview Health',n:'Renato Varella',e:'',p:'(603) 667-3593'},
+  {h:'Parkview Health',n:'Susan Steffy',e:'',p:'(540) 874-0613'},
+  {h:'Parkview Health',n:'Hariom Joshi',e:'',p:'(216) 314-1457'},
+  {h:'Parkview Health',n:'Audrey Hunnicutt',e:'',p:'(260) 266-1755'},
+  {h:'Parkview Health',n:'Ellen Ahlersmeyer',e:'',p:'(260) 373-4583'},
+  {h:'Parkview Health',n:'Linda Francies',e:'',p:'(260) 373-3537'},
+  {h:'Parkview Health',n:'Laura Ferrell',e:'',p:''},
+  {h:'Parkview Health',n:'Sally Boyce',e:'',p:'(260) 373-7500'},
+  {h:'Parkview Health',n:'Ronda Flesch',e:'',p:'(260) 266-4606'},
+  {h:'Parkview Health',n:'Michelle Charles',e:'',p:'(330) 949-8399'},
+  {h:'Parkview Health',n:'Preeti Dembla',e:'',p:'(260) 373-7000'},
+  {h:'Parkview Health',n:'Michelle Harris',e:'',p:'(260) 373-6727'},
+  {h:'Parkview Health',n:'Richard George',e:'',p:'(440) 228-5717'},
+  {h:'Parkview Health',n:'Tina Colwell',e:'',p:'(260) 266-9311'},
+  {h:'Parkview Health',n:'Christian Bridgwater',e:'',p:''},
+  {h:'Parkview Health',n:'Charlotte Gabet',e:'',p:'(260) 266-6275'},
+  {h:'Parkview Health',n:'Terry Gaff',e:'',p:'(260) 242-1100'},
+  {h:'Parkview Health',n:'Allen Arnette',e:'',p:'(562) 208-5057'},
+  {h:'Parkview Health',n:'Kevin Murphy',e:'',p:'(260) 401-1879'},
+  {h:'Parkview Health',n:'John Stanford',e:'',p:'(260) 373-3604'},
+  {h:'Parkview Health',n:'Tom Ibholm',e:'',p:'(260) 266-4270'},
+  {h:'Parkview Health',n:'Douglas Danker',e:'',p:'(405) 262-2640'},
+  {h:'Parkview Health',n:'Christopher Kiester',e:'',p:'(260) 266-7698'},
+  {h:'Parkview Health',n:'Elicia Slater',e:'',p:'(260) 266-6110'},
+  {h:'Parkview Health',n:'Corinne Ames',e:'',p:'(260) 266-5110'},
+  {h:'Pampa Regional Medical Center',n:'Cheryl McFall',e:'',p:'(806) 674-3255'},
+  {h:'Pampa Regional Medical Center',n:'Suzanne Presson',e:'',p:'(806) 663-5663'},
+  {h:'Ochiltree General Hospital',n:'Jennifer McGaughy',e:'',p:'(806) 435-7224'},
+  {h:'Ochiltree General Hospital',n:'Beth Maguire',e:'',p:'(936) 788-3593'},
+  {h:'Mitchell County Hospital',n:'Dee Roach',e:'',p:'(325) 728-2693'},
+  {h:'Mitchell County Hospital',n:'Yvette Woody',e:'',p:'(432) 264-3924'},
+  {h:'McCamey Hospital',n:'Kristen Upchurch',e:'',p:''},
+  {h:'Matagorda Regional Medical Center',n:'Leslie Vaughn',e:'',p:'(979) 241-5591'},
+  {h:'Martin County Hospital',n:'Linda Wiebe',e:'',p:'(432) 607-3630'},
+  {h:'Lavaca Medical Center',n:'Brian Reesner',e:'',p:''},
+  {h:'Knox County Hospital',n:'Craig Morgan',e:'',p:'(903) 879-0671'},
+  {h:'Knox County Hospital',n:'Ray Canady',e:'',p:''},
+  {h:'Knox County Hospital',n:'Robert Bond',e:'',p:''},
+  {h:'Jackson County Hospital District',n:'Asa Wilson',e:'',p:'(361) 782-5241'},
+  {h:'Hopkins County Offices',n:'Shannon Barker',e:'',p:'(972) 890-7085'},
+  {h:'Hill Country Memorial Hospital',n:'Jaydean Young',e:'',p:'(830) 997-1344'},
+  {h:'Hill Country Memorial Hospital',n:'Debbye Wallace-Dooley',e:'',p:'(830) 997-1378'},
+  {h:'Hereford Regional Medical Center',n:'Trevor Rohm',e:'',p:'(505) 410-8141'},
+  {h:'Hereford Regional Medical Center',n:'B.W. Rohm',e:'',p:''},
+  {h:'Hereford Regional Medical Center',n:'Meri Killingsworth',e:'',p:'(806) 349-9120'},
+  {h:'Hereford Regional Medical Center',n:'Candice Smith',e:'',p:'(806) 364-2141 ext. 4214'},
+  {h:'Hereford Regional Medical Center',n:'Nathan Flood',e:'',p:'(806) 647-6733'},
+  {h:'Hemphill County Hospital',n:'Karen Gullett',e:'',p:'(806) 217-0201'},
+  {h:'Heart of Texas Healthcare System',n:'Timothy Jones',e:'',p:'(325) 456-2010'},
+  {h:'Heart of Texas Healthcare System',n:'Lonnie Vickers',e:'',p:'(325) 597-2114'},
+  {h:'Haskell Memorial Hospital',n:'Charolotte Welch',e:'',p:'(940) 256-8632'},
+  {h:'Hardeman County Memorial Hospital',n:'Dennis Thomas',e:'',p:'(940) 674-5163'},
+  {h:'Hamilton Healthcare System',n:'James Shafer',e:'',p:''},
+  {h:'Hamilton Healthcare System',n:'mathijs allibhai',e:'mathijsallibhai@flashcnc.com',p:'(360) 949-1414'},
+  {h:'Graham Regional Medical Center',n:'Shane Kernell',e:'',p:'(940) 521-5302'},
+  {h:'Falls Community Hospital & Clinic',n:'Eileen Bohannon',e:'',p:'(254) 644-8006'},
+  {h:'Eastland Memorial Hospital',n:'Clay Taylor',e:'',p:'(254) 631-5342'},
+  {h:'Eastland Memorial Hospital',n:'Shonda Roberts',e:'',p:'(254) 631-8930'},
+  {h:'Dimmit Regional Hospital',n:'James Buckner',e:'',p:'(830) 279-2245'},
+  {h:'Dimmit Regional Hospital',n:'Lorenzo Saldana',e:'',p:'(830) 968-5033'},
+  {h:'Crane Memorial Hospital',n:'Laci Harris',e:'',p:'(432) 557-5915'},
+  {h:'Comanche County Medical Center',n:'Melissa Thompson',e:'',p:'(432) 438-8373'},
+  {h:'Comanche County Medical Center',n:'C.J. Christensen',e:'',p:'(270) 969-8389'},
+  {h:'Brownfield Regional Medical Center',n:'Jamie Boone',e:'',p:'(254) 718-8422'},
+  {h:'Ballinger Memorial Hospital District',n:'Rhett Fricke',e:'',p:''},
+  {h:'Haskell Memorial Hospital',n:'Meghan Shelton',e:'mshelton@haskellmemorialhospital.com',p:'(940) 228-0780'},
+  {h:'Lynn County Hospital District',n:'Christopher Leach',e:'cleach@lchdhealthcare.org',p:'(240) 605-3070'},
+  {h:'Cogdell Memorial Hospital',n:'Ella Helms',e:'cmh.ehelms@cogdellhospital.com',p:'(325) 574-7437'},
+  {h:'Pampa Regional Medical Center',n:'Kris Vigil',e:'kvigil1@primehealthcare.com',p:'(575) 799-3885'},
+  {h:'Lamb Healthcare Center',n:'Stacie Styron',e:'sstyron@lambhc.org',p:''},
+  {h:'Medical Arts Hospital',n:'Letha Stokes',e:'letha_stokes@medicalartshospital.org',p:'(806) 872-5727 ext. 2010'},
+  {h:'Parkview Health',n:'Mark Mabus',e:'mark.mabus@parkview.org',p:'(419) 485-6519'},
+  {h:'Matagorda Regional Medical Center',n:'Tiffany Foltyn',e:'tfoltyn@matagordaregional.org',p:'(979) 241-5522'},
+  {h:'Permian Regional Medical Center',n:'Paul Slaughter',e:'pslaughter@permianregional.com',p:'(806) 236-2677'},
+  {h:'Uvalde Memorial Hospital',n:'Annabell Verdusco',e:'an.verdusco@umhtx.org',p:'(830) 279-6027'},
+  {h:'Golden Plains Community Hospital',n:'James Fesser',e:'james.fesser@goldenplains.org',p:'(254) 396-5223'},
+  {h:'Pecos County Memorial Hospital',n:'Rachel Rodriguez',e:'drodriguez@pcmhfs.com',p:'(432) 336-4217'},
+  {h:'Rolling Plains Memorial Hospital',n:'Rosa Best',e:'rosab@rpmh.net',p:'(325) 235-0770'},
+  {h:'Uvalde Memorial Hospital',n:'Christopher Hendrix',e:'c.hendrix@umhtx.org',p:''},
+  {h:'Parkview Health',n:'Megan Goetz',e:'megan.goetz@parkview.com',p:'(260) 266-3080'},
+  {h:'Throckmorton County Memorial Hospital',n:'Kirby Gober',e:'kgober@throckmortonhospital.com',p:'(940) 849-2141'},
+  {h:'Hill Country Memorial Hospital',n:'Sandy Goff',e:'sgoff@hillcountrymemorial.org',p:'(830) 456-5023'},
+  {h:'Comanche County Medical Center',n:'Ramona Sloan',e:'rsloan@comanchecmc.com',p:'(325) 456-6553'},
+  {h:'Parkview Health',n:'Cathy Warner',e:'cathy.warner@parkview.com',p:'(260) 373-8855'},
+  {h:'Falls Community Hospital & Clinic',n:'Willis Reese',e:'wreese@fallshospital.com',p:'(254) 803-2575'},
+  {h:'Stephens Memorial Hospital',n:'Allan Purinton',e:'purintona@mainehealth.org',p:'(207) 353-4190'},
+  {h:'Hill Country Memorial Hospital',n:'James Partin',e:'jpartin@hillcountrymemorial.org',p:'(830) 997-9353'},
+  {h:'Val Verde Regional Medical Center',n:'Judith Olivarez-Trevino',e:'judith.olivarez-trevino@vvrmc.org',p:''},
+  {h:'Uvalde Memorial Hospital',n:'Sheri Rutledge',e:'s.rutledge@umhtx.org',p:'(830) 486-5416'},
+  {h:'Palo Pinto General Hospital',n:'Ross Korkmas',e:'rkorkmas@ppgh.com',p:'(940) 328-6400'},
+  {h:'Rolling Plains Memorial Hospital',n:'Keri Halford',e:'kerih@rpmh.net',p:'(325) 219-6165'},
+  {h:'Parkview Health',n:'Mary Lelonek',e:'maryjo.lelonek@parkview.com',p:'(260) 266-6154'},
+  {h:'Hansford County Hospital District',n:'Elizabeth Hartsell',e:'lizhartsell@hchd.net',p:'(806) 659-5535 ext. 3350'},
+  {h:'Cogdell Memorial Hospital',n:'Collin McLarty',e:'cmclarty@cogdellhospital.com',p:'(806) 789-4927'},
+  {h:'Val Verde Regional Medical Center',n:'Gloria Ziegler',e:'gloria.ziegler@vvrmc.org',p:'(830) 703-1745'},
+  {h:'Hill Country Memorial Hospital',n:'Jayne Pope',e:'jpope@hillcountrymemorial.org',p:'(830) 998-4131'},
+  {h:'Sabine County Hospital',n:'LaDuska James',e:'ljames@sabinecountyhospital.com',p:''},
+  {h:'Rankin County Hospital District',n:'James Horton',e:'jhorton@rankincountyhospital.org',p:'(432) 290-9304'},
+  {h:'Mitchell County Hospital',n:'Michelle Gafford',e:'mgafford@mitchellcountyhospital.com',p:''},
+  {h:'Parkview Health',n:'Rebecca Case',e:'becky.case@parkview.com',p:'(260) 274-0387'},
+  {h:'Hereford Regional Medical Center',n:'Kay Gudgell',e:'kay.gudgell@dschd.org',p:'(806) 206-0323'},
+  {h:'Hamilton Hospital',n:'Amy McDonough',e:'amcdonough@hamiltonhospital.com',p:'(515) 805-8470'},
+  {h:'Starr County Memorial Hospital',n:'Mario Segura',e:'segura@starrcountyhospital.com',p:'(956) 487-9040'},
+  {h:'Parkview Health',n:'Renato Cordeiro Varella',e:'renato.cordeirovarella@parkview.com',p:'(857) 248-1133'},
+  {h:'Ochiltree General Hospital',n:'Wallace Boyd',e:'wboyd@ochiltreehospital.com',p:'(806) 648-7110'},
+  {h:'Winkler County Memorial Hospital',n:'Lorenzo Serrano',e:'lserrano@wcmh.net',p:'(432) 448-0322'},
+  {h:'Starr County Memorial Hospital',n:'Lamar Martinez',e:'lmartinez@starrcountyhospital.com',p:'(956) 487-9047'},
+  {h:'Pampa Regional Medical Center',n:'Jonathan Gill',e:'jgill2@primehealthcare.com',p:'(956) 683-5685'},
+  {h:'Pecos County Memorial Hospital',n:'Betsey Briscoe',e:'bbriscoe@pcmhfs.com',p:'(432) 336-4201'},
+  {h:'Hansford County Hospital District',n:'Blythe Boyd',e:'blytheboyd@hchd.net',p:'(806) 659-5812'},
+  {h:'Coleman Medical Associates',n:'Cindy Coghlan',e:'cindy.coghlan@colemancountymc.com',p:'(325) 625-2135 ext. 347'},
+  {h:'Rolling Plains Memorial Hospital',n:'Tandi Riley',e:'tandir@rpmh.net',p:'(325) 219-6199'},
+  {h:'Otto Kaiser Memorial Hospital',n:'David Lee',e:'david.lee@okmh.org',p:'(830) 583-4585'},
+  {h:'Pampa Regional Medical Center',n:'Jennifer Richards',e:'jrichards@primehealthcare.com',p:'(806) 661-8245'},
+  {h:'Parkview Health',n:'David Johnson',e:'dave.johnson2@parkview.com',p:'(260) 373-7000'},
+  {h:'Palo Pinto General Hospital',n:'David Blocker',e:'dblocker@ppgh.com',p:'(609) 784-2770'},
+  {h:'Hemphill County Hospital',n:'Shelby Schwerzenbach',e:'shelby@hchdst.org',p:'(806) 323-1129'},
+  {h:'Ward Memorial Hospital',n:'Leticia Rodriguez',e:'lrodriguez@wardmemorial.com',p:'(432) 940-3150'},
+  {h:'Jackson County Hospital District',n:'Diana Mercado-Marmarosh',e:'diana.mercado-marmarosh@jchd.org',p:'(361) 782-7820'},
+  {h:'Parkview Health',n:'Janice Powers',e:'jan.powers@parkview.com',p:'(260) 266-7761'},
+  {h:'Hamilton Healthcare System',n:'Grady Hooper',e:'ghooper@hamiltonhospital.org',p:'(512) 237-3214'},
+  {h:'Lynn County Hospital District',n:'Jarrett Ross',e:'jross@lchdhealthcare.org',p:'(903) 203-9160'},
+  {h:'Jackson County Hospital District',n:'Marcella Henke',e:'hmarcella@jchd.org',p:'(361) 782-5241'},
+  {h:'Clay County Memorial Hospital',n:'Jeffrey Huskey',e:'jhuskey@ccmhospital.com',p:'(940) 235-1200'},
+  {h:'Stephens Memorial Hospital',n:'Gena Speer',e:'gspeer@smhtx.com',p:'(254) 631-3382'},
+  {h:'Hansford County Hospital District',n:'Jonathan Bailey',e:'jonathanbailey@hchd.net',p:'(806) 659-2535 ext. 3358'},
+  {h:'Muleshoe Area Medical Center',n:'Gayle Richerson',e:'gayle.richerson@muleshoehospital.com',p:'(575) 799-6759'},
+  {h:'Kimble Hospital',n:'Melissa Jasso',e:'mjasso@kimblehospital.org',p:'(509) 781-0140'},
+  {h:'Eastland Memorial Hospital',n:'Gena McCormick',e:'gena.mccormick@eastlandmemorial.com',p:'(254) 631-5331'},
+  {h:'Coleman Medical Associates',n:'Michael Pruitt',e:'michael.pruitt@colemancountymc.com',p:'(325) 625-2135'},
+  {h:'Uvalde Memorial Hospital',n:'Sameta Sosa',e:'s.sosa@umhtx.org',p:'(830) 261-0886'},
+  {h:'Lamb Healthcare Center',n:'Mike McNutt',e:'mmcnutt@lambhc.org',p:'(512) 701-8861'},
+  {h:'Medical Arts Hospital',n:'Melissa Matlock',e:'mmatlock@medicalartshospital.org',p:'(806) 872-5727 ext. 2033'},
+  {h:'Otto Kaiser Memorial Hospital',n:'Vincent Sowell',e:'vincent.sowell@okmh.org',p:'(830) 583-4556'},
+  {h:'Limestone Medical Center',n:'Thomas Mulhern',e:'tmulhern@limestonemed.com',p:'(302) 992-9831'},
+  {h:'Dimmit Regional Hospital',n:'Andres Duran',e:'andres.duran@dimmitregionalhospital.com',p:'(718) 384-5227'},
+  {h:'Reagan Hospital District',n:'Jon-Michael Parker',e:'j.parker@reaganhealth.com',p:'(325) 884-5641'},
+  {h:'Pecos County Memorial Hospital',n:'Shawn Nethery',e:'snethery@pcmhfs.com',p:'(432) 214-3717'},
+  {h:'Lamb Healthcare Center',n:'Cindy Klein',e:'cklein@lambhc.org',p:'(806) 638-6171'},
+  {h:'Clay County Memorial Hospital',n:'James Koulovatos',e:'jkoulovatos@ccmhospital.com',p:'(806) 994-0538'},
+  {h:'Jackson County Hospital District',n:'Bill Jones',e:'bjones@jchd.org',p:'(361) 782-7810'},
+  {h:'Reagan Hospital District',n:'Jonathon Voelkel',e:'jonathon.voelkel@reaganhealth.com',p:'(479) 422-2874'},
+  {h:'Parkview Health',n:'Elizabeth Bear',e:'elizabeth.bear-fryback@parkview.com',p:'(260) 266-3841'},
+  {h:'Eastland Memorial Hospital',n:'Larry Maples',e:'larry.maples@eastlandmemorial.com',p:''},
+  {h:'El Campo Memorial Hospital',n:'Heather Walters',e:'hwalters@ecmh.org',p:'(979) 578-5164'},
+  {h:'Clay County Memorial Hospital',n:'Cristy Knight',e:'cknight@ccmhospital.com',p:'(940) 235-1262'},
+  {h:'Palo Pinto General Hospital',n:'Sue Lamb',e:'lamb@ppgh.com',p:'(940) 328-6239'},
+  {h:'Hemphill County Hospital',n:'Kelsey Haley',e:'khaley@hchdst.org',p:'(806) 323-1126'},
+  {h:'Big Bend Regional Medical Center',n:'Yolanda Jurado',e:'yolandajurado@chs.net',p:'(432) 837-0242'},
+  {h:'Uvalde Memorial Hospital',n:'John Cullum',e:'j.cullum@umhtx.org',p:'(832) 563-6886'},
+  {h:'Pampa Regional Medical Center',n:'Alan King',e:'a.king@prmctx.com',p:'(806) 663-5500'},
+  {h:'Parkview Health',n:'Jacqueline Myers',e:'jackie.myers@parkview.com',p:'(260) 266-6110'},
+  {h:'Palo Pinto General Hospital',n:'Jessica Ramsey',e:'jramsey@ppgh.com',p:'(940) 328-6240'},
+  {h:'Muleshoe Area Medical Center',n:'Dennis Fleenor',e:'dfleenor@mahdtx.org',p:'(806) 272-3616'},
+  {h:'Fisher County Hospital',n:'Leanne Martinez',e:'lmartinez@fishercountyhospital.com',p:'(325) 776-2500'},
+  {h:'Tyler County Hospital',n:'Danielle Stevens',e:'dstevens@tchospital.us',p:'(409) 283-6460'},
+  {h:'Parkview Health',n:'Kathy Fisher',e:'kathy.fisher@parkview.com',p:'(260) 373-6256'},
+  {h:'Brownfield Regional Medical Center',n:'Kyle Barnett',e:'kyle.barnett@brownfield-rmc.org',p:'(806) 642-3132'},
+  {h:'Parkview Health',n:'Scott Stienecker',e:'scott.stienecker@parkview.com',p:'(260) 266-1170'},
+  {h:'Rolling Plains Memorial Hospital',n:'Douglas Dippel',e:'douglasd@rpmh.net',p:'(325) 219-6220'},
+  {h:'Jackson County Hospital District',n:'Melinda Griffin',e:'mgriffin@jchd.org',p:'(361) 945-0782'},
+  {h:'Falls Community Hospital & Clinic',n:'Billie Simpson',e:'bsimpson@fallshospital.com',p:'(254) 883-0356'},
+  {h:'Cochran Memorial Hospital',n:'Grant Turner',e:'gturner@cochranmemorial.com',p:'(806) 266-5565'},
+  {h:'Hansford County Hospital District',n:'Lexi McAnally',e:'leximcanally@hchd.net',p:'(806) 330-1005'},
+  {h:'Graham Regional Medical Center',n:'John Lucas',e:'jlucas@nerium.com',p:'(940) 521-5500'},
+  {h:'Ward Memorial Hospital',n:'Ian Rae',e:'irae@wardmemorial.com',p:'(915) 261-6861'},
+  {h:'Parmer Medical Center',n:'Gayla Quillin',e:'gquillin@parmermedicalcenter.com',p:'(409) 988-8152'},
+  {h:'Stephens Memorial Hospital',n:'Alicia Whitt',e:'awhitt@mainehealth.org',p:'(940) 452-6944'},
+  {h:'Uvalde Memorial Hospital',n:'Adam Apolinar',e:'a.apolinar@umhtx.org',p:'(830) 591-8479'},
+  {h:'Val Verde Regional Medical Center',n:'Jorge Jurado',e:'jorge.jurado@vvrmc.org',p:'(830) 734-3658'},
+  {h:'Parkview Health',n:'Joshua Kline',e:'joshua.kline@parkview.com',p:'(260) 373-9953'},
+  {h:'Cogdell Memorial Hospital',n:'Kathy Goodwin',e:'kvirone@cogdellhospital.com',p:'(325) 574-7292'},
+  {h:'Winkler County Memorial Hospital',n:'John Clark',e:'j.clark@wcmh.net',p:'(901) 319-6032'},
+  {h:'Hamilton Healthcare System',n:'Angela Newton',e:'anewton@hamiltonhospital.org',p:'(325) 451-7678'},
+  {h:'Big Bend Regional Medical Center',n:'Michael J. Ellis',e:'mike_ellis@chs.net',p:''},
+  {h:'Parkview Health',n:'Suresh Jaiswal',e:'suresh.jaiswal@parkview.com',p:'(260) 355-3900'},
+  {h:'Matagorda Regional Medical Center',n:'Judy Sablatura',e:'judy.sablatura@matagordaregional.org',p:'(979) 241-5570'}
+];
+
+function hesc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderContacts(list) {
+  document.getElementById('contactsBody').innerHTML = list.map((c,i) => {
+    const emailCell = c.e
+      ? `<a href="mailto:${hesc(c.e)}" style="color:var(--blue);text-decoration:none;">${hesc(c.e)}</a>`
+      : `<span style="color:#333">—</span>`;
+    const phoneCell = c.p
+      ? `<span style="color:#888;">${hesc(c.p)}</span>`
+      : `<span style="color:#333">—</span>`;
+    return `<tr>
+      <td style="color:#444;min-width:32px;">${i+1}</td>
+      <td class="hospital-name">${hesc(c.h)}</td>
+      <td style="color:#ccc;">${hesc(c.n)}</td>
+      <td style="font-size:12px;">${emailCell}</td>
+      <td style="font-size:12px;">${phoneCell}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('ct-count').textContent = list.length + ' contacts shown';
+}
+
+function filterContacts() {
+  const q = document.getElementById('ctSearch').value.toLowerCase();
+  const list = q ? CONTACTS.filter(c =>
+    (c.h||'').toLowerCase().includes(q) ||
+    (c.n||'').toLowerCase().includes(q) ||
+    (c.e||'').toLowerCase().includes(q)
+  ) : CONTACTS;
+  renderContacts(list);
+}
+
+document.getElementById('ctTotal').textContent = CONTACTS.length;
+document.getElementById('ctEmail').textContent = CONTACTS.filter(c => c.e).length;
+document.getElementById('ctPhone').textContent = CONTACTS.filter(c => c.p).length;
+document.getElementById('ctHospitals').textContent = new Set(CONTACTS.map(c => c.h)).size;
+renderContacts(CONTACTS);
 </script>
 </body>
 </html>
