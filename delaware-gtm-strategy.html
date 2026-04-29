@@ -144,6 +144,39 @@
   .hl-red { color: var(--red); font-weight: 700; }
   .hl-teal { color: var(--teal); font-weight: 700; }
   .hl-orange { color: var(--orange); font-weight: 700; }
+
+  .outreach-summary {
+    display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px;
+  }
+  .outreach-stat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 22px; text-align: center; flex: 1; min-width: 100px;
+  }
+  .outreach-stat-val { font-size: 24px; font-weight: 900; line-height: 1; }
+  .outreach-stat-lbl { font-size: 10px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .contacts-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; max-height: 520px; overflow-y: auto; margin-bottom: 24px;
+  }
+  .contacts-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .contacts-table th {
+    text-align: left; font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--muted); padding: 8px 12px;
+    border-bottom: 2px solid var(--border); font-weight: 700;
+    background: #101820; position: sticky; top: 0; z-index: 1;
+  }
+  .contacts-table td { padding: 7px 12px; border-bottom: 1px solid #151c21; vertical-align: top; line-height: 1.4; }
+  .contacts-table tr:last-child td { border-bottom: none; }
+  .contacts-table tr:hover td { background: var(--surface2); }
+  .contacts-state-row td {
+    background: #0b1820; color: var(--teal); font-weight: 800;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    padding: 5px 12px; border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .contact-email { color: var(--teal); font-size: 11px; }
+  .contact-na { color: var(--muted); font-size: 11px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -378,6 +411,375 @@ Would there be an appropriate time to connect, or a vendor engagement process I 
 
 Jessie Spada
 WHOOP Enterprise</div>
+  </div>
+
+  <div class="section-title">Completed Outreach — State Office Contact Network</div>
+
+  <div class="callout callout-teal">
+    <div class="callout-title" style="color:var(--teal);">259 Contacts Reached Across 37 States — Already Done</div>
+    <div class="callout-body">The following represent outreach already completed to State Offices of Rural Health, Primary Care Offices, and program-level contacts as part of the national RHTP engagement. Every contact in this table has been reached. This represents the state infrastructure network built in parallel with the Delaware-specific RFP strategy above.</div>
+  </div>
+
+  <div class="outreach-summary">
+    <div class="outreach-stat">
+      <div class="outreach-stat-val" style="color:var(--teal);">259</div>
+      <div class="outreach-stat-lbl">Contacts Reached</div>
+    </div>
+    <div class="outreach-stat">
+      <div class="outreach-stat-val" style="color:var(--orange);">37</div>
+      <div class="outreach-stat-lbl">States</div>
+    </div>
+    <div class="outreach-stat">
+      <div class="outreach-stat-val" style="color:var(--green);">✓</div>
+      <div class="outreach-stat-lbl">All Completed</div>
+    </div>
+  </div>
+
+  <div class="contacts-wrap">
+    <table class="contacts-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Title</th>
+          <th>Organization</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="contacts-state-row"><td colspan="4">Alabama · 6 Contacts</td></tr>
+        <tr><td>Chantel Pullom</td><td>Epidemiologist</td><td>Alabama Office of Primary Care &amp; Rural Health</td><td><span class="contact-email">chantel.pullom@adph.state.al.us</span></td></tr>
+        <tr><td>Danielle Hurst</td><td>ORH Staff</td><td>Alabama Office of Primary Care &amp; Rural Health</td><td><span class="contact-email">danielle.hurst@adph.state.al.us</span></td></tr>
+        <tr><td>Jessica Gilley</td><td>J-1 Visa Waiver Program Manager</td><td>Alabama Office of Primary Care &amp; Rural Health</td><td><span class="contact-email">jessica.gilley@adph.state.al.us</span></td></tr>
+        <tr><td>Karl Bryant</td><td>Director</td><td>Alabama Office of Primary Care &amp; Rural Health</td><td><span class="contact-email">karl.bryant@adph.state.al.us</span></td></tr>
+        <tr><td>Katherine Baldwin</td><td>Public Relations &amp; Communications Specialist</td><td>Alabama Office of Primary Care &amp; Rural Health</td><td><span class="contact-email">katherine.baldwin@adph.state.al.us</span></td></tr>
+        <tr><td>Robert Jordan</td><td>ORH Staff</td><td>Alabama Office of Primary Care &amp; Rural Health</td><td><span class="contact-email">robert.jordan@adph.state.al.us</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Alaska · 8 Contacts</td></tr>
+        <tr><td>Cate Harmon</td><td>Flex/SHIP Program Coordinator / Interim SORH Director</td><td>Alaska State Office of Rural Health</td><td><span class="contact-email">cate.harmon@alaska.gov</span></td></tr>
+        <tr><td>Judy Holland</td><td>Alaska Primary Care Office</td><td>Alaska State Office of Rural Health</td><td><span class="contact-email">judy.holland@alaska.gov</span></td></tr>
+        <tr><td>Katie Reilly</td><td>Office of Healthcare Access Program Support</td><td>Alaska State Office of Rural Health</td><td><span class="contact-email">katie.reilly@alaska.gov</span></td></tr>
+        <tr><td>Katie Yaniec</td><td>State Loan Repayment Program</td><td>Alaska State Office of Rural Health</td><td><span class="contact-email">katie.yaniec@alaska.gov</span></td></tr>
+        <tr><td>Steph Kings</td><td>Comprehensive Mental Health Plan</td><td>Alaska State Office of Rural Health</td><td><span class="contact-email">steph.kings@alaska.gov</span></td></tr>
+        <tr><td>Terry Bookey</td><td>Alaska SHARP Outreach Coordinator</td><td>Alaska State Office of Rural Health</td><td><span class="contact-email">terry.bookey@alaska.gov</span></td></tr>
+        <tr><td>Terry Kadel</td><td>Community Paramedicine / Mobile Integration</td><td>Alaska State Office of Rural Health</td><td><span class="contact-email">terry.kadel@alaska.gov</span></td></tr>
+        <tr><td>Tricia Franklin</td><td>SORH Director</td><td>Alaska State Office of Rural Health</td><td><span class="contact-email">tricia.franklin@alaska.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Arizona · 19 Contacts</td></tr>
+        <tr><td>Ann Garn</td><td>Manager, Marketing and Outreach</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">agarn@arizona.edu</span></td></tr>
+        <tr><td>Bianca SantaMaria</td><td>Health Education &amp; Promotion Professional II</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">biancas@arizona.edu</span></td></tr>
+        <tr><td>Brianna Rooney</td><td>Assistant Research Professor / Center Lead OD2A</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">bcrooney@arizona.edu</span></td></tr>
+        <tr><td>Brynd Koch</td><td>Assistant Research Professor / Interim Program Director</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">brynak@arizona.edu</span></td></tr>
+        <tr><td>Charles Drake</td><td>Data Architect III</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">cdrake@arizona.edu</span></td></tr>
+        <tr><td>Daniel Derksen, MD</td><td>Director / AzSORH</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">dderksen@arizona.edu</span></td></tr>
+        <tr><td>Gabriela Sanchez</td><td>Health Educator &amp; Promotion Professional</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">gabrielasanchez@arizona.edu</span></td></tr>
+        <tr><td>Jennifer S Peters</td><td>State Office of Rural Health Program Manager</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">petersjs@arizona.edu</span></td></tr>
+        <tr><td>Jill Bullock</td><td>Associate Director / Az-Flex Coordinator</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">bullock1@arizona.edu</span></td></tr>
+        <tr><td>Joyce Hospodar</td><td>Senior Advisor, Rural Programs</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">hospodar@arizona.edu</span></td></tr>
+        <tr><td>Leila Barraza</td><td>Director, Arizona Area Health Education Centers</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">lbarraza@arizona.edu</span></td></tr>
+        <tr><td>Marc Verhougstraete</td><td>Associate Professor</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">mverhougstraete@arizona.edu</span></td></tr>
+        <tr><td>Maria Losoya</td><td>Health Educator &amp; Outreach Specialist</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">mlosoya@arizona.edu</span></td></tr>
+        <tr><td>Mariah Erhart</td><td>Community Outreach Professional</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">merhart@arizona.edu</span></td></tr>
+        <tr><td>Melissa Quezada</td><td>Executive Assistant</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">melissaquezada@arizona.edu</span></td></tr>
+        <tr><td>Mona Arora</td><td>Program Manager, AHEAD AZ</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">manand@arizona.edu</span></td></tr>
+        <tr><td>Pam Barnes</td><td>Finance Lead</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">pbarnes@arizona.edu</span></td></tr>
+        <tr><td>Rocio Torres</td><td>Program Management Assistant</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">torresm1@arizona.edu</span></td></tr>
+        <tr><td>Susan Coates</td><td>Principal Database Specialist</td><td>Arizona Center for Rural Health</td><td><span class="contact-email">scoates@arizona.edu</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Arkansas · 4 Contacts</td></tr>
+        <tr><td>Akoya Nickson</td><td>Listed contact</td><td>Arkansas Rural Health Section – AR Department of Health</td><td><span class="contact-na">—</span></td></tr>
+        <tr><td>Dianne Elliott</td><td>SORH Program Manager</td><td>Arkansas Rural Health Section – AR Department of Health</td><td><span class="contact-email">dianne.elliott@arkansas.gov</span></td></tr>
+        <tr><td>Heather Land</td><td>Health Program Coordinator / J-1 Visa/Loan Review Specialist</td><td>Arkansas Department of Health</td><td><span class="contact-email">heather.land@arkansas.gov</span></td></tr>
+        <tr><td>LaTarsha Thomas</td><td>Administrative / PCO</td><td>Arkansas Rural Health Section – AR Department of Health</td><td><span class="contact-email">LaTarsha.Thomas@arkansas.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">California · 7 Contacts</td></tr>
+        <tr><td>Darby Maas</td><td>Deputy Director / Senior Advisor</td><td>California OSHPD – Office of Rural Health</td><td><span class="contact-email">darby.maas@oshpd.ca.gov</span></td></tr>
+        <tr><td>Eddie Wong</td><td>Program Specialist</td><td>California OSHPD – Office of Rural Health</td><td><span class="contact-email">eddie.wong@oshpd.ca.gov</span></td></tr>
+        <tr><td>Hovik Khosrovian</td><td>SORH Director</td><td>California OSHPD – Office of Rural Health</td><td><span class="contact-email">hovik.khosrovian@oshpd.ca.gov</span></td></tr>
+        <tr><td>Ivanna Evans</td><td>Manager / SORH</td><td>California OSHPD – Office of Rural Health</td><td><span class="contact-email">ivanna.evans@oshpd.ca.gov</span></td></tr>
+        <tr><td>Jalaunda Granville</td><td>Program Specialist</td><td>California OSHPD – Office of Rural Health</td><td><span class="contact-email">jalaunda.granville@oshpd.ca.gov</span></td></tr>
+        <tr><td>Matthew Garcia</td><td>Health Program Specialist</td><td>California OSHPD – Office of Rural Health</td><td><span class="contact-email">matthew.garcia@oshpd.ca.gov</span></td></tr>
+        <tr><td>Tyfany Frazier</td><td>Health Program Specialist</td><td>California OSHPD – Office of Rural Health</td><td><span class="contact-email">tyfany.frazier@oshpd.ca.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Colorado · 18 Contacts</td></tr>
+        <tr><td>Caroline Furman</td><td>Programs Coordinator</td><td>Colorado Rural Health Center</td><td><span class="contact-email">cfurman@coruralhealth.org</span></td></tr>
+        <tr><td>Cyntia De Carvalho</td><td>Quality Improvement Specialist</td><td>Colorado Rural Health Center</td><td><span class="contact-email">cdecarvalho@coruralhealth.org</span></td></tr>
+        <tr><td>Emilee Vuksta</td><td>Workforce Projects Manager</td><td>Colorado Rural Health Center</td><td><span class="contact-email">evuksta@coruralhealth.org</span></td></tr>
+        <tr><td>Gabe Serrano</td><td>Quality Improvement Specialist</td><td>Colorado Rural Health Center</td><td><span class="contact-email">gserrano@coruralhealth.org</span></td></tr>
+        <tr><td>Greg Selinger</td><td>Public Health Data Specialist</td><td>Colorado Rural Health Center</td><td><span class="contact-email">gselinger@coruralhealth.org</span></td></tr>
+        <tr><td>Jen Grant</td><td>QI Programs Manager</td><td>Colorado Rural Health Center</td><td><span class="contact-email">jgrant@coruralhealth.org</span></td></tr>
+        <tr><td>Kelly Erb Zager</td><td>Associate Director of Policy and Advocacy</td><td>Colorado Rural Health Center</td><td><span class="contact-email">ke@coruralhealth.org</span></td></tr>
+        <tr><td>Kristin Morris</td><td>Quality Improvement Specialist</td><td>Colorado Rural Health Center</td><td><span class="contact-email">kmorris@coruralhealth.org</span></td></tr>
+        <tr><td>Laura Silverboard</td><td>Workforce Coordinator</td><td>Colorado Rural Health Center</td><td><span class="contact-email">lsilverboard@coruralhealth.org</span></td></tr>
+        <tr><td>Lori Arbuckle</td><td>Director of Finance</td><td>Colorado Rural Health Center</td><td><span class="contact-email">la@coruralhealth.org</span></td></tr>
+        <tr><td>Marcy Cameron</td><td>Director of Programs</td><td>Colorado Rural Health Center</td><td><span class="contact-email">mc@coruralhealth.org</span></td></tr>
+        <tr><td>Matt Enquist</td><td>Associate Director of Outreach</td><td>Colorado Rural Health Center</td><td><span class="contact-email">me@coruralhealth.org</span></td></tr>
+        <tr><td>Michelle Mills</td><td>CEO</td><td>Colorado Rural Health Center</td><td><span class="contact-email">mm@coruralhealth.org</span></td></tr>
+        <tr><td>Neeraja Sane</td><td>Accountant</td><td>Colorado Rural Health Center</td><td><span class="contact-email">ns@coruralhealth.org</span></td></tr>
+        <tr><td>Rachel Williams</td><td>Hospital Programs Manager</td><td>Colorado Rural Health Center</td><td><span class="contact-email">rwilliams@coruralhealth.org</span></td></tr>
+        <tr><td>Rhea Mech</td><td>Outreach Coordinator</td><td>Colorado Rural Health Center</td><td><span class="contact-email">rmech@coruralhealth.org</span></td></tr>
+        <tr><td>Sara Leahy</td><td>Director of Member Services</td><td>Colorado Rural Health Center</td><td><span class="contact-email">sl@coruralhealth.org</span></td></tr>
+        <tr><td>Suzie Rick</td><td>Director of Human Resources</td><td>Colorado Rural Health Center</td><td><span class="contact-email">sr@coruralhealth.org</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Connecticut · 2 Contacts</td></tr>
+        <tr><td>Lori Fedewa</td><td>Director</td><td>Connecticut Office of Rural Health</td><td><span class="contact-email">lori.fedewa@ctstate.edu</span></td></tr>
+        <tr><td>Sarah Gauger</td><td>Program Assistant</td><td>Connecticut Office of Rural Health</td><td><span class="contact-email">sarah.gauger@ctstate.edu</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Delaware · 3 Contacts</td></tr>
+        <tr><td>Daniel Isom</td><td>Primary Care Office Director</td><td>Delaware Division of Public Health</td><td><span class="contact-email">daniel.isom@delaware.gov</span></td></tr>
+        <tr><td>Nichole Moxley</td><td>State Loan Repayment Program</td><td>Delaware Division of Public Health</td><td><span class="contact-email">nichole.moxley@delaware.gov</span></td></tr>
+        <tr><td>Susan Holloway</td><td>Section Chief, Population Health</td><td>Delaware Division of Public Health</td><td><span class="contact-na">—</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Florida · 3 Contacts</td></tr>
+        <tr><td>Cynthia Weaver</td><td>FLEX Coordinator</td><td>State Office of Rural Health (FL DOH)</td><td><span class="contact-email">Cynthia.Weaver@flhealth.gov</span></td></tr>
+        <tr><td>Kendall Henry</td><td>—</td><td>FL SORH</td><td><span class="contact-email">kendall.henry@flhealth.gov</span></td></tr>
+        <tr><td>Savannah Hughes</td><td>3RNET Network Coordinator</td><td>3RNET (Florida)</td><td><span class="contact-email">Savannah.Hughes@flhealth.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Georgia · 8 Contacts</td></tr>
+        <tr><td>Amanda Sutton</td><td>Rural Health Program Manager</td><td>Georgia Dept. of Public Health – Office of Rural Health</td><td><span class="contact-email">amanda.sutton@dph.ga.gov</span></td></tr>
+        <tr><td>Cole Edwards</td><td>Rural Health Data &amp; Policy Specialist</td><td>Georgia Dept. of Public Health – Office of Rural Health</td><td><span class="contact-email">cole.edwards@dph.ga.gov</span></td></tr>
+        <tr><td>Dawn Waldrip</td><td>Principal Administrative Specialist</td><td>Georgia Dept. of Public Health – Office of Rural Health</td><td><span class="contact-email">dawn.waldrip@dph.ga.gov</span></td></tr>
+        <tr><td>Dorothy Bryant</td><td>Rural Health Program Specialist</td><td>Georgia Dept. of Public Health – Office of Rural Health</td><td><span class="contact-email">dorothy.bryant@dph.ga.gov</span></td></tr>
+        <tr><td>Nita Ham</td><td>Director, Office of Rural Health</td><td>Georgia Dept. of Public Health – Office of Rural Health</td><td><span class="contact-email">nita.ham@dph.ga.gov</span></td></tr>
+        <tr><td>Olakesta Outlaw-Houser</td><td>Health Communications Specialist</td><td>Georgia Dept. of Public Health – Office of Rural Health</td><td><span class="contact-email">olakesta.outlaw-houser@dph.ga.gov</span></td></tr>
+        <tr><td>Tiffany Hardin</td><td>Program Support Analyst</td><td>Georgia Dept. of Public Health – Office of Rural Health</td><td><span class="contact-email">tiffany.hardin@dph.ga.gov</span></td></tr>
+        <tr><td>Tina Register</td><td>Administrative Support</td><td>Georgia Dept. of Public Health – Office of Rural Health</td><td><span class="contact-email">tina.register@dph.ga.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Hawaii · 3 Contacts</td></tr>
+        <tr><td>Caroline Kunitake</td><td>Primary Care Office Coordinator</td><td>HI Office of Primary Care &amp; Rural Health</td><td><span class="contact-email">caroline.kunitake@doh.hawaii.gov</span></td></tr>
+        <tr><td>Scott Daniels</td><td>Program Specialist V</td><td>HI Office of Primary Care &amp; Rural Health</td><td><span class="contact-email">scott.daniels@doh.hawaii.gov</span></td></tr>
+        <tr><td>Valerie Rose</td><td>Program Specialist</td><td>HI Office of Primary Care &amp; Rural Health</td><td><span class="contact-email">valerie.rose@doh.hawaii.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Idaho · 9 Contacts</td></tr>
+        <tr><td>Alex Prado</td><td>Health Program Manager</td><td>Idaho Bureau of Rural Health &amp; Primary Care</td><td><span class="contact-email">alex.prado@dhw.idaho.gov</span></td></tr>
+        <tr><td>Amy Hirtle</td><td>Health Program Manager</td><td>Idaho Bureau of Rural Health &amp; Primary Care</td><td><span class="contact-email">amy.hirtle@dhw.idaho.gov</span></td></tr>
+        <tr><td>Angie Bailey</td><td>State Office Director</td><td>Idaho Bureau of Rural Health &amp; Primary Care</td><td><span class="contact-email">angie.bailey@dhw.idaho.gov</span></td></tr>
+        <tr><td>Ann Watkins</td><td>SORH Staff</td><td>Idaho Bureau of Rural Health &amp; Primary Care</td><td><span class="contact-email">RuralHealth@dhw.idaho.gov</span></td></tr>
+        <tr><td>Chris Irizarry</td><td>SORH Staff</td><td>Idaho Bureau of Rural Health &amp; Primary Care</td><td><span class="contact-email">RuralHealth@dhw.idaho.gov</span></td></tr>
+        <tr><td>Grace Dehner</td><td>SORH Staff</td><td>Idaho Bureau of Rural Health &amp; Primary Care</td><td><span class="contact-email">RuralHealth@dhw.idaho.gov</span></td></tr>
+        <tr><td>Mitch Kron</td><td>FLEX &amp; SHIP Coordinator</td><td>Idaho Bureau of Rural Health &amp; Primary Care</td><td><span class="contact-email">mitch.kron@dhw.idaho.gov</span></td></tr>
+        <tr><td>Nicole Metzger</td><td>SORH Staff</td><td>Idaho Bureau of Rural Health &amp; Primary Care</td><td><span class="contact-email">RuralHealth@dhw.idaho.gov</span></td></tr>
+        <tr><td>Sean Flink</td><td>SORH Staff</td><td>Idaho Bureau of Rural Health &amp; Primary Care</td><td><span class="contact-email">RuralHealth@dhw.idaho.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Illinois · 4 Contacts</td></tr>
+        <tr><td>Carla Cox</td><td>PCO Manager / Analyst</td><td>Illinois Center for Rural Health</td><td><span class="contact-email">carla.cox@illinois.gov</span></td></tr>
+        <tr><td>Kandice Kent</td><td>Health Professional Resources Manager</td><td>Illinois Center for Rural Health</td><td><span class="contact-email">kandice.kent@illinois.gov</span></td></tr>
+        <tr><td>Kristen Nolen</td><td>SORH Director</td><td>Illinois Center for Rural Health</td><td><span class="contact-email">kristen.n.nolen@illinois.gov</span></td></tr>
+        <tr><td>Sabrina Whitt</td><td>Strategic Partnerships Coordinator</td><td>Illinois Center for Rural Health</td><td><span class="contact-email">sabrina.whitt@illinois.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Indiana · 2 Contacts</td></tr>
+        <tr><td>Joyce Fillenwarth</td><td>SORH Manager and SHIP Coordinator</td><td>Indiana Department of Health</td><td><span class="contact-email">jfillenwarth@health.in.gov</span></td></tr>
+        <tr><td>Lindsey Bouza</td><td>SORH Director</td><td>Indiana State Office of Rural Health and Primary Care</td><td><span class="contact-email">lbouza@health.in.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Iowa · 4 Contacts</td></tr>
+        <tr><td>Cristie Duric</td><td>Executive Officer</td><td>Iowa Bureau of Rural and Community Health</td><td><span class="contact-email">cristie.duric@hhs.iowa.gov</span></td></tr>
+        <tr><td>Jason Clinton</td><td>State Flex Coordinator</td><td>Iowa Bureau of Rural and Community Health</td><td><span class="contact-na">—</span></td></tr>
+        <tr><td>Samra Hiros</td><td>SORH Program Director</td><td>Iowa Bureau of Rural and Community Health</td><td><span class="contact-email">samra.hiros@hhs.iowa.gov</span></td></tr>
+        <tr><td>Wanda Hilton</td><td>Flex/SHIP Coordinator</td><td>Iowa Bureau of Rural and Community Health</td><td><span class="contact-email">wanda.hilton@hhs.iowa.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Kansas · 4 Contacts</td></tr>
+        <tr><td>Amy Swanson</td><td>Kansas Office of Primary Care and Rural Health</td><td>Kansas Office of Primary Care and Rural Health</td><td><span class="contact-email">amy.s.swanson@ks.gov</span></td></tr>
+        <tr><td>Desiree Kari Brown</td><td>Primary Care and Rural Health Coordinator, Community Health Access</td><td>Kansas Office of Primary Care and Rural Health</td><td><span class="contact-email">desiree.brown@ks.gov</span></td></tr>
+        <tr><td>Cece Talley</td><td>—</td><td>—</td><td><span class="contact-na">—</span></td></tr>
+        <tr><td>Cindy Ellis</td><td>—</td><td>—</td><td><span class="contact-na">—</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Kentucky · 8 Contacts</td></tr>
+        <tr><td>Amelia Holliday</td><td>Rural Project Manager – Communications</td><td>Kentucky Office of Rural Health</td><td><span class="contact-email">amelia.holliday@uky.edu</span></td></tr>
+        <tr><td>Anita Watts</td><td>Rural Program Specialist</td><td>Kentucky Office of Rural Health</td><td><span class="contact-email">agwa251@uky.edu</span></td></tr>
+        <tr><td>Dorothy Bryant</td><td>Rural Health Staff</td><td>Kentucky Office of Rural Health</td><td><span class="contact-email">dorothy.bryant@uky.edu</span></td></tr>
+        <tr><td>Janice Vance</td><td>Rural Project Manager – Workforce &amp; Loan Repayment</td><td>Kentucky Office of Rural Health</td><td><span class="contact-email">jva293@uky.edu</span></td></tr>
+        <tr><td>Josh Adams</td><td>Rural Projects Staff</td><td>Kentucky Office of Rural Health</td><td><span class="contact-email">josh.adams@uky.edu</span></td></tr>
+        <tr><td>Matt Coleman</td><td>Director</td><td>Kentucky Office of Rural Health</td><td><span class="contact-email">matt.coleman@uky.edu</span></td></tr>
+        <tr><td>Medina Tipton</td><td>Senior Project Manager – CAHs/RHCs</td><td>Kentucky Office of Rural Health</td><td><span class="contact-email">amtipt2@uky.edu</span></td></tr>
+        <tr><td>Scott Helle</td><td>Rural Project Coordinator</td><td>Kentucky Office of Rural Health</td><td><span class="contact-email">scott.helle@uky.edu</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Louisiana · 1 Contact</td></tr>
+        <tr><td>Amanda Triche</td><td>Director</td><td>Louisiana Office of Rural Health</td><td><span class="contact-email">amanda.triche@la.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Maine · 4 Contacts</td></tr>
+        <tr><td>Erica Dyer</td><td>Public Health Educator</td><td>Maine Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">erica.dyer@maine.gov</span></td></tr>
+        <tr><td>Mary Powell</td><td>Health Program Manager</td><td>Maine Office of Rural Health &amp; Primary Care</td><td><span class="contact-na">—</span></td></tr>
+        <tr><td>Merica Tripp</td><td>Planning &amp; Research Associate</td><td>Maine Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">merica.a.tripp@maine.gov</span></td></tr>
+        <tr><td>Nicole Breton</td><td>Director</td><td>Maine Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">nicole.breton@maine.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Maryland · 2 Contacts</td></tr>
+        <tr><td>Jamie Cardillo</td><td>Program Coordinator</td><td>Maryland Office of Rural Health</td><td><span class="contact-email">jamie.cardillo@maryland.gov</span></td></tr>
+        <tr><td>Sara Seitz</td><td>Director</td><td>Maryland Office of Rural Health</td><td><span class="contact-email">sara.seitz@maryland.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Michigan · 13 Contacts</td></tr>
+        <tr><td>Aleah Huse</td><td>Projects &amp; Communications Coordinator</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">husealea@msu.edu</span></td></tr>
+        <tr><td>Amanda Saint Martin</td><td>Hospital Programs Manager</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">amanda.saintmartin@affiliate.msu.edu</span></td></tr>
+        <tr><td>Crystal Barter</td><td>Director of Programs &amp; Services</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">crystal.barter@hc.msu.edu</span></td></tr>
+        <tr><td>Gennie Groover</td><td>NMORC Project Associate</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">gennie.groover@affiliate.msu.edu</span></td></tr>
+        <tr><td>Jeanne Marriott</td><td>NMORC Project Associate</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">jeanne.marriott@affiliate.msu.edu</span></td></tr>
+        <tr><td>Jeff Nagy</td><td>Quality Improvement Advisor</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">jeff.nagy@hc.msu.edu</span></td></tr>
+        <tr><td>Jill Oesterle</td><td>Director of Provider Solutions</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">oester35@msu.edu</span></td></tr>
+        <tr><td>Jim Yates</td><td>IREACH Project Director</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">jim.yates@msu.edu</span></td></tr>
+        <tr><td>John Barnas</td><td>Executive Director</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">barnas@msu.edu</span></td></tr>
+        <tr><td>Joyce Fetrow</td><td>NMORC Project Director</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">joyce.fetrow@msu.edu</span></td></tr>
+        <tr><td>Kyra Burkeen</td><td>Workforce Initiatives Manager</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">kyra.burkeen@affiliate.msu.edu</span></td></tr>
+        <tr><td>Laura Mispelon</td><td>Social Drivers of Health Manager</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">laura.mispelon@affiliate.msu.edu</span></td></tr>
+        <tr><td>Renee Calkins</td><td>Rural Education Manager</td><td>Michigan Center for Rural Health</td><td><span class="contact-email">renee.calkins@affiliate.msu.edu</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Mississippi · 9 Contacts</td></tr>
+        <tr><td>Alushus Cooper</td><td>Director, Office of Rural Health</td><td>Mississippi Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">alushus.cooper1@msdh.ms.gov</span></td></tr>
+        <tr><td>Ashley Hollins</td><td>SORH Staff</td><td>Mississippi Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">ashley.hollins@msdh.ms.gov</span></td></tr>
+        <tr><td>Carmen Robinson</td><td>Program Evaluator</td><td>Mississippi Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">carmen.robinson@msdh.ms.gov</span></td></tr>
+        <tr><td>Ja'Maal Luckett</td><td>SORH Staff</td><td>Mississippi Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">jamaal.luckett@msdh.ms.gov</span></td></tr>
+        <tr><td>Jennifer Gholson</td><td>SORH Staff</td><td>Mississippi Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">jennifer.gholson@msdh.ms.gov</span></td></tr>
+        <tr><td>Judy Newton</td><td>Deputy Director</td><td>Mississippi Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">judy.newton@msdh.ms.gov</span></td></tr>
+        <tr><td>Niyoki Bryant</td><td>Graduate Medical Education Specialist</td><td>Mississippi Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">niyoki.bryant@msdh.ms.gov</span></td></tr>
+        <tr><td>Tamara McDonald</td><td>SORH Staff</td><td>Mississippi Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">tamara.mcdonald@msdh.ms.gov</span></td></tr>
+        <tr><td>Teia McCormick</td><td>SORH Staff</td><td>Mississippi Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">teia.mccormick@msdh.ms.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Missouri · 7 Contacts</td></tr>
+        <tr><td>Aleesha Jones</td><td>Chief, Office of Rural Health and Primary Care</td><td>Missouri Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">aleesha.jones@health.mo.gov</span></td></tr>
+        <tr><td>Ashlee Griffin</td><td>SORH Staff</td><td>Missouri Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">ashlee.griffin@health.mo.gov</span></td></tr>
+        <tr><td>Deetrilynn Galbreath</td><td>Manager, Office of Primary Care</td><td>Missouri Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">deetrilynn.galbreath@health.mo.gov</span></td></tr>
+        <tr><td>Diana Winder</td><td>Flex Coordinator</td><td>Missouri Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">diana.winder@health.mo.gov</span></td></tr>
+        <tr><td>Jack Wenkel</td><td>Rural Health Manager</td><td>Missouri Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">jack.wenkel@health.mo.gov</span></td></tr>
+        <tr><td>Nathan James</td><td>SORH Staff</td><td>Missouri Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">nathan.james@health.mo.gov</span></td></tr>
+        <tr><td>Valerie Howard</td><td>SORH Staff</td><td>Missouri Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">valerie.howard@health.mo.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Montana · 4 Contacts</td></tr>
+        <tr><td>Ande Peersen</td><td>Project Coordinator</td><td>Montana Office of Rural Health &amp; AHEC</td><td><span class="contact-email">ande.peersen@montana.edu</span></td></tr>
+        <tr><td>Grace Behrens</td><td>Assistant Director – Strategic Development &amp; Community Programming</td><td>Montana Office of Rural Health &amp; AHEC</td><td><span class="contact-email">gracebehrens@montana.edu</span></td></tr>
+        <tr><td>Kailyn Mock</td><td>Director</td><td>Montana Office of Rural Health &amp; AHEC</td><td><span class="contact-email">kailyn.mock@montana.edu</span></td></tr>
+        <tr><td>Natalie Claiborne</td><td>Assistant Director</td><td>Montana Office of Rural Health &amp; AHEC</td><td><span class="contact-email">natalie.claiborne@montana.edu</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">New Hampshire · 5 Contacts</td></tr>
+        <tr><td>Darlene Laro</td><td>Rural Health Manager</td><td>NH Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">darlene.e.laro@dhhs.nh.gov</span></td></tr>
+        <tr><td>Danielle Hernandez</td><td>Health Professions Data Center Administrator</td><td>NH Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">danielle.h.hernandez@dhhs.nh.gov</span></td></tr>
+        <tr><td>Janine Wainwright</td><td>Primary Care Workforce Program Specialist</td><td>NH Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">janine.wainwright@dhhs.nh.gov</span></td></tr>
+        <tr><td>Shawn Jackson</td><td>Section Chief</td><td>NH Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">shawn.jackson@health.nh.gov</span></td></tr>
+        <tr><td>Whitney Hammond</td><td>Interim Deputy Director</td><td>NH Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">Whitney.Hammond@dhhs.nh.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">New Jersey · 2 Contacts</td></tr>
+        <tr><td>Damon Koslow</td><td>—</td><td>New Jersey State Office of Rural Health</td><td><span class="contact-email">damon.koslow@doh.nj.gov</span></td></tr>
+        <tr><td>Hannah Schonman</td><td>Rural Health Project Officer</td><td>NJDOH Office of Primary Care and Rural Health</td><td><span class="contact-email">hannah.schonman@doh.nj.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">New Mexico · 7 Contacts</td></tr>
+        <tr><td>Chelsea Jones</td><td>RPHCA Contract Manager</td><td>New Mexico Office of Primary Care and Rural Health</td><td><span class="contact-email">chelsea.jones@doh.nm.gov</span></td></tr>
+        <tr><td>Crystal Begay</td><td>Director, Office of Primary Care and Rural Health</td><td>New Mexico Office of Primary Care and Rural Health</td><td><span class="contact-email">crystal.begay@doh.nm.gov</span></td></tr>
+        <tr><td>Eleanor Dominguez</td><td>—</td><td>New Mexico Office of Primary Care and Rural Health</td><td><span class="contact-email">Eleanor.Dominguez@doh.nm.gov</span></td></tr>
+        <tr><td>Erin Montoya</td><td>—</td><td>New Mexico Office of Primary Care and Rural Health</td><td><span class="contact-email">erin.montoya@doh.nm.gov</span></td></tr>
+        <tr><td>Jasmin Hendrickson</td><td>—</td><td>New Mexico Office of Primary Care and Rural Health</td><td><span class="contact-email">jasmin.hendrickson@doh.nm.gov</span></td></tr>
+        <tr><td>Kelcie R. Creel</td><td>—</td><td>New Mexico Office of Primary Care and Rural Health</td><td><span class="contact-email">kelcie.creel@doh.nm.gov</span></td></tr>
+        <tr><td>Melanie J. Keams</td><td>—</td><td>New Mexico Office of Primary Care and Rural Health</td><td><span class="contact-email">melaniej.keams@doh.nm.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">New York · 4 Contacts</td></tr>
+        <tr><td>Christine Bazant</td><td>Health Program Aid – Office of Rural Health</td><td>NY State Department of Health</td><td><span class="contact-email">christine.bazant@health.ny.gov</span></td></tr>
+        <tr><td>John Nittinger</td><td>Associate Health Planner</td><td>New York State Office of Rural Health</td><td><span class="contact-email">john.nittinger@health.ny.gov</span></td></tr>
+        <tr><td>Karen Madden</td><td>Director, Center for Health Care Policy and Resource Development</td><td>New York State Department of Health</td><td><span class="contact-email">karen.madden@health.ny.gov</span></td></tr>
+        <tr><td>Karolyn Garafalo</td><td>Director</td><td>New York State Office of Rural Health</td><td><span class="contact-email">karolyn.garafalo@health.ny.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">North Carolina · 51 Contacts</td></tr>
+        <tr><td>Allison Owen</td><td>Deputy Director</td><td>NC Office of Rural Health</td><td><span class="contact-email">allison.owen@dhhs.nc.gov</span></td></tr>
+        <tr><td>Alma Davis</td><td>CDS II Placement Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">alma.davis@dhhs.nc.gov</span></td></tr>
+        <tr><td>Angelia Lightfoot</td><td>Community Development Specialist II</td><td>NC Office of Rural Health</td><td><span class="contact-email">angelia.lightfoot@dhhs.nc.gov</span></td></tr>
+        <tr><td>Bianca Revis</td><td>Community Development Specialist II</td><td>NC Office of Rural Health</td><td><span class="contact-email">bianca.revis@dhhs.nc.gov</span></td></tr>
+        <tr><td>Corey Alford</td><td>Administrative Officer I</td><td>NC Office of Rural Health</td><td><span class="contact-email">corey.alford@dhhs.nc.gov</span></td></tr>
+        <tr><td>David Britt</td><td>Business Systems Analyst II</td><td>NC Office of Rural Health</td><td><span class="contact-email">david.britt@dhhs.nc.gov</span></td></tr>
+        <tr><td>David Howard</td><td>Community Health Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">david.howard@dhhs.nc.gov</span></td></tr>
+        <tr><td>Deneen Gill</td><td>Community Development Specialist II</td><td>NC Office of Rural Health</td><td><span class="contact-email">deneen.gill@dhhs.nc.gov</span></td></tr>
+        <tr><td>Dorothea Brock</td><td>Rural Health Operations Program Manager / SORH Coordinator</td><td>NC Office of Rural Health</td><td><span class="contact-email">dorothea.brock@dhhs.nc.gov</span></td></tr>
+        <tr><td>Dulce Arroyo</td><td>CDS II</td><td>NC Office of Rural Health</td><td><span class="contact-email">dulce.arroyo@dhhs.nc.gov</span></td></tr>
+        <tr><td>Elizabeth Frederickson</td><td>Business Systems Analyst II</td><td>NC Office of Rural Health</td><td><span class="contact-email">elizabeth.frederickson@dhhs.nc.gov</span></td></tr>
+        <tr><td>Elizabeth Freeman</td><td>Business Systems Analyst II</td><td>NC Office of Rural Health</td><td><span class="contact-email">elizabeth.freeman@dhhs.nc.gov</span></td></tr>
+        <tr><td>Eric Bell</td><td>Program Manager II (HIT)</td><td>NC Office of Rural Health</td><td><span class="contact-email">eric.bell@dhhs.nc.gov</span></td></tr>
+        <tr><td>Gretchen Taylor</td><td>Business Systems Analyst II</td><td>NC Office of Rural Health</td><td><span class="contact-email">gretchen.taylor@dhhs.nc.gov</span></td></tr>
+        <tr><td>Jennifer Yon-Utley</td><td>Administrative Specialist II</td><td>NC Office of Rural Health</td><td><span class="contact-email">jennifer.yon-utley@dhhs.nc.gov</span></td></tr>
+        <tr><td>Jimesha Kent-Greene</td><td>CDS II Comm Dev Contracts Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">jimesha.kent-greene@dhhs.nc.gov</span></td></tr>
+        <tr><td>John Resendes</td><td>Program Manager II</td><td>NC Office of Rural Health</td><td><span class="contact-email">john.resendes@dhhs.nc.gov</span></td></tr>
+        <tr><td>Jordan Taylor</td><td>CDS II</td><td>NC Office of Rural Health</td><td><span class="contact-email">jordan.taylor@dhhs.nc.gov</span></td></tr>
+        <tr><td>Justin Kearley</td><td>CDS II Rural Ops Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">justin.kearley@dhhs.nc.gov</span></td></tr>
+        <tr><td>Karen Gliarmis</td><td>Rural HIT Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">karen.gliarmis@dhhs.nc.gov</span></td></tr>
+        <tr><td>Kate Furgurson</td><td>CDS II FWHP Specialist (Data)</td><td>NC Office of Rural Health</td><td><span class="contact-email">kate.furgurson@dhhs.nc.gov</span></td></tr>
+        <tr><td>Kayla N Taylor</td><td>CDS II Community Dev Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">kayla.n.taylor@dhhs.nc.gov</span></td></tr>
+        <tr><td>Kimberly R McNeil</td><td>CDS II Rural Ops Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">kimberly.r.mcneil@dhhs.nc.gov</span></td></tr>
+        <tr><td>Kristie Newton</td><td>Administrative Specialist I</td><td>NC Office of Rural Health</td><td><span class="contact-email">kristie.newton@dhhs.nc.gov</span></td></tr>
+        <tr><td>Leslie Wolcott</td><td>CDS II Rural Ops Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">leslie.wolcott@dhhs.nc.gov</span></td></tr>
+        <tr><td>Lilibeth Andres</td><td>CDS II Engagement Coordinator</td><td>NC Office of Rural Health</td><td><span class="contact-email">lilibeth.andres@dhhs.nc.gov</span></td></tr>
+        <tr><td>Lisa McKeithan</td><td>Program Manager II – Placement Services</td><td>NC Office of Rural Health</td><td><span class="contact-email">lisa.mckeithan@dhhs.nc.gov</span></td></tr>
+        <tr><td>Margaret (Maggie) Sauer</td><td>Director</td><td>NC Office of Rural Health</td><td><span class="contact-email">maggie.sauer@dhhs.nc.gov</span></td></tr>
+        <tr><td>Mira Sampath</td><td>CDS II Telehealth Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">mira.sampath@dhhs.nc.gov</span></td></tr>
+        <tr><td>Mirian Chavez-Larios</td><td>CDS II Broadband Access Coordinator</td><td>NC Office of Rural Health</td><td><span class="contact-email">mirian.chavez-larios@dhhs.nc.gov</span></td></tr>
+        <tr><td>Modjulie Moore</td><td>CDS II Community Dev Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">modjulie.moore@dhhs.nc.gov</span></td></tr>
+        <tr><td>Moneka Midgette</td><td>CDS II Comm Health Worker Coordinator</td><td>NC Office of Rural Health</td><td><span class="contact-email">moneka.midgette@dhhs.nc.gov</span></td></tr>
+        <tr><td>Natalie Rivera</td><td>CDS II Digital Equity Project Coordinator</td><td>NC Office of Rural Health</td><td><span class="contact-email">natalie.rivera@dhhs.nc.gov</span></td></tr>
+        <tr><td>Nick Galvez</td><td>Program Manager II – Rural Hospital Manager</td><td>NC Office of Rural Health</td><td><span class="contact-email">nick.galvez@dhhs.nc.gov</span></td></tr>
+        <tr><td>Nicole Fields-Pierre</td><td>Program Manager II – Community Health Manager</td><td>NC Office of Rural Health</td><td><span class="contact-email">nicole.fields-pierre@dhhs.nc.gov</span></td></tr>
+        <tr><td>Nina Baccanari</td><td>CDS II FWHP Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">nina.baccanari@dhhs.nc.gov</span></td></tr>
+        <tr><td>Rachel Lane</td><td>Executive Assistant</td><td>NC Office of Rural Health</td><td><span class="contact-email">rachel.lane@dhhs.nc.gov</span></td></tr>
+        <tr><td>Renee Clark</td><td>CDS II Telepsychiatry &amp; Rural Hospital Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">renee.clark@dhhs.nc.gov</span></td></tr>
+        <tr><td>Rosa Miranda</td><td>CDS II FWHP Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">rosa.miranda@dhhs.nc.gov</span></td></tr>
+        <tr><td>Sebastian Gimenez</td><td>CDS II HIT Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">sebastian.gimenez@dhhs.nc.gov</span></td></tr>
+        <tr><td>Sharema Williams</td><td>Community Development Specialist II</td><td>NC Office of Rural Health</td><td><span class="contact-email">sharema.williams@dhhs.nc.gov</span></td></tr>
+        <tr><td>Shauna Ortiz</td><td>Human Services Planner &amp; Evaluator I</td><td>NC Office of Rural Health</td><td><span class="contact-email">shauna.ortiz@dhhs.nc.gov</span></td></tr>
+        <tr><td>Sheneka Brightwell</td><td>CDS II Comm Dev Contracts Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">sheneka.brightwell@dhhs.nc.gov</span></td></tr>
+        <tr><td>Stephanie Nantz</td><td>Assistant Director</td><td>NC Office of Rural Health</td><td><span class="contact-email">stephanie.nantz@dhhs.nc.gov</span></td></tr>
+        <tr><td>Suzanne Ziaii</td><td>CDS II FWHP Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">suzanne.ziaii@dhhs.nc.gov</span></td></tr>
+        <tr><td>Tania Connaughton</td><td>CDS II FWHP Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">tania.connaughton@dhhs.nc.gov</span></td></tr>
+        <tr><td>Tenisha Hargrove</td><td>Program Manager II – Contracts Manager</td><td>NC Office of Rural Health</td><td><span class="contact-email">tenisha.hargrove@dhhs.nc.gov</span></td></tr>
+        <tr><td>Travis Lawton</td><td>CDS II Community Dev Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">travis.lawton@dhhs.nc.gov</span></td></tr>
+        <tr><td>Trenesse Michael</td><td>CDS II Community Dev Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">trenesse.michael@dhhs.nc.gov</span></td></tr>
+        <tr><td>Zakiya Bell</td><td>CDS II Community Dev Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">zakiya.bell@dhhs.nc.gov</span></td></tr>
+        <tr><td>Zoe Cummings</td><td>CDS II FWHP Specialist</td><td>NC Office of Rural Health</td><td><span class="contact-email">zoe.cummings@dhhs.nc.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Oklahoma · 3 Contacts</td></tr>
+        <tr><td>Corie Kaiser</td><td>Director, Oklahoma Office of Rural Health</td><td>Oklahoma Office of Rural Health (OSU Center for Rural Health)</td><td><span class="contact-email">corie.kaiser@okstate.edu</span></td></tr>
+        <tr><td>Katie Bracaglia</td><td>Grants Project Coordinator</td><td>Oklahoma Office of Rural Health (OSU Center for Rural Health)</td><td><span class="contact-email">katie.bracaglia@okstate.edu</span></td></tr>
+        <tr><td>Pete Walton</td><td>Program Evaluator</td><td>Oklahoma Office of Rural Health (OSU Center for Rural Health)</td><td><span class="contact-email">pete.walton@okstate.edu</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Rhode Island · 3 Contacts</td></tr>
+        <tr><td>Jill D'Errico</td><td>Chief Program Development</td><td>Rhode Island Department of Health</td><td><span class="contact-email">jill.derrico@health.ri.gov</span></td></tr>
+        <tr><td>Manuel Ortiz</td><td>RI SORH Director</td><td>Rhode Island Office of Primary Care and Rural Health</td><td><span class="contact-email">manuel.ortiz@health.ri.gov</span></td></tr>
+        <tr><td>Rebeca Vasquez</td><td>Chief Program Development</td><td>Rhode Island Office of Primary Care and Rural Health</td><td><span class="contact-email">rebeca.vasquez@health.ri.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">South Carolina · 11 Contacts</td></tr>
+        <tr><td>Graham Adams</td><td>Chief Executive Officer</td><td>South Carolina Office of Rural Health</td><td><span class="contact-email">adams@scorh.net</span></td></tr>
+        <tr><td>Darlene Lynch</td><td>Senior Director of Community Health Transformation</td><td>South Carolina Office of Rural Health</td><td><span class="contact-email">dlynch@scorh.net</span></td></tr>
+        <tr><td>Jessica Seel</td><td>Director of Behavioral Health Initiatives &amp; Workforce Development</td><td>South Carolina Office of Rural Health</td><td><span class="contact-email">jseel@scorh.net</span></td></tr>
+        <tr><td>Sarah Craig</td><td>Director of Health System Innovation</td><td>South Carolina Office of Rural Health</td><td><span class="contact-email">craig@scorh.net</span></td></tr>
+        <tr><td>Britton Herbert</td><td>Director, Data Strategy &amp; Healthcare Integration</td><td>South Carolina Office of Rural Health</td><td><span class="contact-email">bherbert@scorh.net</span></td></tr>
+        <tr><td>Shannon Chambers</td><td>Senior Director of Provider Solutions</td><td>South Carolina Office of Rural Health</td><td><span class="contact-email">chambers@scorh.net</span></td></tr>
+        <tr><td>Stephanie Gibbs</td><td>Chief Financial Officer</td><td>South Carolina Office of Rural Health</td><td><span class="contact-email">stephanie@scorh.net</span></td></tr>
+        <tr><td>Andrew Chandler</td><td>Program Manager, Health Equity Initiative &amp; Workforce Development</td><td>South Carolina Office of Rural Health</td><td><span class="contact-email">chandler@scorh.net</span></td></tr>
+        <tr><td>Caroline Tevepaugh</td><td>Executive Assistant</td><td>South Carolina Office of Rural Health</td><td><span class="contact-email">tevepaugh@scorh.net</span></td></tr>
+        <tr><td>Elizabeth Burt</td><td>Senior Director of Advocacy and Communications</td><td>South Carolina Office of Rural Health</td><td><span class="contact-email">eburt@scorh.net</span></td></tr>
+        <tr><td>Debbie Benton</td><td>Administrative Assistant</td><td>South Carolina Office of Rural Health</td><td><span class="contact-email">benton@scorh.net</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Tennessee · 3 Contacts</td></tr>
+        <tr><td>Alle Crampton</td><td>ORH Staff</td><td>Tennessee Office of Rural Health</td><td><span class="contact-email">alle.m.crampton@tn.gov</span></td></tr>
+        <tr><td>Mindy Goff</td><td>SORH Director</td><td>Tennessee Office of Rural Health</td><td><span class="contact-email">mindy.a.goff@tn.gov</span></td></tr>
+        <tr><td>Tresea Donelson</td><td>Flex &amp; SHIP Coordinator</td><td>Tennessee Office of Rural Health</td><td><span class="contact-email">tresea.donelson@tn.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Texas · 7 Contacts</td></tr>
+        <tr><td>Adrian Simpson</td><td>Rural Health Specialist – West Region</td><td>Texas State Office of Rural Health</td><td><span class="contact-email">adrian.simpson@texasagriculture.gov</span></td></tr>
+        <tr><td>Albert Ruiz</td><td>SORH Coordinator</td><td>Texas State Office of Rural Health</td><td><span class="contact-email">albert.ruiz@texasagriculture.gov</span></td></tr>
+        <tr><td>David Rivera</td><td>Rural Health Specialist</td><td>Texas State Office of Rural Health</td><td><span class="contact-email">david.rivera@texasagriculture.gov</span></td></tr>
+        <tr><td>Eva Cruz</td><td>Lead Rural Health Specialist / FLEX Coordinator</td><td>Texas State Office of Rural Health</td><td><span class="contact-email">eva.cruz@texasagriculture.gov</span></td></tr>
+        <tr><td>Patty Ramirez</td><td>Rural Health Specialist – Central/Gulf Region</td><td>Texas State Office of Rural Health</td><td><span class="contact-email">patricia.ramirez@texasagriculture.gov</span></td></tr>
+        <tr><td>Shann Turner</td><td>Director, State Office of Rural Health</td><td>Texas State Office of Rural Health</td><td><span class="contact-email">shann.turner@texasagriculture.gov</span></td></tr>
+        <tr><td>Trish Rivera</td><td>Rural Health Specialist – East Region</td><td>Texas State Office of Rural Health</td><td><span class="contact-email">trish.rivera@texasagriculture.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Vermont · 1 Contact</td></tr>
+        <tr><td>John Olson</td><td>Director</td><td>VT Office of Rural Health &amp; Primary Care</td><td><span class="contact-email">john.olson@vermont.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">West Virginia · 7 Contacts</td></tr>
+        <tr><td>Danielle Kirby</td><td>Loan Repayment Coordinator</td><td>WV State Office of Rural Health</td><td><span class="contact-email">danielle.r.kirby@wv.gov</span></td></tr>
+        <tr><td>David Deutsch</td><td>Evaluator/Research Specialist II</td><td>WV State Office of Rural Health</td><td><span class="contact-email">david.m.deutsch@wv.gov</span></td></tr>
+        <tr><td>Jaclyn Foster</td><td>Workforce Programs Manager</td><td>WV State Office of Rural Health</td><td><span class="contact-email">jaclyn.n.foster@wv.gov</span></td></tr>
+        <tr><td>Jill Hill</td><td>Hospital Programs Manager</td><td>WV State Office of Rural Health</td><td><span class="contact-email">jill.hill@wv.gov</span></td></tr>
+        <tr><td>Lisa Lewis</td><td>Associate Director</td><td>WV State Office of Rural Health</td><td><span class="contact-email">lisa.k.lewis@wv.gov</span></td></tr>
+        <tr><td>Scott Eubank</td><td>Director / Interim Director</td><td>WV State Office of Rural Health</td><td><span class="contact-email">scott.s.eubank@wv.gov</span></td></tr>
+        <tr><td>Wendy Castaneda</td><td>J-1 Visa Waiver Program Coordinator</td><td>WV State Office of Rural Health</td><td><span class="contact-email">wendy.p.castaneda@wv.gov</span></td></tr>
+
+        <tr class="contacts-state-row"><td colspan="4">Wyoming · 3 Contacts</td></tr>
+        <tr><td>Gail Van Buren</td><td>Flex/SHIP Program Manager</td><td>Wyoming Office of Rural Health</td><td><span class="contact-email">gail.vanburen@wyo.gov</span></td></tr>
+        <tr><td>Keri Wagner</td><td>Healthcare Workforce &amp; Primary Care Office Manager</td><td>Wyoming Office of Rural Health</td><td><span class="contact-email">keri.wagner@wyo.gov</span></td></tr>
+        <tr><td>Sharon Weber</td><td>Office of Rural Health Manager</td><td>Wyoming Office of Rural Health</td><td><span class="contact-email">sharon.weber@wyo.gov</span></td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="doc-links">
