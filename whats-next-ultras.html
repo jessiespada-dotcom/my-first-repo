@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's Next — 100K &amp; 50M Ultras, New England + Out West</title>
+<meta name="description" content="A hand-built shortlist of 100K, 50-mile and 100-mile ultramarathons in New England and the American West — after a 22-hour Vermont 100K.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090c;
+  --bg2:#0b0f14;
+  --panel:rgba(255,255,255,.032);
+  --panel2:rgba(255,255,255,.055);
+  --line:rgba(255,255,255,.09);
+  --line2:rgba(255,255,255,.16);
+  --ink:#eef2f6;
+  --ink2:#9aa7b4;
+  --ink3:#65717e;
+  --ne:#4ec9b0;      /* New England */
+  --west:#f2a35e;    /* Out West */
+  --hot:#ff5f56;
+  --gold:#ffd479;
+  --r:16px;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(900px 600px at 12% -5%, rgba(78,201,176,.13), transparent 65%),
+    radial-gradient(900px 620px at 92% 4%, rgba(242,163,94,.12), transparent 65%),
+    radial-gradient(1100px 800px at 50% 105%, rgba(120,90,255,.08), transparent 70%);
+}
+.topo{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
+.wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 22px}
+
+/* ---------- hero ---------- */
+header.hero{padding:76px 0 34px;position:relative}
+.kicker{
+  display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2);
+  border:1px solid var(--line);background:var(--panel);padding:7px 13px;border-radius:100px;
+}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--ne);box-shadow:0 0 12px var(--ne);animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+h1{
+  font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:.94;
+  font-size:clamp(46px,8.4vw,112px);margin:26px 0 0;
+}
+h1 em{font-style:italic;background:linear-gradient(100deg,var(--ne),var(--gold) 55%,var(--west));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{max-width:66ch;margin:24px 0 0;font-size:17.5px;line-height:1.62;color:var(--ink2);font-weight:300}
+.lede b{color:var(--ink);font-weight:500}
+
+.baseline{
+  margin-top:36px;display:grid;gap:1px;background:var(--line);
+  grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
+  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+}
+.bcell{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.012));padding:18px 18px 16px}
+.bcell .lab{font-family:var(--mono);font-size:9.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink3)}
+.bcell .val{font-family:var(--mono);font-size:26px;font-weight:700;margin-top:9px;letter-spacing:-.02em}
+.bcell .sub{font-size:12px;color:var(--ink3);margin-top:4px}
+.bcell .val.g{color:var(--ne)}.bcell .val.o{color:var(--west)}.bcell .val.y{color:var(--gold)}
+
+/* ---------- pace insight ---------- */
+.insight{
+  margin-top:34px;border:1px solid var(--line);border-radius:var(--r);
+  background:linear-gradient(135deg,rgba(255,212,121,.055),rgba(255,255,255,.02));
+  padding:26px 28px;display:grid;grid-template-columns:1fr;gap:18px;
+}
+@media(min-width:860px){.insight{grid-template-columns:1.15fr 1fr;gap:34px;align-items:center}}
+.insight h3{margin:0 0 10px;font-family:var(--serif);font-weight:400;font-size:27px;letter-spacing:-.01em}
+.insight p{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.68}
+.insight p+p{margin-top:11px}
+.insight code{font-family:var(--mono);color:var(--gold);font-size:13px;background:rgba(255,212,121,.09);padding:2px 6px;border-radius:5px}
+.paces{display:grid;gap:9px}
+.prow{display:grid;grid-template-columns:112px 1fr 74px;align-items:center;gap:12px;font-size:12.5px}
+.prow .nm{color:var(--ink2);font-size:12px}
+.ptrack{height:9px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
+.pfill{height:100%;border-radius:99px;transform-origin:left;animation:grow 1.1s cubic-bezier(.2,.9,.2,1) both}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.prow .pv{font-family:var(--mono);font-size:12px;text-align:right;color:var(--ink)}
+
+/* ---------- controls ---------- */
+.controls{
+  position:sticky;top:0;z-index:30;margin:52px 0 0;padding:14px 0;
+  background:rgba(7,9,12,.82);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.crow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.grp{display:flex;gap:5px;padding:4px;border:1px solid var(--line);border-radius:100px;background:var(--panel)}
+.chip{
+  appearance:none;border:0;background:transparent;color:var(--ink2);cursor:pointer;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:8px 13px;border-radius:100px;transition:.18s;white-space:nowrap;
+}
+.chip:hover{color:var(--ink);background:var(--panel2)}
+.chip[aria-pressed="true"]{background:var(--ink);color:#080b0e;font-weight:700}
+.grp[data-region] .chip[aria-pressed="true"][data-v="NE"]{background:var(--ne);color:#04140f}
+.grp[data-region] .chip[aria-pressed="true"][data-v="West"]{background:var(--west);color:#22120a}
+.spacer{flex:1 1 auto}
+.count{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.08em;white-space:nowrap}
+select.sel{
+  appearance:none;background:var(--panel);border:1px solid var(--line);color:var(--ink);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  padding:9px 30px 9px 13px;border-radius:100px;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink2) 50%),linear-gradient(135deg,var(--ink2) 50%,transparent 50%);
+  background-position:calc(100% - 16px) 55%,calc(100% - 11px) 55%;
+  background-size:5px 5px,5px 5px;background-repeat:no-repeat;
+}
+
+/* ---------- grid ---------- */
+.grid{display:grid;gap:16px;grid-template-columns:1fr;margin:26px 0 0}
+@media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1080px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+.card{
+  position:relative;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.042),rgba(255,255,255,.012));
+  display:flex;flex-direction:column;transition:transform .28s cubic-bezier(.2,.9,.2,1),border-color .28s,box-shadow .28s;
+  animation:rise .5s cubic-bezier(.2,.9,.2,1) both;
+}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card:hover{transform:translateY(-4px);border-color:var(--line2);box-shadow:0 22px 48px -22px rgba(0,0,0,.85)}
+.card::after{content:'';position:absolute;left:0;right:0;top:0;height:2px;opacity:.85}
+.card[data-region="NE"]::after{background:linear-gradient(90deg,var(--ne),transparent 78%)}
+.card[data-region="West"]::after{background:linear-gradient(90deg,var(--west),transparent 78%)}
+
+.chead{padding:18px 18px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;padding:4px 8px;border-radius:5px;border:1px solid var(--line);color:var(--ink2)}
+.tag.reg-NE{color:var(--ne);border-color:rgba(78,201,176,.35);background:rgba(78,201,176,.09)}
+.tag.reg-West{color:var(--west);border-color:rgba(242,163,94,.35);background:rgba(242,163,94,.09)}
+.tag.dist{color:var(--ink);border-color:var(--line2);font-weight:700}
+.tag.gt{color:var(--gold);border-color:rgba(255,212,121,.35);background:rgba(255,212,121,.09)}
+.star{
+  appearance:none;border:1px solid var(--line);background:var(--panel);cursor:pointer;
+  width:30px;height:30px;border-radius:9px;color:var(--ink3);font-size:14px;line-height:1;
+  display:grid;place-items:center;transition:.18s;flex:0 0 auto;
+}
+.star:hover{color:var(--gold);border-color:rgba(255,212,121,.4)}
+.star[aria-pressed="true"]{color:var(--gold);background:rgba(255,212,121,.14);border-color:rgba(255,212,121,.5)}
+
+.cname{font-family:var(--serif);font-weight:400;font-size:29px;line-height:1.07;letter-spacing:-.015em;margin:14px 18px 0}
+.cwhere{margin:9px 18px 0;font-size:12.5px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:5px 9px;align-items:center}
+.cwhere .when{color:var(--ink);font-family:var(--mono);font-size:11.5px}
+.cwhere .est{color:var(--ink3);font-style:italic}
+.away{font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:3px 7px;border-radius:5px;background:var(--panel2);color:var(--ink2)}
+.away.soon{color:var(--hot);background:rgba(255,95,86,.12)}
+
+.sig{margin:16px 0 0;padding:0 18px;position:relative}
+.sig svg{display:block;width:100%;height:74px;overflow:visible}
+.sig .cap{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);margin-top:6px;display:flex;justify-content:space-between}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.st{background:rgba(255,255,255,.018);padding:11px 12px}
+.st .l{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.st .v{font-family:var(--mono);font-size:15px;font-weight:700;margin-top:5px}
+.st .v small{font-size:10px;font-weight:400;color:var(--ink3)}
+
+.blurb{padding:15px 18px 0;font-size:13.5px;line-height:1.62;color:var(--ink2);flex:1 1 auto}
+.blurb strong{color:var(--ink);font-weight:600}
+
+.cfoot{padding:15px 18px 17px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.grit{display:flex;align-items:center;gap:9px}
+.gnum{font-family:var(--mono);font-size:12px;font-weight:700}
+.gbar{width:62px;height:5px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.gbar i{display:block;height:100%;border-radius:99px}
+.glab{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.go{
+  text-decoration:none;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink);border:1px solid var(--line2);padding:9px 13px;border-radius:100px;transition:.18s;white-space:nowrap;
+}
+.go:hover{background:var(--ink);color:#080b0e;border-color:var(--ink)}
+.entry{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--ink3);padding:0 18px 16px;margin-top:-6px}
+.entry span{color:var(--ink2)}
+
+.empty{border:1px dashed var(--line2);border-radius:var(--r);padding:56px 24px;text-align:center;color:var(--ink3);grid-column:1/-1}
+
+/* ---------- ladder ---------- */
+section.block{margin:96px 0 0}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,4.6vw,52px);letter-spacing:-.02em;margin:14px 0 0;line-height:1.05}
+.sect-lede{max-width:62ch;color:var(--ink2);font-size:15.5px;line-height:1.65;margin:16px 0 0;font-weight:300}
+.ladder{display:grid;gap:16px;margin-top:30px;grid-template-columns:1fr}
+@media(min-width:840px){.ladder{grid-template-columns:repeat(3,1fr)}}
+.rung{border:1px solid var(--line);border-radius:var(--r);padding:24px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));position:relative}
+.rung .n{font-family:var(--serif);font-size:44px;line-height:1;color:var(--line2)}
+.rung h4{margin:12px 0 0;font-size:17px;letter-spacing:-.01em}
+.rung p{margin:10px 0 0;font-size:13.5px;line-height:1.62;color:var(--ink2)}
+.rung ul{margin:15px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.rung li{font-size:12.5px;color:var(--ink2);display:flex;gap:8px;align-items:baseline}
+.rung li b{color:var(--ink);font-weight:600}
+.rung li::before{content:'→';color:var(--ink3);font-family:var(--mono);font-size:11px}
+.rung .target{margin-top:16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:8px 11px;border-radius:8px;display:inline-block}
+.rung:nth-child(1) .target{background:rgba(78,201,176,.12);color:var(--ne)}
+.rung:nth-child(2) .target{background:rgba(242,163,94,.12);color:var(--west)}
+.rung:nth-child(3) .target{background:rgba(255,212,121,.12);color:var(--gold)}
+
+.legend{margin-top:34px;border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;background:var(--panel)}
+.legend h4{margin:0 0 10px;font-size:14px;letter-spacing:-.01em}
+.legend p{margin:0;font-size:13px;line-height:1.65;color:var(--ink2)}
+.legend .keys{display:flex;flex-wrap:wrap;gap:16px;margin-top:15px}
+.key{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
+.sw{width:22px;height:5px;border-radius:99px}
+
+footer{margin:96px 0 60px;padding-top:28px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px;line-height:1.7}
+footer b{color:var(--ink2)}
+footer .sign{font-family:var(--serif);font-size:20px;color:var(--ink2);margin-top:18px;font-style:italic}
+::selection{background:var(--ne);color:#04140f}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg class="topo" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1440 900">
+  <defs>
+    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4ec9b0" stop-opacity=".26"/>
+      <stop offset=".55" stop-color="#7a6bff" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#f2a35e" stop-opacity=".22"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#tg)" stroke-width="1" id="topoLines"></g>
+</svg>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kicker"><i class="dot"></i> Built for you · updated Jul 2026</span>
+    <h1>You just ran 62 miles.<br><em>Here's what's next.</em></h1>
+    <p class="lede">
+      Nineteen races — <b>100Ks, 50-milers, and the honest 100-mile options</b> — split between
+      New England dirt and the kind of Western terrain that shows up on a wall. Every date below was
+      pulled from the race's own calendar. Sort it, filter it, star the ones you want.
+    </p>
+
+    <div class="baseline">
+      <div class="bcell"><div class="lab">The Baseline</div><div class="val">VT 100K</div><div class="sub">Vermont 100, West Windsor</div></div>
+      <div class="bcell"><div class="lab">Finish Time</div><div class="val y">22:00</div><div class="sub">first ultra. first 100K.</div></div>
+      <div class="bcell"><div class="lab">Avg Pace</div><div class="val">21:17<small>/mi</small></div><div class="sub">moving + aid + everything</div></div>
+      <div class="bcell"><div class="lab">Races Here</div><div class="val g">19</div><div class="sub">6 New England · 13 out west</div></div>
+      <div class="bcell"><div class="lab">Next One Up</div><div class="val o" id="nextDays">—</div><div class="sub" id="nextName">—</div></div>
+    </div>
+
+    <div class="insight">
+      <div>
+        <h3>The ladder isn't distance. It's pace.</h3>
+        <p>
+          22:00 for a 100K works out to <code>21:17/mi</code>. A 100-miler with a standard 30-hour
+          cutoff demands <code>18:00/mi</code> — <b>faster</b> than the 100K you just ran, for 38 more miles.
+          That's the part nobody tells you.
+        </p>
+        <p>
+          So the real progression is one of three moves: run 100K again and <b>get faster</b>, keep the
+          distance and <b>add mountain</b>, or go 100 miles on a <b>course generous enough</b> to absorb
+          a 21-minute mile. All three are laid out below.
+        </p>
+      </div>
+      <div class="paces" aria-label="pace comparison">
+        <div class="prow"><span class="nm">Your VT 100K</span><span class="ptrack"><i class="pfill" style="width:100%;background:linear-gradient(90deg,#ffd479,#f2a35e);animation-delay:.1s"></i></span><span class="pv">21:17</span></div>
+        <div class="prow"><span class="nm">Ghost Train 100M</span><span class="ptrack"><i class="pfill" style="width:84.6%;background:linear-gradient(90deg,#4ec9b0,#3aa892);animation-delay:.22s"></i></span><span class="pv">18:00</span></div>
+        <div class="prow"><span class="nm">VT 100 (30h cap)</span><span class="ptrack"><i class="pfill" style="width:84.6%;background:linear-gradient(90deg,#4ec9b0,#3aa892);animation-delay:.34s"></i></span><span class="pv">18:00</span></div>
+        <div class="prow"><span class="nm">Twisted Branch 100K</span><span class="ptrack"><i class="pfill" style="width:90.9%;background:linear-gradient(90deg,#8f8cff,#6f6bff);animation-delay:.46s"></i></span><span class="pv">19:20</span></div>
+        <div class="prow"><span class="nm">Canyons 100K</span><span class="ptrack"><i class="pfill" style="width:90.9%;background:linear-gradient(90deg,#ff8f7a,#ff5f56);animation-delay:.58s"></i></span><span class="pv">19:20</span></div>
+        <div class="prow"><span class="nm">Black Canyon 100K</span><span class="ptrack"><i class="pfill" style="width:77.3%;background:linear-gradient(90deg,#ff8f7a,#ff5f56);animation-delay:.7s"></i></span><span class="pv">16:26</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="crow">
+      <div class="grp" data-region role="group" aria-label="Region">
+        <button class="chip" data-k="region" data-v="all" aria-pressed="true">All regions</button>
+        <button class="chip" data-k="region" data-v="NE" aria-pressed="false">New England</button>
+        <button class="chip" data-k="region" data-v="West" aria-pressed="false">Out West</button>
+      </div>
+      <div class="grp" role="group" aria-label="Distance">
+        <button class="chip" data-k="dist" data-v="all" aria-pressed="true">Any distance</button>
+        <button class="chip" data-k="dist" data-v="100K" aria-pressed="false">100K</button>
+        <button class="chip" data-k="dist" data-v="50M" aria-pressed="false">50 mi</button>
+        <button class="chip" data-k="dist" data-v="100M" aria-pressed="false">100 mi</button>
+      </div>
+      <div class="grp" role="group" aria-label="Shortlist">
+        <button class="chip" data-k="fav" data-v="on" aria-pressed="false">★ Shortlist</button>
+      </div>
+      <span class="spacer"></span>
+      <select class="sel" id="sort" aria-label="Sort by">
+        <option value="date">Sort: soonest</option>
+        <option value="grit">Sort: most brutal</option>
+        <option value="soft">Sort: most forgiving</option>
+        <option value="gain">Sort: most climbing</option>
+        <option value="miles">Sort: longest</option>
+      </select>
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+
+  <main class="grid" id="grid"></main>
+
+  <section class="block">
+    <span class="eyebrow">Three ways up</span>
+    <h2>Pick a direction, not just a date.</h2>
+    <p class="sect-lede">
+      All three of these are legitimate next steps from a 22-hour 100K. The mistake is doing the third
+      one before the first one.
+    </p>
+    <div class="ladder">
+      <div class="rung">
+        <div class="n">01</div>
+        <h4>Same distance, real speed</h4>
+        <p>Run 100K again on ground that doesn't fight you and find out what your actual fitness is worth. A 4–6 hour PR is genuinely on the table here.</p>
+        <ul>
+          <li><b>Stone Cat 100K</b> — flat New England loops, Nov</li>
+          <li><b>Javelina 100K</b> — runnable desert, big party</li>
+          <li><b>Black Canyon 100K</b> — net downhill, fast as it gets</li>
+        </ul>
+        <span class="target">Target: sub-16:00</span>
+      </div>
+      <div class="rung">
+        <div class="n">02</div>
+        <h4>Same distance, add mountain</h4>
+        <p>Keep 100K/50M but double the vertical. This is where the photos come from — and where climbing legs get built for a 100 later.</p>
+        <ul>
+          <li><b>Gorge Waterfalls 100K</b> — moss, basalt, waterfalls</li>
+          <li><b>Run Rabbit Run 50</b> — Colorado aspens on fire</li>
+          <li><b>Canyons 100K</b> — the Western States proving ground</li>
+        </ul>
+        <span class="target">Target: finish standing</span>
+      </div>
+      <div class="rung">
+        <div class="n">03</div>
+        <h4>The first hundred</h4>
+        <p>Do this on a course whose cutoff math actually works for a 21-min-mile runner. Flat rail trail or runnable desert first — save the mountain 100 for year three.</p>
+        <ul>
+          <li><b>Ghost Train 100M</b> — NH rail trail, 30h, out-and-backs</li>
+          <li><b>Javelina 100M</b> — 5 loops, drop-bag heaven</li>
+          <li><b>Vermont 100</b> — the homecoming, 30h cap</li>
+        </ul>
+        <span class="target">Target: 2027–2028</span>
+      </div>
+    </div>
+
+    <div class="legend">
+      <h4>How to read the cards</h4>
+      <p>
+        The <b>ridgeline</b> on each card is a signature, not a course profile — its height encodes
+        feet of climb per mile, its jaggedness encodes technicality, and the <b>dashed line is your
+        Vermont 100K's climb rate (~172 ft/mi)</b>. Peaks above the dash mean steeper ground than
+        you've already done. <b>Grit</b> is a 0–100 blend of vert-per-mile, technical footing, altitude
+        and distance — your VT 100K scores a <b>43</b>, so anything in the 50s is a real step up and
+        anything 65+ is a different sport.
+      </p>
+      <div class="keys">
+        <span class="key"><i class="sw" style="background:var(--ne)"></i> New England</span>
+        <span class="key"><i class="sw" style="background:var(--west)"></i> Out West</span>
+        <span class="key"><i class="sw" style="background:var(--gold)"></i> Western States pathway</span>
+        <span class="key"><i class="sw" style="background:var(--hot)"></i> Grit 65+</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <b>On the numbers:</b> race dates and locations here were taken from each event's own site or
+    calendar listing in July 2026. Elevation gain, high point and technicality ratings are
+    <b>approximate</b> — good enough to compare races, not good enough to plan a pacing strategy.
+    Cutoffs are shown only where the race publishes one; “—” means look it up. Lotteries, sellouts and
+    qualifier rules change every year, so confirm on the official site before you commit money.
+    <div class="sign">Made for the guy who ran 22 hours and asked what's next. — J</div>
+  </footer>
+</div>
+
+<script>
+/* ---------- data ---------- */
+const BASE = { name:'Vermont 100K', miles:62, gain:10700, tech:2, alt:2200 };
+
+const RACES = [
+  // ————— NEW ENGLAND / NORTHEAST —————
+  {
+    name:'Twisted Branch', dist:'100K', miles:62, region:'NE',
+    where:'Naples, NY · Finger Lakes', date:'2026-08-22',
+    gain:11500, alt:2200, tech:4, cutoff:20,
+    entry:'Point-to-point · 20h cutoff · Western States qualifier',
+    url:'https://www.twistedbranchtrail.com/run',
+    blurb:'Point-to-point down the Bristol Hills Branch trail — almost entirely singletrack, relentlessly rolling, and a real step up in vert from Vermont. <strong>4 UTMB points.</strong>',
+    gt:true
+  },
+  {
+    name:'Vermont 50', dist:'50M', miles:50, region:'NE',
+    where:'Brownsville, VT · Mt. Ascutney', date:'2026-09-27',
+    gain:9000, alt:2000, tech:2, cutoff:null,
+    entry:'Registration opens late May · sells out · shares course with MTB race',
+    url:'https://vermont50.com/',
+    blurb:'The New England classic, on the same Ascutney dirt you already know. Mountain bikers and runners on one course, peak foliage, and a finish line that feels like a town fair. <strong>Best "familiar ground, faster day" pick.</strong>'
+  },
+  {
+    name:'Ghost Train', dist:'50M', miles:45, region:'NE',
+    where:'Brookline, NH · Granite Town Rail Trail', date:'2026-10-17',
+    gain:2000, alt:500, tech:1, cutoff:30,
+    entry:'15-mi out-and-backs · 100M option on the same course · Halloween costumes',
+    url:'https://sites.google.com/site/ghosttrainrailtrailrace/',
+    blurb:'Old granite-and-ice railbed, flat as New England gets, run as repeated out-and-backs with a 30-hour clock. <strong>The single most forgiving place in the region to attempt a first 100.</strong>'
+  },
+  {
+    name:'Javelina Jundred', dist:'100K', miles:62, region:'West',
+    where:'Fountain Hills, AZ · McDowell Sonoran', date:'2026-10-31',
+    gain:3600, alt:3000, tech:2, cutoff:null,
+    entry:'“Jalloween” · loop course, alternating direction · 100M option',
+    url:'https://www.aravaiparunning.com/javelina/',
+    blurb:'Saguaro, costumes, DJ tents and 20,000 calories of aid station. Three big loops of buttery desert trail — <strong>the fastest fun you can have at 100K</strong>, and the friendliest first 100-mile course in the country.'
+  },
+  {
+    name:'TARC Stone Cat', dist:'100K', miles:62, region:'NE',
+    where:'Ipswich, MA · Willowdale State Forest', date:'2026-11-07',
+    gain:5500, alt:300, tech:2, cutoff:null,
+    entry:'5 × 12.5-mi loops · sells out · no transfers or deferrals · 50M option',
+    url:'https://www.trailanimals.com/tarcstonecattrailfestival',
+    blurb:'A 12.5-mile loop with about 1,100 ft a lap, run five times on fast North Shore dirt. Cider donut mile on the side. <strong>The obvious 100K PR attempt — an hour from Boston.</strong>'
+  },
+  {
+    name:'Dead Horse Ultra', dist:'50M', miles:50, region:'West',
+    where:'Moab, UT · Magnificent 7 trails', date:'2026-11-14',
+    gain:4000, alt:5200, tech:3, cutoff:null,
+    entry:'Sells out annually · part of the Triple Crown of Moab',
+    url:'https://www.madmooseevents.com/dead-horse-ultra',
+    blurb:'Slickrock, red dirt and Dead Horse Point rim views over the Colorado River. Technical underfoot but modest climbing. <strong>The best scenery-per-mile ratio on this whole list.</strong>'
+  },
+  {
+    name:'Black Canyon 100K', dist:'100K', miles:62, region:'West',
+    where:'Mayer → New River, AZ', date:'2027-02-13',
+    gain:5500, alt:4000, tech:2, cutoff:17,
+    entry:'HOKA Golden Ticket race · sub-17h for WSER lottery · Aravaipa',
+    url:'https://www.aravaiparunning.com/blackcanyon/',
+    blurb:'Net-downhill point-to-point through high Sonoran desert — the course people go to <strong>run a 100K PR by hours, not minutes</strong>. Elites chase Golden Tickets up front; everyone else chases a Western States qualifier.',
+    gt:true
+  },
+  {
+    name:'Zion Ultras 100K', dist:'100K', miles:62, region:'West',
+    where:'Virgin, UT · Gooseberry Mesa', date:'2027-04-10',
+    gain:7000, alt:5000, tech:3, cutoff:null,
+    entry:'Mesa-top loops beside Zion NP · Aravaipa · 6:30am start',
+    url:'https://www.aravaiparunning.com/zion/',
+    blurb:'Run the mesa rims outside Zion with the park skyline over your shoulder the whole day. Sandy, slickrock-y, exposed. <strong>Bucket-list photos, moderate climbing.</strong>'
+  },
+  {
+    name:'Gorge Waterfalls 100K', dist:'100K', miles:62, region:'West',
+    where:'Cascade Locks, OR · Columbia Gorge', date:'2027-04-16',
+    gain:11500, alt:2800, tech:4, cutoff:17,
+    entry:'Sub-17h = Western States qualifier · Daybreak Racing · lottery-ish demand',
+    url:'https://www.daybreakracing.com/gorge-waterfalls-100k',
+    blurb:'Rainforest singletrack that runs <em>behind</em> waterfalls, moss on every rock, basalt cliffs above the Columbia. <strong>Probably the most beautiful 100K in America</strong> — and a genuine jump in vert and technicality.',
+    gt:true
+  },
+  {
+    name:'Canyons 100K', dist:'100K', miles:62, region:'West',
+    where:'Auburn, CA · Sierra foothills', date:'2027-04-24',
+    gain:15000, alt:4000, tech:4, cutoff:20,
+    entry:'UTMB event · Super Golden Ticket (top 3 → Western States) · registration closes 4/18',
+    url:'https://canyons.utmb.world/races/100K',
+    blurb:'The Western States canyons, run in the actual Western States dirt — Devil\'s Thumb, El Dorado Creek, the American River. <strong>The hardest 100K here, and the one with the most status attached.</strong>',
+    gt:true
+  },
+  {
+    name:'Pineland Farms 100K', dist:'100K', miles:62, region:'NE',
+    where:'New Gloucester, ME', date:'2027-05-22',
+    gain:5000, alt:500, tech:1, cutoff:null,
+    entry:'Two-day trail festival · 100K / 50K / 25K / 30-hour · very family-friendly',
+    url:'https://www.back40events.com/trailfestpineland',
+    blurb:'Rolling grass carriage roads and farm singletrack in southern Maine, run as a weekend festival. <strong>The friendliest, most spectator-friendly 100K in New England</strong> — and a fast one.'
+  },
+  {
+    name:'Miwok 100K', dist:'100K', miles:62, region:'West',
+    where:'Stinson Beach, CA · Marin Headlands', date:null,
+    dateLabel:'Early May 2027', dateSort:'2027-05-01',
+    gain:11000, alt:1400, tech:3, cutoff:null,
+    entry:'Traditionally the first Saturday in May · lottery · 2027 date TBA',
+    url:'https://miwok100k.com/',
+    blurb:'One of the oldest 100Ks in the sport: 11,000 ft of climbing on the coastal ridges above the Pacific, with the Golden Gate in view. <strong>Historic, hard, and gorgeous in a completely different way than Utah.</strong>'
+  },
+  {
+    name:'Bighorn 52', dist:'50M', miles:52, region:'West',
+    where:'Dayton, WY · Bighorn Mountains', date:'2027-06-18',
+    gain:10000, alt:9000, tech:4, cutoff:null,
+    entry:'Point-to-point, net downhill · mid-June mud is legendary',
+    url:'https://bighorntrailrun.com/52-mile',
+    blurb:'Wyoming high country — wildflowers, river canyons, and the notorious "Bighorn mud" if the snowmelt times it wrong. <strong>Wild, remote, and the closest thing here to a frontier experience.</strong>'
+  },
+  {
+    name:'Vermont 100', dist:'100M', miles:100, region:'NE',
+    where:'West Windsor, VT', date:'2027-07-16',
+    gain:17000, alt:2200, tech:2, cutoff:30,
+    entry:'Lottery opens Jan 1–9 · 300 runners · horses share the course · Grand Slam race',
+    url:'https://vermont100.com/',
+    blurb:'The homecoming. Same dirt roads, same aid stations, same volunteers — 38 more miles and a 30-hour clock that requires <strong>18:00/mi, faster than your 100K pace</strong>. Earn it with a rung-one or rung-two race first.'
+  },
+  {
+    name:'Tahoe Rim Trail 100K', dist:'100K', miles:62, region:'West',
+    where:'Carson City, NV · Lake Tahoe', date:null,
+    dateLabel:'Mid-July 2027', dateSort:'2027-07-17',
+    gain:11000, alt:9200, tech:3, cutoff:null,
+    entry:'“A glimpse of heaven … a taste of hell.” · 2027 date TBA',
+    url:'https://trter.com/details/100k-event/',
+    blurb:'Granite singletrack circling Lake Tahoe between 7,000 and 9,200 ft. The views are absurd; the altitude is the whole difficulty. <strong>Requires actual acclimatization from a sea-level runner.</strong>'
+  },
+  {
+    name:'Never Summer 100K', dist:'100K', miles:62, region:'West',
+    where:'Gould, CO · State Forest SP', date:null,
+    dateLabel:'Late July 2027', dateSort:'2027-07-24',
+    gain:13000, alt:11500, tech:4, cutoff:null,
+    entry:'Gnar Runners · 3-day weekend event · 60K option · 2027 date TBA',
+    url:'https://gnarrunners.com/never-summer-100k/',
+    blurb:'Between the Never Summer range and the Medicine Bows on the north edge of Rocky Mountain NP. Passes above 11,000 ft, alpine tundra, afternoon lightning. <strong>The hardest race on this page, full stop.</strong>'
+  },
+  {
+    name:'White River 50', dist:'50M', miles:50, region:'West',
+    where:'Crystal Mountain, WA · Mt. Rainier', date:null,
+    dateLabel:'Late July 2027', dateSort:'2027-07-25',
+    gain:8700, alt:5800, tech:3, cutoff:null,
+    entry:'Two big climbs, two long descents · 2027 date TBA',
+    url:'https://ultrarunning.com/calendar/event/white-river-50',
+    blurb:'A Pacific Northwest institution: two enormous climbs with Mount Rainier filling the sky from the Sun Top ridge. Runnable descents, old-growth forest. <strong>The best-value 50-miler out west.</strong>'
+  },
+  {
+    name:'Waldo 100K', dist:'100K', miles:62, region:'West',
+    where:'Oakridge, OR · Willamette Pass', date:null,
+    dateLabel:'Early Aug 2027', dateSort:'2027-08-01',
+    gain:11000, alt:7800, tech:3, cutoff:null,
+    entry:'4am start in the dark · "Wet Waldo" and "Show Me the Waldo" side awards · 2027 TBA',
+    url:'https://waldo100k.org/raceinfo/',
+    blurb:'Starts at 4am at a ski area and climbs Fuji, The Twins and Maiden Peak in one day. Cascade lakes everywhere — jump in one and you get a bonus award. <strong>Cult-classic Oregon vert.</strong>'
+  },
+  {
+    name:'Run Rabbit Run 50', dist:'50M', miles:50, region:'West',
+    where:'Steamboat Springs, CO · Routt NF', date:'2026-09-19',
+    gain:9000, alt:10500, tech:3, cutoff:null,
+    entry:'2026 is full — waitlist only · put 2027 on the calendar early',
+    url:'https://runrabbitrunsteamboat.com/',
+    blurb:'Nine thousand feet of climbing through Routt National Forest at peak aspen gold, starting from the Steamboat ski area. <strong>If you want one photo that ends the argument about why you do this, it\'s this race.</strong>'
+  }
+];
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const NOW = new Date(); NOW.setHours(0,0,0,0);
+
+function gritOf(r){
+  const gpm = r.gain / r.miles;
+  const altF = Math.max(0, Math.min(1, (r.alt - 5000) / 6000));
+  const s = 0.42*Math.min(1, gpm/300) + 0.22*(r.tech/5) + 0.20*altF + 0.16*Math.min(1, r.miles/100);
+  return Math.round(s*100);
+}
+const BASE_GRIT = gritOf(BASE);
+const BASE_GPM  = BASE.gain / BASE.miles;                 // ≈172 ft of climb per mile
+const BASE_Y    = (62 - Math.min(1, BASE_GPM/300) * 62).toFixed(1);  // dashed reference on every ridgeline
+
+function sortDate(r){ return new Date((r.date || r.dateSort) + 'T12:00:00'); }
+function daysAway(r){ return Math.round((sortDate(r) - NOW) / 86400000); }
+function fmtDate(r){
+  if(!r.date) return r.dateLabel;
+  return sortDate(r).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+function gritColor(g){
+  if(g >= 65) return '#ff5f56';
+  if(g >= 50) return '#f2a35e';
+  if(g >= 38) return '#ffd479';
+  return '#4ec9b0';
+}
+
+/* deterministic ridgeline signature */
+function seed(str){ let h=2166136261; for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);} return ()=>{h^=h<<13;h^=h>>>17;h^=h<<5;return ((h>>>0)%10000)/10000;}; }
+function ridge(r){
+  const rnd = seed(r.name);
+  const W = 300, H = 62, pts = 46;
+  const gpm = r.gain / r.miles;
+  const amp = Math.min(1, gpm/300);                 // overall height
+  const jag = 0.16 + (r.tech/5)*0.7;                // roughness
+  let d = `M 0 ${H} `;
+  const ys = [];
+  for(let i=0;i<=pts;i++){
+    const t = i/pts;
+    const swell = Math.sin(t*Math.PI*1.6 + rnd()*0.4)*0.5 + 0.5;
+    const noise = (rnd()-0.5)*jag;
+    let v = (swell*0.72 + 0.18 + noise) * amp;
+    v = Math.max(0.04, Math.min(1, v));
+    ys.push(H - v*H);
+  }
+  ys.forEach((y,i)=>{ d += `L ${(i/pts*W).toFixed(1)} ${y.toFixed(1)} `; });
+  d += `L ${W} ${H} Z`;
+  const line = ys.map((y,i)=>`${i?'L':'M'} ${(i/pts*W).toFixed(1)} ${y.toFixed(1)}`).join(' ');
+  return {area:d, line, W, H};
+}
+
+/* ---------- state ---------- */
+const FAVS = new Set(JSON.parse(localStorage.getItem('ultraFavs') || '[]'));
+const state = { region:'all', dist:'all', fav:false, sort:'date' };
+
+/* ---------- render ---------- */
+function render(){
+  const grid = $('#grid');
+  let list = RACES.filter(r =>
+    (state.region === 'all' || r.region === state.region) &&
+    (state.dist === 'all' || r.dist === state.dist) &&
+    (!state.fav || FAVS.has(r.name))
+  );
+
+  const cmp = {
+    date: (a,b) => sortDate(a) - sortDate(b),
+    grit: (a,b) => gritOf(b) - gritOf(a),
+    soft: (a,b) => gritOf(a) - gritOf(b),
+    gain: (a,b) => b.gain - a.gain,
+    miles:(a,b) => b.miles - a.miles || sortDate(a) - sortDate(b)
+  }[state.sort];
+  list.sort(cmp);
+
+  $('#count').textContent = `${list.length} / ${RACES.length} races`;
+
+  if(!list.length){
+    grid.innerHTML = `<div class="empty">Nothing matches that combination. Loosen a filter.</div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map((r,i) => {
+    const g = gritOf(r), gc = gritColor(g), sig = ridge(r), away = daysAway(r);
+    const uid = 'g' + i + Math.round(g);
+    const awayTxt = away < 0 ? 'passed' : away === 0 ? 'today' : away < 400 ? `${away} days out` : `${Math.round(away/30)} months out`;
+    const delta = r.gain - Math.round(BASE.gain * (r.miles/BASE.miles));
+    return `
+    <article class="card" data-region="${r.region}" style="animation-delay:${Math.min(i*38,420)}ms">
+      <div class="chead">
+        <div class="tags">
+          <span class="tag reg-${r.region}">${r.region === 'NE' ? 'New England' : 'Out West'}</span>
+          <span class="tag dist">${r.dist === '50M' ? r.miles + ' mi' : r.dist}</span>
+          ${r.gt ? '<span class="tag gt">★ WS pathway</span>' : ''}
+        </div>
+        <button class="star" data-fav="${r.name}" aria-pressed="${FAVS.has(r.name)}" aria-label="Shortlist ${r.name}">★</button>
+      </div>
+
+      <h3 class="cname">${r.name}</h3>
+      <div class="cwhere">
+        <span class="when ${r.date ? '' : 'est'}">${fmtDate(r)}${r.date ? '' : ' (est.)'}</span>
+        <span>·</span><span>${r.where}</span>
+        <span class="away ${away >= 0 && away < 75 ? 'soon' : ''}">${awayTxt}</span>
+      </div>
+
+      <div class="sig">
+        <svg viewBox="0 0 300 62" preserveAspectRatio="none" role="img" aria-label="Terrain signature for ${r.name}">
+          <defs>
+            <linearGradient id="fill-${uid}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="${gc}" stop-opacity=".42"/>
+              <stop offset="1" stop-color="${gc}" stop-opacity=".02"/>
+            </linearGradient>
+          </defs>
+          <path d="${sig.area}" fill="url(#fill-${uid})"/>
+          <path d="${sig.line}" fill="none" stroke="${gc}" stroke-width="1.4" stroke-linejoin="round" opacity=".95"/>
+          <line x1="0" y1="${BASE_Y}" x2="300" y2="${BASE_Y}"
+                stroke="rgba(255,255,255,.28)" stroke-width="1" stroke-dasharray="3 4"/>
+        </svg>
+        <div class="cap">
+          <span>${Math.round(r.gain/r.miles)} ft / mi</span>
+          <span>${delta > 0 ? '+' : ''}${delta.toLocaleString()} ft vs your VT100K</span>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="st"><div class="l">Climbing</div><div class="v">${(r.gain/1000).toFixed(1)}<small>k ft</small></div></div>
+        <div class="st"><div class="l">High point</div><div class="v">${(r.alt/1000).toFixed(1)}<small>k ft</small></div></div>
+        <div class="st"><div class="l">Cutoff</div><div class="v">${r.cutoff ? r.cutoff + '<small>h</small>' : '—'}</div></div>
+      </div>
+
+      <p class="blurb">${r.blurb}</p>
+      <div class="entry"><span>Entry:</span> ${r.entry}</div>
+
+      <div class="cfoot">
+        <div class="grit" title="Grit ${g}/100 — your VT 100K scores ${BASE_GRIT}">
+          <span class="glab">Grit</span>
+          <span class="gnum" style="color:${gc}">${g}</span>
+          <span class="gbar"><i style="width:${g}%;background:${gc}"></i></span>
+        </div>
+        <a class="go" href="${r.url}" target="_blank" rel="noopener">Race site ↗</a>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+/* ---------- next-up stat ---------- */
+(function nextUp(){
+  const up = RACES.filter(r => daysAway(r) >= 0).sort((a,b) => sortDate(a) - sortDate(b))[0];
+  if(!up) return;
+  $('#nextDays').textContent = daysAway(up) + 'd';
+  $('#nextName').textContent = up.name + ' · ' + fmtDate(up);
+})();
+
+/* ---------- events ---------- */
+document.addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if(chip){
+    const k = chip.dataset.k, v = chip.dataset.v;
+    if(k === 'fav'){
+      state.fav = !state.fav;
+      chip.setAttribute('aria-pressed', String(state.fav));
+    } else {
+      state[k] = v;
+      chip.parentElement.querySelectorAll('.chip').forEach(c =>
+        c.setAttribute('aria-pressed', String(c === chip)));
+    }
+    render();
+    return;
+  }
+  const star = e.target.closest('.star');
+  if(star){
+    const n = star.dataset.fav;
+    FAVS.has(n) ? FAVS.delete(n) : FAVS.add(n);
+    localStorage.setItem('ultraFavs', JSON.stringify([...FAVS]));
+    star.setAttribute('aria-pressed', String(FAVS.has(n)));
+    if(state.fav) render();
+  }
+});
+$('#sort').addEventListener('change', e => { state.sort = e.target.value; render(); });
+
+/* ---------- topo background ---------- */
+(function topo(){
+  const g = document.getElementById('topoLines');
+  const rnd = seed('topo-bg');
+  let out = '';
+  for(let l=0; l<22; l++){
+    const base = 90 + l*38, amp = 26 + rnd()*46, ph = rnd()*Math.PI*2, freq = .0022 + rnd()*.0026;
+    let d = `M -40 ${base}`;
+    for(let x = 0; x <= 1480; x += 26){
+      d += ` L ${x} ${(base + Math.sin(x*freq + ph)*amp + Math.sin(x*freq*2.7 + ph*1.7)*amp*.3).toFixed(1)}`;
+    }
+    out += `<path d="${d}" opacity="${(0.16 + rnd()*0.5).toFixed(2)}"/>`;
+  }
+  g.innerHTML = out;
+})();
+
+render();
+</script>
+</body>
+</html>
